@@ -65,6 +65,7 @@
     "WitherEntityAccessor"
   ],
   "client": [
+    "client.AbstractClientPlayerMixin",
     "client.AbstractContainerScreenAccessor",
     "client.BlockRenderDispatcherMixin",
     "client.ClientLevelDataMixin",
