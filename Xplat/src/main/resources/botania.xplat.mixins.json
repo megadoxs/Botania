@@ -47,6 +47,7 @@
     "PistonStructureResolverMixin",
     "PlacementContextMixin",
     "PlayerMixin",
+    "PointedDripstoneBlockMixin",
     "PollinateGoalMixin",
     "RandomizableContainerBlockEntityAccessor",
     "RecipeManagerAccessor",
