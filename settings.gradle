@@ -1,4 +1,10 @@
 pluginManagement {
+    plugins {
+        id 'net.neoforged.gradle.userdev' version '7.0.97' apply false
+        id 'org.spongepowered.mixin' version '0.8.7' apply false
+        id 'agency.highlysuspect.minivan' version '0.5' apply false
+        id 'fabric-loom' version '1.7.2' apply false
+    }
     repositories {
         maven {
             name = 'Fabric'
@@ -18,4 +24,4 @@ plugins {
 }
 
 rootProject.name = 'Botania'
-include("Xplat", "Fabric", "Forge")
+include("Xplat", "Fabric", "NeoForge")
