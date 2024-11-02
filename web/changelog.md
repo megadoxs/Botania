@@ -21,6 +21,16 @@ and start a new "Upcoming" section.
 structure it's placed in, also further customizable with datapacks. Huuuuge
 thanks to Wormbo for a lot of work on this feature!
 * Change: More readable color in Loonium tooltip
+* Change: Pasture seed spread is no longer restricted to a single Y-level, and replacing existing dirt-like blocks is handled by block tag `botania:pasture_seed_replaceable`
+* change: Hopperhocks now also apply delay from being planted on podzol or mycelium to picking up recipe outputs, such as from mana infusion
+* Fix: Akashic Tome name is rendered correctly again on the Lexica Botania
+* Fix: Slightly improved tick performance impact of mana/corporea sparks
+* Fix: Halloween Easter egg on Tiny Potato also works in item form
+* Fix: Dandelifeon no longer sometimes consumes blocks that aren't cellular blocks
+* Fix: Protection effect of the Benevolent Goddess Charm also works on Fabric when the player dies from the explosion
+* Language update:
+  * ru_ru updated (krumplerban)
+  * zh_cn updated (Dawnwalker666)
 
 ---
 
