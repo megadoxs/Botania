@@ -373,7 +373,7 @@ public class ForgeCommonInitializer {
 			}
 		});
 		// FabricMixinExplosion
-		bus.addListener((ExplosionEvent e) -> {
+		bus.addListener((ExplosionEvent.Detonate e) -> {
 			if (BenevolentGoddessCharmItem.shouldProtectExplosion(e.getLevel(), e.getExplosion().getPosition())) {
 				e.getExplosion().clearToBlow();
 			}
