@@ -12,6 +12,7 @@ import net.minecraft.world.level.block.Block;
 import net.neoforged.neoforge.common.Tags;
 import net.neoforged.neoforge.common.data.ExistingFileHelper;
 
+import vazkii.botania.common.helper.ColorHelper;
 import vazkii.botania.common.lib.BotaniaTags;
 import vazkii.botania.common.lib.LibMisc;
 
@@ -58,6 +59,8 @@ public class ForgeItemTagProvider extends ItemTagsProvider {
 		this.copyToSameName(ForgeBlockTagProvider.TERRASTEEL);
 		this.copyToSameName(ForgeBlockTagProvider.MANA_DIAMOND);
 		this.copyToSameName(ForgeBlockTagProvider.DRAGONSTONE);
+		this.copyToSameName(ForgeBlockTagProvider.BLAZE_MESH);
+		ColorHelper.supportedColors().map(ForgeBlockTagProvider.PETAL_BLOCKS::get).forEach(this::copyToSameName);
 		this.copy(ForgeBlockTagProvider.MUSHROOMS, Tags.Items.MUSHROOMS);
 		this.copy(Tags.Blocks.STORAGE_BLOCKS, Tags.Items.STORAGE_BLOCKS);
 		this.copy(Tags.Blocks.GLASS_BLOCKS, Tags.Items.GLASS_BLOCKS);
