@@ -7,11 +7,13 @@ import net.minecraft.data.tags.TagsProvider;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.tags.TagKey;
+import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
 import net.minecraftforge.common.Tags;
 import net.minecraftforge.common.data.ExistingFileHelper;
 
+import vazkii.botania.common.helper.ColorHelper;
 import vazkii.botania.common.lib.BotaniaTags;
 import vazkii.botania.common.lib.LibMisc;
 
@@ -56,6 +58,10 @@ public class ForgeItemTagProvider extends ItemTagsProvider {
 		this.copyToSameName(ForgeBlockTagProvider.ELEMENTIUM);
 		this.copyToSameName(ForgeBlockTagProvider.MANASTEEL);
 		this.copyToSameName(ForgeBlockTagProvider.TERRASTEEL);
+		this.copyToSameName(ForgeBlockTagProvider.MANA_DIAMOND);
+		this.copyToSameName(ForgeBlockTagProvider.DRAGONSTONE);
+		this.copyToSameName(ForgeBlockTagProvider.BLAZE_MESH);
+		ColorHelper.supportedColors().map(ForgeBlockTagProvider.PETAL_BLOCKS::get).forEach(this::copyToSameName);
 		this.copy(ForgeBlockTagProvider.MUSHROOMS, Tags.Items.MUSHROOMS);
 		this.copy(Tags.Blocks.STORAGE_BLOCKS_QUARTZ, Tags.Items.STORAGE_BLOCKS_QUARTZ);
 		this.copy(Tags.Blocks.STORAGE_BLOCKS, Tags.Items.STORAGE_BLOCKS);
