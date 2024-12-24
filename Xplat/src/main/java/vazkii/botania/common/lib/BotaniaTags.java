@@ -68,6 +68,11 @@ public class BotaniaTags {
 		 * Items in this tag cannot be rolled by Looniums
 		 */
 		public static final TagKey<Item> LOONIUM_BLACKLIST = tag("loonium_blacklist");
+		/**
+		 * Items that should be equipped in the offhand slot if rolled as Loonium mob equipment,
+		 * instead of the default slot for the item.
+		 */
+		public static final TagKey<Item> LOONIUM_OFFHAND_EQUIPMENT = tag("loonium_offhand_equipment");
 
 		/**
 		 * Items in this tag are voided by the Elementium Pick
@@ -262,6 +267,12 @@ public class BotaniaTags {
 		 * Blocks in this tag can be replaced by the spreading effect of Pasture Seeds and related items.
 		 */
 		public static final TagKey<Block> PASTURE_SEED_REPLACEABLE = tag("pasture_seed_replaceable");
+
+		/**
+		 * Blocks in this tag are considered when checking for unethical TNT sources. Blocks only need to be added
+		 * to this tag if their implementation does not extend {@link net.minecraft.world.level.block.TntBlock}.
+		 */
+		public static final TagKey<Block> UNETHICAL_TNT_CHECK = tag("unethical_tnt_check");
 
 		private static TagKey<Block> tag(String name) {
 			return TagKey.create(Registries.BLOCK, prefix(name));
