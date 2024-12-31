@@ -15,7 +15,6 @@ import net.minecraft.world.level.block.Block;
 
 import org.jetbrains.annotations.Nullable;
 
-import java.util.Locale;
 import java.util.function.Function;
 import java.util.stream.Stream;
 
@@ -36,7 +35,7 @@ public final class ColorHelper {
 		ResourceLocation name = BuiltInRegistries.BLOCK.getKey(b);
 		if ("minecraft".equals(name.getNamespace()) && name.getPath().endsWith("_wool")) {
 			String color = name.getPath().substring(0, name.getPath().length() - "_wool".length());
-			return DyeColor.valueOf(color.toUpperCase(Locale.ROOT));
+			return DyeColor.byName(color, null);
 		}
 		return null;
 	}
@@ -66,21 +65,21 @@ public final class ColorHelper {
 	public static Stream<DyeColor> supportedColors() {
 		return Stream.of(
 				DyeColor.WHITE,
+				DyeColor.LIGHT_GRAY,
+				DyeColor.GRAY,
+				DyeColor.BLACK,
+				DyeColor.BROWN,
+				DyeColor.RED,
 				DyeColor.ORANGE,
-				DyeColor.MAGENTA,
-				DyeColor.LIGHT_BLUE,
 				DyeColor.YELLOW,
 				DyeColor.LIME,
-				DyeColor.PINK,
-				DyeColor.GRAY,
-				DyeColor.LIGHT_GRAY,
-				DyeColor.CYAN,
-				DyeColor.PURPLE,
-				DyeColor.BLUE,
-				DyeColor.BROWN,
 				DyeColor.GREEN,
-				DyeColor.RED,
-				DyeColor.BLACK
+				DyeColor.CYAN,
+				DyeColor.LIGHT_BLUE,
+				DyeColor.BLUE,
+				DyeColor.PURPLE,
+				DyeColor.MAGENTA,
+				DyeColor.PINK
 		);
 	}
 
