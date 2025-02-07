@@ -39,6 +39,7 @@ thanks to Wormbo for a lot of work on this feature!
 * Fix: Potential crash issues in combination with mods that add colors have been resolved
 * Fix: Proper support for NBT-based food items on Forge to prevent crash if they don't implement the vanilla method to get food properties
 * Fix: Potential crash with certain modded dispenser variants when trying to attach a mana/corporea spark or applying a Wand of the Forest or Floral Obedience Stick that way
+* Fix: Failed access to bound inventory via red-stringed container on Fabric without specifying a direction (e.g. by looking at one with WTHIT)
 * Language update:
   * de_de completed (Wormbo, thanks to Kartabass and PssbleTrngle for reviewing)
   * ko_kr updated (UnineVesiKass)
