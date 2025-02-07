@@ -22,6 +22,7 @@ structure it's placed in, also further customizable with datapacks. Huuuuge
 thanks to Wormbo for a lot of work on this feature!
 * Add: Dispenser planting supports torchflower seeds and pitcher pods
 * Add: Sniffers can dig up their usual seeds on Botania grass variants
+* Add: Proper map colors for quartz variants, biome stones, pavements, and blaze mesh
 * Change: More readable color in Loonium tooltip
 * Change: Pasture seed spread is no longer restricted to a single Y-level, and replacing existing dirt-like blocks is handled by block tag `botania:pasture_seed_replaceable`
 * Change: Hopperhocks now also apply delay from being planted on podzol or mycelium to picking up recipe outputs, such as from mana infusion
