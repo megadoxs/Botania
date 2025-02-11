@@ -24,6 +24,8 @@ import net.fabricmc.fabric.api.event.player.UseItemCallback;
 import net.minecraft.client.model.EntityModel;
 import net.minecraft.client.model.HumanoidModel;
 import net.minecraft.client.renderer.MultiBufferSource;
+import net.minecraft.core.Holder;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.Container;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
@@ -58,7 +60,7 @@ public class TrinketsIntegration extends EquipmentHandler {
 			ItemStack stack, SlotReference ref, LivingEntity livingEntity) {
 		//TODO make this less hacky
 		if (ResoluteIvyItem.hasIvy(stack)) {
-			stack.removeTagKey(ResoluteIvyItem.TAG_KEEP);
+			//todo stack.removeTagKey(ResoluteIvyItem.TAG_KEEP);
 			return TrinketEnums.DropRule.KEEP;
 		}
 		return oldRule;
@@ -156,8 +158,8 @@ public class TrinketsIntegration extends EquipmentHandler {
 		}
 
 		@Override
-		public Multimap<Attribute, AttributeModifier> getModifiers(ItemStack stack, SlotReference slot, LivingEntity entity, UUID uuid) {
-			var ret = Trinket.super.getModifiers(stack, slot, entity, uuid);
+		public Multimap<Holder<Attribute>, AttributeModifier> getModifiers(ItemStack stack, SlotReference slot, LivingEntity entity, ResourceLocation slotIdentifier) {
+			var ret = Trinket.super.getModifiers(stack, slot, entity, slotIdentifier);
 			if (!stack.isEmpty()) {
 				ret.putAll(getItem(stack).getEquippedAttributeModifiers(stack));
 			}
