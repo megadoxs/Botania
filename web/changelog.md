@@ -17,9 +17,13 @@ and start a new "Upcoming" section.
 
 {% include changelog_header.html version="Upcoming" %}
 Note: Porting efforts to bring Botania to 1.21+ versions of Minecraft (supporting both Fabric and NeoForge) are ongoing.
-We cannot provide any ETA (even a rough one) due to the complexity of the work involved and the somewhat limited amount of time the maintainers can spend on this effort.
+We cannot provide any ETA (even a rough one) due to the complexity of the work involved and the somewhat limited amount
+of time the maintainers can spend on this effort. For the time being, updates will still target Minecraft 1.20.1.
 
-* (nothing yet)
+* Fix: Dandelifeon sometimes generated a randomly greater amount of mana than intended when on enchanted soil
+* Fix: Trinkets could not be equipped via right-click (Abbie)
+* Language update:
+  * ko_kr updated (UnineVesiKass)
 
 ---
 
