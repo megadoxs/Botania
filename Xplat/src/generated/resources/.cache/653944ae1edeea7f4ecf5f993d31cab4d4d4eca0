@@ -1,10 +1,10 @@
-// 1.20.1	Botania/Tags for minecraft:entity_type
-3afed73a4d0123d7cdc79b50218b22eaca05e8ce data/botania/tags/entity_types/cocoon/common.json
-ffb8bea773fc90c54cb94c895cc5f096428f1f8b data/botania/tags/entity_types/cocoon/common_aquatic.json
-3f076441039831c74885151205fb59e748cc66c1 data/botania/tags/entity_types/cocoon/rare.json
-1fbe94085d6760f4ab5055f72ed127a4568c9487 data/botania/tags/entity_types/cocoon/rare_aquatic.json
-9c33b0f41d9e77eac0ff1738fb5f441becda9b72 data/botania/tags/entity_types/drum/milkable.json
-f446787c83bb0ab6ff1c18d8bfed8ef578e71003 data/botania/tags/entity_types/drum/no_shearing.json
-8c959685fc06d7f6136dda4b884691469e9ed32a data/botania/tags/entity_types/key_immune.json
-36ad4c64bb218684802f4951c644eca848834ccc data/botania/tags/entity_types/shaded_mesa_blacklist.json
-8eb95c79e26cf634dcf3c8bc3e1f0b1c9664931c data/c/tags/entity_types/bosses.json
+// 1.21.1	Botania/Tags for minecraft:entity_type
+d7fff98ebc6b9626b17cf86f8be00d279d1d3cf3 data/botania/tags/entity_type/cocoon/common.json
+1aaa6d2be4c24ea9186245cd3668e9f4f96d3f4a data/botania/tags/entity_type/cocoon/common_aquatic.json
+e99986b0bcd3b728fbe2dfccc0e6f162ae4b2960 data/botania/tags/entity_type/cocoon/rare.json
+92d1c364f275518579675aa8cd7995fbf9976f78 data/botania/tags/entity_type/cocoon/rare_aquatic.json
+efd0b9bc39be573af4c8f7f51f0fcb468f80fb88 data/botania/tags/entity_type/drum/milkable.json
+1ef430c55d1de22917fabe28a7b13acd1ccbc2cc data/botania/tags/entity_type/drum/no_shearing.json
+e9427f5a590551b01ef769c798bf5265d3cfb3c1 data/botania/tags/entity_type/key_immune.json
+73ef15894f78c686bcc4dc5d1d4338a78b49c86a data/botania/tags/entity_type/shaded_mesa_blacklist.json
+7bd899f2c061f0816c64ca3c4363434c38fd3e54 data/c/tags/entity_type/bosses.json
