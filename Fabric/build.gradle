@@ -50,13 +50,6 @@ repositories {
         url = "https://mod-buildcraft.com/maven"
     }
     maven {
-        name = "entity reach"
-        url = "https://maven.jamieswhiteshirt.com/libs-release/"
-    }
-    maven {
-        url = "https://jitpack.io" // for step height eam
-    }
-    maven {
         url = "https://maven.shedaniel.me/" // for rei
     }
     maven {
@@ -100,15 +93,7 @@ dependencies {
 
     modImplementation("dev.emi:trinkets:${trinkets_version}") { transitive = false }
 
-    //modImplementation "com.jamieswhiteshirt:reach-entity-attributes:2.5.0"
-    //include "com.jamieswhiteshirt:reach-entity-attributes:2.5.0"
-
-    //modImplementation "com.github.emilyploszaj:step-height-entity-attribute:v1.2.0"
-    //include "com.github.emilyploszaj:step-height-entity-attribute:v1.2.0"
-
-    modCompileOnly('teamreborn:energy:4.1.0') { transitive = false }
-
-    // modCompileOnly 'com.blamejared.crafttweaker:CraftTweaker-fabric-1.18.2:9.1.123'
+    modCompileOnly("teamreborn:energy:${team_reborn_energy_version}") { transitive = false }
 
     modCompileOnly "com.unascribed:ears-api:${ears_version}"
 

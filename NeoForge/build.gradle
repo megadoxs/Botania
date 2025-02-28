@@ -26,11 +26,14 @@ neoForge {
     runs {
         configureEach {
             systemProperty('neoforge.enabledGameTestNamespaces', mod_id)
+            systemProperty('fml.earlyprogresswindow', 'false')
             ideName = "NeoForge ${it.name.capitalize()} (${project.path})" // Unify the run config names with fabric
+            gameDirectory = file('../run/')
         }
 
         client {
             client()
+            systemProperty('neoforge.logging.console.level', 'debug')
         }
         data {
             data()
@@ -38,6 +41,7 @@ neoForge {
         }
         server {
             server()
+            systemProperty('neoforge.logging.console.level', 'debug')
             programArgument '--nogui'
         }
     }
