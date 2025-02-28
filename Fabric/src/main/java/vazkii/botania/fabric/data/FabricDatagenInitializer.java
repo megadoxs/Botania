@@ -16,6 +16,7 @@ import net.minecraft.data.PackOutput;
 import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.world.damagesource.DamageType;
 
+import vazkii.botania.common.block.BotaniaBannerPatterns;
 import vazkii.botania.data.*;
 import vazkii.botania.data.recipes.*;
 
@@ -47,6 +48,7 @@ public class FabricDatagenInitializer implements DataGeneratorEntrypoint {
 		BlockTagProvider blockTagProvider = pack.addProvider(BlockTagProvider::new);
 		pack.addProvider((output, registriesFuture) -> new ItemTagProvider(output, registriesFuture, blockTagProvider.contentsGetter()));
 		pack.addProvider(EntityTagProvider::new);
+		pack.addProvider(BannerPatternProvider::new);
 		pack.addProvider(BannerPatternTagsProvider::new);
 		pack.addProvider(BiomeTagProvider::new);
 		pack.addProvider(BotaniaDynamicRegistryProvider::new);
@@ -72,6 +74,7 @@ public class FabricDatagenInitializer implements DataGeneratorEntrypoint {
 	@Override
 	public void buildRegistry(RegistrySetBuilder builder) {
 		builder.add(Registries.DAMAGE_TYPE, FabricDatagenInitializer::damageTypeBC);
+		builder.add(Registries.BANNER_PATTERN, bootstrapContext -> BotaniaBannerPatterns.provideData(bootstrapContext::register));
 	}
 
 	protected static void damageTypeBC(BootstrapContext<DamageType> context) {

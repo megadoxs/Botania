@@ -44,11 +44,16 @@ public final class BotaniaBannerPatterns {
 		return bannerKey;
 	}
 
+	@Deprecated(forRemoval = true)
 	public static void submitRegistrations(BiConsumer<BannerPattern, ResourceLocation> consumer) {
+		// obsolete
+	}
+
+	public static void provideData(BiConsumer<ResourceKey<BannerPattern>, BannerPattern> consumer) {
 		for (var resourceKey : ALL) {
 			BannerPattern pattern = new BannerPattern(resourceKey.location(),
 					"block.minecraft.banner." + resourceKey.location().toLanguageKey());
-			consumer.accept(pattern, resourceKey.location());
+			consumer.accept(resourceKey, pattern);
 		}
 	}
 }
