@@ -122,6 +122,7 @@ processResources {
         expand "version": project.version
     }
 
+    from '../contributors.properties'
     // Exclude datagenerator .cache directory
     exclude '.cache'
 }
