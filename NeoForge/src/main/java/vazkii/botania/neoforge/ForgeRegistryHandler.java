@@ -5,6 +5,7 @@ import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.registries.NewRegistryEvent;
 import net.neoforged.neoforge.registries.RegistryBuilder;
 
+import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.BotaniaRegistries;
 import vazkii.botania.common.lib.LibMisc;
 
@@ -16,5 +17,6 @@ public class ForgeRegistryHandler {
 	public static void registerRegistry(NewRegistryEvent evt) {
 		evt.create(new RegistryBuilder<>(BotaniaRegistries.BREWS)
 				.defaultKey(botaniaRL("fallback")).sync(false));
+		evt.create(new RegistryBuilder<>(BotaniaRegistries.STATE_INGREDIENT_TYPE).sync(true));
 	}
 }

@@ -98,6 +98,7 @@ import vazkii.botania.common.command.SkyblockCommand;
 import vazkii.botania.common.component.BotaniaDataComponents;
 import vazkii.botania.common.config.ConfigDataManagerImpl;
 import vazkii.botania.common.crafting.BotaniaRecipeTypes;
+import vazkii.botania.common.crafting.StateIngredients;
 import vazkii.botania.common.entity.BotaniaEntities;
 import vazkii.botania.common.entity.GaiaGuardianEntity;
 import vazkii.botania.common.handler.*;
@@ -213,6 +214,7 @@ public class ForgeCommonInitializer {
 
 		// GUI and Recipe
 		bind(event, Registries.MENU, BotaniaItems::registerMenuTypes);
+		bind(event, BotaniaRegistries.STATE_INGREDIENT_TYPE, StateIngredients::submitRegistrations);
 		bind(event, Registries.RECIPE_SERIALIZER, BotaniaItems::registerRecipeSerializers);
 		bind(event, Registries.RECIPE_TYPE, BotaniaRecipeTypes::submitRecipeTypes);
 		bind(event, Registries.RECIPE_SERIALIZER, BotaniaRecipeTypes::submitRecipeSerializers);
