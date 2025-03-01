@@ -43,7 +43,7 @@ public class StateIngredients {
 
 	public static final StateIngredientType<BlockTypeIngredient> BLOCK_TYPE = new BlockTypeIngredient.Type();
 	public static final StateIngredientType<BlockStateIngredient> BLOCK_STATE = new BlockStateIngredient.Type();
-	public static final StateIngredientType<BlockStateIngredient> BLOCK_TAG = new BlockStateIngredient.Type();
+	public static final StateIngredientType<BlockTagIngredient> BLOCK_TAG = new BlockTagIngredient.Type();
 	public static final StateIngredientType<AnyOfStateIngredient> ANY_OF = new AnyOfStateIngredient.Type();
 	public static final StateIngredientType<AllOfExcludingStateIngredient> ALL_OF_EXCLUDING = new AllOfExcludingStateIngredient.Type();
 

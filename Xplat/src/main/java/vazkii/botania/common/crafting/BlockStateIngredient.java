@@ -23,8 +23,6 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.Property;
 
-import org.jetbrains.annotations.Nullable;
-
 import vazkii.botania.api.recipe.StateIngredient;
 import vazkii.botania.api.recipe.StateIngredientType;
 
@@ -60,7 +58,6 @@ public record BlockStateIngredient(BlockState state) implements StateIngredient 
 		return Collections.singletonList(new ItemStack(block));
 	}
 
-	@Nullable
 	@Override
 	public List<Component> descriptionTooltip() {
 		Map<Property<?>, Comparable<?>> map = state.getValues();

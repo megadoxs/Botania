@@ -18,7 +18,7 @@ import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.biome.Biome;
 
-import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import vazkii.botania.api.recipe.StateIngredient;
 
@@ -26,7 +26,7 @@ import java.util.function.Function;
 
 public class MarimorphosisRecipe extends OrechidRecipe {
 	public MarimorphosisRecipe(StateIngredient input, StateIngredient output, int weight,
-			CacheableFunction successFunction, int weightBonus, TagKey<Biome> biomes) {
+			@Nullable CacheableFunction successFunction, int weightBonus, @Nullable TagKey<Biome> biomes) {
 		super(input, output, weight, successFunction, weightBonus, biomes);
 	}
 
@@ -36,7 +36,6 @@ public class MarimorphosisRecipe extends OrechidRecipe {
 				orechidRecipe.getBiomes().orElse(null));
 	}
 
-	@NotNull
 	@Override
 	public RecipeType<? extends vazkii.botania.api.recipe.OrechidRecipe> getType() {
 		return BotaniaRecipeTypes.MARIMORPHOSIS_TYPE;

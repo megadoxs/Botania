@@ -22,6 +22,8 @@ import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Blocks;
 
+import org.jetbrains.annotations.Nullable;
+
 import vazkii.botania.api.recipe.StateIngredient;
 import vazkii.botania.common.block.BotaniaBlocks;
 import vazkii.botania.common.block.BotaniaFlowerBlocks;
@@ -190,7 +192,7 @@ public class ManaInfusionProvider extends BotaniaRecipeProvider {
 		consumer.accept(id, new ManaInfusionRecipe(output, input, mana, null, null), null);
 	}
 
-	private static void alchemy(RecipeOutput consumer, ResourceLocation id, ItemStack output, Ingredient input, int mana, String group) {
+	private static void alchemy(RecipeOutput consumer, ResourceLocation id, ItemStack output, Ingredient input, int mana, @Nullable String group) {
 		consumer.accept(id, new ManaInfusionRecipe(output, input, mana, group, ALCHEMY), null);
 	}
 

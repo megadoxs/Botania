@@ -20,8 +20,6 @@ import net.minecraft.world.item.crafting.StonecutterRecipe;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Block;
 
-import org.jetbrains.annotations.NotNull;
-
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.common.block.BotaniaBlocks;
 import vazkii.botania.common.lib.LibBlockNames;
@@ -154,7 +152,6 @@ public class StonecuttingProvider extends BotaniaRecipeProvider {
 		stonecutting(consumer, cobble, cobbleWall);
 	}
 
-	@NotNull
 	@Override
 	public String getName() {
 		return "Botania stonecutting recipes";

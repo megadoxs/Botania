@@ -25,8 +25,6 @@ import net.minecraft.world.item.crafting.RecipeInput;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.level.Level;
 
-import org.jetbrains.annotations.NotNull;
-
 import vazkii.botania.common.crafting.recipe.RecipeUtils;
 
 import java.util.List;
@@ -56,7 +54,7 @@ public class TerrestrialAgglomerationRecipe implements vazkii.botania.api.recipe
 	}
 
 	@Override
-	public boolean matches(RecipeInput inv, @NotNull Level world) {
+	public boolean matches(RecipeInput inv, Level world) {
 		int nonEmptySlots = 0;
 		for (int i = 0; i < inv.size(); i++) {
 			if (!inv.getItem(i).isEmpty()) {
@@ -71,25 +69,21 @@ public class TerrestrialAgglomerationRecipe implements vazkii.botania.api.recipe
 		return RecipeUtils.matches(ingredients, inv, usedSlots) && usedSlots.size() == nonEmptySlots;
 	}
 
-	@NotNull
 	@Override
-	public ItemStack assemble(@NotNull RecipeInput inv, @NotNull HolderLookup.Provider registries) {
+	public ItemStack assemble(RecipeInput inv, HolderLookup.Provider registries) {
 		return output.copy();
 	}
 
-	@NotNull
 	@Override
-	public ItemStack getResultItem(@NotNull HolderLookup.Provider registries) {
+	public ItemStack getResultItem(HolderLookup.Provider registries) {
 		return output;
 	}
 
-	@NotNull
 	@Override
 	public NonNullList<Ingredient> getIngredients() {
 		return ingredients;
 	}
 
-	@NotNull
 	@Override
 	public RecipeSerializer<? extends TerrestrialAgglomerationRecipe> getSerializer() {
 		return BotaniaRecipeTypes.TERRA_PLATE_SERIALIZER;

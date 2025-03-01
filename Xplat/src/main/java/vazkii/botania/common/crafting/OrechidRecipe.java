@@ -27,7 +27,6 @@ import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.biome.Biome;
 
-import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import vazkii.botania.api.recipe.StateIngredient;
@@ -80,7 +79,7 @@ public class OrechidRecipe implements vazkii.botania.api.recipe.OrechidRecipe {
 	}
 
 	@Override
-	public int getWeight(@NotNull Level level, @NotNull BlockPos pos) {
+	public int getWeight(Level level, BlockPos pos) {
 		return this.biomes != null && level.getBiome(pos).is(this.biomes)
 				? getWeight() + getWeightBonus()
 				: getWeight();
@@ -99,7 +98,6 @@ public class OrechidRecipe implements vazkii.botania.api.recipe.OrechidRecipe {
 		return Optional.ofNullable(this.successFunction);
 	}
 
-	@NotNull
 	@Override
 	public RecipeType<? extends vazkii.botania.api.recipe.OrechidRecipe> getType() {
 		return BotaniaRecipeTypes.ORECHID_TYPE;

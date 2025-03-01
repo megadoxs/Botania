@@ -23,8 +23,6 @@ import net.minecraft.world.item.crafting.RecipeInput;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.level.Level;
 
-import org.jetbrains.annotations.NotNull;
-
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.BotaniaRegistries;
 import vazkii.botania.api.brew.Brew;
@@ -49,7 +47,7 @@ public class BotanicalBreweryRecipe implements vazkii.botania.api.recipe.Botanic
 	}
 
 	@Override
-	public boolean matches(RecipeInput inv, @NotNull Level world) {
+	public boolean matches(RecipeInput inv, Level world) {
 		List<Ingredient> inputsMissing = new ArrayList<>(inputs);
 
 		for (int i = 0; i < inv.size(); i++) {
@@ -82,19 +80,16 @@ public class BotanicalBreweryRecipe implements vazkii.botania.api.recipe.Botanic
 		return inputsMissing.isEmpty();
 	}
 
-	@NotNull
 	@Override
 	public NonNullList<Ingredient> getIngredients() {
 		return inputs;
 	}
 
-	@NotNull
 	@Override
 	public ItemStack getToastSymbol() {
 		return new ItemStack(BotaniaBlocks.brewery);
 	}
 
-	@NotNull
 	@Override
 	public RecipeSerializer<?> getSerializer() {
 		return BotaniaRecipeTypes.BREW_SERIALIZER;

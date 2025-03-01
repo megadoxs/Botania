@@ -19,8 +19,6 @@ import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.ShapedRecipe;
 
-import org.jetbrains.annotations.NotNull;
-
 import vazkii.botania.mixin.ShapedRecipeAccessor;
 import vazkii.botania.xplat.XplatAbstractions;
 
@@ -50,13 +48,11 @@ public class ManaUpgradeRecipe extends ShapedRecipe {
 		return out;
 	}
 
-	@NotNull
 	@Override
-	public ItemStack assemble(@NotNull CraftingInput inv, @NotNull HolderLookup.Provider registries) {
+	public ItemStack assemble(CraftingInput inv, HolderLookup.Provider registries) {
 		return output(super.assemble(inv, registries), inv);
 	}
 
-	@NotNull
 	@Override
 	public RecipeSerializer<?> getSerializer() {
 		return SERIALIZER;

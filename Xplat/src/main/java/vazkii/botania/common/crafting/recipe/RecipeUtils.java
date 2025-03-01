@@ -20,11 +20,11 @@ import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.RecipeInput;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 
-import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.function.Function;
 
 public class RecipeUtils {
@@ -77,21 +77,21 @@ public class RecipeUtils {
 			if (special != null) {
 				ret.set(i, special);
 			} else if (item.getItem().hasCraftingRemainingItem()) {
-				ret.set(i, new ItemStack(item.getItem().getCraftingRemainingItem()));
+				ret.set(i, new ItemStack(Objects.requireNonNull(item.getItem().getCraftingRemainingItem())));
 			}
 		}
 
 		return ret;
 	}
 
-	public static @NotNull Recipe<?> recipeFromNetwork(@NotNull RegistryFriendlyByteBuf buffer) {
+	public static Recipe<?> recipeFromNetwork(RegistryFriendlyByteBuf buffer) {
 		ResourceLocation serializerId = buffer.readResourceLocation();
 		return BuiltInRegistries.RECIPE_SERIALIZER.getOptional(serializerId)
 				.orElseThrow(() -> new IllegalArgumentException("Unknown recipe serializer: " + serializerId))
 				.streamCodec().decode(buffer);
 	}
 
-	public static void recipeToNetwork(@NotNull RegistryFriendlyByteBuf buffer, Recipe<?> recipe) {
+	public static void recipeToNetwork(RegistryFriendlyByteBuf buffer, Recipe<?> recipe) {
 		@SuppressWarnings("unchecked")
 		RecipeSerializer<Recipe<?>> recipeSerializer = (RecipeSerializer<Recipe<?>>) recipe.getSerializer();
 		buffer.writeResourceLocation(BuiltInRegistries.RECIPE_SERIALIZER.getResourceKey(recipeSerializer)

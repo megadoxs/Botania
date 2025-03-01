@@ -27,8 +27,6 @@ import net.minecraft.world.item.crafting.ShapedRecipe;
 import net.minecraft.world.item.crafting.ShapedRecipePattern;
 import net.minecraft.world.level.Level;
 
-import org.jetbrains.annotations.NotNull;
-
 import vazkii.botania.mixin.ShapedRecipeAccessor;
 import vazkii.botania.mixin.ShapedRecipePatternAccessor;
 
@@ -58,7 +56,7 @@ public class WaterBottleMatchingRecipe extends ShapedRecipe {
 	}
 
 	@Override
-	public boolean matches(@NotNull CraftingInput craftingContainer, @NotNull Level level) {
+	public boolean matches(CraftingInput craftingContainer, Level level) {
 		if (!super.matches(craftingContainer, level)) {
 			return false;
 		}

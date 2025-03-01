@@ -36,6 +36,7 @@ public class PureDaisyRecipe implements vazkii.botania.api.recipe.PureDaisyRecip
 	private final StateIngredient output;
 	private final int time;
 	private final boolean copyInputProperties;
+	@Nullable
 	private final CacheableFunction successFunction;
 
 	public PureDaisyRecipe(StateIngredient input, StateIngredient output, int time, boolean copyInputProperties,

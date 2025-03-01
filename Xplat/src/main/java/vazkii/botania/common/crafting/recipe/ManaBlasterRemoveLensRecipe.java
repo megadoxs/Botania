@@ -18,8 +18,6 @@ import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.SimpleCraftingRecipeSerializer;
 import net.minecraft.world.level.Level;
 
-import org.jetbrains.annotations.NotNull;
-
 import vazkii.botania.common.item.BotaniaItems;
 import vazkii.botania.common.item.ManaBlasterItem;
 
@@ -31,7 +29,7 @@ public class ManaBlasterRemoveLensRecipe extends CustomRecipe {
 	}
 
 	@Override
-	public boolean matches(@NotNull CraftingInput inv, @NotNull Level world) {
+	public boolean matches(CraftingInput inv, Level world) {
 		boolean foundGun = false;
 
 		for (int i = 0; i < inv.size(); i++) {
@@ -49,9 +47,8 @@ public class ManaBlasterRemoveLensRecipe extends CustomRecipe {
 		return foundGun;
 	}
 
-	@NotNull
 	@Override
-	public ItemStack assemble(@NotNull CraftingInput inv, @NotNull HolderLookup.Provider registries) {
+	public ItemStack assemble(CraftingInput inv, HolderLookup.Provider registries) {
 		ItemStack gun = ItemStack.EMPTY;
 
 		for (int i = 0; i < inv.size(); i++) {
@@ -74,15 +71,13 @@ public class ManaBlasterRemoveLensRecipe extends CustomRecipe {
 		return width * height > 0;
 	}
 
-	@NotNull
 	@Override
 	public RecipeSerializer<?> getSerializer() {
 		return SERIALIZER;
 	}
 
-	@NotNull
 	@Override
-	public NonNullList<ItemStack> getRemainingItems(@NotNull CraftingInput inv) {
+	public NonNullList<ItemStack> getRemainingItems(CraftingInput inv) {
 		return RecipeUtils.getRemainingItemsSub(inv, s -> {
 			if (s.is(BotaniaItems.manaGun)) {
 				ItemStack stack = ManaBlasterItem.getLens(s);

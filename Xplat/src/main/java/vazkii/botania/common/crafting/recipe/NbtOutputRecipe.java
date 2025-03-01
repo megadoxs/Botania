@@ -21,6 +21,8 @@ import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.Level;
 
+import org.jetbrains.annotations.NotNull;
+
 // TODO nothing will work here cuz nbt lol
 public class NbtOutputRecipe<C extends RecipeInput> implements Recipe<C> {
 	public static final RecipeSerializer<NbtOutputRecipe<?>> SERIALIZER = new NbtOutputRecipe.Serializer();
@@ -34,12 +36,12 @@ public class NbtOutputRecipe<C extends RecipeInput> implements Recipe<C> {
 	}
 
 	@Override
-	public boolean matches(C container, Level level) {
+	public boolean matches(@NotNull C container, Level level) {
 		return recipe.matches(container, level);
 	}
 
 	@Override
-	public ItemStack assemble(C container, HolderLookup.Provider registryAccess) {
+	public ItemStack assemble(@NotNull C container, HolderLookup.Provider registryAccess) {
 		/*todo
 		ItemStack result = recipe.assemble(container, registryAccess);
 		result.setTag(nbt);

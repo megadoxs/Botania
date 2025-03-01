@@ -19,8 +19,6 @@ import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.SimpleCraftingRecipeSerializer;
 import net.minecraft.world.level.Level;
 
-import org.jetbrains.annotations.NotNull;
-
 import vazkii.botania.api.mana.BasicLensItem;
 
 public class SplitLensRecipe extends CustomRecipe {
@@ -31,13 +29,12 @@ public class SplitLensRecipe extends CustomRecipe {
 	}
 
 	@Override
-	public boolean matches(@NotNull CraftingInput inv, @NotNull Level level) {
+	public boolean matches(CraftingInput inv, Level level) {
 		return !assemble(inv, level.registryAccess()).isEmpty();
 	}
 
-	@NotNull
 	@Override
-	public ItemStack assemble(CraftingInput inv, @NotNull HolderLookup.Provider registries) {
+	public ItemStack assemble(CraftingInput inv, HolderLookup.Provider registries) {
 		ItemStack found = ItemStack.EMPTY;
 		for (int i = 0; i < inv.size(); i++) {
 			ItemStack candidate = inv.getItem(i);
@@ -62,7 +59,6 @@ public class SplitLensRecipe extends CustomRecipe {
 		return basicLens.getCompositeLens(stack);
 	}
 
-	@NotNull
 	@Override
 	public NonNullList<ItemStack> getRemainingItems(CraftingInput inv) {
 		NonNullList<ItemStack> remaining = NonNullList.withSize(inv.size(), ItemStack.EMPTY);
@@ -82,7 +78,6 @@ public class SplitLensRecipe extends CustomRecipe {
 		return width * height >= 1;
 	}
 
-	@NotNull
 	@Override
 	public RecipeSerializer<?> getSerializer() {
 		return SERIALIZER;

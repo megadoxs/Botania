@@ -17,8 +17,6 @@ import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.SimpleCraftingRecipeSerializer;
 import net.minecraft.world.level.Level;
 
-import org.jetbrains.annotations.NotNull;
-
 import vazkii.botania.api.mana.CompositableLensItem;
 import vazkii.botania.common.lib.BotaniaTags;
 
@@ -30,7 +28,7 @@ public class CompositeLensRecipe extends CustomRecipe {
 	}
 
 	@Override
-	public boolean matches(@NotNull CraftingInput inv, @NotNull Level world) {
+	public boolean matches(CraftingInput inv, Level world) {
 		boolean foundLens = false;
 		boolean foundSecondLens = false;
 		boolean foundGlue = false;
@@ -55,9 +53,8 @@ public class CompositeLensRecipe extends CustomRecipe {
 		return foundSecondLens && foundGlue;
 	}
 
-	@NotNull
 	@Override
-	public ItemStack assemble(@NotNull CraftingInput inv, @NotNull HolderLookup.Provider registries) {
+	public ItemStack assemble(CraftingInput inv, HolderLookup.Provider registries) {
 		ItemStack lens = ItemStack.EMPTY;
 		ItemStack secondLens = ItemStack.EMPTY;
 
@@ -94,7 +91,6 @@ public class CompositeLensRecipe extends CustomRecipe {
 		return width * height >= 3;
 	}
 
-	@NotNull
 	@Override
 	public RecipeSerializer<?> getSerializer() {
 		return SERIALIZER;

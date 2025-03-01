@@ -17,8 +17,6 @@ import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.SimpleCraftingRecipeSerializer;
 import net.minecraft.world.level.Level;
 
-import org.jetbrains.annotations.NotNull;
-
 import vazkii.botania.common.item.BotaniaItems;
 import vazkii.botania.common.item.equipment.tool.terrasteel.TerraShattererItem;
 
@@ -29,14 +27,13 @@ public class TerraShattererTippingRecipe extends CustomRecipe {
 		super(craftingBookCategory);
 	}
 
-	@NotNull
 	@Override
 	public RecipeSerializer<?> getSerializer() {
 		return SERIALIZER;
 	}
 
 	@Override
-	public boolean matches(@NotNull CraftingInput inv, @NotNull Level world) {
+	public boolean matches(CraftingInput inv, Level world) {
 		boolean foundTerraPick = false;
 		boolean foundElementiumPick = false;
 
@@ -57,9 +54,8 @@ public class TerraShattererTippingRecipe extends CustomRecipe {
 		return foundTerraPick && foundElementiumPick;
 	}
 
-	@NotNull
 	@Override
-	public ItemStack assemble(@NotNull CraftingInput inv, @NotNull HolderLookup.Provider registries) {
+	public ItemStack assemble(CraftingInput inv, HolderLookup.Provider registries) {
 		ItemStack terraPick = ItemStack.EMPTY;
 
 		for (int i = 0; i < inv.size(); i++) {

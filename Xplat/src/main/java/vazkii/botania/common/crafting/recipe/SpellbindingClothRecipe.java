@@ -10,6 +10,7 @@ package vazkii.botania.common.crafting.recipe;
 
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.NonNullList;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.CraftingBookCategory;
 import net.minecraft.world.item.crafting.CraftingInput;
@@ -17,8 +18,6 @@ import net.minecraft.world.item.crafting.CustomRecipe;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.SimpleCraftingRecipeSerializer;
 import net.minecraft.world.level.Level;
-
-import org.jetbrains.annotations.NotNull;
 
 import vazkii.botania.common.item.BotaniaItems;
 
@@ -30,7 +29,7 @@ public class SpellbindingClothRecipe extends CustomRecipe {
 	}
 
 	@Override
-	public boolean matches(@NotNull CraftingInput inv, @NotNull Level world) {
+	public boolean matches(CraftingInput inv, Level world) {
 		boolean foundCloth = false;
 		boolean foundEnchanted = false;
 
@@ -50,9 +49,8 @@ public class SpellbindingClothRecipe extends CustomRecipe {
 		return foundCloth && foundEnchanted;
 	}
 
-	@NotNull
 	@Override
-	public ItemStack assemble(@NotNull CraftingInput inv, @NotNull HolderLookup.Provider registries) {
+	public ItemStack assemble(CraftingInput inv, HolderLookup.Provider registries) {
 		ItemStack stackToDisenchant = ItemStack.EMPTY;
 		for (int i = 0; i < inv.size(); i++) {
 			ItemStack stack = inv.getItem(i);
@@ -66,11 +64,9 @@ public class SpellbindingClothRecipe extends CustomRecipe {
 			return ItemStack.EMPTY;
 		}
 
-		/*todo
-		stackToDisenchant.removeTagKey("Enchantments"); // Remove enchantments
-		stackToDisenchant.removeTagKey("RepairCost");
-		
-		 */
+		stackToDisenchant.remove(DataComponents.ENCHANTMENTS);
+		stackToDisenchant.remove(DataComponents.REPAIR_COST);
+
 		return stackToDisenchant;
 	}
 
@@ -79,15 +75,13 @@ public class SpellbindingClothRecipe extends CustomRecipe {
 		return width * height >= 2;
 	}
 
-	@NotNull
 	@Override
 	public RecipeSerializer<?> getSerializer() {
 		return SERIALIZER;
 	}
 
-	@NotNull
 	@Override
-	public NonNullList<ItemStack> getRemainingItems(@NotNull CraftingInput inv) {
+	public NonNullList<ItemStack> getRemainingItems(CraftingInput inv) {
 		return RecipeUtils.getRemainingItemsSub(inv, s -> {
 			if (s.is(BotaniaItems.spellCloth)) {
 				ItemStack copy = s.copyWithCount(1);

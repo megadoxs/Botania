@@ -22,8 +22,6 @@ import net.minecraft.world.item.crafting.RecipeInput;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.level.Level;
 
-import org.jetbrains.annotations.NotNull;
-
 import vazkii.botania.common.block.BotaniaBlocks;
 
 import java.util.ArrayList;
@@ -45,7 +43,7 @@ public class PetalApothecaryRecipe implements vazkii.botania.api.recipe.PetalApo
 	}
 
 	@Override
-	public boolean matches(RecipeInput inv, @NotNull Level world) {
+	public boolean matches(RecipeInput inv, Level world) {
 		List<Ingredient> ingredientsMissing = new ArrayList<>(ingredients);
 
 		for (int i = 0; i < inv.size(); i++) {
@@ -74,15 +72,13 @@ public class PetalApothecaryRecipe implements vazkii.botania.api.recipe.PetalApo
 		return ingredientsMissing.isEmpty();
 	}
 
-	@NotNull
 	@Override
-	public final ItemStack getResultItem(@NotNull HolderLookup.Provider registries) {
+	public final ItemStack getResultItem(HolderLookup.Provider registries) {
 		return output;
 	}
 
-	@NotNull
 	@Override
-	public ItemStack assemble(@NotNull RecipeInput inv, @NotNull HolderLookup.Provider registries) {
+	public ItemStack assemble(RecipeInput inv, HolderLookup.Provider registries) {
 		return getResultItem(registries).copy();
 	}
 
@@ -95,19 +91,16 @@ public class PetalApothecaryRecipe implements vazkii.botania.api.recipe.PetalApo
 		return reagent;
 	}
 
-	@NotNull
 	@Override
 	public NonNullList<Ingredient> getIngredients() {
 		return ingredients;
 	}
 
-	@NotNull
 	@Override
 	public ItemStack getToastSymbol() {
 		return new ItemStack(BotaniaBlocks.defaultAltar);
 	}
 
-	@NotNull
 	@Override
 	public RecipeSerializer<? extends PetalApothecaryRecipe> getSerializer() {
 		return BotaniaRecipeTypes.PETAL_SERIALIZER;

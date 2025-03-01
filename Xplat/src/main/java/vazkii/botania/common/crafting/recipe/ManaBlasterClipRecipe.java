@@ -17,8 +17,6 @@ import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.SimpleCraftingRecipeSerializer;
 import net.minecraft.world.level.Level;
 
-import org.jetbrains.annotations.NotNull;
-
 import vazkii.botania.common.item.BotaniaItems;
 import vazkii.botania.common.item.ManaBlasterItem;
 
@@ -30,7 +28,7 @@ public class ManaBlasterClipRecipe extends CustomRecipe {
 	}
 
 	@Override
-	public boolean matches(@NotNull CraftingInput inv, @NotNull Level world) {
+	public boolean matches(CraftingInput inv, Level world) {
 		boolean foundGun = false;
 		boolean foundClip = false;
 
@@ -51,9 +49,8 @@ public class ManaBlasterClipRecipe extends CustomRecipe {
 		return foundGun && foundClip;
 	}
 
-	@NotNull
 	@Override
-	public ItemStack assemble(@NotNull CraftingInput inv, @NotNull HolderLookup.Provider registries) {
+	public ItemStack assemble(CraftingInput inv, HolderLookup.Provider registries) {
 		ItemStack gun = ItemStack.EMPTY;
 
 		for (int i = 0; i < inv.size(); i++) {
@@ -80,7 +77,6 @@ public class ManaBlasterClipRecipe extends CustomRecipe {
 		return width * height >= 2;
 	}
 
-	@NotNull
 	@Override
 	public RecipeSerializer<?> getSerializer() {
 		return SERIALIZER;

@@ -18,8 +18,6 @@ import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.SimpleCraftingRecipeSerializer;
 import net.minecraft.world.level.Level;
 
-import org.jetbrains.annotations.NotNull;
-
 import vazkii.botania.api.brew.Brew;
 import vazkii.botania.common.item.brew.BaseBrewItem;
 
@@ -33,7 +31,7 @@ public class MergeVialRecipe extends CustomRecipe {
 	}
 
 	@Override
-	public boolean matches(CraftingInput inv, @NotNull Level worldIn) {
+	public boolean matches(CraftingInput inv, Level worldIn) {
 		int count = 0;
 		Brew brew = null;
 
@@ -58,9 +56,8 @@ public class MergeVialRecipe extends CustomRecipe {
 		return count > 1;
 	}
 
-	@NotNull
 	@Override
-	public ItemStack assemble(CraftingInput inv, @NotNull HolderLookup.Provider registries) {
+	public ItemStack assemble(CraftingInput inv, HolderLookup.Provider registries) {
 		ItemStack firstStack = ItemStack.EMPTY;
 		BaseBrewItem brew = null;
 		int swigs = 0;
@@ -126,7 +123,6 @@ public class MergeVialRecipe extends CustomRecipe {
 		return width * height > 2;
 	}
 
-	@NotNull
 	@Override
 	public RecipeSerializer<?> getSerializer() {
 		return SERIALIZER;

@@ -19,8 +19,6 @@ import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.ShapelessRecipe;
 
-import org.jetbrains.annotations.NotNull;
-
 import vazkii.botania.mixin.ShapelessRecipeAccessor;
 
 import java.util.function.Function;
@@ -32,13 +30,11 @@ public class ShapelessManaUpgradeRecipe extends ShapelessRecipe {
 		super(recipe.getGroup(), recipe.category(), ((ShapelessRecipeAccessor) recipe).botania_getResult(), recipe.getIngredients());
 	}
 
-	@NotNull
 	@Override
-	public ItemStack assemble(@NotNull CraftingInput inv, @NotNull HolderLookup.Provider registries) {
+	public ItemStack assemble(CraftingInput inv, HolderLookup.Provider registries) {
 		return ManaUpgradeRecipe.output(super.assemble(inv, registries), inv);
 	}
 
-	@NotNull
 	@Override
 	public RecipeSerializer<?> getSerializer() {
 		return SERIALIZER;

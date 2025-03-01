@@ -22,7 +22,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 
-import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import vazkii.botania.api.recipe.StateIngredient;
 import vazkii.botania.common.block.BotaniaBlocks;
@@ -35,7 +35,7 @@ public class ManaInfusionRecipe implements vazkii.botania.api.recipe.ManaInfusio
 	private final StateIngredient catalyst;
 	private final String group;
 
-	public ManaInfusionRecipe(ItemStack output, Ingredient input, int mana, String group, StateIngredient catalyst) {
+	public ManaInfusionRecipe(ItemStack output, Ingredient input, int mana, @Nullable String group, @Nullable StateIngredient catalyst) {
 		this.output = output;
 		this.input = input;
 		this.mana = mana;
@@ -43,7 +43,6 @@ public class ManaInfusionRecipe implements vazkii.botania.api.recipe.ManaInfusio
 		this.catalyst = catalyst == null ? StateIngredients.NONE : catalyst;
 	}
 
-	@NotNull
 	@Override
 	public RecipeSerializer<ManaInfusionRecipe> getSerializer() {
 		return BotaniaRecipeTypes.MANA_INFUSION_SERIALIZER;
@@ -54,7 +53,6 @@ public class ManaInfusionRecipe implements vazkii.botania.api.recipe.ManaInfusio
 		return input.test(stack);
 	}
 
-	@NotNull
 	@Override
 	public StateIngredient getRecipeCatalyst() {
 		return catalyst;
@@ -65,25 +63,21 @@ public class ManaInfusionRecipe implements vazkii.botania.api.recipe.ManaInfusio
 		return mana;
 	}
 
-	@NotNull
 	@Override
-	public ItemStack getResultItem(@NotNull HolderLookup.Provider registries) {
+	public ItemStack getResultItem(HolderLookup.Provider registries) {
 		return output;
 	}
 
-	@NotNull
 	@Override
 	public NonNullList<Ingredient> getIngredients() {
 		return NonNullList.of(Ingredient.EMPTY, input);
 	}
 
-	@NotNull
 	@Override
 	public String getGroup() {
 		return group;
 	}
 
-	@NotNull
 	@Override
 	public ItemStack getToastSymbol() {
 		return new ItemStack(BotaniaBlocks.manaPool);
