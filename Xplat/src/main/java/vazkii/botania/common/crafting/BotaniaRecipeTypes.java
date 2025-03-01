@@ -17,6 +17,7 @@ import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.Level;
 
+import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.common.crafting.recipe.HeadRecipe;
 import vazkii.botania.mixin.RecipeManagerAccessor;
 
@@ -101,6 +102,7 @@ public class BotaniaRecipeTypes {
 	@SuppressWarnings("unchecked")
 	public static <C extends RecipeInput, T extends Recipe<C>> Optional<RecipeHolder<T>> getRecipe(Level world, ResourceLocation id, RecipeType<T> expectedType) {
 		var holder = world.getRecipeManager().byKey(id);
+		BotaniaAPI.LOGGER.info("getRecipe found {}", holder);
 		return holder.isPresent() && holder.get().value().getType() == expectedType
 				? holder.map(h -> (RecipeHolder<T>) h)
 				: Optional.empty();

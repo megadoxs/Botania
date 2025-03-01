@@ -64,7 +64,7 @@ public class LooniumEquipmentLootProvider implements DataProvider {
 
 	public LooniumEquipmentLootProvider(PackOutput packOutput, CompletableFuture<HolderLookup.Provider> registryLookupFuture) {
 		// TODO: refactor to use vanilla equipment table functionality
-		this.pathProvider = packOutput.createPathProvider(PackOutput.Target.DATA_PACK, "loot_tables");
+		this.pathProvider = packOutput.createRegistryElementsPathProvider(Registries.LOOT_TABLE);
 		this.registryLookupFuture = registryLookupFuture;
 	}
 

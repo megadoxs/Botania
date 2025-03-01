@@ -12,6 +12,7 @@ import com.google.common.collect.Sets;
 
 import net.minecraft.advancements.Advancement;
 import net.minecraft.core.HolderLookup;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.data.CachedOutput;
 import net.minecraft.data.DataProvider;
 import net.minecraft.data.PackOutput;
@@ -34,8 +35,8 @@ public abstract class BotaniaRecipeProvider implements DataProvider {
 	private final CompletableFuture<HolderLookup.Provider> lookupProvider;
 
 	public BotaniaRecipeProvider(PackOutput packOutput, CompletableFuture<HolderLookup.Provider> lookupProvider) {
-		this.recipePathProvider = packOutput.createPathProvider(PackOutput.Target.DATA_PACK, "recipes");
-		this.advancementPathProvider = packOutput.createPathProvider(PackOutput.Target.DATA_PACK, "advancements");
+		this.recipePathProvider = packOutput.createRegistryElementsPathProvider(Registries.RECIPE);
+		this.advancementPathProvider = packOutput.createRegistryElementsPathProvider(Registries.ADVANCEMENT);
 		this.lookupProvider = lookupProvider;
 	}
 

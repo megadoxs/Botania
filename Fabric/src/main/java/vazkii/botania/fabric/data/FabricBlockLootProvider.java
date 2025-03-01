@@ -2,6 +2,7 @@ package vazkii.botania.fabric.data;
 
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.data.CachedOutput;
 import net.minecraft.data.DataProvider;
 import net.minecraft.data.PackOutput;
@@ -22,7 +23,7 @@ public class FabricBlockLootProvider implements DataProvider {
 	private final CompletableFuture<HolderLookup.Provider> lookupProvider;
 
 	public FabricBlockLootProvider(PackOutput packOutput, CompletableFuture<HolderLookup.Provider> lookupProvider) {
-		this.pathProvider = packOutput.createPathProvider(PackOutput.Target.DATA_PACK, "loot_tables/blocks");
+		this.pathProvider = packOutput.createRegistryElementsPathProvider(Registries.LOOT_TABLE);
 		this.lookupProvider = lookupProvider;
 	}
 

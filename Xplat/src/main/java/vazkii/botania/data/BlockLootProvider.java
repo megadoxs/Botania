@@ -35,7 +35,6 @@ import net.minecraft.world.level.storage.loot.predicates.ExplosionCondition;
 import net.minecraft.world.level.storage.loot.predicates.LootItemBlockStatePropertyCondition;
 import net.minecraft.world.level.storage.loot.providers.number.ConstantValue;
 
-import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import vazkii.botania.common.block.BotaniaBlocks;
@@ -72,12 +71,12 @@ public class BlockLootProvider implements DataProvider {
 	private final CompletableFuture<HolderLookup.Provider> lookupProvider;
 
 	public BlockLootProvider(PackOutput packOutput, CompletableFuture<HolderLookup.Provider> lookupProvider) {
-		this.pathProvider = packOutput.createPathProvider(PackOutput.Target.DATA_PACK, "loot_tables/blocks");
+		this.pathProvider = packOutput.createRegistryElementsPathProvider(Registries.LOOT_TABLE);
 		this.lookupProvider = lookupProvider;
 
 		for (Block b : BuiltInRegistries.BLOCK) {
-			ResourceLocation id = BuiltInRegistries.BLOCK.getKey(b);
-			if (!LibMisc.MOD_ID.equals(id.getNamespace())) {
+			ResourceLocation blockId = BuiltInRegistries.BLOCK.getKey(b);
+			if (!LibMisc.MOD_ID.equals(blockId.getNamespace())) {
 				continue;
 			}
 			if (b instanceof SlabBlock) {
@@ -88,7 +87,7 @@ public class BlockLootProvider implements DataProvider {
 				functionTable.put(b, BlockLootProvider::genAltGrass);
 			} else if (b instanceof FlowerPotBlock flowerPot) {
 				functionTable.put(b, block -> createPotAndPlantItemTable(flowerPot.getPotted()));
-			} else if (id.getPath().matches(LibBlockNames.METAMORPHIC_PREFIX + "\\w+" + "_stone")) {
+			} else if (blockId.getPath().matches(LibBlockNames.METAMORPHIC_PREFIX + "\\w+" + "_stone")) {
 				functionTable.put(b, BlockLootProvider::genMetamorphicStone);
 			}
 		}
@@ -130,11 +129,11 @@ public class BlockLootProvider implements DataProvider {
 		return lookupProvider.thenCompose(registryLookup -> this.run(cache, registryLookup));
 	}
 
-	private CompletableFuture<?> run(@NotNull CachedOutput cache, HolderLookup.Provider registryLookup) {
+	private CompletableFuture<?> run(CachedOutput cache, HolderLookup.Provider registryLookup) {
 		Map<ResourceLocation, LootTable.Builder> tables = new HashMap<>();
 
 		for (Block b : BuiltInRegistries.BLOCK) {
-			ResourceLocation id = BuiltInRegistries.BLOCK.getKey(b);
+			ResourceLocation id = b.getLootTable().location();
 			if (!LibMisc.MOD_ID.equals(id.getNamespace())) {
 				continue;
 			}
@@ -267,7 +266,6 @@ public class BlockLootProvider implements DataProvider {
 		return LootTable.lootTable().withPool(potPool).withPool(plantPool);
 	}
 
-	@NotNull
 	@Override
 	public String getName() {
 		return "Botania block loot tables";

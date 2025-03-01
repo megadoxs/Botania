@@ -43,7 +43,7 @@ public class LooniumStructureLootProvider implements DataProvider {
 	private final CompletableFuture<HolderLookup.Provider> registryLookupFuture;
 
 	public LooniumStructureLootProvider(PackOutput packOutput, CompletableFuture<HolderLookup.Provider> registryLookupFuture) {
-		this.pathProvider = packOutput.createPathProvider(PackOutput.Target.DATA_PACK, "loot_tables/loonium");
+		this.pathProvider = packOutput.createPathProvider(PackOutput.Target.DATA_PACK, "loot_table/loonium");
 		this.registryLookupFuture = registryLookupFuture;
 	}
 

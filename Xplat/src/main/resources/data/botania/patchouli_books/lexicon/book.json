@@ -12,6 +12,7 @@
   "advancements_tab": "botania:main/root",
   "use_resource_pack": true,
   "i18n": true,
+  "text_overflow_mode": "truncate",
   "macros": {
     "$(item)": "$(1)",
     "$(thing)": "$(4)"
