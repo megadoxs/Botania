@@ -1,0 +1,26 @@
+{
+  "type": "botania:runic_altar",
+  "catalysts": [],
+  "ingredients": [
+    {
+      "tag": "botania:mana_dusts"
+    },
+    {
+      "tag": "botania:manasteel_ingots"
+    },
+    {
+      "item": "minecraft:nether_brick"
+    },
+    {
+      "item": "minecraft:gunpowder"
+    },
+    {
+      "item": "minecraft:nether_wart"
+    }
+  ],
+  "mana": 5200,
+  "output": "botania:rune_fire",
+  "reagent": {
+    "item": "botania:livingrock"
+  }
+}

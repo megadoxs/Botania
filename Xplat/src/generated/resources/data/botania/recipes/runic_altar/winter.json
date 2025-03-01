@@ -1,0 +1,30 @@
+{
+  "type": "botania:runic_altar",
+  "catalysts": [
+    {
+      "item": "botania:rune_water"
+    },
+    {
+      "item": "botania:rune_earth"
+    }
+  ],
+  "ingredients": [
+    {
+      "item": "minecraft:snow_block"
+    },
+    {
+      "item": "minecraft:snow_block"
+    },
+    {
+      "tag": "minecraft:wool"
+    },
+    {
+      "item": "minecraft:cake"
+    }
+  ],
+  "mana": 8000,
+  "output": "botania:rune_winter",
+  "reagent": {
+    "item": "botania:livingrock"
+  }
+}

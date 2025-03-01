@@ -1,0 +1,30 @@
+{
+  "type": "botania:runic_altar",
+  "catalysts": [
+    {
+      "item": "botania:rune_earth"
+    },
+    {
+      "item": "botania:rune_air"
+    }
+  ],
+  "ingredients": [
+    {
+      "tag": "minecraft:sand"
+    },
+    {
+      "tag": "minecraft:sand"
+    },
+    {
+      "item": "minecraft:slime_ball"
+    },
+    {
+      "item": "minecraft:melon_slice"
+    }
+  ],
+  "mana": 8000,
+  "output": "botania:rune_summer",
+  "reagent": {
+    "item": "botania:livingrock"
+  }
+}

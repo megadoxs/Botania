@@ -1,0 +1,30 @@
+{
+  "type": "botania:runic_altar",
+  "catalysts": [
+    {
+      "item": "botania:rune_fire"
+    },
+    {
+      "item": "botania:rune_air"
+    }
+  ],
+  "ingredients": [
+    {
+      "tag": "minecraft:leaves"
+    },
+    {
+      "tag": "minecraft:leaves"
+    },
+    {
+      "tag": "minecraft:leaves"
+    },
+    {
+      "item": "minecraft:spider_eye"
+    }
+  ],
+  "mana": 8000,
+  "output": "botania:rune_autumn",
+  "reagent": {
+    "item": "botania:livingrock"
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "type": "botania:orechid",
+  "input": {
+    "type": "botania:block",
+    "block": "minecraft:stone"
+  },
+  "output": {
+    "type": "botania:block",
+    "block": "minecraft:iron_ore"
+  },
+  "weight": 29371
+}

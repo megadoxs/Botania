@@ -1,0 +1,26 @@
+{
+  "type": "botania:runic_altar",
+  "catalysts": [],
+  "ingredients": [
+    {
+      "tag": "botania:mana_dusts"
+    },
+    {
+      "tag": "botania:manasteel_ingots"
+    },
+    {
+      "item": "minecraft:bone_meal"
+    },
+    {
+      "item": "minecraft:sugar_cane"
+    },
+    {
+      "item": "minecraft:fishing_rod"
+    }
+  ],
+  "mana": 5200,
+  "output": "botania:rune_water",
+  "reagent": {
+    "item": "botania:livingrock"
+  }
+}

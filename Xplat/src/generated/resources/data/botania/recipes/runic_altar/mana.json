@@ -1,0 +1,29 @@
+{
+  "type": "botania:runic_altar",
+  "catalysts": [],
+  "ingredients": [
+    {
+      "tag": "botania:manasteel_ingots"
+    },
+    {
+      "tag": "botania:manasteel_ingots"
+    },
+    {
+      "tag": "botania:manasteel_ingots"
+    },
+    {
+      "tag": "botania:manasteel_ingots"
+    },
+    {
+      "tag": "botania:manasteel_ingots"
+    },
+    {
+      "item": "botania:mana_pearl"
+    }
+  ],
+  "mana": 8000,
+  "output": "botania:rune_mana",
+  "reagent": {
+    "item": "botania:livingrock"
+  }
+}

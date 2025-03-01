@@ -1,0 +1,12 @@
+{
+  "type": "botania:orechid_ignem",
+  "input": {
+    "type": "botania:block",
+    "block": "minecraft:netherrack"
+  },
+  "output": {
+    "type": "botania:block",
+    "block": "minecraft:nether_quartz_ore"
+  },
+  "weight": 19600
+}

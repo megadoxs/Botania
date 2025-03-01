@@ -1,0 +1,26 @@
+{
+  "type": "botania:runic_altar",
+  "catalysts": [],
+  "ingredients": [
+    {
+      "item": "minecraft:skeleton_skull"
+    },
+    {
+      "item": "botania:pixie_dust"
+    },
+    {
+      "item": "minecraft:prismarine_crystals"
+    },
+    {
+      "item": "minecraft:name_tag"
+    },
+    {
+      "item": "minecraft:golden_apple"
+    }
+  ],
+  "mana": 22500,
+  "output": "minecraft:player_head",
+  "reagent": {
+    "item": "botania:livingrock"
+  }
+}

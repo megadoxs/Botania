@@ -1,0 +1,14 @@
+{
+  "type": "botania:elven_trade",
+  "ingredients": [
+    {
+      "item": "botania:manasteel_block"
+    },
+    {
+      "item": "botania:manasteel_block"
+    }
+  ],
+  "output": [
+    "botania:elementium_block"
+  ]
+}

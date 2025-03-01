@@ -1,0 +1,31 @@
+{
+  "type": "botania:runic_altar",
+  "catalysts": [],
+  "ingredients": [
+    {
+      "tag": "botania:mana_dusts"
+    },
+    {
+      "tag": "botania:manasteel_ingots"
+    },
+    {
+      "item": "minecraft:stone"
+    },
+    {
+      "item": "minecraft:coal_block"
+    },
+    [
+      {
+        "item": "minecraft:brown_mushroom"
+      },
+      {
+        "item": "minecraft:red_mushroom"
+      }
+    ]
+  ],
+  "mana": 5200,
+  "output": "botania:rune_earth",
+  "reagent": {
+    "item": "botania:livingrock"
+  }
+}

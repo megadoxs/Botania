@@ -1,0 +1,26 @@
+{
+  "type": "botania:runic_altar",
+  "catalysts": [],
+  "ingredients": [
+    {
+      "tag": "botania:mana_dusts"
+    },
+    {
+      "tag": "botania:manasteel_ingots"
+    },
+    {
+      "tag": "minecraft:wool_carpets"
+    },
+    {
+      "item": "minecraft:feather"
+    },
+    {
+      "item": "minecraft:string"
+    }
+  ],
+  "mana": 5200,
+  "output": "botania:rune_air",
+  "reagent": {
+    "item": "botania:livingrock"
+  }
+}

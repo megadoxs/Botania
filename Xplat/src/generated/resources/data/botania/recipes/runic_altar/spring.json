@@ -1,0 +1,30 @@
+{
+  "type": "botania:runic_altar",
+  "catalysts": [
+    {
+      "item": "botania:rune_water"
+    },
+    {
+      "item": "botania:rune_fire"
+    }
+  ],
+  "ingredients": [
+    {
+      "tag": "minecraft:saplings"
+    },
+    {
+      "tag": "minecraft:saplings"
+    },
+    {
+      "tag": "minecraft:saplings"
+    },
+    {
+      "item": "minecraft:wheat"
+    }
+  ],
+  "mana": 8000,
+  "output": "botania:rune_spring",
+  "reagent": {
+    "item": "botania:livingrock"
+  }
+}

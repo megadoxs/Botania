@@ -87,6 +87,9 @@
       "translate": "advancement.botania:tiaraWings.desc"
     },
     "icon": {
+      "components": {
+        "botania:tiara_variant": 1
+      },
       "count": 1,
       "id": "botania:flight_tiara"
     },

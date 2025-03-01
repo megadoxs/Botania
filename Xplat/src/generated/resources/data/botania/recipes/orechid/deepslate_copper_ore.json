@@ -1,0 +1,12 @@
+{
+  "type": "botania:orechid",
+  "input": {
+    "type": "botania:block",
+    "block": "minecraft:deepslate"
+  },
+  "output": {
+    "type": "botania:block",
+    "block": "minecraft:deepslate_copper_ore"
+  },
+  "weight": 75
+}
