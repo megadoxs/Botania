@@ -8,9 +8,16 @@
  */
 package vazkii.botania.common.item;
 
+import com.google.common.base.Supplier;
+import com.google.common.base.Suppliers;
+
 import net.minecraft.ChatFormatting;
+import net.minecraft.core.component.DataComponentType;
 import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
+import net.minecraft.resources.ResourceKey;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.tags.TagKey;
 import net.minecraft.util.Unit;
@@ -37,6 +44,12 @@ import vazkii.patchouli.api.PatchouliAPI;
 import java.util.List;
 
 public class LexicaBotaniaItem extends Item implements ItemWithBannerPattern, CustomCreativeTabContents {
+	@SuppressWarnings("unchecked")
+	public static final Supplier<DataComponentType<Component>> AKASHIC_DISPLAY_NAME_TYPE_SUPPLIER = Suppliers.memoize(() -> {
+		ResourceKey<DataComponentType<?>> resourceKey = ResourceKey.create(Registries.DATA_COMPONENT_TYPE,
+				ResourceLocation.fromNamespaceAndPath("akashictome", "og_display_name"));
+		return (DataComponentType<Component>) BuiltInRegistries.DATA_COMPONENT_TYPE.get(resourceKey);
+	});
 
 	public LexicaBotaniaItem(Properties settings) {
 		super(settings);
@@ -85,15 +98,14 @@ public class LexicaBotaniaItem extends Item implements ItemWithBannerPattern, Cu
 	public static Component getTitle(ItemStack stack) {
 		Component title = stack.getHoverName();
 
-		// Akashic tome tag contains a `text` field, which is a stringified text component
-		/* todo fix Akashic tome naming
-		String akashicTomeNBT = "akashictome:displayName";
-		if (stack.hasTag() && stack.getTag().contains(akashicTomeNBT)) {
-			CompoundTag nameTextComponent = stack.getTag().getCompound(akashicTomeNBT);
-			title = Component.Serializer.fromJson(nameTextComponent.getString("text"));
+		// TODO: verify
+		DataComponentType<Component> ogDisplayNameType = AKASHIC_DISPLAY_NAME_TYPE_SUPPLIER.get();
+		if (ogDisplayNameType != null) {
+			Component ogDisplayName = stack.get(ogDisplayNameType);
+			if (ogDisplayName != null) {
+				return ogDisplayName;
+			}
 		}
-		
-		 */
 
 		return title;
 	}
