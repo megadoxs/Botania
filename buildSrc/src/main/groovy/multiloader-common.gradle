@@ -117,6 +117,7 @@ sourcesJar {
 }
 
 processResources {
+    from '../contributors.properties'
     // Exclude datagenerator .cache directory
     exclude '.cache'
 
