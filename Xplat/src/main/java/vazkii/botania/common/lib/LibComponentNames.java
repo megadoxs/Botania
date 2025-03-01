@@ -19,6 +19,7 @@ public final class LibComponentNames {
 	public static final String ELEMENTIUM_TIPPED = "elementium_tipped";
 	public static final String ELVEN_UNLOCK = "elven_unlock";
 	public static final String RENDER_FULL = "render_full";
+	public static final String COSMETIC_OVERRIDE = "cosmetic_override";
 
 	public static final String WAND_COLOR1 = "wand_color1";
 	public static final String WAND_COLOR2 = "wand_color2";
@@ -65,4 +66,44 @@ public final class LibComponentNames {
 	public static final String ANCIENT_WILLS = "ancient_wills";
 	public static final String SOULBOUND = "soulbound";
 	public static final String BOUND_POSITIONS = "bound_positions";
+
+	public static final String TIARA_VARIANT = "tiara_variant";
+	public static final String REMAINING_TICKS = "remaining_ticks";
+	public static final String MAX_USE_TICKS = "max_use_ticks";
+	public static final String FLYING = "flying";
+	public static final String IS_SPRINTING = "is_sprinting";
+	public static final String CREATIVE_FLIGHT = "creative_flight";
+	public static final String BOOST_PENDING = "boost_pending";
+	public static final String IS_GLIDING = "is_gliding";
+
+	public static final String CHARGING = "charging";
+	public static final String WEAPONS_SPAWNED = "weapons_spawned";
+
+	public static final String SHARD_LEVEL = "shard_level";
+	public static final String SHARD_POINTY = "shard_pointy";
+	public static final String SHARD_HEIGHT_SCALE = "shard_height_scale";
+	public static final String LAPUTA_STATE = "laputa_state";
+
+	public static final String CLIP = "clip";
+	public static final String CLIP_POS = "clip_pos";
+	public static final String ATTACHED_LENSES = "attached_lenses";
+	public static final String COOLDOWN = "cooldown";
+
+	public static final String SILK_HACK = "silk_hack";
+
+	public static final String TEMPERANCE_ACTIVE = "temperance_active";
+	public static final String SWAPPING = "swapping";
+	public static final String EXTRA_RANGE = "extra_range";
+	public static final String SELECTED_POS = "selected_pos";
+	public static final String SWAP_CLICK_AXIS = "swap_click_axis";
+	public static final String TARGET_BLOCK = "target_block";
+	public static final String PLACED_ITEM = "placed_item";
+	public static final String SWAP_DIRECTION = "swap_direction";
+	public static final String SWAP_HIT_VEC = "swap_hit_vec";
+
+	public static final String SPEED = "speed";
+	public static final String OLD_POS = "old_pos";
+
+	public static final String TARGET_ENTITY = "target_entity";
+	public static final String TARGET_DIST = "target_dist";
 }

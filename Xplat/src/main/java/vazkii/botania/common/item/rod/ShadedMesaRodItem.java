@@ -28,14 +28,14 @@ import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.EntityHitResult;
 import net.minecraft.world.phys.Vec3;
 
-import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import vazkii.botania.api.mana.ManaItemHandler;
 import vazkii.botania.client.fx.WispParticleData;
 import vazkii.botania.common.annotations.SoftImplement;
+import vazkii.botania.common.component.BotaniaDataComponents;
 import vazkii.botania.common.entity.ThrownItemEntity;
-import vazkii.botania.common.helper.ItemNBTHelper;
+import vazkii.botania.common.helper.DataComponentHelper;
 import vazkii.botania.common.helper.MathHelper;
 import vazkii.botania.common.helper.VecHelper;
 import vazkii.botania.common.item.BotaniaItems;
@@ -50,10 +50,6 @@ public class ShadedMesaRodItem extends Item {
 	private static final float RANGE = 3F;
 	private static final int COST = 2;
 	private static final Predicate<Entity> CAN_TARGET = e -> !e.isSpectator() && e.isAlive() && !e.getType().is(BLACKLIST);
-
-	private static final String TAG_TICKS_TILL_EXPIRE = "ticksTillExpire";
-	private static final String TAG_TARGET = "target";
-	private static final String TAG_DIST = "dist";
 
 	public ShadedMesaRodItem(Properties props) {
 		super(props);
@@ -80,17 +76,17 @@ public class ShadedMesaRodItem extends Item {
 			return;
 		}
 
-		int ticksTillExpire = ItemNBTHelper.getInt(stack, TAG_TICKS_TILL_EXPIRE, 0);
+		int ticksTillExpire = stack.getOrDefault(BotaniaDataComponents.REMAINING_TICKS, 0);
 
 		if (ticksTillExpire == 0) {
-			ItemNBTHelper.setInt(stack, TAG_TARGET, -1);
-			ItemNBTHelper.setDouble(stack, TAG_DIST, -1);
+			stack.remove(BotaniaDataComponents.TARGET_ENTITY);
+			stack.remove(BotaniaDataComponents.TARGET_DIST);
 		}
 
 		if (ticksTillExpire >= 0) {
 			ticksTillExpire--;
 		}
-		ItemNBTHelper.setInt(stack, TAG_TICKS_TILL_EXPIRE, ticksTillExpire);
+		DataComponentHelper.setIntNonZero(stack, BotaniaDataComponents.REMAINING_TICKS, ticksTillExpire);
 	}
 
 	@SoftImplement("IItemExtension")
@@ -104,7 +100,7 @@ public class ShadedMesaRodItem extends Item {
 	// Prevent damaging the entity you just held with the rod
 	@SoftImplement("IItemExtension")
 	public boolean onLeftClickEntity(ItemStack stack, Player player, Entity entity) {
-		return ItemNBTHelper.getInt(stack, TAG_TICKS_TILL_EXPIRE, 0) != 0;
+		return stack.has(BotaniaDataComponents.REMAINING_TICKS);
 	}
 
 	// Calls hook above on Fabric
@@ -116,23 +112,22 @@ public class ShadedMesaRodItem extends Item {
 		return InteractionResult.PASS;
 	}
 
-	@NotNull
 	@Override
-	public InteractionResultHolder<ItemStack> use(Level world, Player player, @NotNull InteractionHand hand) {
+	public InteractionResultHolder<ItemStack> use(Level world, Player player, InteractionHand hand) {
 		ItemStack stack = player.getItemInHand(hand);
-		int targetID = ItemNBTHelper.getInt(stack, TAG_TARGET, -1);
-		double length = ItemNBTHelper.getDouble(stack, TAG_DIST, -1);
+		Integer targetID = stack.get(BotaniaDataComponents.TARGET_ENTITY);
+		float length = stack.getOrDefault(BotaniaDataComponents.TARGET_DIST, 0f);
 
 		if (!player.getCooldowns().isOnCooldown(this)) {
 			Entity target = null;
-			if (targetID != -1 && player.level().getEntity(targetID) != null) {
+			if (targetID != null && player.level().getEntity(targetID) != null) {
 				Entity taritem = player.level().getEntity(targetID);
 
 				boolean found = false;
 				Vec3 targetVec = VecHelper.fromEntityCenter(player);
 				List<Entity> entities = new ArrayList<>();
 				int distance = 1;
-				while (entities.size() == 0 && distance < 25) {
+				while (entities.isEmpty() && distance < 25) {
 					targetVec = targetVec.add(player.getLookAngle().scale(distance)).add(0, 0.5, 0);
 					entities = player.level().getEntities(player, VecHelper.boxForRange(targetVec, RANGE), CAN_TARGET);
 					distance++;
@@ -150,17 +145,17 @@ public class ShadedMesaRodItem extends Item {
 				Vec3 targetVec = VecHelper.fromEntityCenter(player);
 				List<Entity> entities = new ArrayList<>();
 				int distance = 1;
-				while (entities.size() == 0 && distance < 25) {
+				while (entities.isEmpty() && distance < 25) {
 					targetVec = targetVec.add(player.getLookAngle().scale(distance)).add(0, 0.5, 0);
 					entities = player.level().getEntities(player, VecHelper.boxForRange(targetVec, RANGE), CAN_TARGET);
 					distance++;
 				}
 
-				if (entities.size() > 0) {
-					target = entities.get(0);
-					length = 5.5D;
+				if (!entities.isEmpty()) {
+					target = entities.getFirst();
+					length = 5.5f;
 					if (target instanceof ItemEntity) {
-						length = 2.0D;
+						length = 2.0f;
 					}
 				}
 			}
@@ -208,11 +203,11 @@ public class ShadedMesaRodItem extends Item {
 						p.connection.send(new ClientboundSetEntityMotionPacket(p));
 					}
 
-					ItemNBTHelper.setInt(stack, TAG_TARGET, target.getId());
-					ItemNBTHelper.setDouble(stack, TAG_DIST, length);
+					stack.set(BotaniaDataComponents.TARGET_ENTITY, target.getId());
+					stack.set(BotaniaDataComponents.TARGET_DIST, length);
 				}
 
-				ItemNBTHelper.setInt(stack, TAG_TICKS_TILL_EXPIRE, 5);
+				stack.set(BotaniaDataComponents.REMAINING_TICKS, 5);
 				return InteractionResultHolder.consume(stack);
 			}
 		}
@@ -222,17 +217,16 @@ public class ShadedMesaRodItem extends Item {
 	private static void leftClick(Player player) {
 		ItemStack stack = player.getMainHandItem();
 		if (!stack.isEmpty() && stack.is(BotaniaItems.gravityRod)) {
-			int targetID = ItemNBTHelper.getInt(stack, TAG_TARGET, -1);
-			ItemNBTHelper.getDouble(stack, TAG_DIST, -1);
+			Integer targetID = stack.get(BotaniaDataComponents.TARGET_ENTITY);
 
-			if (targetID != -1 && player.level().getEntity(targetID) != null) {
+			if (targetID != null && player.level().getEntity(targetID) != null) {
 				Entity target = player.level().getEntity(targetID);
 
 				boolean found = false;
 				Vec3 vec = VecHelper.fromEntityCenter(player);
 				List<Entity> entities = new ArrayList<>();
 				int distance = 1;
-				while (entities.size() == 0 && distance < 25) {
+				while (entities.isEmpty() && distance < 25) {
 					vec = vec.add(player.getLookAngle().scale(distance)).add(0, 0.5, 0);
 					entities = player.level().getEntities(player, new AABB(vec.subtract(RANGE, RANGE, RANGE), vec.add(RANGE, RANGE, RANGE)), CAN_TARGET);
 					distance++;
@@ -242,8 +236,8 @@ public class ShadedMesaRodItem extends Item {
 				}
 
 				if (found) {
-					ItemNBTHelper.setInt(stack, TAG_TARGET, -1);
-					ItemNBTHelper.setDouble(stack, TAG_DIST, -1);
+					stack.remove(BotaniaDataComponents.TARGET_ENTITY);
+					stack.remove(BotaniaDataComponents.TARGET_DIST);
 					Vec3 moveVector = player.getLookAngle().normalize();
 					if (target instanceof ItemEntity item) {
 						item.setPickUpDelay(20);

@@ -42,12 +42,10 @@ import vazkii.botania.client.fx.SparkleParticleData;
 import vazkii.botania.client.lib.ResourcesLib;
 import vazkii.botania.client.render.AccessoryRenderRegistry;
 import vazkii.botania.client.render.AccessoryRenderer;
+import vazkii.botania.common.component.BotaniaDataComponents;
 import vazkii.botania.common.handler.BotaniaSounds;
 import vazkii.botania.common.handler.EquipmentHandler;
-import vazkii.botania.common.helper.InventoryHelper;
-import vazkii.botania.common.helper.ItemNBTHelper;
-import vazkii.botania.common.helper.StringObfuscator;
-import vazkii.botania.common.helper.VecHelper;
+import vazkii.botania.common.helper.*;
 import vazkii.botania.common.item.BotaniaItems;
 import vazkii.botania.common.item.CustomCreativeTabContents;
 import vazkii.botania.common.item.StoneOfTemperanceItem;
@@ -62,19 +60,10 @@ public class FlugelTiaraItem extends BaubleItem implements CustomCreativeTabCont
 	private static final ResourceLocation textureHud = ResourceLocation.parse(ResourcesLib.GUI_HUD_ICONS);
 	public static final ResourceLocation textureHalo = ResourceLocation.parse(ResourcesLib.MISC_HALO);
 
-	private static final String TAG_VARIANT = "variant";
-	private static final String TAG_FLYING = "flying";
-	private static final String TAG_GLIDING = "gliding";
-	private static final String TAG_TIME_LEFT = "timeLeft";
-	private static final String TAG_INFINITE_FLIGHT = "infiniteFlight";
-	private static final String TAG_DASH_COOLDOWN = "dashCooldown";
-	private static final String TAG_IS_SPRINTING = "isSprinting";
-	private static final String TAG_BOOST_PENDING = "boostPending";
-
 	private static final List<String> playersWithFlight = Collections.synchronizedList(new ArrayList<>());
 	private static final int COST = 35;
 	private static final int COST_OVERKILL = COST * 3;
-	private static final int MAX_FLY_TIME = 1200;
+	private static final int DEFAULT_MAX_FLY_TIME = 1200;
 
 	private static final int SUBTYPES = 8;
 	public static final int WING_TYPES = 9;
@@ -90,7 +79,7 @@ public class FlugelTiaraItem extends BaubleItem implements CustomCreativeTabCont
 	public void addToCreativeTab(Item me, CreativeModeTab.Output output) {
 		for (int i = 0; i < SUBTYPES + 1; i++) {
 			ItemStack stack = new ItemStack(this);
-			ItemNBTHelper.setInt(stack, TAG_VARIANT, i);
+			stack.set(BotaniaDataComponents.TIARA_VARIANT, i);
 			output.accept(stack);
 		}
 
@@ -102,9 +91,13 @@ public class FlugelTiaraItem extends BaubleItem implements CustomCreativeTabCont
 		tooltip.add(Component.translatable("botania.wings" + getVariant(stack)));
 	}
 
+	public static int getMaxFlightTime(ItemStack stack) {
+		return stack.getOrDefault(BotaniaDataComponents.MAX_USE_TICKS, DEFAULT_MAX_FLY_TIME);
+	}
+
 	public static void updatePlayerFlyStatus(Player player) {
 		ItemStack tiara = EquipmentHandler.findOrEmpty(BotaniaItems.flightTiara, player);
-		int left = ItemNBTHelper.getInt(tiara, TAG_TIME_LEFT, MAX_FLY_TIME);
+		int left = tiara.getOrDefault(BotaniaDataComponents.REMAINING_TICKS, getMaxFlightTime(tiara));
 
 		if (playersWithFlight.contains(playerStr(player))) {
 			if (shouldPlayerHaveFlight(player)) {
@@ -197,14 +190,16 @@ public class FlugelTiaraItem extends BaubleItem implements CustomCreativeTabCont
 	private static boolean shouldPlayerHaveFlight(Player player) {
 		ItemStack armor = EquipmentHandler.findOrEmpty(BotaniaItems.flightTiara, player);
 		if (!armor.isEmpty()) {
-			int left = ItemNBTHelper.getInt(armor, TAG_TIME_LEFT, MAX_FLY_TIME);
-			boolean flying = ItemNBTHelper.getBoolean(armor, TAG_FLYING, false);
-			return (left > (flying ? 0 : MAX_FLY_TIME / 10) || InventoryHelper.containsType(player.getInventory(), BotaniaItems.flugelEye)) && ManaItemHandler.instance().requestManaExact(armor, player, getCost(armor, left), false);
+			int maxFlightTime = getMaxFlightTime(armor);
+			int left = armor.getOrDefault(BotaniaDataComponents.REMAINING_TICKS, maxFlightTime);
+			boolean flying = armor.has(BotaniaDataComponents.FLYING);
+			return (left > (flying ? 0 : maxFlightTime / 10) || InventoryHelper.containsType(player.getInventory(), BotaniaItems.flugelEye)) && ManaItemHandler.instance().requestManaExact(armor, player, getCost(armor, left), false);
 		}
 
 		return false;
 	}
 
+	// TODO: make configurable via components?
 	public static int getCost(ItemStack stack, int timeLeft) {
 		return timeLeft <= 0 ? COST_OVERKILL : COST;
 	}
@@ -214,7 +209,7 @@ public class FlugelTiaraItem extends BaubleItem implements CustomCreativeTabCont
 		super.onEquipped(stack, living);
 		int variant = getVariant(stack);
 		if (variant != WING_TYPES && StringObfuscator.matchesHash(stack.getHoverName().getString(), SUPER_AWESOME_HASH)) {
-			ItemNBTHelper.setInt(stack, TAG_VARIANT, WING_TYPES);
+			stack.set(BotaniaDataComponents.TIARA_VARIANT, WING_TYPES);
 			stack.remove(DataComponents.CUSTOM_NAME);
 		}
 	}
@@ -224,19 +219,20 @@ public class FlugelTiaraItem extends BaubleItem implements CustomCreativeTabCont
 		if (living instanceof Player player) {
 			boolean flying = player.getAbilities().flying;
 
-			boolean wasSprting = ItemNBTHelper.getBoolean(stack, TAG_IS_SPRINTING, false);
+			boolean wasSprting = stack.has(BotaniaDataComponents.IS_SPRINTING);
 			boolean isSprinting = player.isSprinting();
 			if (isSprinting != wasSprting) {
-				ItemNBTHelper.setBoolean(stack, TAG_IS_SPRINTING, isSprinting);
+				DataComponentHelper.setFlag(stack, BotaniaDataComponents.IS_SPRINTING, isSprinting);
 			}
 
-			int time = ItemNBTHelper.getInt(stack, TAG_TIME_LEFT, MAX_FLY_TIME);
+			int maxFlightTime = getMaxFlightTime(stack);
+			int time = stack.getOrDefault(BotaniaDataComponents.REMAINING_TICKS, maxFlightTime);
 			int newTime = time;
 			Vec3 look = player.getLookAngle().multiply(1, 0, 1).normalize();
 
 			if (flying) {
 				if (time > 0 && !player.isSpectator() && !player.isCreative()
-						&& !ItemNBTHelper.getBoolean(stack, TAG_INFINITE_FLIGHT, false)) {
+						&& !stack.has(BotaniaDataComponents.CREATIVE_FLIGHT)) {
 					newTime--;
 				}
 				final int maxCd = 40;
@@ -245,17 +241,17 @@ public class FlugelTiaraItem extends BaubleItem implements CustomCreativeTabCont
 					player.setDeltaMovement(player.getDeltaMovement().add(look.x, 0, look.z));
 					player.level().playSound(null, player.getX(), player.getY(), player.getZ(), BotaniaSounds.dash, SoundSource.PLAYERS, 1F, 1F);
 					player.getCooldowns().addCooldown(this, maxCd);
-					ItemNBTHelper.setBoolean(stack, TAG_BOOST_PENDING, true);
+					DataComponentHelper.setFlag(stack, BotaniaDataComponents.BOOST_PENDING, true);
 				} else if (isOnCooldown) {
-					if (ItemNBTHelper.getBoolean(stack, TAG_BOOST_PENDING, false)) {
+					if (stack.has(BotaniaDataComponents.BOOST_PENDING)) {
 						living.moveRelative(5F, new Vec3(0F, 0F, 1F));
-						ItemNBTHelper.removeEntry(stack, TAG_BOOST_PENDING);
+						stack.remove(BotaniaDataComponents.BOOST_PENDING);
 					}
 				}
 			} else {
-				boolean wasGliding = ItemNBTHelper.getBoolean(stack, TAG_GLIDING, false);
+				boolean wasGliding = stack.has(BotaniaDataComponents.IS_GLIDING);
 				boolean doGlide = living.isShiftKeyDown() && !living.onGround() && (living.getDeltaMovement().y() < -.7F || wasGliding);
-				if (time < MAX_FLY_TIME && living.tickCount % (doGlide ? 6 : 2) == 0) {
+				if (time < maxFlightTime && living.tickCount % (doGlide ? 6 : 2) == 0) {
 					newTime++;
 				}
 
@@ -264,12 +260,12 @@ public class FlugelTiaraItem extends BaubleItem implements CustomCreativeTabCont
 					living.setDeltaMovement(look.x * mul, Math.max(-0.15F, living.getDeltaMovement().y()), look.z * mul);
 					living.fallDistance = 2F;
 				}
-				ItemNBTHelper.setBoolean(stack, TAG_GLIDING, doGlide);
+				DataComponentHelper.setFlag(stack, BotaniaDataComponents.IS_GLIDING, doGlide);
 			}
 
-			ItemNBTHelper.setBoolean(stack, TAG_FLYING, flying);
+			DataComponentHelper.setFlag(stack, BotaniaDataComponents.FLYING, flying);
 			if (newTime != time) {
-				ItemNBTHelper.setInt(stack, TAG_TIME_LEFT, newTime);
+				stack.set(BotaniaDataComponents.REMAINING_TICKS, newTime);
 			}
 		}
 	}
@@ -500,9 +496,10 @@ public class FlugelTiaraItem extends BaubleItem implements CustomCreativeTabCont
 			int xo = mc.getWindow().getGuiScaledWidth() / 2 + 10;
 			int y = mc.getWindow().getGuiScaledHeight() - 10 * estimateAdditionalNumRowsRendered(player) - 49;
 
-			int left = ItemNBTHelper.getInt(stack, TAG_TIME_LEFT, MAX_FLY_TIME);
+			int maxFlightTime = getMaxFlightTime(stack);
+			int left = stack.getOrDefault(BotaniaDataComponents.REMAINING_TICKS, maxFlightTime);
 
-			int segTime = MAX_FLY_TIME / 10;
+			int segTime = maxFlightTime / 10;
 			int segs = left / segTime + 1;
 			int last = left % segTime;
 
@@ -532,10 +529,10 @@ public class FlugelTiaraItem extends BaubleItem implements CustomCreativeTabCont
 	}
 
 	public static int getVariant(ItemStack stack) {
-		return ItemNBTHelper.getInt(stack, TAG_VARIANT, 0);
+		return stack.getOrDefault(BotaniaDataComponents.TIARA_VARIANT, 0);
 	}
 
 	public static void setVariant(ItemStack stack, int variant) {
-		ItemNBTHelper.setInt(stack, TAG_VARIANT, variant);
+		stack.set(BotaniaDataComponents.TIARA_VARIANT, variant);
 	}
 }

@@ -32,7 +32,6 @@ import net.minecraft.world.item.crafting.*;
 import net.minecraft.world.level.block.Block;
 
 import org.apache.commons.lang3.ObjectUtils;
-import org.jetbrains.annotations.NotNull;
 
 import vazkii.botania.api.recipe.*;
 import vazkii.botania.client.core.handler.CorporeaInputHandler;
@@ -46,6 +45,7 @@ import vazkii.botania.client.integration.jei.orechid.OrechidRecipeCategory;
 import vazkii.botania.common.block.BotaniaBlocks;
 import vazkii.botania.common.block.BotaniaFlowerBlocks;
 import vazkii.botania.common.block.block_entity.AlfheimPortalBlockEntity;
+import vazkii.botania.common.component.BotaniaDataComponents;
 import vazkii.botania.common.crafting.BotaniaRecipeTypes;
 import vazkii.botania.common.crafting.LexiconElvenTradeRecipe;
 import vazkii.botania.common.crafting.StateIngredients;
@@ -71,17 +71,22 @@ import static vazkii.botania.api.BotaniaAPI.botaniaRL;
 public class JEIBotaniaPlugin implements IModPlugin {
 	private static final ResourceLocation ID = botaniaRL("main");
 
+	@SuppressWarnings("removal")
 	@Override
-	public void registerItemSubtypes(@NotNull ISubtypeRegistration registry) {
-		IIngredientSubtypeInterpreter<ItemStack> interpreter = (stack, ctx) -> BaseBrewItem.getSubtype(stack); //TODO use ISubtypeInterpreter instead
+	public void registerItemSubtypes(ISubtypeRegistration registry) {
+		//TODO use ISubtypeInterpreter instead? (weird interface, requiring you to implement a deprecated-for-removal method)
+		IIngredientSubtypeInterpreter<ItemStack> interpreter = (stack, ctx) -> BaseBrewItem.getSubtype(stack);
 		registry.registerSubtypeInterpreter(VanillaTypes.ITEM_STACK, BotaniaItems.brewVial, interpreter);
 		registry.registerSubtypeInterpreter(VanillaTypes.ITEM_STACK, BotaniaItems.brewFlask, interpreter);
 		registry.registerSubtypeInterpreter(VanillaTypes.ITEM_STACK, BotaniaItems.incenseStick, interpreter);
 		registry.registerSubtypeInterpreter(VanillaTypes.ITEM_STACK, BotaniaItems.bloodPendant, interpreter);
 
-		registry.registerSubtypeInterpreter(VanillaTypes.ITEM_STACK, BotaniaItems.flightTiara, (stack, ctx) -> String.valueOf(FlugelTiaraItem.getVariant(stack)));
-		//registry.registerSubtypeInterpreter(VanillaTypes.ITEM_STACK, BotaniaItems.lexicon, (stack, ctx) -> String.valueOf(ItemNBTHelper.getBoolean(stack, LexicaBotaniaItem.TAG_ELVEN_UNLOCK, false)));
-		registry.registerSubtypeInterpreter(VanillaTypes.ITEM_STACK, BotaniaItems.laputaShard, (stack, ctx) -> String.valueOf(LaputaShardItem.getShardLevel(stack)));
+		registry.registerSubtypeInterpreter(VanillaTypes.ITEM_STACK, BotaniaItems.flightTiara,
+				(stack, ctx) -> String.valueOf(FlugelTiaraItem.getVariant(stack)));
+		registry.registerSubtypeInterpreter(VanillaTypes.ITEM_STACK, BotaniaItems.lexicon,
+				(stack, ctx) -> String.valueOf(stack.has(BotaniaDataComponents.ELVEN_UNLOCK)));
+		registry.registerSubtypeInterpreter(VanillaTypes.ITEM_STACK, BotaniaItems.laputaShard,
+				(stack, ctx) -> String.valueOf(LaputaShardItem.getShardLevel(stack)));
 
 		registry.registerSubtypeInterpreter(VanillaTypes.ITEM_STACK, BotaniaItems.terraPick, (stack, ctx) -> {
 			if (ctx == UidContext.Recipe) {
@@ -126,7 +131,7 @@ public class JEIBotaniaPlugin implements IModPlugin {
 	}
 
 	@Override
-	public void registerRecipes(@NotNull IRecipeRegistration registry) {
+	public void registerRecipes(IRecipeRegistration registry) {
 		registry.addRecipes(BreweryRecipeCategory.TYPE, sortRecipes(BotaniaRecipeTypes.BREW_TYPE, BY_ID));
 		registry.addRecipes(PureDaisyRecipeCategory.TYPE, sortRecipes(BotaniaRecipeTypes.PURE_DAISY_TYPE, BY_ID));
 		registry.addRecipes(PetalApothecaryRecipeCategory.TYPE, sortRecipes(BotaniaRecipeTypes.PETAL_TYPE, BY_ID));
@@ -234,7 +239,6 @@ public class JEIBotaniaPlugin implements IModPlugin {
 		CorporeaInputHandler.supportedGuiFilter = CorporeaInputHandler.supportedGuiFilter.or(gui -> gui instanceof IRecipesGui);
 	}
 
-	@NotNull
 	@Override
 	public ResourceLocation getPluginUid() {
 		return ID;

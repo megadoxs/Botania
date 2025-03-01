@@ -13,6 +13,7 @@ import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.TagKey;
+import net.minecraft.util.Unit;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
@@ -27,11 +28,11 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 
 import vazkii.botania.common.annotations.SoftImplement;
+import vazkii.botania.common.component.BotaniaDataComponents;
 import vazkii.botania.common.item.equipment.tool.manasteel.ManasteelPickaxeItem;
 import vazkii.botania.xplat.XplatAbstractions;
 
 public class VitreousPickaxeItem extends ManasteelPickaxeItem {
-	private static final String TAG_SILK_HACK = "botania:silk_hack";
 	private static final int MANA_PER_DAMAGE = 160;
 	private static final Tier MATERIAL = new Tier() {
 		@Override
@@ -86,7 +87,7 @@ public class VitreousPickaxeItem extends ManasteelPickaxeItem {
 		}
 
 		itemstack.enchant(enchantmentLookup.getOrThrow(Enchantments.SILK_TOUCH), 1);
-		//todo itemstack.getTag().putBoolean(TAG_SILK_HACK, true);
+		itemstack.set(BotaniaDataComponents.SILK_HACK, Unit.INSTANCE);
 
 		return false;
 	}
@@ -94,15 +95,12 @@ public class VitreousPickaxeItem extends ManasteelPickaxeItem {
 	@Override
 	public void inventoryTick(ItemStack stack, Level level, Entity player, int slot, boolean selected) {
 		super.inventoryTick(stack, level, player, slot, selected);
-		/*
-		if (stack.getOrCreateTag().getBoolean(TAG_SILK_HACK)) {
-			stack.getTag().remove(TAG_SILK_HACK);
-			Map<Enchantment, Integer> ench = EnchantmentHelper.deserializeEnchantments(stack.getEnchantmentTags());
-			ench.remove(Enchantments.SILK_TOUCH);
-			EnchantmentHelper.setEnchantments(ench, stack);
+
+		if (stack.has(BotaniaDataComponents.SILK_HACK)) {
+			stack.remove(BotaniaDataComponents.SILK_HACK);
+			EnchantmentHelper.updateEnchantments(stack, mutable -> mutable.removeIf(
+					enchantmentHolder -> enchantmentHolder.is(Enchantments.SILK_TOUCH)));
 		}
-		
-		 */
 	}
 
 	private boolean isGlass(BlockState state) {

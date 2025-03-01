@@ -10,6 +10,8 @@ package vazkii.botania.common.item;
 
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.particles.BlockParticleOption;
+import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
@@ -21,6 +23,7 @@ import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
+import net.minecraft.world.item.component.CustomData;
 import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.*;
@@ -32,37 +35,26 @@ import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.phys.HitResult;
 
-import org.jetbrains.annotations.NotNull;
-
 import vazkii.botania.api.internal.ManaBurst;
 import vazkii.botania.api.mana.BurstProperties;
 import vazkii.botania.api.mana.LensEffectItem;
 import vazkii.botania.api.mana.TinyPlanetExcempt;
 import vazkii.botania.common.advancements.UseItemSuccessTrigger;
+import vazkii.botania.common.component.BotaniaDataComponents;
+import vazkii.botania.common.component.LaputaState;
 import vazkii.botania.common.entity.BotaniaEntities;
 import vazkii.botania.common.entity.ManaBurstEntity;
 import vazkii.botania.common.handler.BotaniaSounds;
-import vazkii.botania.common.helper.ItemNBTHelper;
+import vazkii.botania.common.helper.DataComponentHelper;
 import vazkii.botania.common.helper.MathHelper;
 import vazkii.botania.common.lib.BotaniaTags;
 
 import java.util.List;
+import java.util.Optional;
 
 public class LaputaShardItem extends Item implements LensEffectItem, TinyPlanetExcempt, CustomCreativeTabContents {
 
-	private static final String TAG_STATE = "_state";
-	private static final String TAG_TILE = "_tile";
-	private static final String TAG_X = "_x";
-	private static final String TAG_Y = "_y";
-	private static final String TAG_Y_START = "_yStart";
-	private static final String TAG_Z = "_z";
-	private static final String TAG_POINTY = "_pointy";
-	private static final String TAG_HEIGHTSCALE = "_heightscale";
-	private static final String TAG_ITERATION_I = "iterationI";
-	private static final String TAG_ITERATION_J = "iterationJ";
-	private static final String TAG_ITERATION_K = "iterationK";
-	public static final String TAG_LEVEL = "level";
-
+	public static final int MAX_LEVEL = 19;
 	private static final int BASE_RANGE = 14;
 	private static final int BASE_OFFSET = 42;
 
@@ -73,9 +65,9 @@ public class LaputaShardItem extends Item implements LensEffectItem, TinyPlanetE
 	@Override
 	public void addToCreativeTab(Item me, CreativeModeTab.Output output) {
 		for (int i = 0; i <= 20; i += 5) {
-			ItemStack s = new ItemStack(this);
+			ItemStack s = new ItemStack(me);
 			if (i != 0) {
-				//todo s.getOrCreateTag().putInt(TAG_LEVEL, i - 1);
+				DataComponentHelper.setIntNonZero(s, BotaniaDataComponents.SHARD_LEVEL, i - 1);
 			}
 			output.accept(s);
 		}
@@ -89,7 +81,6 @@ public class LaputaShardItem extends Item implements LensEffectItem, TinyPlanetE
 		list.add(Component.translatable("botaniamisc.shardRange", getRange(stack)).withStyle(ChatFormatting.GRAY));
 	}
 
-	@NotNull
 	@Override
 	public InteractionResult useOn(UseOnContext ctx) {
 		Level world = ctx.getLevel();
@@ -117,16 +108,16 @@ public class LaputaShardItem extends Item implements LensEffectItem, TinyPlanetE
 
 	protected void spawnFirstBurst(Level world, BlockPos pos, ItemStack shard) {
 		int range = getRange(shard);
-		boolean pointy = world.random.nextDouble() < 0.25;
-		double heightscale = (world.random.nextDouble() + 0.5) * ((double) BASE_RANGE / (double) range);
-		spawnNextBurst(world, pos, shard, pointy, heightscale);
+		boolean pointy = shard.getOrDefault(BotaniaDataComponents.SHARD_POINTY, world.random.nextDouble() < 0.25);
+		float heightScale = shard.getOrDefault(BotaniaDataComponents.SHARD_HEIGHT_SCALE, (world.random.nextFloat() + 0.5f) * ((float) BASE_RANGE / range));
+		spawnNextBurst(world, pos, shard, pointy, heightScale);
 	}
 
 	protected void spawnNextBurst(Level world, BlockPos pos, ItemStack lens) {
-		boolean pointy = ItemNBTHelper.getBoolean(lens, TAG_POINTY, false);
-		double heightscale = ItemNBTHelper.getDouble(lens, TAG_HEIGHTSCALE, 1);
+		boolean pointy = lens.getOrDefault(BotaniaDataComponents.SHARD_POINTY, false);
+		float heightScale = lens.getOrDefault(BotaniaDataComponents.SHARD_HEIGHT_SCALE, 1f);
 
-		spawnNextBurst(world, pos, lens, pointy, heightscale);
+		spawnNextBurst(world, pos, lens, pointy, heightScale);
 	}
 
 	private static boolean canMove(BlockState state, Level world, BlockPos pos) {
@@ -144,12 +135,13 @@ public class LaputaShardItem extends Item implements LensEffectItem, TinyPlanetE
 				&& state.getDestroySpeed(world, pos) != -1;
 	}
 
-	private void spawnNextBurst(Level world, BlockPos pos, ItemStack shard, boolean pointy, double heightscale) {
+	private void spawnNextBurst(Level world, BlockPos pos, ItemStack shard, boolean pointy, double heightScale) {
 		int range = getRange(shard);
 
-		int i = ItemNBTHelper.getInt(shard, TAG_ITERATION_I, 0);
-		int j = ItemNBTHelper.getInt(shard, TAG_ITERATION_J, BASE_OFFSET - BASE_RANGE / 2);
-		int k = ItemNBTHelper.getInt(shard, TAG_ITERATION_K, 0);
+		LaputaState laputaState = shard.get(BotaniaDataComponents.LAPUTA_STATE);
+		int i = laputaState != null ? laputaState.i() : 0;
+		int j = laputaState != null ? laputaState.j() : BASE_OFFSET - BASE_RANGE / 2;
+		int k = laputaState != null ? laputaState.k() : 0;
 
 		if (j <= -BASE_RANGE * 2) {
 			j = BASE_OFFSET - BASE_RANGE / 2;
@@ -163,7 +155,7 @@ public class LaputaShardItem extends Item implements LensEffectItem, TinyPlanetE
 				for (; k < range * 2 + 1; k++) {
 					BlockPos pos_ = pos.offset(-range + i, -BASE_RANGE + j, -range + k);
 
-					if (!inRange(pos_, pos, range, heightscale, pointy)) {
+					if (!inRange(pos_, pos, range, heightScale, pointy)) {
 						continue;
 					}
 
@@ -176,13 +168,15 @@ public class LaputaShardItem extends Item implements LensEffectItem, TinyPlanetE
 
 					BlockEntity tile = world.getBlockEntity(pos_);
 
-					CompoundTag cmp = new CompoundTag();
+					CompoundTag cmp;
 					if (tile != null) {
-						//todo cmp = tile.saveWithFullMetadata();
+						cmp = tile.saveWithFullMetadata(world.registryAccess());
 
 						//Reset the block entity so e.g. chests don't spawn their drops
 						BlockEntity newTile = ((EntityBlock) block).newBlockEntity(pos_, state);
 						world.setBlockEntity(newTile);
+					} else {
+						cmp = null;
 					}
 
 					// This can fail from e.g. permissions plugins or event cancellations
@@ -198,21 +192,11 @@ public class LaputaShardItem extends Item implements LensEffectItem, TinyPlanetE
 					world.gameEvent(null, GameEvent.BLOCK_DESTROY, pos_);
 
 					ItemStack copyLens = new ItemStack(this);
-					/*todo
-					copyLens.getOrCreateTag().putInt(TAG_LEVEL, getShardLevel(shard));
-					copyLens.getTag().put(TAG_STATE, NbtUtils.writeBlockState(state));
-					
-					 */
-					ItemNBTHelper.setCompound(copyLens, TAG_TILE, cmp);
-					ItemNBTHelper.setInt(copyLens, TAG_X, pos.getX());
-					ItemNBTHelper.setInt(copyLens, TAG_Y, pos.getY());
-					ItemNBTHelper.setInt(copyLens, TAG_Y_START, pos_.getY());
-					ItemNBTHelper.setInt(copyLens, TAG_Z, pos.getZ());
-					ItemNBTHelper.setBoolean(copyLens, TAG_POINTY, pointy);
-					ItemNBTHelper.setDouble(copyLens, TAG_HEIGHTSCALE, heightscale);
-					ItemNBTHelper.setInt(copyLens, TAG_ITERATION_I, i);
-					ItemNBTHelper.setInt(copyLens, TAG_ITERATION_J, j);
-					ItemNBTHelper.setInt(copyLens, TAG_ITERATION_K, k);
+					copyLens.set(BotaniaDataComponents.SHARD_LEVEL, getShardLevel(shard));
+					copyLens.set(BotaniaDataComponents.SHARD_POINTY, pointy);
+					copyLens.set(BotaniaDataComponents.SHARD_HEIGHT_SCALE, (float) heightScale);
+					copyLens.set(BotaniaDataComponents.LAPUTA_STATE, new LaputaState(
+							state, Optional.ofNullable(cmp).map(CustomData::of), pos, pos_.getY(), i, j, k));
 
 					ManaBurstEntity burst = getBurst(world, pos_, copyLens);
 					world.addFreshEntity(burst);
@@ -225,23 +209,16 @@ public class LaputaShardItem extends Item implements LensEffectItem, TinyPlanetE
 	}
 
 	public static int getShardLevel(ItemStack shard) {
-		/*todo
-		if (!shard.hasTag()) {
-			return 0;
-		}
-		return shard.getOrCreateTag().getInt(TAG_LEVEL);
-		
-		 */
-		return 0;
+		return shard.getOrDefault(BotaniaDataComponents.SHARD_LEVEL, 0);
 	}
 
-	private boolean inRange(BlockPos pos, BlockPos srcPos, int range, double heightscale, boolean pointy) {
+	private boolean inRange(BlockPos pos, BlockPos srcPos, int range, double heightScale, boolean pointy) {
 		if (pos.getY() >= srcPos.getY()) {
 			return MathHelper.pointDistanceSpace(pos.getX(), 0, pos.getZ(), srcPos.getX(), 0, srcPos.getZ()) < range;
 		} else if (!pointy) {
-			return MathHelper.pointDistanceSpace(pos.getX(), pos.getY() / heightscale, pos.getZ(), srcPos.getX(), srcPos.getY() / heightscale, srcPos.getZ()) < range;
+			return MathHelper.pointDistanceSpace(pos.getX(), pos.getY() / heightScale, pos.getZ(), srcPos.getX(), srcPos.getY() / heightScale, srcPos.getZ()) < range;
 		} else {
-			return MathHelper.pointDistanceSpace(pos.getX(), 0, pos.getZ(), srcPos.getX(), 0, srcPos.getZ()) < range - (srcPos.getY() - pos.getY()) / heightscale;
+			return MathHelper.pointDistanceSpace(pos.getX(), 0, pos.getZ(), srcPos.getX(), 0, srcPos.getZ()) < range - (srcPos.getY() - pos.getY()) / heightScale;
 		}
 	}
 
@@ -281,27 +258,22 @@ public class LaputaShardItem extends Item implements LensEffectItem, TinyPlanetE
 			final int placeTicks = net.minecraft.util.Mth.floor(targetDistance / speed);
 
 			ItemStack lens = burst.getSourceLens();
+			LaputaState laputaState = lens.get(BotaniaDataComponents.LAPUTA_STATE);
 
 			if (burst.getTicksExisted() == spawnTicks) {
-				int x = ItemNBTHelper.getInt(lens, TAG_X, 0);
-				int y = ItemNBTHelper.getInt(lens, TAG_Y, Integer.MIN_VALUE);
-				int z = ItemNBTHelper.getInt(lens, TAG_Z, 0);
-
-				if (y != Integer.MIN_VALUE) {
-					spawnNextBurst(entity.level(), new BlockPos(x, y, z), lens);
+				if (laputaState != null && laputaState.nextPos() != null) {
+					spawnNextBurst(entity.level(), laputaState.nextPos(), lens);
 				}
 			} else if (burst.getTicksExisted() == placeTicks) {
 				int x = net.minecraft.util.Mth.floor(entity.getX());
-				int y = ItemNBTHelper.getInt(lens, TAG_Y_START, -1) + targetDistance;
+				int y = (laputaState != null ? laputaState.yStart() : -1) + targetDistance;
 				int z = net.minecraft.util.Mth.floor(entity.getZ());
 				BlockPos pos = new BlockPos(x, y, z);
 
 				BlockState placeState = Blocks.AIR.defaultBlockState();
-				/*todo
-				if (lens.hasTag() && lens.getTag().contains(TAG_STATE)) {
-					placeState = NbtUtils.readBlockState(entity.level().holderLookup(Registries.BLOCK), lens.getTag().getCompound(TAG_STATE));
+				if (laputaState != null) {
+					placeState = laputaState.blockState();
 				}
-				 */
 
 				if (entity.level().dimensionType().ultraWarm() && placeState.hasProperty(BlockStateProperties.WATERLOGGED)) {
 					placeState = placeState.setValue(BlockStateProperties.WATERLOGGED, false);
@@ -309,8 +281,8 @@ public class LaputaShardItem extends Item implements LensEffectItem, TinyPlanetE
 
 				if (entity.level().getBlockState(pos).canBeReplaced()) {
 					BlockEntity tile = null;
-					CompoundTag tilecmp = ItemNBTHelper.getCompound(lens, TAG_TILE, false);
-					if (tilecmp.contains("id")) {
+					CompoundTag tilecmp = laputaState != null && laputaState.blockEntityData().isPresent() ? laputaState.blockEntityData().get().copyTag() : null;
+					if (tilecmp != null && tilecmp.contains("id")) {
 						tile = BlockEntity.loadStatic(pos, placeState, tilecmp, entity.level().registryAccess());
 					}
 
@@ -329,10 +301,13 @@ public class LaputaShardItem extends Item implements LensEffectItem, TinyPlanetE
 						entity.level().setBlockEntity(tile);
 					}
 				} else {
-					int ox = ItemNBTHelper.getInt(lens, TAG_X, 0);
-					int oy = ItemNBTHelper.getInt(lens, TAG_Y_START, -1);
-					int oz = ItemNBTHelper.getInt(lens, TAG_Z, 0);
-					Block.dropResources(placeState, entity.level(), new BlockPos(ox, oy, oz));
+					BlockPos oPos;
+					if (laputaState != null) {
+						oPos = (laputaState.nextPos() != null ? laputaState.nextPos() : BlockPos.ZERO).atY(laputaState.yStart());
+					} else {
+						oPos = new BlockPos(0, -1, 0);
+					}
+					Block.dropResources(placeState, entity.level(), oPos);
 				}
 
 				entity.discard();
@@ -344,13 +319,14 @@ public class LaputaShardItem extends Item implements LensEffectItem, TinyPlanetE
 	public boolean doParticles(ManaBurst burst, ItemStack stack) {
 		Entity entity = burst.entity();
 		ItemStack lens = burst.getSourceLens();
-		/*todo
-		BlockState state = NbtUtils.readBlockState(entity.level().holderLookup(Registries.BLOCK), lens.getOrCreateTag().getCompound(TAG_STATE));
-		entity.level().addParticle(new BlockParticleOption(ParticleTypes.BLOCK, state), entity.getX(), entity.getY(), entity.getZ(),
-				entity.getDeltaMovement().x(), entity.getDeltaMovement().y(), entity.getDeltaMovement().z());
-		
-		 */
+		LaputaState laputaState = lens.get(BotaniaDataComponents.LAPUTA_STATE);
 
+		if (laputaState != null) {
+			BlockState state = laputaState.blockState();
+			entity.level().addParticle(new BlockParticleOption(ParticleTypes.BLOCK, state),
+					entity.getX(), entity.getY(), entity.getZ(),
+					entity.getDeltaMovement().x(), entity.getDeltaMovement().y(), entity.getDeltaMovement().z());
+		}
 		return true;
 	}
 

@@ -10,7 +10,7 @@ package vazkii.botania.common.item;
 
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.gui.screens.Screen;
-import net.minecraft.nbt.CompoundTag;
+import net.minecraft.core.NonNullList;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.server.level.ServerPlayer;
@@ -27,7 +27,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
 
-import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import vazkii.botania.api.mana.BasicLensItem;
 import vazkii.botania.api.mana.BurstProperties;
@@ -36,32 +36,26 @@ import vazkii.botania.api.mana.ManaItemHandler;
 import vazkii.botania.client.gui.ItemsRemainingRenderHandler;
 import vazkii.botania.client.gui.TooltipHandler;
 import vazkii.botania.common.advancements.ManaBlasterTrigger;
+import vazkii.botania.common.component.BotaniaDataComponents;
 import vazkii.botania.common.entity.ManaBurstEntity;
 import vazkii.botania.common.handler.BotaniaSounds;
 import vazkii.botania.common.handler.EquipmentHandler;
-import vazkii.botania.common.helper.ItemNBTHelper;
+import vazkii.botania.common.helper.DataComponentHelper;
 import vazkii.botania.common.proxy.Proxy;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class ManaBlasterItem extends Item {
 
-	private static final String TAG_LENS = "lens";
-	private static final String TAG_CLIP = "clip";
-	private static final String TAG_CLIP_POS = "clipPos";
-	private static final String TAG_COOLDOWN = "cooldown";
-
-	private static final int CLIP_SLOTS = 6;
+	public static final int CLIP_SLOTS = 6;
 	private static final int COOLDOWN = 30;
 
 	public ManaBlasterItem(Properties props) {
 		super(props);
 	}
 
-	@NotNull
 	@Override
-	public InteractionResultHolder<ItemStack> use(Level world, Player player, @NotNull InteractionHand hand) {
+	public InteractionResultHolder<ItemStack> use(Level world, Player player, InteractionHand hand) {
 		ItemStack stack = player.getItemInHand(hand);
 		int effCd = COOLDOWN;
 		MobEffectInstance effect = player.getEffect(MobEffects.DIG_SPEED);
@@ -98,7 +92,6 @@ public class ManaBlasterItem extends Item {
 		return InteractionResultHolder.pass(stack);
 	}
 
-	@NotNull
 	public BurstProperties getBurstProps(Player player, ItemStack stack, boolean request, InteractionHand hand) {
 		int maxMana = 120;
 		int color = 0x20FF20;
@@ -115,6 +108,7 @@ public class ManaBlasterItem extends Item {
 		return props;
 	}
 
+	@Nullable
 	private ManaBurstEntity getBurst(Player player, ItemStack stack, boolean request, InteractionHand hand) {
 		ManaBurstEntity burst = new ManaBurstEntity(player);
 		BurstProperties props = getBurstProps(player, stack, request, hand);
@@ -163,8 +157,9 @@ public class ManaBlasterItem extends Item {
 		if (clip) {
 			int pos = getClipPos(stack);
 			tooltip.add(Component.translatable("botaniamisc.hasClip"));
+			List<ItemStack> lenses = getAllLens(stack);
 			for (int i = 0; i < CLIP_SLOTS; i++) {
-				ItemStack lensAt = getLensAtPos(stack, i);
+				ItemStack lensAt = lenses.get(i);
 
 				Component name;
 				if (lensAt.isEmpty()) {
@@ -180,9 +175,8 @@ public class ManaBlasterItem extends Item {
 		}
 	}
 
-	@NotNull
 	@Override
-	public Component getName(@NotNull ItemStack stack) {
+	public Component getName(ItemStack stack) {
 		ItemStack lens = getLens(stack);
 		MutableComponent cmp = super.getName(stack).copy();
 		if (!lens.isEmpty()) {
@@ -194,19 +188,19 @@ public class ManaBlasterItem extends Item {
 	}
 
 	public static boolean hasClip(ItemStack stack) {
-		return ItemNBTHelper.getBoolean(stack, TAG_CLIP, false);
+		return stack.has(BotaniaDataComponents.CLIP);
 	}
 
 	public static void setClip(ItemStack stack, boolean clip) {
-		ItemNBTHelper.setBoolean(stack, TAG_CLIP, clip);
+		DataComponentHelper.setFlag(stack, BotaniaDataComponents.CLIP, clip);
 	}
 
 	public static int getClipPos(ItemStack stack) {
-		return ItemNBTHelper.getInt(stack, TAG_CLIP_POS, 0);
+		return stack.getOrDefault(BotaniaDataComponents.CLIP_POS, 0);
 	}
 
 	public static void setClipPos(ItemStack stack, int pos) {
-		ItemNBTHelper.setInt(stack, TAG_CLIP_POS, pos);
+		DataComponentHelper.setIntNonZero(stack, BotaniaDataComponents.CLIP_POS, pos);
 	}
 
 	public static void rotatePos(ItemStack stack) {
@@ -232,22 +226,28 @@ public class ManaBlasterItem extends Item {
 	}
 
 	public static ItemStack getLensAtPos(ItemStack stack, int pos) {
-		CompoundTag cmp = ItemNBTHelper.getCompound(stack, TAG_LENS + pos, true);
-		if (cmp != null) {
-			return ItemStack.EMPTY; //todo ItemStack.of(cmp);
+		List<ItemStack> lenses = stack.get(BotaniaDataComponents.ATTACHED_LENSES);
+		if (lenses != null && lenses.size() > pos) {
+			return lenses.get(pos);
 		}
 		return ItemStack.EMPTY;
 	}
 
 	public static void setLensAtPos(ItemStack stack, ItemStack lens, int pos) {
-		/*todo
-		CompoundTag cmp = new CompoundTag();
-		if (lens != null) {
-			cmp = lens.save(cmp);
+		List<ItemStack> lenses = stack.get(BotaniaDataComponents.ATTACHED_LENSES);
+		List<ItemStack> newLenses = NonNullList.withSize(CLIP_SLOTS, ItemStack.EMPTY);
+		for (int i = 0; i < CLIP_SLOTS; i++) {
+			if (i == pos) {
+				newLenses.set(i, lens);
+			} else if (lenses != null && i < lenses.size()) {
+				ItemStack newLens = lenses.get(i);
+				if (!newLens.isEmpty()) {
+					newLenses.set(i, newLens);
+				}
+			}
+
 		}
-		ItemNBTHelper.setCompound(stack, TAG_LENS + pos, cmp);
-		
-		 */
+		stack.set(BotaniaDataComponents.ATTACHED_LENSES, newLenses);
 	}
 
 	public static void setLens(ItemStack stack, ItemStack lens) {
@@ -255,14 +255,7 @@ public class ManaBlasterItem extends Item {
 			setLensAtPos(stack, lens, getClipPos(stack));
 		}
 
-		/*todo
-		CompoundTag cmp = new CompoundTag();
-		if (!lens.isEmpty()) {
-			cmp = lens.save(cmp);
-		}
-		ItemNBTHelper.setCompound(stack, TAG_LENS, cmp);
-		
-		 */
+		DataComponentHelper.setNonEmpty(stack, BotaniaDataComponents.ATTACHED_LENS, lens);
 	}
 
 	public static ItemStack getLens(ItemStack stack) {
@@ -270,11 +263,7 @@ public class ManaBlasterItem extends Item {
 			return getLensAtPos(stack, getClipPos(stack));
 		}
 
-		CompoundTag cmp = ItemNBTHelper.getCompound(stack, TAG_LENS, true);
-		if (cmp != null) {
-			return ItemStack.EMPTY; // ItemStack.of(cmp);
-		}
-		return ItemStack.EMPTY;
+		return stack.getOrDefault(BotaniaDataComponents.ATTACHED_LENS, ItemStack.EMPTY);
 	}
 
 	public static boolean isValidLens(ItemStack lens) {
@@ -289,13 +278,8 @@ public class ManaBlasterItem extends Item {
 	}
 
 	public static List<ItemStack> getAllLens(ItemStack stack) {
-		List<ItemStack> ret = new ArrayList<>();
-
-		for (int i = 0; i < 6; i++) {
-			ret.add(getLensAtPos(stack, i));
-		}
-
-		return ret;
+		List<ItemStack> lenses = stack.get(BotaniaDataComponents.ATTACHED_LENSES);
+		return lenses != null ? lenses : NonNullList.withSize(CLIP_SLOTS, ItemStack.EMPTY);
 	}
 
 	@Override
@@ -306,7 +290,7 @@ public class ManaBlasterItem extends Item {
 	}
 
 	@Override
-	public boolean isBarVisible(@NotNull ItemStack stack) {
+	public boolean isBarVisible(ItemStack stack) {
 		return getCooldown(stack) > 0;
 	}
 
@@ -321,14 +305,10 @@ public class ManaBlasterItem extends Item {
 	}
 
 	private int getCooldown(ItemStack stack) {
-		return 0; //stack.getOrCreateTag().getInt(TAG_COOLDOWN);
+		return stack.getOrDefault(BotaniaDataComponents.COOLDOWN, 0);
 	}
 
 	private void setCooldown(ItemStack stack, int cooldown) {
-		/*todo
-		CompoundTag tag = stack.getOrCreateTag();
-		tag.putInt(TAG_COOLDOWN, cooldown);
-		
-		 */
+		DataComponentHelper.setIntNonZero(stack, BotaniaDataComponents.COOLDOWN, cooldown);
 	}
 }

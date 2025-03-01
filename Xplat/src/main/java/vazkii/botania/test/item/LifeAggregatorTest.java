@@ -29,7 +29,7 @@ public class LifeAggregatorTest {
 		var stack = new ItemStack(BotaniaItems.spawnerMover);
 
 		helper.setBlock(spawnerPos, Blocks.SPAWNER);
-		SpawnerBlockEntity be = (SpawnerBlockEntity) helper.getBlockEntity(spawnerPos);
+		SpawnerBlockEntity be = helper.getBlockEntity(spawnerPos);
 		be.setEntityId(EntityType.PIG, RandomSource.create());
 
 		player.setItemInHand(InteractionHand.MAIN_HAND, stack);
@@ -38,7 +38,7 @@ public class LifeAggregatorTest {
 				new BlockHitResult(Vec3.ZERO, Direction.DOWN, helper.absolutePos(spawnerPos), false)));
 		TestingUtil.assertThat(result.consumesAction(), () -> "Should have succeeded");
 		TestingUtil.assertThat(LifeAggregatorItem.hasData(stack),
-				() -> "Spawner mover should recognize saved data. Full NBT: " /*todo + stack.getTag()*/);
+				() -> "Spawner mover should recognize saved data. Full NBT: " + stack.getComponents());
 		helper.assertBlockState(spawnerPos, BlockState::isAir, () -> "Spawner should be gone");
 
 		result = stack.useOn(new UseOnContext(player, InteractionHand.MAIN_HAND,

@@ -30,6 +30,7 @@ import vazkii.botania.common.block.BotaniaBlocks;
 import vazkii.botania.common.block.BotaniaFlowerBlocks;
 import vazkii.botania.common.block.block_entity.corporea.CorporeaIndexBlockEntity;
 import vazkii.botania.common.block.flower.functional.LooniumBlockEntity;
+import vazkii.botania.common.component.BotaniaDataComponents;
 import vazkii.botania.common.entity.BotaniaEntities;
 import vazkii.botania.common.item.BotaniaItems;
 import vazkii.botania.common.item.equipment.bauble.FlugelTiaraItem;
@@ -57,6 +58,7 @@ public class AdvancementProvider {
 			elvenLexiconUnlock.putBoolean(LexicaBotaniaItem.TAG_ELVEN_UNLOCK, true);
 			
 			 */
+			// TODO: probably need new ItemSubPredicate to test for ELVEN_UNLOCK component
 			Criterion<InventoryChangeTrigger.TriggerInstance> elvenLexicon = InventoryChangeTrigger.TriggerInstance.hasItems(
 					ItemPredicate.Builder.item().of(BotaniaItems.lexicon)/*todo .hasNbt(elvenLexiconUnlock)*/.build()
 			);
@@ -232,9 +234,10 @@ public class AdvancementProvider {
 					.addCriterion("use_spawner_mover", UseItemSuccessTrigger.Instance.used(BotaniaItems.spawnerMover))
 					.save(consumer, mainId("spawner_mover_use"));
 			DisplayInfo tiaraWings = simple(BotaniaItems.flightTiara, "tiaraWings", AdvancementType.TASK);
-			//todo tiaraWings.getIcon().getOrCreateTag().putInt("variant", 1);
+			tiaraWings.getIcon().set(BotaniaDataComponents.TIARA_VARIANT, 1);
 			Criterion<?>[] variants = IntStream.range(1, FlugelTiaraItem.WING_TYPES)
 					.mapToObj(i -> {
+						// TODO: probably need a new ItemSubPredicate to test for TIARA_VARIANT component
 						CompoundTag tag = new CompoundTag();
 						tag.putInt("variant", i);
 						return tag;
@@ -423,6 +426,7 @@ public class AdvancementProvider {
 					.parent(root)
 					.rewards(AdvancementRewards.Builder.experience(65))
 					.addCriterion("use_l20_shard", InventoryChangeTrigger.TriggerInstance.hasItems(
+							// TODO: probably need a new ItemSubPredicate to test for SHARD_LEVEL component
 							ItemPredicate.Builder.item().of(BotaniaItems.laputaShard)/*todo .hasNbt(level20Shard)*/.build()))
 					.save(consumer, challengeId("l20_shard_use"));
 			Advancement.Builder.advancement()

@@ -24,8 +24,6 @@ import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 
-import org.jetbrains.annotations.NotNull;
-
 import vazkii.botania.api.block.Avatar;
 import vazkii.botania.api.item.AvatarWieldable;
 import vazkii.botania.api.mana.ManaItemHandler;
@@ -34,8 +32,9 @@ import vazkii.botania.client.fx.WispParticleData;
 import vazkii.botania.client.lib.ResourcesLib;
 import vazkii.botania.common.annotations.SoftImplement;
 import vazkii.botania.common.brew.BotaniaMobEffects;
+import vazkii.botania.common.component.BotaniaDataComponents;
 import vazkii.botania.common.handler.BotaniaSounds;
-import vazkii.botania.common.helper.ItemNBTHelper;
+import vazkii.botania.common.helper.DataComponentHelper;
 import vazkii.botania.network.EffectType;
 import vazkii.botania.network.clientbound.AvatarSkiesRodPacket;
 import vazkii.botania.network.clientbound.BotaniaEffectPacket;
@@ -53,9 +52,6 @@ public class SkiesRodItem extends Item {
 	private static final int FALL_MULTIPLIER = 3;
 	private static final int MAX_COUNTER = FLY_TIME * FALL_MULTIPLIER;
 	private static final int COST = 350;
-
-	private static final String TAG_FLYING = "flying";
-	private static final String TAG_FLYCOUNTER = "flyCounter";
 
 	public SkiesRodItem(Properties props) {
 		super(props);
@@ -111,25 +107,24 @@ public class SkiesRodItem extends Item {
 	}
 
 	@Override
-	public boolean isBarVisible(@NotNull ItemStack stack) {
+	public boolean isBarVisible(ItemStack stack) {
 		return getFlyCounter(stack) > 0;
 	}
 
 	@Override
-	public int getBarWidth(@NotNull ItemStack stack) {
+	public int getBarWidth(ItemStack stack) {
 		float frac = 1 - (getFlyCounter(stack) / (float) MAX_COUNTER);
 		return Math.round(13 * frac);
 	}
 
 	@Override
-	public int getBarColor(@NotNull ItemStack stack) {
+	public int getBarColor(ItemStack stack) {
 		float frac = 1 - (getFlyCounter(stack) / (float) MAX_COUNTER);
 		return Mth.hsvToRgb(frac / 3.0F, 1.0F, 1.0F);
 	}
 
-	@NotNull
 	@Override
-	public InteractionResultHolder<ItemStack> use(Level world, Player player, @NotNull InteractionHand hand) {
+	public InteractionResultHolder<ItemStack> use(Level world, Player player, InteractionHand hand) {
 		ItemStack stack = player.getItemInHand(hand);
 		int fly = getFlyCounter(stack);
 		if (fly == 0 && ManaItemHandler.instance().requestManaExactForTool(stack, player, COST, false)) {
@@ -143,19 +138,19 @@ public class SkiesRodItem extends Item {
 	}
 
 	public static boolean isFlying(ItemStack stack) {
-		return ItemNBTHelper.getBoolean(stack, TAG_FLYING, false);
+		return stack.has(BotaniaDataComponents.FLYING);
 	}
 
 	private void setFlying(ItemStack stack, boolean flying) {
-		ItemNBTHelper.setBoolean(stack, TAG_FLYING, flying);
+		DataComponentHelper.setFlag(stack, BotaniaDataComponents.FLYING, flying);
 	}
 
 	private int getFlyCounter(ItemStack stack) {
-		return /*todo stack.getOrCreateTag().getInt(TAG_FLYCOUNTER)*/ 0;
+		return stack.getOrDefault(BotaniaDataComponents.REMAINING_TICKS, 0);
 	}
 
 	private void setFlyCounter(ItemStack stack, int counter) {
-		//todo stack.getOrCreateTag().putInt(TAG_FLYCOUNTER, counter);
+		DataComponentHelper.setIntNonZero(stack, BotaniaDataComponents.REMAINING_TICKS, counter);
 	}
 
 	public static class AvatarBehavior implements AvatarWieldable {

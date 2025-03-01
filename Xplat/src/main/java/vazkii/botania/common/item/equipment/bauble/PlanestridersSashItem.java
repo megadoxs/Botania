@@ -11,18 +11,14 @@ package vazkii.botania.common.item.equipment.bauble;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.phys.Vec3;
 
 import vazkii.botania.client.lib.ResourcesLib;
-import vazkii.botania.common.helper.ItemNBTHelper;
+import vazkii.botania.common.component.BotaniaDataComponents;
 
 public class PlanestridersSashItem extends SojournersSashItem {
 
 	private static final ResourceLocation texture = ResourceLocation.parse(ResourcesLib.MODEL_SPEED_UP_BELT);
-
-	private static final String TAG_SPEED = "speed";
-	private static final String TAG_OLD_X = "oldX";
-	private static final String TAG_OLD_Y = "oldY";
-	private static final String TAG_OLD_Z = "oldZ";
 
 	public PlanestridersSashItem(Properties props) {
 		super(props, 0F, 0.2F, 2F);
@@ -35,34 +31,29 @@ public class PlanestridersSashItem extends SojournersSashItem {
 
 	@Override
 	public float getSpeed(ItemStack stack) {
-		return ItemNBTHelper.getFloat(stack, TAG_SPEED, 0F);
+		return stack.getOrDefault(BotaniaDataComponents.SPEED, 0f);
 	}
 
 	@Override
 	public void onMovedTick(ItemStack stack, Player player) {
 		float speed = getSpeed(stack);
-		float newspeed = Math.min(0.25F, speed + 0.00035F);
-		ItemNBTHelper.setFloat(stack, TAG_SPEED, newspeed);
+		float newSpeed = Math.min(0.25F, speed + 0.00035F);
+		stack.set(BotaniaDataComponents.SPEED, newSpeed);
 		commitPositionAndCompare(stack, player);
 	}
 
 	@Override
 	public void onNotMovingTick(ItemStack stack, Player player) {
 		if (!commitPositionAndCompare(stack, player)) {
-			ItemNBTHelper.setFloat(stack, TAG_SPEED, 0F);
+			stack.remove(BotaniaDataComponents.SPEED);
 		}
 	}
 
 	public boolean commitPositionAndCompare(ItemStack stack, Player player) {
-		double oldX = ItemNBTHelper.getDouble(stack, TAG_OLD_X, 0);
-		double oldY = ItemNBTHelper.getDouble(stack, TAG_OLD_Y, 0);
-		double oldZ = ItemNBTHelper.getDouble(stack, TAG_OLD_Z, 0);
+		Vec3 old = stack.getOrDefault(BotaniaDataComponents.OLD_POS, Vec3.ZERO);
+		stack.set(BotaniaDataComponents.OLD_POS, player.position());
 
-		ItemNBTHelper.setDouble(stack, TAG_OLD_X, player.getX());
-		ItemNBTHelper.setDouble(stack, TAG_OLD_Y, player.getY());
-		ItemNBTHelper.setDouble(stack, TAG_OLD_Z, player.getZ());
-
-		return Math.abs(oldX - player.getX()) > 0.001 || Math.abs(oldY - player.getY()) > 0.001 || Math.abs(oldZ - player.getZ()) > 0.001;
+		return Math.abs(old.x() - player.getX()) > 0.001 || Math.abs(old.y() - player.getY()) > 0.001 || Math.abs(old.z() - player.getZ()) > 0.001;
 	}
 
 }

@@ -38,8 +38,6 @@ import static vazkii.botania.api.BotaniaAPI.botaniaRL;
 public abstract class BaubleItem extends Item implements CosmeticAttachable, PhantomInkable {
 
 	private static final String TAG_BAUBLE_UUID = "baubleUUID";
-	private static final String TAG_COSMETIC_ITEM = "cosmeticItem";
-	private static final String TAG_PHANTOM_INK = "phantomInk";
 
 	public BaubleItem(Properties props) {
 		super(props);
@@ -60,26 +58,12 @@ public abstract class BaubleItem extends Item implements CosmeticAttachable, Pha
 
 	@Override
 	public ItemStack getCosmeticItem(ItemStack stack) {
-		/* TODO
-		CompoundTag cmp = ItemNBTHelper.getCompound(stack, TAG_COSMETIC_ITEM, true);
-		if (cmp == null) {
-			return ItemStack.EMPTY;
-		}
-		
-		 */
-		return /*ItemStack.of(cmp)*/ stack;
+		return stack.getOrDefault(BotaniaDataComponents.COSMETIC_OVERRIDE, ItemStack.EMPTY);
 	}
 
 	@Override
 	public void setCosmeticItem(ItemStack stack, ItemStack cosmetic) {
-		/*TODO
-		CompoundTag cmp = new CompoundTag();
-		if (!cosmetic.isEmpty()) {
-			cmp = cosmetic.save(cmp);
-		}
-		ItemNBTHelper.setCompound(stack, TAG_COSMETIC_ITEM, cmp);
-		
-		 */
+		DataComponentHelper.setNonEmpty(stack, BotaniaDataComponents.COSMETIC_OVERRIDE, cosmetic);
 	}
 
 	public static UUID getBaubleUUID(ItemStack stack) {

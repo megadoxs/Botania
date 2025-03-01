@@ -88,6 +88,19 @@ public final class DataComponentHelper {
 	}
 
 	/**
+	 * Sets an ItemStack component of the stack to the specified value.
+	 * If that value is null or an empty item stack, the component is removed instead.
+	 */
+	@Contract(mutates = "param1")
+	public static void setNonEmpty(ItemStack stack, DataComponentType<ItemStack> component, @Nullable ItemStack value) {
+		if (value == null || value.isEmpty()) {
+			stack.remove(component);
+		} else {
+			stack.set(component, value);
+		}
+	}
+
+	/**
 	 * Returns the fullness of the mana item:
 	 * 0 if empty, 1 if partially full, 2 if full.
 	 */

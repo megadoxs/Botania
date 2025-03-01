@@ -16,13 +16,12 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.nbt.DoubleTag;
-import net.minecraft.nbt.ListTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.Mth;
+import net.minecraft.util.Unit;
 import net.minecraft.world.Container;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
@@ -44,8 +43,6 @@ import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
 
-import org.jetbrains.annotations.NotNull;
-
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.item.BlockProvider;
 import vazkii.botania.api.item.WireframeCoordinateListProvider;
@@ -53,7 +50,8 @@ import vazkii.botania.api.mana.ManaItemHandler;
 import vazkii.botania.client.gui.ItemsRemainingRenderHandler;
 import vazkii.botania.common.CollectingNeighborUpdaterAccess;
 import vazkii.botania.common.block.PlatformBlock;
-import vazkii.botania.common.helper.ItemNBTHelper;
+import vazkii.botania.common.component.BotaniaDataComponents;
+import vazkii.botania.common.helper.DataComponentHelper;
 import vazkii.botania.common.helper.PlayerHelper;
 import vazkii.botania.common.item.StoneOfTemperanceItem;
 import vazkii.botania.mixin.LevelAccessor;
@@ -67,23 +65,10 @@ public class ShiftingCrustRodItem extends Item implements WireframeCoordinateLis
 	private static final int RANGE = 3;
 	private static final int COST = 40;
 
-	private static final String TAG_REPLACEMENT_ITEM = "placedItem";
-	private static final String TAG_TARGET_BLOCK_NAME = "targetBlock";
-	private static final String TAG_SWAPPING = "swapping";
-	private static final String TAG_SELECT_X = "selectX";
-	private static final String TAG_SELECT_Y = "selectY";
-	private static final String TAG_SELECT_Z = "selectZ";
-	private static final String TAG_EXTRA_RANGE = "extraRange";
-	private static final String TAG_SWAP_HIT_VEC = "swapHitVec";
-	private static final String TAG_SWAP_DIRECTION = "swapDirection";
-	private static final String TAG_SWAP_CLICKED_AXIS = "swapClickAxis";
-	private static final String TAG_TEMPERANCE_STONE = "temperanceStone";
-
 	public ShiftingCrustRodItem(Properties props) {
 		super(props);
 	}
 
-	@NotNull
 	@Override
 	public InteractionResult useOn(UseOnContext ctx) {
 		Level world = ctx.getLevel();
@@ -105,14 +90,12 @@ public class ShiftingCrustRodItem extends Item implements WireframeCoordinateLis
 				displayRemainderCounter(player, stack);
 				return InteractionResult.sidedSuccess(world.isClientSide());
 			}
-		} else if (canExchange(stack) && !ItemNBTHelper.getBoolean(stack, TAG_SWAPPING, false)) {
+		} else if (canExchange(stack) && !stack.has(BotaniaDataComponents.SWAPPING)) {
 			Item replacement = getItemToPlace(stack);
 			List<BlockPos> swap = getTargetPositions(world, stack, replacement, pos, block, ctx.getClickedFace());
-			if (swap.size() > 0) {
-				ItemNBTHelper.setBoolean(stack, TAG_SWAPPING, true);
-				ItemNBTHelper.setInt(stack, TAG_SELECT_X, pos.getX());
-				ItemNBTHelper.setInt(stack, TAG_SELECT_Y, pos.getY());
-				ItemNBTHelper.setInt(stack, TAG_SELECT_Z, pos.getZ());
+			if (!swap.isEmpty()) {
+				stack.set(BotaniaDataComponents.SWAPPING, Unit.INSTANCE);
+				stack.set(BotaniaDataComponents.SELECTED_POS, pos);
 				setSwapClickDirection(stack, ctx.getClickedFace());
 				setTarget(stack, block);
 			}
@@ -157,32 +140,25 @@ public class ShiftingCrustRodItem extends Item implements WireframeCoordinateLis
 			return;
 		}
 
-		int extraRange = ItemNBTHelper.getInt(stack, TAG_EXTRA_RANGE, 1);
+		int extraRange = stack.getOrDefault(BotaniaDataComponents.EXTRA_RANGE, 1);
 		int extraRangeNew = ManaItemHandler.instance().hasProficiency(player, stack) ? 3 : 1;
 		if (extraRange != extraRangeNew) {
-			ItemNBTHelper.setInt(stack, TAG_EXTRA_RANGE, extraRangeNew);
+			stack.set(BotaniaDataComponents.EXTRA_RANGE, extraRangeNew);
 		}
 		boolean temperanceActive = StoneOfTemperanceItem.hasTemperanceActive(player);
-		/*todo
-		if (temperanceActive != stack.getOrCreateTag().getBoolean(TAG_TEMPERANCE_STONE)) {
-			stack.getOrCreateTag().putBoolean(TAG_TEMPERANCE_STONE, temperanceActive);
-		}
-		
-		 */
+		DataComponentHelper.setFlag(stack, BotaniaDataComponents.TEMPERANCE_ACTIVE, temperanceActive);
 
 		Item replacement = getItemToPlace(stack);
-		if (ItemNBTHelper.getBoolean(stack, TAG_SWAPPING, false)) {
+		if (stack.has(BotaniaDataComponents.SWAPPING)) {
 			if (!ManaItemHandler.instance().requestManaExactForTool(stack, player, COST, false)) {
 				endSwapping(stack);
 				return;
 			}
 
-			int x = ItemNBTHelper.getInt(stack, TAG_SELECT_X, 0);
-			int y = ItemNBTHelper.getInt(stack, TAG_SELECT_Y, 0);
-			int z = ItemNBTHelper.getInt(stack, TAG_SELECT_Z, 0);
+			BlockPos selectedPos = stack.getOrDefault(BotaniaDataComponents.SELECTED_POS, BlockPos.ZERO);
 			Block target = getTargetState(stack);
-			List<BlockPos> swap = getTargetPositions(world, stack, replacement, new BlockPos(x, y, z), target, getSwapClickDirection(stack));
-			if (swap.size() == 0) {
+			List<BlockPos> swap = getTargetPositions(world, stack, replacement, selectedPos, target, getSwapClickDirection(stack));
+			if (swap.isEmpty()) {
 				endSwapping(stack);
 				return;
 			}
@@ -402,70 +378,57 @@ public class ShiftingCrustRodItem extends Item implements WireframeCoordinateLis
 	}
 
 	private void setItemToPlace(ItemStack stack, Item item) {
-		ItemNBTHelper.setString(stack, TAG_REPLACEMENT_ITEM, BuiltInRegistries.ITEM.getKey(item).toString());
+		DataComponentHelper.setUnlessDefault(stack, BotaniaDataComponents.PLACED_ITEM,
+				BuiltInRegistries.ITEM.getKey(item), BuiltInRegistries.ITEM.getDefaultKey());
 	}
 
 	private Item getItemToPlace(ItemStack stack) {
-		return BuiltInRegistries.ITEM.get(ResourceLocation.tryParse(ItemNBTHelper.getString(stack, TAG_REPLACEMENT_ITEM, "air")));
+		return BuiltInRegistries.ITEM.get(stack.get(BotaniaDataComponents.PLACED_ITEM));
 	}
 
 	private void setHitPos(ItemStack stack, Vec3 vec) {
-		ListTag list = new ListTag();
-		list.add(DoubleTag.valueOf(Mth.frac(vec.x())));
-		list.add(DoubleTag.valueOf(Mth.frac(vec.y())));
-		list.add(DoubleTag.valueOf(Mth.frac(vec.z())));
-		//todo stack.getOrCreateTag().put(TAG_SWAP_HIT_VEC, list);
+		Vec3 swapHitVec = new Vec3(Mth.frac(vec.x()), Mth.frac(vec.y()), Mth.frac(vec.z()));
+		stack.set(BotaniaDataComponents.SWAP_HIT_VEC, swapHitVec);
 	}
 
 	private Vec3 getHitPos(ItemStack stack, BlockPos pos) {
-		/*todo
-		ListTag list = stack.getOrCreateTag().getList(TAG_SWAP_HIT_VEC, Tag.TAG_DOUBLE);
-		return new Vec3(pos.getX() + list.getDouble(0),
-				pos.getY() + list.getDouble(1),
-				pos.getZ() + list.getDouble(2));
-		
-		 */
-		return new Vec3(pos.getX(), pos.getY(), pos.getZ());
+		Vec3 swapHitVec = stack.getOrDefault(BotaniaDataComponents.SWAP_HIT_VEC, Vec3.ZERO);
+		return new Vec3(pos.getX() + swapHitVec.x(), pos.getY() + swapHitVec.y(), pos.getZ() + swapHitVec.z());
 	}
 
 	private void setSwapTemplateDirection(ItemStack stack, Direction direction) {
-		//todo stack.getOrCreateTag().putInt(TAG_SWAP_DIRECTION, direction.get3DDataValue());
+		stack.set(BotaniaDataComponents.SWAP_DIRECTION, direction);
 	}
 
 	private Direction getSwapTemplateDirection(ItemStack stack) {
-		return Direction.from3DDataValue(/*todo stack.getOrCreateTag().getInt(TAG_SWAP_DIRECTION)*/ 0);
+		return stack.getOrDefault(BotaniaDataComponents.SWAP_DIRECTION, Direction.DOWN);
 	}
 
 	private void setSwapClickDirection(ItemStack stack, Direction direction) {
-		//todo stack.getOrCreateTag().putInt(TAG_SWAP_CLICKED_AXIS, direction.get3DDataValue());
+		stack.set(BotaniaDataComponents.SWAP_CLICK_AXIS, direction);
 	}
 
 	private Direction getSwapClickDirection(ItemStack stack) {
-		return Direction.from3DDataValue(/*todo stack.getOrCreateTag().getInt(TAG_SWAP_CLICKED_AXIS)*/ 0);
+		return stack.getOrDefault(BotaniaDataComponents.SWAP_CLICK_AXIS, Direction.DOWN);
 	}
 
 	private int getRange(ItemStack stack, Direction.Axis clickAxis, Direction.Axis rangeAxis) {
-		/*todo
-		if (stack.getOrCreateTag().getBoolean(TAG_TEMPERANCE_STONE) && rangeAxis == clickAxis) {
+		if (stack.has(BotaniaDataComponents.TEMPERANCE_ACTIVE) && rangeAxis == clickAxis) {
 			return 0;
 		}
-		
-		 */
-		return RANGE + ItemNBTHelper.getInt(stack, TAG_EXTRA_RANGE, 1) - 1;
+
+		return RANGE + stack.getOrDefault(BotaniaDataComponents.EXTRA_RANGE, 1) - 1;
 	}
 
 	private static void endSwapping(ItemStack stack) {
-		ItemNBTHelper.setBoolean(stack, TAG_SWAPPING, false);
-		ItemNBTHelper.removeEntry(stack, TAG_SELECT_X);
-		ItemNBTHelper.removeEntry(stack, TAG_SELECT_Y);
-		ItemNBTHelper.removeEntry(stack, TAG_SELECT_Z);
-		ItemNBTHelper.removeEntry(stack, TAG_TARGET_BLOCK_NAME);
-		ItemNBTHelper.removeEntry(stack, TAG_SWAP_CLICKED_AXIS);
+		stack.remove(BotaniaDataComponents.SWAPPING);
+		stack.remove(BotaniaDataComponents.SELECTED_POS);
+		stack.remove(BotaniaDataComponents.TARGET_BLOCK);
+		stack.remove(BotaniaDataComponents.SWAP_CLICK_AXIS);
 	}
 
-	@NotNull
 	@Override
-	public Component getName(@NotNull ItemStack stack) {
+	public Component getName(ItemStack stack) {
 		Item item = getItemToPlace(stack);
 		MutableComponent cmp = super.getName(stack).copy();
 		if (item != Items.AIR) {
@@ -478,11 +441,12 @@ public class ShiftingCrustRodItem extends Item implements WireframeCoordinateLis
 	}
 
 	private void setTarget(ItemStack stack, Block block) {
-		ItemNBTHelper.setString(stack, TAG_TARGET_BLOCK_NAME, BuiltInRegistries.BLOCK.getKey(block).toString());
+		DataComponentHelper.setUnlessDefault(stack, BotaniaDataComponents.TARGET_BLOCK,
+				BuiltInRegistries.BLOCK.getKey(block), BuiltInRegistries.BLOCK.getDefaultKey());
 	}
 
 	public static Block getTargetState(ItemStack stack) {
-		ResourceLocation id = ResourceLocation.parse(ItemNBTHelper.getString(stack, TAG_TARGET_BLOCK_NAME, "minecraft:air"));
+		ResourceLocation id = stack.get(BotaniaDataComponents.TARGET_BLOCK);
 		return BuiltInRegistries.BLOCK.get(id);
 	}
 
@@ -497,12 +461,8 @@ public class ShiftingCrustRodItem extends Item implements WireframeCoordinateLis
 		if (pos != null && pos.getType() == HitResult.Type.BLOCK) {
 			BlockPos bPos = ((BlockHitResult) pos).getBlockPos();
 			Block target = Minecraft.getInstance().level.getBlockState(bPos).getBlock();
-			if (ItemNBTHelper.getBoolean(stack, TAG_SWAPPING, false)) {
-				bPos = new BlockPos(
-						ItemNBTHelper.getInt(stack, TAG_SELECT_X, 0),
-						ItemNBTHelper.getInt(stack, TAG_SELECT_Y, 0),
-						ItemNBTHelper.getInt(stack, TAG_SELECT_Z, 0)
-				);
+			if (stack.has(BotaniaDataComponents.SWAPPING)) {
+				bPos = stack.getOrDefault(BotaniaDataComponents.SELECTED_POS, BlockPos.ZERO);
 				target = getTargetState(stack);
 			}
 

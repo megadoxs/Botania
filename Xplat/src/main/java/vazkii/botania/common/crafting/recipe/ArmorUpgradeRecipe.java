@@ -20,8 +20,6 @@ import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.ShapedRecipe;
 
-import org.jetbrains.annotations.NotNull;
-
 import vazkii.botania.mixin.ShapedRecipeAccessor;
 
 import java.util.function.Function;
@@ -34,21 +32,20 @@ public class ArmorUpgradeRecipe extends ShapedRecipe {
 				((ShapedRecipeAccessor) recipe).botania_getResult(), recipe.showNotification());
 	}
 
-	@NotNull
 	@Override
-	public ItemStack assemble(@NotNull CraftingInput inv, @NotNull HolderLookup.Provider registries) {
+	public ItemStack assemble(CraftingInput inv, HolderLookup.Provider registries) {
 		ItemStack out = super.assemble(inv, registries);
 		for (int i = 0; i < inv.size(); i++) {
 			ItemStack stack = inv.getItem(i);
-			if (/*todo stack.hasTag() &&*/ stack.getItem() instanceof ArmorItem) {
-				//out.setTag(stack.getTag());
+			if (stack.getItem() instanceof ArmorItem) {
+				// TODO: verify this works as intended
+				out.applyComponents(stack.getComponentsPatch());
 				break;
 			}
 		}
 		return out;
 	}
 
-	@NotNull
 	@Override
 	public RecipeSerializer<?> getSerializer() {
 		return SERIALIZER;

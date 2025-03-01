@@ -19,8 +19,7 @@ import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.SimpleCraftingRecipeSerializer;
 import net.minecraft.world.level.Level;
 
-import org.jetbrains.annotations.NotNull;
-
+import vazkii.botania.common.component.BotaniaDataComponents;
 import vazkii.botania.common.item.BotaniaItems;
 import vazkii.botania.common.item.LaputaShardItem;
 
@@ -32,7 +31,7 @@ public class LaputaShardUpgradeRecipe extends CustomRecipe {
 	}
 
 	@Override
-	public boolean matches(@NotNull CraftingInput inv, @NotNull Level worldIn) {
+	public boolean matches(CraftingInput inv, Level worldIn) {
 		boolean foundShard = false;
 		boolean foundSpirit = false;
 		for (int i = 0; i < inv.size(); i++) {
@@ -41,7 +40,7 @@ public class LaputaShardUpgradeRecipe extends CustomRecipe {
 				continue;
 			}
 			if (stack.is(BotaniaItems.laputaShard) && !foundShard
-					&& LaputaShardItem.getShardLevel(stack) < 19) {
+					&& LaputaShardItem.getShardLevel(stack) < LaputaShardItem.MAX_LEVEL) {
 				foundShard = true;
 			} else if (stack.is(BotaniaItems.lifeEssence) && !foundSpirit) {
 				foundSpirit = true;
@@ -52,13 +51,11 @@ public class LaputaShardUpgradeRecipe extends CustomRecipe {
 		return foundShard && foundSpirit;
 	}
 
-	@NotNull
 	@Override
-	public ItemStack getResultItem(@NotNull HolderLookup.Provider registries) {
+	public ItemStack getResultItem(HolderLookup.Provider registries) {
 		return new ItemStack(BotaniaItems.laputaShard);
 	}
 
-	@NotNull
 	@Override
 	public NonNullList<Ingredient> getIngredients() {
 		return NonNullList.of(Ingredient.EMPTY,
@@ -66,14 +63,13 @@ public class LaputaShardUpgradeRecipe extends CustomRecipe {
 				Ingredient.of(BotaniaItems.lifeEssence));
 	}
 
-	@NotNull
 	@Override
-	public ItemStack assemble(@NotNull CraftingInput inv, @NotNull HolderLookup.Provider registries) {
+	public ItemStack assemble(CraftingInput inv, HolderLookup.Provider registries) {
 		for (int i = 0; i < inv.size(); i++) {
 			ItemStack stack = inv.getItem(i);
 			if (stack.is(BotaniaItems.laputaShard)) {
 				ItemStack result = stack.copy();
-				//todo result.getOrCreateTag().putInt(LaputaShardItem.TAG_LEVEL, LaputaShardItem.getShardLevel(stack) + 1);
+				result.set(BotaniaDataComponents.SHARD_LEVEL, LaputaShardItem.getShardLevel(stack) + 1);
 				return result;
 			}
 		}
@@ -85,7 +81,6 @@ public class LaputaShardUpgradeRecipe extends CustomRecipe {
 		return width * height >= 2;
 	}
 
-	@NotNull
 	@Override
 	public RecipeSerializer<?> getSerializer() {
 		return SERIALIZER;

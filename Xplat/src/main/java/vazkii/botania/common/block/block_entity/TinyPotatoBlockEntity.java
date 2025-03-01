@@ -8,6 +8,7 @@
  */
 package vazkii.botania.common.block.block_entity;
 
+import it.unimi.dsi.fastutil.ints.IntList;
 import it.unimi.dsi.fastutil.objects.ObjectArrays;
 
 import net.minecraft.core.BlockPos;
@@ -15,7 +16,6 @@ import net.minecraft.core.Direction;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.nbt.ListTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
@@ -32,13 +32,13 @@ import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.component.FireworkExplosion;
+import net.minecraft.world.item.component.Fireworks;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.phys.Vec3;
 
-import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import vazkii.botania.api.internal.VanillaPacketDispatcher;
@@ -228,22 +228,17 @@ public class TinyPotatoBlockEntity extends ExposedSimpleInventoryBlockEntity imp
 				}
 
 				if (messageIndex == messageTimes.size() - 1) {
-					CompoundTag explosion = new CompoundTag();
-					explosion.putByte("Type", (byte) FireworkExplosion.Shape.LARGE_BALL.getId());
-					explosion.putBoolean("Flicker", true);
-					explosion.putBoolean("Trail", true);
-					explosion.putIntArray("Colors", List.of(
-							cakeColor.getFireworkColor(),
-							0xD260A5, 0xE4AFCD, 0xFEFEFE, 0x57CEF8
-					));
+					FireworkExplosion explosion = new FireworkExplosion(
+							FireworkExplosion.Shape.LARGE_BALL,
+							IntList.of(cakeColor.getFireworkColor(),
+									0xD260A5, 0xE4AFCD, 0xFEFEFE, 0x57CEF8),
+							IntList.of(), true, true
+					);
 
-					ListTag explosions = new ListTag();
-					explosions.add(explosion);
+					Fireworks fireworks = new Fireworks(0, List.of(explosion));
 
 					ItemStack rocket = new ItemStack(Items.FIREWORK_ROCKET);
-					CompoundTag rocketFireworks = /*todo rocket.getOrCreateTagElement("Fireworks")*/ new CompoundTag();
-					rocketFireworks.putByte("Flight", (byte) 0);
-					rocketFireworks.put("Explosions", explosions);
+					rocket.set(DataComponents.FIREWORKS, fireworks);
 
 					level.addFreshEntity(new FireworkRocketEntity(level, facingPos.getX() + 0.5, facingPos.getY() + 0.5, facingPos.getZ() + 0.5, rocket));
 					level.removeBlock(facingPos, false);
@@ -289,7 +284,6 @@ public class TinyPotatoBlockEntity extends ExposedSimpleInventoryBlockEntity imp
 		};
 	}
 
-	@NotNull
 	@Override
 	public Component getName() {
 		return BotaniaBlocks.tinyPotato.getName();
@@ -301,7 +295,6 @@ public class TinyPotatoBlockEntity extends ExposedSimpleInventoryBlockEntity imp
 		return name.getString().isEmpty() ? null : name;
 	}
 
-	@NotNull
 	@Override
 	public Component getDisplayName() {
 		return hasCustomName() ? getCustomName() : getName();

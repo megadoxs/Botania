@@ -3,6 +3,7 @@ package vazkii.botania.common.component;
 import com.mojang.serialization.Codec;
 
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
 import net.minecraft.core.GlobalPos;
 import net.minecraft.core.UUIDUtil;
 import net.minecraft.core.component.DataComponentType;
@@ -14,7 +15,10 @@ import net.minecraft.util.ExtraCodecs;
 import net.minecraft.util.Unit;
 import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.phys.Vec3;
 
+import vazkii.botania.common.item.LaputaShardItem;
+import vazkii.botania.common.item.ManaBlasterItem;
 import vazkii.botania.common.item.relic.RingOfLokiItem;
 import vazkii.botania.common.lib.LibComponentNames;
 
@@ -52,6 +56,9 @@ public class BotaniaDataComponents {
 	 * Helper component that causes mana pool items to be rendered with mana content.
 	 */
 	public static final DataComponentType<Unit> RENDER_FULL = makeTransientUnit(LibComponentNames.RENDER_FULL);
+	public static final DataComponentType<ItemStack> COSMETIC_OVERRIDE = make(LibComponentNames.COSMETIC_OVERRIDE,
+			builder -> builder.persistent(ItemStack.SINGLE_ITEM_CODEC).cacheEncoding()
+					.networkSynchronized(ItemStack.STREAM_CODEC));
 
 	// wand properties
 	public static final DataComponentType<DyeColor> WAND_COLOR1 = make(LibComponentNames.WAND_COLOR1,
@@ -187,6 +194,79 @@ public class BotaniaDataComponents {
 	public static final DataComponentType<Map<ResourceLocation, BlockPos>> BOUND_POSITIONS = make(LibComponentNames.BOUND_POSITIONS,
 			builder -> builder.persistent(Codec.unboundedMap(ResourceLocation.CODEC, BlockPos.CODEC)).cacheEncoding()
 					.networkSynchronized(ByteBufCodecs.map(HashMap::new, ResourceLocation.STREAM_CODEC, BlockPos.STREAM_CODEC)));
+
+	// Flügel Tiara components, TODO: subject to future reorganization
+	public static final DataComponentType<Integer> TIARA_VARIANT = make(LibComponentNames.TIARA_VARIANT,
+			builder -> builder.persistent(ExtraCodecs.intRange(0, 9)).networkSynchronized(ByteBufCodecs.VAR_INT));
+	public static final DataComponentType<Integer> REMAINING_TICKS = make(LibComponentNames.REMAINING_TICKS,
+			builder -> builder.persistent(ExtraCodecs.NON_NEGATIVE_INT).networkSynchronized(ByteBufCodecs.VAR_INT));
+	public static final DataComponentType<Integer> MAX_USE_TICKS = make(LibComponentNames.MAX_USE_TICKS,
+			builder -> builder.persistent(ExtraCodecs.POSITIVE_INT).networkSynchronized(ByteBufCodecs.VAR_INT));
+	public static final DataComponentType<Unit> FLYING = makeTransientUnit(LibComponentNames.FLYING);
+	public static final DataComponentType<Unit> IS_SPRINTING = makeTransientUnit(LibComponentNames.IS_SPRINTING);
+	public static final DataComponentType<Unit> CREATIVE_FLIGHT = makeUnit(LibComponentNames.CREATIVE_FLIGHT);
+	public static final DataComponentType<Unit> BOOST_PENDING = makeTransientUnit(LibComponentNames.BOOST_PENDING);
+	public static final DataComponentType<Unit> IS_GLIDING = makeTransientUnit(LibComponentNames.IS_GLIDING);
+
+	// Key of the King's Law
+	public static final DataComponentType<Unit> CHARGING = makeTransientUnit(LibComponentNames.CHARGING);
+	public static final DataComponentType<Integer> WEAPONS_SPAWNED = make(LibComponentNames.WEAPONS_SPAWNED,
+			builder -> builder.networkSynchronized(ByteBufCodecs.VAR_INT));
+
+	// Laputa Shard
+	public static final DataComponentType<Integer> SHARD_LEVEL = make(LibComponentNames.SHARD_LEVEL,
+			builder -> builder.persistent(ExtraCodecs.intRange(1, LaputaShardItem.MAX_LEVEL)).networkSynchronized(ByteBufCodecs.VAR_INT));
+	public static final DataComponentType<Boolean> SHARD_POINTY = make(LibComponentNames.SHARD_POINTY,
+			builder -> builder.persistent(Codec.BOOL).networkSynchronized(ByteBufCodecs.BOOL));
+	public static final DataComponentType<Float> SHARD_HEIGHT_SCALE = make(LibComponentNames.SHARD_HEIGHT_SCALE,
+			builder -> builder.persistent(ExtraCodecs.POSITIVE_FLOAT).networkSynchronized(ByteBufCodecs.FLOAT));
+	public static final DataComponentType<LaputaState> LAPUTA_STATE = make(LibComponentNames.LAPUTA_STATE,
+			builder -> builder.persistent(LaputaState.CODEC).cacheEncoding()
+					.networkSynchronized(LaputaState.STREAM_CODEC));
+
+	// Mana Blaster
+	public static final DataComponentType<Unit> CLIP = makeUnit(LibComponentNames.CLIP);
+	public static final DataComponentType<Integer> CLIP_POS = make(LibComponentNames.CLIP_POS,
+			builder -> builder.persistent(ExtraCodecs.intRange(0, ManaBlasterItem.CLIP_SLOTS - 1))
+					.networkSynchronized(ByteBufCodecs.VAR_INT));
+	public static final DataComponentType<List<ItemStack>> ATTACHED_LENSES = make(LibComponentNames.ATTACHED_LENSES,
+			builder -> builder.persistent(ExtraCodecs.nonEmptyList(ItemStack.CODEC.sizeLimitedListOf(ManaBlasterItem.CLIP_SLOTS)))
+					.cacheEncoding().networkSynchronized(ItemStack.LIST_STREAM_CODEC));
+	public static final DataComponentType<Integer> COOLDOWN = make(LibComponentNames.COOLDOWN,
+			builder -> builder.persistent(ExtraCodecs.POSITIVE_INT).networkSynchronized(ByteBufCodecs.VAR_INT));
+
+	// Vitreous Pickaxe silktouch hack (not transient as it must be cleared manually)
+	public static final DataComponentType<Unit> SILK_HACK = makeUnit(LibComponentNames.SILK_HACK);
+
+	// Rod of the Shifting Crust - TODO: lots of questionable transient stuff here
+	public static final DataComponentType<Unit> TEMPERANCE_ACTIVE = makeTransientUnit(LibComponentNames.TEMPERANCE_ACTIVE);
+	public static final DataComponentType<Unit> SWAPPING = makeTransientUnit(LibComponentNames.SWAPPING);
+	public static final DataComponentType<Integer> EXTRA_RANGE = make(LibComponentNames.EXTRA_RANGE,
+			builder -> builder.networkSynchronized(ByteBufCodecs.VAR_INT));
+	public static final DataComponentType<BlockPos> SELECTED_POS = make(LibComponentNames.SELECTED_POS,
+			builder -> builder.networkSynchronized(BlockPos.STREAM_CODEC));
+	public static final DataComponentType<Direction> SWAP_CLICK_AXIS = make(LibComponentNames.SWAP_CLICK_AXIS,
+			builder -> builder.networkSynchronized(Direction.STREAM_CODEC));
+	public static final DataComponentType<ResourceLocation> TARGET_BLOCK = make(LibComponentNames.TARGET_BLOCK,
+			builder -> builder.networkSynchronized(ResourceLocation.STREAM_CODEC));
+	public static final DataComponentType<ResourceLocation> PLACED_ITEM = make(LibComponentNames.PLACED_ITEM,
+			builder -> builder.persistent(ResourceLocation.CODEC).networkSynchronized(ResourceLocation.STREAM_CODEC));
+	public static final DataComponentType<Direction> SWAP_DIRECTION = make(LibComponentNames.SWAP_DIRECTION,
+			builder -> builder.persistent(Direction.CODEC).networkSynchronized(Direction.STREAM_CODEC));
+	public static final DataComponentType<Vec3> SWAP_HIT_VEC = make(LibComponentNames.SWAP_HIT_VEC,
+			builder -> builder.persistent(Vec3.CODEC).networkSynchronized(ByteBufCodecs.VECTOR3F.map(Vec3::new, Vec3::toVector3f)));
+
+	// Planestrider's Sash
+	public static final DataComponentType<Float> SPEED = make(LibComponentNames.SPEED,
+			builder -> builder.networkSynchronized(ByteBufCodecs.FLOAT));
+	public static final DataComponentType<Vec3> OLD_POS = make(LibComponentNames.OLD_POS,
+			// TODO: must be double precision to work further from origin, but does client need it at all?
+			builder -> builder.networkSynchronized(ByteBufCodecs.fromCodec(Vec3.CODEC)));
+
+	public static final DataComponentType<Integer> TARGET_ENTITY = make(LibComponentNames.TARGET_ENTITY,
+			builder -> builder.persistent(Codec.INT).networkSynchronized(ByteBufCodecs.VAR_INT));
+	public static final DataComponentType<Float> TARGET_DIST = make(LibComponentNames.TARGET_DIST,
+			builder -> builder.persistent(ExtraCodecs.POSITIVE_FLOAT).networkSynchronized(ByteBufCodecs.FLOAT));
 
 	public static void registerComponents(BiConsumer<DataComponentType<?>, ResourceLocation> biConsumer) {
 		for (Map.Entry<String, DataComponentType<?>> entry : ALL.entrySet()) {

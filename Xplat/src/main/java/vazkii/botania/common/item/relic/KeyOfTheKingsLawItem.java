@@ -19,21 +19,17 @@ import net.minecraft.world.item.UseAnim;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
 
-import org.jetbrains.annotations.NotNull;
-
 import vazkii.botania.api.item.Relic;
 import vazkii.botania.api.mana.ManaItemHandler;
+import vazkii.botania.common.component.BotaniaDataComponents;
 import vazkii.botania.common.entity.BabylonWeaponEntity;
 import vazkii.botania.common.handler.BotaniaSounds;
-import vazkii.botania.common.helper.ItemNBTHelper;
+import vazkii.botania.common.helper.DataComponentHelper;
 import vazkii.botania.common.helper.VecHelper;
 
 import static vazkii.botania.api.BotaniaAPI.botaniaRL;
 
 public class KeyOfTheKingsLawItem extends RelicItem {
-
-	private static final String TAG_WEAPONS_SPAWNED = "weaponsSpawned";
-	private static final String TAG_CHARGING = "charging";
 
 	public static final int WEAPON_TYPES = 12;
 
@@ -41,9 +37,8 @@ public class KeyOfTheKingsLawItem extends RelicItem {
 		super(props);
 	}
 
-	@NotNull
 	@Override
-	public InteractionResultHolder<ItemStack> use(Level world, Player player, @NotNull InteractionHand hand) {
+	public InteractionResultHolder<ItemStack> use(Level world, Player player, InteractionHand hand) {
 		ItemStack stack = player.getItemInHand(hand);
 		setCharging(stack, true);
 		return ItemUtils.startUsingInstantly(world, player, hand);
@@ -102,7 +97,6 @@ public class KeyOfTheKingsLawItem extends RelicItem {
 		}
 	}
 
-	@NotNull
 	@Override
 	public UseAnim getUseAnimation(ItemStack stack) {
 		return UseAnim.BOW;
@@ -114,19 +108,19 @@ public class KeyOfTheKingsLawItem extends RelicItem {
 	}
 
 	public static boolean isCharging(ItemStack stack) {
-		return ItemNBTHelper.getBoolean(stack, TAG_CHARGING, false);
+		return stack.has(BotaniaDataComponents.CHARGING);
 	}
 
 	public static int getWeaponsSpawned(ItemStack stack) {
-		return ItemNBTHelper.getInt(stack, TAG_WEAPONS_SPAWNED, 0);
+		return stack.getOrDefault(BotaniaDataComponents.WEAPONS_SPAWNED, 0);
 	}
 
 	public static void setCharging(ItemStack stack, boolean charging) {
-		ItemNBTHelper.setBoolean(stack, TAG_CHARGING, charging);
+		DataComponentHelper.setFlag(stack, BotaniaDataComponents.CHARGING, charging);
 	}
 
 	public static void setWeaponsSpawned(ItemStack stack, int count) {
-		ItemNBTHelper.setInt(stack, TAG_WEAPONS_SPAWNED, count);
+		DataComponentHelper.setIntNonZero(stack, BotaniaDataComponents.WEAPONS_SPAWNED, count);
 	}
 
 	public static Relic makeRelic(ItemStack stack) {

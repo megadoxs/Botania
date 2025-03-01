@@ -13,14 +13,14 @@ import com.mojang.serialization.MapCodec;
 import net.minecraft.core.NonNullList;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;
+import net.minecraft.util.Unit;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 
-import org.jetbrains.annotations.NotNull;
-
 import vazkii.botania.api.recipe.ElvenTradeRecipe;
 import vazkii.botania.common.block.BotaniaBlocks;
+import vazkii.botania.common.component.BotaniaDataComponents;
 import vazkii.botania.common.item.BotaniaItems;
 
 import java.util.Collections;
@@ -33,16 +33,14 @@ public class LexiconElvenTradeRecipe implements ElvenTradeRecipe {
 
 	@Override
 	public boolean containsItem(ItemStack stack) {
-		return /*stack.is(BotaniaItems.lexicon) && !ItemNBTHelper.getBoolean(stack, LexicaBotaniaItem.TAG_ELVEN_UNLOCK, false)*/ false;
+		return stack.is(BotaniaItems.lexicon) && !stack.has(BotaniaDataComponents.ELVEN_UNLOCK);
 	}
 
-	@NotNull
 	@Override
 	public NonNullList<Ingredient> getIngredients() {
 		return NonNullList.withSize(1, Ingredient.of(BotaniaItems.lexicon));
 	}
 
-	@NotNull
 	@Override
 	public ItemStack getToastSymbol() {
 		return new ItemStack(BotaniaBlocks.alfPortal);
@@ -51,7 +49,7 @@ public class LexiconElvenTradeRecipe implements ElvenTradeRecipe {
 	@Override
 	public List<ItemStack> getOutputs() {
 		ItemStack stack = new ItemStack(BotaniaItems.lexicon);
-		//stack.getOrCreateTag().putBoolean(LexicaBotaniaItem.TAG_ELVEN_UNLOCK, true);
+		stack.set(BotaniaDataComponents.ELVEN_UNLOCK, Unit.INSTANCE);
 		return Collections.singletonList(stack);
 	}
 
@@ -67,12 +65,11 @@ public class LexiconElvenTradeRecipe implements ElvenTradeRecipe {
 
 	@Override
 	public List<ItemStack> getOutputs(List<ItemStack> inputs) {
-		ItemStack stack = inputs.get(0).copy();
-		//stack.getOrCreateTag().putBoolean(LexicaBotaniaItem.TAG_ELVEN_UNLOCK, true);
+		ItemStack stack = inputs.getFirst().copy();
+		stack.set(BotaniaDataComponents.ELVEN_UNLOCK, Unit.INSTANCE);
 		return Collections.singletonList(stack);
 	}
 
-	@NotNull
 	@Override
 	public RecipeSerializer<LexiconElvenTradeRecipe> getSerializer() {
 		return BotaniaRecipeTypes.LEXICON_ELVEN_TRADE_SERIALIZER;
