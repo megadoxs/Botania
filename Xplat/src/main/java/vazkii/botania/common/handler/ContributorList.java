@@ -11,21 +11,12 @@ package vazkii.botania.common.handler;
 import com.google.common.collect.ImmutableMap;
 
 import net.minecraft.DefaultUncaughtExceptionHandler;
-import net.minecraft.client.Minecraft;
 import net.minecraft.core.Holder;
-import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.core.registries.Registries;
-import net.minecraft.resources.ResourceKey;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
-import net.minecraft.world.item.enchantment.Enchantment;
-import net.minecraft.world.item.enchantment.EnchantmentHelper;
-import net.minecraft.world.item.enchantment.Enchantments;
-import net.minecraft.world.item.enchantment.ItemEnchantments;
 
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.common.block.BotaniaBlocks;
@@ -106,21 +97,22 @@ public class ContributorList {
 
 	private static ItemStack configureStack(Item item) {
 		ItemStack stack = new ItemStack(item);
-		Minecraft mc = Minecraft.getInstance();
+		/* FIXME: need registry access here
+		//Minecraft mc = Minecraft.getInstance();
 		List<Holder<Enchantment>> ench = new ArrayList<>();
 		//Todo I hope this works
 		HolderLookup<Enchantment> enchantmentLookup = mc.level.holderLookup(Registries.ENCHANTMENT);
-
+		
 		ench.add(enchantmentLookup.getOrThrow(Enchantments.UNBREAKING));
 		enchantmentLookup.get(ResourceKey.create(Registries.ENCHANTMENT, ResourceLocation.fromNamespaceAndPath("charm", "tinted"))).ifPresent(ref -> ench.add(ref));
-
+		
 		ItemEnchantments.Mutable mutable = new ItemEnchantments.Mutable(ItemEnchantments.EMPTY);
 		for (Holder<Enchantment> enchantment : ench) {
 			mutable.set(enchantment, 1);
 		}
-
+		
 		EnchantmentHelper.setEnchantments(stack, mutable.toImmutable());
-
+		
 		/*todo
 		stack.getTag().putBoolean(TAG_HEADFLOWER, true);
 		stack.getTag().putString("charm_glint", DyeColor.YELLOW.getSerializedName());

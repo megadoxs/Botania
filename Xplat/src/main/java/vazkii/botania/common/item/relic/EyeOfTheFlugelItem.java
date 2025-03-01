@@ -9,7 +9,6 @@
 package vazkii.botania.common.item.relic;
 
 import net.minecraft.ChatFormatting;
-import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
@@ -166,9 +165,9 @@ public class EyeOfTheFlugelItem extends RelicItem {
 			return;
 		}
 
-		Minecraft mc = Minecraft.getInstance();
+		//Minecraft mc = Minecraft.getInstance();
 		//Todo check if it works with this level
-		Level level = mc.level;
+		Level level = null;//mc.level;
 		if (level == null)
 			return;
 
