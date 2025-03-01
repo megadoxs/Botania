@@ -34,6 +34,6 @@ public class WrapperRecipeBuilder<T extends Recipe<?>> {
 		var output = capturingRecipeOutput.captureSave(recipeBuilder::save);
 
 		T wrappedRecipe = serializer.wrap(output.getMiddle());
-		recipeOutput.accept(output.getLeft(), wrappedRecipe, output.getRight());
+		recipeOutput.accept(output.getLeft(), wrappedRecipe, output.getRight().orElse(null));
 	}
 }

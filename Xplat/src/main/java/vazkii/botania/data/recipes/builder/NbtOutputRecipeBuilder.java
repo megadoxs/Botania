@@ -37,6 +37,6 @@ public class NbtOutputRecipeBuilder {
 		CompoundTag tag = new CompoundTag();
 		nbtDefinition.accept(tag);
 		NbtOutputRecipe<?> wrappedRecipe = new NbtOutputRecipe<>(output.getMiddle()/*, tag*/);
-		recipeOutput.accept(output.getLeft(), wrappedRecipe, output.getRight());
+		recipeOutput.accept(output.getLeft(), wrappedRecipe, output.getRight().orElse(null));
 	}
 }

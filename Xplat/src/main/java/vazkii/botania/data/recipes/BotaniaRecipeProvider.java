@@ -10,14 +10,17 @@ package vazkii.botania.data.recipes;
 
 import com.google.common.collect.Sets;
 
+import net.minecraft.advancements.Advancement;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.CachedOutput;
 import net.minecraft.data.DataProvider;
 import net.minecraft.data.PackOutput;
+import net.minecraft.data.recipes.RecipeBuilder;
 import net.minecraft.data.recipes.RecipeOutput;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.crafting.Recipe;
 
-import org.jetbrains.annotations.NotNull;
+import vazkii.botania.xplat.XplatAbstractions;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -41,30 +44,26 @@ public abstract class BotaniaRecipeProvider implements DataProvider {
 		return lookupProvider.thenCompose(registryLookup -> this.run(output, registryLookup));
 	}
 
-	private CompletableFuture<?> run(@NotNull CachedOutput output, HolderLookup.Provider registryLookup) {
+	private CompletableFuture<?> run(CachedOutput output, HolderLookup.Provider registryLookup) {
 		final Set<ResourceLocation> set = Sets.newHashSet();
 		final List<CompletableFuture<?>> list = new ArrayList<>();
-		/*this.buildRecipes(new RecipeOutput() {
-			// TODO: Neoforge had the great idea to create an IRecipeOutputExtension interface that requires implementation right here
-			@Override
-			public void accept(ResourceLocation location, Recipe<?> recipe, @Nullable AdvancementHolder advancement) {
-				if (!set.add(location)) {
-					throw new IllegalStateException("Duplicate recipe " + location);
-				} else {
-					list.add(DataProvider.saveStable(output, registryLookup, Recipe.CODEC, recipe, recipePathProvider.json(location)));
-					if (advancement != null) {
-						list.add(DataProvider.saveStable(output, registryLookup, Advancement.CODEC, advancement.value(), advancementPathProvider.json(advancement.id())));
+		this.buildRecipes(XplatAbstractions.INSTANCE.createRecipeOutput(
+				(location, recipe, advancement) -> {
+					if (!set.add(location)) {
+						throw new IllegalStateException("Duplicate recipe " + location);
+					} else {
+						list.add(DataProvider.saveStable(output, registryLookup, Recipe.CODEC, recipe, recipePathProvider.json(location)));
+						if (advancement != null) {
+							list.add(DataProvider.saveStable(output, registryLookup, Advancement.CODEC, advancement.value(), advancementPathProvider.json(advancement.id())));
+						}
 					}
-				}
-			}
-		
-			@SuppressWarnings("removal")
-			@Override
-			public Advancement.Builder advancement() {
-				// TODO: 1.20.4 This method needs to take a holder
-				return Advancement.Builder.recipeAdvancement().parent(RecipeBuilder.ROOT_RECIPE_ADVANCEMENT);
-			}
-		});*/
+				},
+				() -> {
+					@SuppressWarnings("removal")
+					Advancement.Builder builder =
+							Advancement.Builder.recipeAdvancement().parent(RecipeBuilder.ROOT_RECIPE_ADVANCEMENT);
+					return builder;
+				}));
 		return CompletableFuture.allOf(list.toArray(CompletableFuture[]::new));
 	}
 

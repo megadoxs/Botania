@@ -52,7 +52,7 @@ public class GogAlternationRecipeBuilder {
 		}
 
 		GogAlternationRecipe<?> alternationRecipe = new GogAlternationRecipe<>(baseOutput.getMiddle(), gogOutput.getMiddle());
-		recipeOutput.accept(baseOutput.getLeft(), alternationRecipe, baseOutput.getRight());
+		recipeOutput.accept(baseOutput.getLeft(), alternationRecipe, baseOutput.getRight().orElse(null));
 	}
 
 	public void save(RecipeOutput recipeOutput, String recipeId) {
