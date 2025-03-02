@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "botania:flighttiara_1"
+        "recipe": "botania:flight_tiara_3"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
@@ -26,7 +26,7 @@
   ],
   "rewards": {
     "recipes": [
-      "botania:flighttiara_1"
+      "botania:flight_tiara_3"
     ]
   }
 }

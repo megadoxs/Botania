@@ -1,5 +1,5 @@
 {
-  "type": "botania:armor_upgrade",
+  "type": "botania:crafting_shaped_armor_upgrade",
   "category": "equipment",
   "key": {
     "A": {

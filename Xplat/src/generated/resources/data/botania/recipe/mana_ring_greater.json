@@ -1,5 +1,5 @@
 {
-  "type": "botania:mana_upgrade_shapeless",
+  "type": "botania:crafting_shapeless_mana_upgrade",
   "category": "equipment",
   "ingredients": [
     {

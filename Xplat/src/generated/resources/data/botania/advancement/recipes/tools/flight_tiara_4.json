@@ -5,7 +5,7 @@
       "conditions": {
         "items": [
           {
-            "items": "botania:life_essence"
+            "items": "botania:flight_tiara"
           }
         ]
       },
@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "botania:flighttiara_0"
+        "recipe": "botania:flight_tiara_4"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
@@ -26,7 +26,7 @@
   ],
   "rewards": {
     "recipes": [
-      "botania:flighttiara_0"
+      "botania:flight_tiara_4"
     ]
   }
 }

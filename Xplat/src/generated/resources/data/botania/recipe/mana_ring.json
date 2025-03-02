@@ -1,5 +1,5 @@
 {
-  "type": "botania:mana_upgrade",
+  "type": "botania:crafting_shaped_mana_upgrade",
   "category": "equipment",
   "key": {
     "I": {
