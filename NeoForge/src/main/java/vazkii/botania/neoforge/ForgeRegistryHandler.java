@@ -15,8 +15,8 @@ public class ForgeRegistryHandler {
 	@SubscribeEvent
 	public static void registerRegistry(NewRegistryEvent evt) {
 		evt.create(new RegistryBuilder<>(BotaniaRegistries.BREWS)
-				.defaultKey(botaniaRL("fallback")).sync(false));
+				.defaultKey(botaniaRL("fallback")).sync(true));
 		evt.create(new RegistryBuilder<>(BotaniaRegistries.STATE_INGREDIENT_TYPE)
-				.defaultKey(botaniaRL("none")).sync(false));
+				.defaultKey(botaniaRL("none")).sync(true));
 	}
 }
