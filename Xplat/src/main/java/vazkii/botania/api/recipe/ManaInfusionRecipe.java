@@ -18,6 +18,8 @@ import net.minecraft.world.item.crafting.RecipeInput;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.Level;
 
+import java.util.Objects;
+
 import static vazkii.botania.api.BotaniaAPI.botaniaRL;
 
 public interface ManaInfusionRecipe extends Recipe<RecipeInput> {
@@ -65,7 +67,7 @@ public interface ManaInfusionRecipe extends Recipe<RecipeInput> {
 
 	@Override
 	default RecipeType<?> getType() {
-		return BuiltInRegistries.RECIPE_TYPE.get(TYPE_ID);
+		return Objects.requireNonNull(BuiltInRegistries.RECIPE_TYPE.get(TYPE_ID));
 	}
 
 	// Ignored IRecipe stuff

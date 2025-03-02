@@ -22,6 +22,7 @@ import net.minecraft.world.level.block.state.BlockState;
 
 import org.jetbrains.annotations.NotNull;
 
+import java.util.Objects;
 import java.util.Optional;
 
 import static vazkii.botania.api.BotaniaAPI.botaniaRL;
@@ -66,7 +67,7 @@ public interface PureDaisyRecipe extends Recipe<RecipeInput> {
 
 	@Override
 	default RecipeType<?> getType() {
-		return BuiltInRegistries.RECIPE_TYPE.get(TYPE_ID);
+		return Objects.requireNonNull(BuiltInRegistries.RECIPE_TYPE.get(TYPE_ID));
 	}
 
 	/**

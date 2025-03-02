@@ -14,6 +14,8 @@ import net.minecraft.world.item.crafting.RecipeType;
 
 import org.jetbrains.annotations.NotNull;
 
+import java.util.Objects;
+
 import static vazkii.botania.api.BotaniaAPI.botaniaRL;
 
 public interface PetalApothecaryRecipe extends RecipeWithReagent {
@@ -22,6 +24,6 @@ public interface PetalApothecaryRecipe extends RecipeWithReagent {
 	@NotNull
 	@Override
 	default RecipeType<?> getType() {
-		return BuiltInRegistries.RECIPE_TYPE.get(TYPE_ID);
+		return Objects.requireNonNull(BuiltInRegistries.RECIPE_TYPE.get(TYPE_ID));
 	}
 }
