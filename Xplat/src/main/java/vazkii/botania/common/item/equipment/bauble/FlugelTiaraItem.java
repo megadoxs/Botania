@@ -533,6 +533,6 @@ public class FlugelTiaraItem extends BaubleItem implements CustomCreativeTabCont
 	}
 
 	public static void setVariant(ItemStack stack, int variant) {
-		stack.set(BotaniaDataComponents.TIARA_VARIANT, variant);
+		DataComponentHelper.setIntNonZero(stack, BotaniaDataComponents.TIARA_VARIANT, variant);
 	}
 }

@@ -41,7 +41,7 @@ import vazkii.botania.common.lib.LibBlockNames;
 import vazkii.botania.common.lib.LibItemNames;
 import vazkii.botania.data.recipes.builder.BotaniaSpecialRecipeBuilder;
 import vazkii.botania.data.recipes.builder.GogAlternationRecipeBuilder;
-import vazkii.botania.data.recipes.builder.NbtOutputRecipeBuilder;
+import vazkii.botania.data.recipes.builder.TiaraWingsRecipeBuilder;
 import vazkii.botania.data.recipes.builder.WrapperRecipeBuilder;
 import vazkii.botania.mixin.RecipeProviderAccessor;
 
@@ -1568,21 +1568,16 @@ public class CraftingRecipeProvider extends BotaniaRecipeProvider {
 				.pattern("ILI")
 				.pattern("FEF")
 				.unlockedBy("has_item", conditionsFromItem(BotaniaItems.lifeEssence))
-				.save(recipeOutput, "botania:flighttiara_0");
+				.save(recipeOutput);
 
 		// Normal quartz and not Tags.Items.QUARTZ because the recipes conflict.
-		Item[] items = { Items.QUARTZ, BotaniaItems.darkQuartz, BotaniaItems.manaQuartz, BotaniaItems.blazeQuartz,
+		Item[] items = { null, Items.QUARTZ, BotaniaItems.darkQuartz, BotaniaItems.manaQuartz, BotaniaItems.blazeQuartz,
 				BotaniaItems.lavenderQuartz, BotaniaItems.redQuartz, BotaniaItems.elfQuartz, BotaniaItems.sunnyQuartz };
-		for (int i = 0; i < items.length; i++) {
-			int tiaraType = i + 1;
-			NbtOutputRecipeBuilder.setNbt(
-					ShapelessRecipeBuilder.shapeless(RecipeCategory.TOOLS, BotaniaItems.flightTiara)
-							.requires(BotaniaItems.flightTiara)
-							.requires(items[i])
-							.group("botania:flight_tiara_wings")
-							.unlockedBy("has_item", conditionsFromItem(BotaniaItems.flightTiara)),
-					tag -> tag.putInt("variant", tiaraType)
-			).save(recipeOutput, "botania:flighttiara_" + tiaraType);
+		for (int variant = 0; variant < items.length; variant++) {
+			Ingredient material = items[variant] == null ? Ingredient.EMPTY : Ingredient.of(items[variant]);
+			TiaraWingsRecipeBuilder.with(material, variant)
+					.unlockedBy("has_item", conditionsFromItem(BotaniaItems.flightTiara))
+					.save(recipeOutput);
 		}
 		ShapedRecipeBuilder.shaped(RecipeCategory.COMBAT, BotaniaItems.pixieRing)
 				.define('D', BotaniaItems.pixieDust)

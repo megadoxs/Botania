@@ -103,12 +103,12 @@ public class BotaniaRecipeTypes {
 		r.accept(SpellbindingClothRecipe.SERIALIZER, botaniaRL("crafting_special_spell_cloth_apply"));
 		r.accept(SplitLensRecipe.SERIALIZER, botaniaRL("crafting_special_split_lens"));
 		r.accept(TerraShattererTippingRecipe.SERIALIZER, botaniaRL("crafting_special_terra_pick_tipping"));
+		r.accept(TiaraWingsRecipe.SERIALIZER, botaniaRL("crafting_special_tiara_wings"));
 		r.accept(WandOfTheForestRecipe.SERIALIZER, botaniaRL("crafting_shaped_wand"));
 		r.accept(WaterBottleMatchingRecipe.SERIALIZER, botaniaRL("crafting_shaped_water_bottle_matching"));
 
 		// wrapper serializers without a fixed recipe type
 		r.accept(GogAlternationRecipe.SERIALIZER, botaniaRL("gog_alternation"));
-		r.accept(NbtOutputRecipe.SERIALIZER, botaniaRL("nbt_output_wrapper"));
 	}
 
 	public static <C extends RecipeInput, T extends Recipe<C>> Collection<RecipeHolder<T>> getRecipes(Level world, RecipeType<T> type) {
