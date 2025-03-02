@@ -56,7 +56,7 @@ public class ElvenTradeProvider extends BotaniaRecipeProvider {
 		consumer.accept(id("diamond_return"), new ElvenTradeRecipe(singleOutput(Items.DIAMOND), Ingredient.of(Items.DIAMOND)), null);
 		consumer.accept(id("diamond_block_return"), new ElvenTradeRecipe(singleOutput(Blocks.DIAMOND_BLOCK), Ingredient.of(Blocks.DIAMOND_BLOCK)), null);
 
-		consumer.accept(id("lexicon_elven"), new LexiconElvenTradeRecipe(), null);
+		consumer.accept(id("lexicon_elven"), LexiconElvenTradeRecipe.INSTANCE, null);
 	}
 
 	private static ItemStack[] singleOutput(ItemLike output) {

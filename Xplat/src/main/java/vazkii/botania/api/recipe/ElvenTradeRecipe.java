@@ -19,8 +19,6 @@ import net.minecraft.world.item.crafting.RecipeInput;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.Level;
 
-import org.jetbrains.annotations.NotNull;
-
 import java.util.List;
 import java.util.Optional;
 
@@ -47,7 +45,6 @@ public interface ElvenTradeRecipe extends Recipe<RecipeInput> {
 	/**
 	 * @return Preview of the inputs
 	 */
-	@NotNull
 	@Override
 	NonNullList<Ingredient> getIngredients();
 
@@ -61,7 +58,6 @@ public interface ElvenTradeRecipe extends Recipe<RecipeInput> {
 	 */
 	List<ItemStack> getOutputs(List<ItemStack> inputs);
 
-	@NotNull
 	@Override
 	default RecipeType<?> getType() {
 		return BuiltInRegistries.RECIPE_TYPE.get(TYPE_ID);
@@ -70,13 +66,12 @@ public interface ElvenTradeRecipe extends Recipe<RecipeInput> {
 	// Ignored IRecipe boilerplate
 
 	@Override
-	default boolean matches(@NotNull RecipeInput inv, @NotNull Level world) {
+	default boolean matches(RecipeInput inv, Level world) {
 		return false;
 	}
 
-	@NotNull
 	@Override
-	default ItemStack assemble(@NotNull RecipeInput inv, @NotNull HolderLookup.Provider registries) {
+	default ItemStack assemble(RecipeInput inv, HolderLookup.Provider registries) {
 		return ItemStack.EMPTY;
 	}
 
@@ -86,7 +81,7 @@ public interface ElvenTradeRecipe extends Recipe<RecipeInput> {
 	}
 
 	@Override
-	default ItemStack getResultItem(@NotNull HolderLookup.Provider registries) {
+	default ItemStack getResultItem(HolderLookup.Provider registries) {
 		return ItemStack.EMPTY;
 	}
 

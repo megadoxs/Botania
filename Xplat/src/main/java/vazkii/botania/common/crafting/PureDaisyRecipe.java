@@ -31,6 +31,7 @@ import java.util.Optional;
 public class PureDaisyRecipe implements vazkii.botania.api.recipe.PureDaisyRecipe {
 
 	public static final int DEFAULT_TIME = 150;
+	public static final RecipeSerializer<PureDaisyRecipe> SERIALIZER = new Serializer();
 
 	private final StateIngredient input;
 	private final StateIngredient output;
@@ -86,7 +87,7 @@ public class PureDaisyRecipe implements vazkii.botania.api.recipe.PureDaisyRecip
 
 	@Override
 	public RecipeSerializer<? extends PureDaisyRecipe> getSerializer() {
-		return BotaniaRecipeTypes.PURE_DAISY_SERIALIZER;
+		return SERIALIZER;
 	}
 
 	public static class Serializer implements RecipeSerializer<PureDaisyRecipe> {

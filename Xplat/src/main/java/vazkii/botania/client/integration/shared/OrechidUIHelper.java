@@ -87,7 +87,7 @@ public class OrechidUIHelper {
 			return null;
 		}
 		final var type = recipe.getType();
-		final var state = recipe.getInput().getDisplayed().get(0);
+		final var state = recipe.getInput().getDisplayed().getFirst();
 		final int totalWeight = OrechidManager.getTotalDisplayWeightAt(level, type, state, pos);
 		final int weight = pos != null
 				? recipe.getWeight(level, pos)
@@ -153,6 +153,7 @@ public class OrechidUIHelper {
 		return Math.abs((double) numOutputs / numInputs - chance) / chance;
 	}
 
+	@Nullable
 	public static String getPlayerBiomeTranslationKey() {
 		final var player = Minecraft.getInstance().player;
 		if (player == null) {

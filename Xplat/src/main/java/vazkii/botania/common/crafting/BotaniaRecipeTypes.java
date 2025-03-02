@@ -8,7 +8,6 @@
  */
 package vazkii.botania.common.crafting;
 
-import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.RecipeHolder;
@@ -18,81 +17,98 @@ import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.Level;
 
 import vazkii.botania.api.BotaniaAPI;
-import vazkii.botania.common.crafting.recipe.HeadRecipe;
+import vazkii.botania.common.crafting.recipe.*;
 import vazkii.botania.mixin.RecipeManagerAccessor;
 
-import java.util.Collection;
-import java.util.Optional;
+import java.util.*;
 import java.util.function.BiConsumer;
 
 import static vazkii.botania.api.BotaniaAPI.botaniaRL;
 
 public class BotaniaRecipeTypes {
-	public static final RecipeType<vazkii.botania.api.recipe.ManaInfusionRecipe> MANA_INFUSION_TYPE = new ModRecipeType<>();
-	public static final RecipeSerializer<ManaInfusionRecipe> MANA_INFUSION_SERIALIZER = new ManaInfusionRecipe.Serializer();
+	private static final Map<ResourceLocation, RecipeType<?>> TYPES = new LinkedHashMap<>();
 
-	public static final RecipeType<vazkii.botania.api.recipe.ElvenTradeRecipe> ELVEN_TRADE_TYPE = new ModRecipeType<>();
-	public static final RecipeSerializer<ElvenTradeRecipe> ELVEN_TRADE_SERIALIZER = new ElvenTradeRecipe.Serializer();
-	public static final RecipeSerializer<LexiconElvenTradeRecipe> LEXICON_ELVEN_TRADE_SERIALIZER = new LexiconElvenTradeRecipe.Serializer();
+	public static final RecipeType<vazkii.botania.api.recipe.ManaInfusionRecipe> MANA_INFUSION_TYPE = register(
+			vazkii.botania.api.recipe.ManaInfusionRecipe.TYPE_ID);
+	public static final RecipeType<vazkii.botania.api.recipe.ElvenTradeRecipe> ELVEN_TRADE_TYPE = register(
+			vazkii.botania.api.recipe.ElvenTradeRecipe.TYPE_ID);
+	public static final RecipeType<vazkii.botania.api.recipe.PureDaisyRecipe> PURE_DAISY_TYPE = register(
+			vazkii.botania.api.recipe.PureDaisyRecipe.TYPE_ID);
+	public static final RecipeType<vazkii.botania.api.recipe.BotanicalBreweryRecipe> BREW_TYPE = register(
+			vazkii.botania.api.recipe.BotanicalBreweryRecipe.TYPE_ID);
+	public static final RecipeType<vazkii.botania.api.recipe.PetalApothecaryRecipe> PETAL_TYPE = register(
+			vazkii.botania.api.recipe.PetalApothecaryRecipe.TYPE_ID);
+	public static final RecipeType<vazkii.botania.api.recipe.RunicAltarRecipe> RUNE_TYPE = register(
+			vazkii.botania.api.recipe.RunicAltarRecipe.TYPE_ID);
+	public static final RecipeType<vazkii.botania.api.recipe.TerrestrialAgglomerationRecipe> TERRA_PLATE_TYPE = register(
+			vazkii.botania.api.recipe.TerrestrialAgglomerationRecipe.TYPE_ID);
+	public static final RecipeType<vazkii.botania.api.recipe.OrechidRecipe> ORECHID_TYPE = register(
+			vazkii.botania.api.recipe.OrechidRecipe.TYPE_ID);
+	public static final RecipeType<vazkii.botania.api.recipe.OrechidRecipe> ORECHID_IGNEM_TYPE = register(
+			vazkii.botania.api.recipe.OrechidRecipe.IGNEM_TYPE_ID);
+	public static final RecipeType<vazkii.botania.api.recipe.OrechidRecipe> MARIMORPHOSIS_TYPE = register(
+			vazkii.botania.api.recipe.OrechidRecipe.MARIMORPHOSIS_TYPE_ID);
 
-	public static final RecipeType<vazkii.botania.api.recipe.PureDaisyRecipe> PURE_DAISY_TYPE = new ModRecipeType<>();
-	public static final RecipeSerializer<PureDaisyRecipe> PURE_DAISY_SERIALIZER = new PureDaisyRecipe.Serializer();
+	private static <T extends Recipe<?>> RecipeType<T> register(ResourceLocation id) {
+		RecipeType<T> type = new BotaniaRecipeType<>(id.getPath());
+		if (TYPES.put(id, type) != null) {
+			throw new IllegalArgumentException("Multiple recipe types with ID " + id);
+		}
+		return type;
+	}
 
-	public static final RecipeType<vazkii.botania.api.recipe.BotanicalBreweryRecipe> BREW_TYPE = new ModRecipeType<>();
-	public static final RecipeSerializer<BotanicalBreweryRecipe> BREW_SERIALIZER = new BotanicalBreweryRecipe.Serializer();
-
-	public static final RecipeType<vazkii.botania.api.recipe.PetalApothecaryRecipe> PETAL_TYPE = new ModRecipeType<>();
-	public static final RecipeSerializer<PetalApothecaryRecipe> PETAL_SERIALIZER = new PetalApothecaryRecipe.Serializer();
-
-	public static final RecipeType<vazkii.botania.api.recipe.RunicAltarRecipe> RUNE_TYPE = new ModRecipeType<>();
-	public static final RecipeSerializer<RunicAltarRecipe> RUNE_SERIALIZER = new RunicAltarRecipe.Serializer();
-	public static final RecipeSerializer<HeadRecipe> RUNE_HEAD_SERIALIZER = new HeadRecipe.Serializer();
-
-	public static final RecipeType<vazkii.botania.api.recipe.TerrestrialAgglomerationRecipe> TERRA_PLATE_TYPE = new ModRecipeType<>();
-	public static final RecipeSerializer<TerrestrialAgglomerationRecipe> TERRA_PLATE_SERIALIZER = new TerrestrialAgglomerationRecipe.Serializer();
-
-	public static final RecipeType<vazkii.botania.api.recipe.OrechidRecipe> ORECHID_TYPE = new ModRecipeType<>();
-	public static final RecipeSerializer<OrechidRecipe> ORECHID_SERIALIZER = new OrechidRecipe.Serializer();
-
-	public static final RecipeType<vazkii.botania.api.recipe.OrechidRecipe> ORECHID_IGNEM_TYPE = new ModRecipeType<>();
-	public static final RecipeSerializer<OrechidIgnemRecipe> ORECHID_IGNEM_SERIALIZER = new OrechidIgnemRecipe.Serializer();
-
-	public static final RecipeType<vazkii.botania.api.recipe.OrechidRecipe> MARIMORPHOSIS_TYPE = new ModRecipeType<>();
-	public static final RecipeSerializer<MarimorphosisRecipe> MARIMORPHOSIS_SERIALIZER = new MarimorphosisRecipe.Serializer();
+	private record BotaniaRecipeType<T extends Recipe<?>>(String name) implements RecipeType<T> {
+		@Override
+		public String toString() {
+			return name;
+		}
+	}
 
 	public static void submitRecipeTypes(BiConsumer<RecipeType<?>, ResourceLocation> r) {
-		r.accept(ELVEN_TRADE_TYPE, vazkii.botania.api.recipe.ElvenTradeRecipe.TYPE_ID);
-		r.accept(MANA_INFUSION_TYPE, vazkii.botania.api.recipe.ManaInfusionRecipe.TYPE_ID);
-		r.accept(PURE_DAISY_TYPE, vazkii.botania.api.recipe.PureDaisyRecipe.TYPE_ID);
-		r.accept(BREW_TYPE, vazkii.botania.api.recipe.BotanicalBreweryRecipe.TYPE_ID);
-		r.accept(PETAL_TYPE, vazkii.botania.api.recipe.PetalApothecaryRecipe.TYPE_ID);
-		r.accept(RUNE_TYPE, vazkii.botania.api.recipe.RunicAltarRecipe.TYPE_ID);
-		r.accept(TERRA_PLATE_TYPE, vazkii.botania.api.recipe.TerrestrialAgglomerationRecipe.TYPE_ID);
-		r.accept(ORECHID_TYPE, vazkii.botania.api.recipe.OrechidRecipe.TYPE_ID);
-		r.accept(ORECHID_IGNEM_TYPE, vazkii.botania.api.recipe.OrechidRecipe.IGNEM_TYPE_ID);
-		r.accept(MARIMORPHOSIS_TYPE, vazkii.botania.api.recipe.OrechidRecipe.MARIMORPHOSIS_TYPE_ID);
+		TYPES.forEach((resourceLocation, recipeType) -> r.accept(recipeType, resourceLocation));
 	}
 
 	public static void submitRecipeSerializers(BiConsumer<RecipeSerializer<?>, ResourceLocation> r) {
-		r.accept(ELVEN_TRADE_SERIALIZER, vazkii.botania.api.recipe.ElvenTradeRecipe.TYPE_ID);
-		r.accept(LEXICON_ELVEN_TRADE_SERIALIZER, vazkii.botania.api.recipe.ElvenTradeRecipe.TYPE_ID_LEXICON);
-		r.accept(MANA_INFUSION_SERIALIZER, vazkii.botania.api.recipe.ManaInfusionRecipe.TYPE_ID);
-		r.accept(PURE_DAISY_SERIALIZER, vazkii.botania.api.recipe.PureDaisyRecipe.TYPE_ID);
-		r.accept(BREW_SERIALIZER, vazkii.botania.api.recipe.BotanicalBreweryRecipe.TYPE_ID);
-		r.accept(PETAL_SERIALIZER, vazkii.botania.api.recipe.PetalApothecaryRecipe.TYPE_ID);
-		r.accept(RUNE_SERIALIZER, vazkii.botania.api.recipe.RunicAltarRecipe.TYPE_ID);
-		r.accept(RUNE_HEAD_SERIALIZER, botaniaRL("runic_altar_head"));
-		r.accept(TERRA_PLATE_SERIALIZER, vazkii.botania.api.recipe.TerrestrialAgglomerationRecipe.TYPE_ID);
-		r.accept(ORECHID_SERIALIZER, vazkii.botania.api.recipe.OrechidRecipe.TYPE_ID);
-		r.accept(ORECHID_IGNEM_SERIALIZER, vazkii.botania.api.recipe.OrechidRecipe.IGNEM_TYPE_ID);
-		r.accept(MARIMORPHOSIS_SERIALIZER, vazkii.botania.api.recipe.OrechidRecipe.MARIMORPHOSIS_TYPE_ID);
-	}
+		// serializers for our custom recipe types
+		r.accept(ManaInfusionRecipe.SERIALIZER, vazkii.botania.api.recipe.ManaInfusionRecipe.TYPE_ID);
+		r.accept(ElvenTradeRecipe.SERIALIZER, vazkii.botania.api.recipe.ElvenTradeRecipe.TYPE_ID);
+		r.accept(LexiconElvenTradeRecipe.SERIALIZER, vazkii.botania.api.recipe.ElvenTradeRecipe.TYPE_ID_LEXICON);
+		r.accept(PureDaisyRecipe.SERIALIZER, vazkii.botania.api.recipe.PureDaisyRecipe.TYPE_ID);
+		r.accept(BotanicalBreweryRecipe.SERIALIZER, vazkii.botania.api.recipe.BotanicalBreweryRecipe.TYPE_ID);
+		r.accept(PetalApothecaryRecipe.SERIALIZER, vazkii.botania.api.recipe.PetalApothecaryRecipe.TYPE_ID);
+		r.accept(RunicAltarRecipe.SERIALIZER, vazkii.botania.api.recipe.RunicAltarRecipe.TYPE_ID);
+		r.accept(HeadRecipe.SERIALIZER, vazkii.botania.api.recipe.RunicAltarRecipe.HEAD_TYPE_ID);
+		r.accept(TerrestrialAgglomerationRecipe.SERIALIZER, vazkii.botania.api.recipe.TerrestrialAgglomerationRecipe.TYPE_ID);
+		r.accept(OrechidRecipe.SERIALIZER, vazkii.botania.api.recipe.OrechidRecipe.TYPE_ID);
+		r.accept(OrechidIgnemRecipe.SERIALIZER, vazkii.botania.api.recipe.OrechidRecipe.IGNEM_TYPE_ID);
+		r.accept(MarimorphosisRecipe.SERIALIZER, vazkii.botania.api.recipe.OrechidRecipe.MARIMORPHOSIS_TYPE_ID);
 
-	private static class ModRecipeType<T extends Recipe<?>> implements RecipeType<T> {
-		@Override
-		public String toString() {
-			return BuiltInRegistries.RECIPE_TYPE.getKey(this).toString();
-		}
+		// serializers for crafting recipe variants
+		r.accept(AncientWillRecipe.SERIALIZER, botaniaRL("ancient_will_attach"));
+		r.accept(ArmorUpgradeRecipe.SERIALIZER, botaniaRL("armor_upgrade"));
+		r.accept(BlackHoleTalismanExtractRecipe.SERIALIZER, botaniaRL("black_hole_talisman_extract"));
+		r.accept(CompositeLensRecipe.SERIALIZER, botaniaRL("composite_lens"));
+		r.accept(CosmeticAttachRecipe.SERIALIZER, botaniaRL("cosmetic_attach"));
+		r.accept(CosmeticRemoveRecipe.SERIALIZER, botaniaRL("cosmetic_remove"));
+		r.accept(LaputaShardUpgradeRecipe.SERIALIZER, botaniaRL("laputa_shard_upgrade"));
+		r.accept(LensDyeingRecipe.SERIALIZER, botaniaRL("lens_dye"));
+		r.accept(ManaBlasterClipRecipe.SERIALIZER, botaniaRL("mana_gun_add_clip"));
+		r.accept(ManaBlasterLensRecipe.SERIALIZER, botaniaRL("mana_gun_add_lens"));
+		r.accept(ManaBlasterRemoveLensRecipe.SERIALIZER, botaniaRL("mana_gun_remove_lens"));
+		r.accept(ManaUpgradeRecipe.SERIALIZER, botaniaRL("mana_upgrade"));
+		r.accept(MergeVialRecipe.SERIALIZER, botaniaRL("merge_vial"));
+		r.accept(PhantomInkRecipe.SERIALIZER, botaniaRL("phantom_ink_apply"));
+		r.accept(ResoluteIvyRecipe.SERIALIZER, botaniaRL("keep_ivy"));
+		r.accept(ShapelessManaUpgradeRecipe.SERIALIZER, botaniaRL("mana_upgrade_shapeless"));
+		r.accept(SpellbindingClothRecipe.SERIALIZER, botaniaRL("spell_cloth_apply"));
+		r.accept(SplitLensRecipe.SERIALIZER, botaniaRL("split_lens"));
+		r.accept(TerraShattererTippingRecipe.SERIALIZER, botaniaRL("terra_pick_tipping"));
+		r.accept(WandOfTheForestRecipe.SERIALIZER, botaniaRL("twig_wand"));
+		r.accept(WaterBottleMatchingRecipe.SERIALIZER, botaniaRL("water_bottle_matching_shaped"));
+
+		// wrapper serializers without a fixed recipe type
+		r.accept(GogAlternationRecipe.SERIALIZER, botaniaRL("gog_alternation"));
+		r.accept(NbtOutputRecipe.SERIALIZER, botaniaRL("nbt_output_wrapper"));
 	}
 
 	public static <C extends RecipeInput, T extends Recipe<C>> Collection<RecipeHolder<T>> getRecipes(Level world, RecipeType<T> type) {

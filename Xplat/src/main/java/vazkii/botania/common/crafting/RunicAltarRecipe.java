@@ -32,6 +32,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class RunicAltarRecipe implements vazkii.botania.api.recipe.RunicAltarRecipe {
+	public static final RecipeSerializer<RunicAltarRecipe> SERIALIZER = new Serializer();
 	private final ItemStack output;
 	private final Ingredient reagent;
 	private final NonNullList<Ingredient> ingredients;
@@ -128,7 +129,7 @@ public class RunicAltarRecipe implements vazkii.botania.api.recipe.RunicAltarRec
 
 	@Override
 	public RecipeSerializer<? extends RunicAltarRecipe> getSerializer() {
-		return BotaniaRecipeTypes.RUNE_SERIALIZER;
+		return SERIALIZER;
 	}
 
 	@Override

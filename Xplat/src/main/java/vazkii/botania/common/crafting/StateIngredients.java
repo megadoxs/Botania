@@ -9,6 +9,7 @@
 package vazkii.botania.common.crafting;
 
 import com.mojang.serialization.Codec;
+import com.mojang.serialization.MapCodec;
 
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.ByteBufCodecs;
@@ -47,6 +48,18 @@ public class StateIngredients {
 	public static final StateIngredientType<AnyOfStateIngredient> ANY_OF = new AnyOfStateIngredient.Type();
 	public static final StateIngredientType<AllOfExcludingStateIngredient> ALL_OF_EXCLUDING = new AllOfExcludingStateIngredient.Type();
 
+	public static final StateIngredientType<? extends StateIngredient> NONE_TYPE = new StateIngredientType<>() {
+		@Override
+		public MapCodec<StateIngredient> codec() {
+			return MapCodec.unit(NONE);
+		}
+
+		@Override
+		public StreamCodec<RegistryFriendlyByteBuf, StateIngredient> streamCodec() {
+			return StreamCodec.unit(NONE);
+		}
+	};
+
 	public static final StateIngredient NONE = new StateIngredient() {
 		@Override
 		public boolean test(BlockState state) {
@@ -60,7 +73,7 @@ public class StateIngredients {
 
 		@Override
 		public StateIngredientType<?> getType() {
-			return null;
+			return NONE_TYPE;
 		}
 
 		@Override
@@ -80,6 +93,7 @@ public class StateIngredients {
 	};
 
 	public static void submitRegistrations(BiConsumer<StateIngredientType<?>, ResourceLocation> r) {
+		r.accept(NONE_TYPE, botaniaRL("none"));
 		r.accept(BLOCK_TYPE, botaniaRL("block"));
 		r.accept(BLOCK_STATE, botaniaRL("state"));
 		r.accept(BLOCK_TAG, botaniaRL("tag"));

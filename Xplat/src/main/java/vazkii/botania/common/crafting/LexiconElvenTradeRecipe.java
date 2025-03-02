@@ -28,8 +28,10 @@ import java.util.List;
 import java.util.Optional;
 
 public class LexiconElvenTradeRecipe implements ElvenTradeRecipe {
+	public static final LexiconElvenTradeRecipe INSTANCE = new LexiconElvenTradeRecipe();
+	public static final RecipeSerializer<LexiconElvenTradeRecipe> SERIALIZER = new Serializer();
 
-	public LexiconElvenTradeRecipe() {}
+	private LexiconElvenTradeRecipe() {}
 
 	@Override
 	public boolean containsItem(ItemStack stack) {
@@ -72,18 +74,18 @@ public class LexiconElvenTradeRecipe implements ElvenTradeRecipe {
 
 	@Override
 	public RecipeSerializer<LexiconElvenTradeRecipe> getSerializer() {
-		return BotaniaRecipeTypes.LEXICON_ELVEN_TRADE_SERIALIZER;
+		return SERIALIZER;
 	}
 
 	public static class Serializer implements RecipeSerializer<LexiconElvenTradeRecipe> {
 		@Override
 		public MapCodec<LexiconElvenTradeRecipe> codec() {
-			return MapCodec.unit(LexiconElvenTradeRecipe::new);
+			return MapCodec.unit(() -> LexiconElvenTradeRecipe.INSTANCE);
 		}
 
 		@Override
 		public StreamCodec<RegistryFriendlyByteBuf, LexiconElvenTradeRecipe> streamCodec() {
-			return StreamCodec.unit(new LexiconElvenTradeRecipe());
+			return StreamCodec.unit(LexiconElvenTradeRecipe.INSTANCE);
 		}
 	}
 }

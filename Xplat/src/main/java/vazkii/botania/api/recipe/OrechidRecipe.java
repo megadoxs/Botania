@@ -18,8 +18,6 @@ import net.minecraft.world.item.crafting.RecipeInput;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.Level;
 
-import org.jetbrains.annotations.NotNull;
-
 import java.util.Optional;
 
 import static vazkii.botania.api.BotaniaAPI.botaniaRL;
@@ -35,12 +33,11 @@ public interface OrechidRecipe extends Recipe<RecipeInput> {
 	/** Output to display in recipes and to be used by default. */
 	StateIngredient getOutput();
 
-	@NotNull
 	@Override
 	RecipeType<? extends OrechidRecipe> getType();
 
 	/** Location-sensitive output, called with the position of the block to convert. */
-	default StateIngredient getOutput(@NotNull Level level, @NotNull BlockPos pos) {
+	default StateIngredient getOutput(Level level, BlockPos pos) {
 		return getOutput();
 	}
 
@@ -51,7 +48,7 @@ public interface OrechidRecipe extends Recipe<RecipeInput> {
 	int getWeight();
 
 	/** Location-sensitive weight, called with the position of the block to convert. */
-	default int getWeight(@NotNull Level level, @NotNull BlockPos pos) {
+	default int getWeight(Level level, BlockPos pos) {
 		return getWeight();
 	}
 
@@ -71,7 +68,7 @@ public interface OrechidRecipe extends Recipe<RecipeInput> {
 	 */
 	@Override
 	@Deprecated
-	default ItemStack assemble(RecipeInput container, @NotNull HolderLookup.Provider registryAccess) {
+	default ItemStack assemble(RecipeInput container, HolderLookup.Provider registryAccess) {
 		return ItemStack.EMPTY;
 	}
 
@@ -89,7 +86,7 @@ public interface OrechidRecipe extends Recipe<RecipeInput> {
 	 */
 	@Override
 	@Deprecated
-	default ItemStack getResultItem(@NotNull HolderLookup.Provider registryAccess) {
+	default ItemStack getResultItem(HolderLookup.Provider registryAccess) {
 		return ItemStack.EMPTY;
 	}
 

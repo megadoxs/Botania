@@ -30,6 +30,7 @@ import vazkii.botania.common.crafting.recipe.RecipeUtils;
 import java.util.List;
 
 public class TerrestrialAgglomerationRecipe implements vazkii.botania.api.recipe.TerrestrialAgglomerationRecipe {
+	public static final RecipeSerializer<TerrestrialAgglomerationRecipe> SERIALIZER = new Serializer();
 	private final int mana;
 	private final NonNullList<Ingredient> ingredients;
 	private final ItemStack output;
@@ -86,7 +87,7 @@ public class TerrestrialAgglomerationRecipe implements vazkii.botania.api.recipe
 
 	@Override
 	public RecipeSerializer<? extends TerrestrialAgglomerationRecipe> getSerializer() {
-		return BotaniaRecipeTypes.TERRA_PLATE_SERIALIZER;
+		return SERIALIZER;
 	}
 
 	public static class Serializer implements RecipeSerializer<TerrestrialAgglomerationRecipe> {

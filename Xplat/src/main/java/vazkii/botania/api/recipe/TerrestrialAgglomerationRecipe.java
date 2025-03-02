@@ -15,8 +15,6 @@ import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.RecipeInput;
 import net.minecraft.world.item.crafting.RecipeType;
 
-import org.jetbrains.annotations.NotNull;
-
 import static vazkii.botania.api.BotaniaAPI.botaniaRL;
 
 public interface TerrestrialAgglomerationRecipe extends Recipe<RecipeInput> {
@@ -35,7 +33,6 @@ public interface TerrestrialAgglomerationRecipe extends Recipe<RecipeInput> {
 		return false;
 	}
 
-	@NotNull
 	@Override
 	default ItemStack getToastSymbol() {
 		return BuiltInRegistries.ITEM.getOptional(TERRA_PLATE_ID).map(ItemStack::new).orElse(ItemStack.EMPTY);

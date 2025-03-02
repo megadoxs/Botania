@@ -34,6 +34,7 @@ import java.util.Iterator;
 import java.util.List;
 
 public class BotanicalBreweryRecipe implements vazkii.botania.api.recipe.BotanicalBreweryRecipe {
+	public static final RecipeSerializer<BotanicalBreweryRecipe> SERIALIZER = new Serializer();
 	private final Brew brew;
 	private final NonNullList<Ingredient> inputs;
 
@@ -92,7 +93,7 @@ public class BotanicalBreweryRecipe implements vazkii.botania.api.recipe.Botanic
 
 	@Override
 	public RecipeSerializer<?> getSerializer() {
-		return BotaniaRecipeTypes.BREW_SERIALIZER;
+		return SERIALIZER;
 	}
 
 	@Override

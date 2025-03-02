@@ -16,8 +16,6 @@ import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.RecipeInput;
 import net.minecraft.world.item.crafting.RecipeType;
 
-import org.jetbrains.annotations.NotNull;
-
 import vazkii.botania.api.brew.Brew;
 
 import static vazkii.botania.api.BotaniaAPI.botaniaRL;
@@ -31,21 +29,18 @@ public interface BotanicalBreweryRecipe extends Recipe<RecipeInput> {
 
 	ItemStack getOutput(ItemStack container);
 
-	@NotNull
 	@Override
 	default RecipeType<?> getType() {
 		return BuiltInRegistries.RECIPE_TYPE.get(TYPE_ID);
 	}
 
-	@NotNull
 	@Override
-	default ItemStack getResultItem(@NotNull HolderLookup.Provider registries) {
+	default ItemStack getResultItem(HolderLookup.Provider registries) {
 		return ItemStack.EMPTY;
 	}
 
-	@NotNull
 	@Override
-	default ItemStack assemble(@NotNull RecipeInput inv, @NotNull HolderLookup.Provider registries) {
+	default ItemStack assemble(RecipeInput inv, HolderLookup.Provider registries) {
 		return ItemStack.EMPTY;
 	}
 

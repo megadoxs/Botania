@@ -29,6 +29,7 @@ import vazkii.botania.common.block.BotaniaBlocks;
 import vazkii.botania.common.block.block_entity.mana.ManaPoolBlockEntity;
 
 public class ManaInfusionRecipe implements vazkii.botania.api.recipe.ManaInfusionRecipe {
+	public static final RecipeSerializer<ManaInfusionRecipe> SERIALIZER = new Serializer();
 	private final ItemStack output;
 	private final Ingredient input;
 	private final int mana;
@@ -45,7 +46,7 @@ public class ManaInfusionRecipe implements vazkii.botania.api.recipe.ManaInfusio
 
 	@Override
 	public RecipeSerializer<ManaInfusionRecipe> getSerializer() {
-		return BotaniaRecipeTypes.MANA_INFUSION_SERIALIZER;
+		return SERIALIZER;
 	}
 
 	@Override

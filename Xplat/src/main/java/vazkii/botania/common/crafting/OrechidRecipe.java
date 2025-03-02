@@ -15,6 +15,7 @@ import com.mojang.serialization.codecs.RecordCodecBuilder;
 
 import net.minecraft.commands.CacheableFunction;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.ByteBufCodecs;
@@ -34,6 +35,7 @@ import vazkii.botania.api.recipe.StateIngredient;
 import java.util.Optional;
 
 public class OrechidRecipe implements vazkii.botania.api.recipe.OrechidRecipe {
+	public static final RecipeSerializer<OrechidRecipe> SERIALIZER = new Serializer();
 	private final StateIngredient input;
 	private final StateIngredient output;
 	private final int weight;
@@ -98,14 +100,15 @@ public class OrechidRecipe implements vazkii.botania.api.recipe.OrechidRecipe {
 		return Optional.ofNullable(this.successFunction);
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public RecipeType<? extends vazkii.botania.api.recipe.OrechidRecipe> getType() {
-		return BotaniaRecipeTypes.ORECHID_TYPE;
+		return (RecipeType<? extends vazkii.botania.api.recipe.OrechidRecipe>) BuiltInRegistries.RECIPE_TYPE.get(TYPE_ID);
 	}
 
 	@Override
 	public RecipeSerializer<?> getSerializer() {
-		return BotaniaRecipeTypes.ORECHID_SERIALIZER;
+		return SERIALIZER;
 	}
 
 	public static class Serializer implements RecipeSerializer<OrechidRecipe> {

@@ -17,7 +17,6 @@ import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.inventory.MenuType;
 import net.minecraft.world.item.*;
-import net.minecraft.world.item.crafting.RecipeSerializer;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -29,7 +28,6 @@ import vazkii.botania.client.gui.bag.FlowerPouchContainer;
 import vazkii.botania.client.gui.box.BaubleBoxContainer;
 import vazkii.botania.common.block.BotaniaBlocks;
 import vazkii.botania.common.component.BotaniaDataComponents;
-import vazkii.botania.common.crafting.recipe.*;
 import vazkii.botania.common.item.brew.BaseBrewItem;
 import vazkii.botania.common.item.brew.IncenseStickItem;
 import vazkii.botania.common.item.brew.VialItem;
@@ -469,33 +467,6 @@ public final class BotaniaItems {
 	public static void registerMenuTypes(BiConsumer<MenuType<?>, ResourceLocation> consumer) {
 		consumer.accept(BAUBLE_BOX_CONTAINER, botaniaRL(LibItemNames.BAUBLE_BOX));
 		consumer.accept(FLOWER_BAG_CONTAINER, botaniaRL(LibItemNames.FLOWER_BAG));
-	}
-
-	public static void registerRecipeSerializers(BiConsumer<RecipeSerializer<?>, ResourceLocation> r) {
-		r.accept(AncientWillRecipe.SERIALIZER, botaniaRL("ancient_will_attach"));
-		r.accept(ArmorUpgradeRecipe.SERIALIZER, botaniaRL("armor_upgrade"));
-		r.accept(BlackHoleTalismanExtractRecipe.SERIALIZER, botaniaRL("black_hole_talisman_extract"));
-		r.accept(CompositeLensRecipe.SERIALIZER, botaniaRL("composite_lens"));
-		r.accept(CosmeticAttachRecipe.SERIALIZER, botaniaRL("cosmetic_attach"));
-		r.accept(CosmeticRemoveRecipe.SERIALIZER, botaniaRL("cosmetic_remove"));
-		r.accept(GogAlternationRecipe.SERIALIZER, botaniaRL("gog_alternation"));
-		r.accept(HeadRecipe.SERIALIZER, botaniaRL("head_recipe"));
-		r.accept(LaputaShardUpgradeRecipe.SERIALIZER, botaniaRL("laputa_shard_upgrade"));
-		r.accept(LensDyeingRecipe.SERIALIZER, botaniaRL("lens_dye"));
-		r.accept(ManaBlasterClipRecipe.SERIALIZER, botaniaRL("mana_gun_add_clip"));
-		r.accept(ManaBlasterLensRecipe.SERIALIZER, botaniaRL("mana_gun_add_lens"));
-		r.accept(ManaBlasterRemoveLensRecipe.SERIALIZER, botaniaRL("mana_gun_remove_lens"));
-		r.accept(ManaUpgradeRecipe.SERIALIZER, botaniaRL("mana_upgrade"));
-		r.accept(MergeVialRecipe.SERIALIZER, botaniaRL("merge_vial"));
-		r.accept(NbtOutputRecipe.SERIALIZER, botaniaRL("nbt_output_wrapper"));
-		r.accept(PhantomInkRecipe.SERIALIZER, botaniaRL("phantom_ink_apply"));
-		r.accept(ResoluteIvyRecipe.SERIALIZER, botaniaRL("keep_ivy"));
-		r.accept(ShapelessManaUpgradeRecipe.SERIALIZER, botaniaRL("mana_upgrade_shapeless"));
-		r.accept(SpellbindingClothRecipe.SERIALIZER, botaniaRL("spell_cloth_apply"));
-		r.accept(SplitLensRecipe.SERIALIZER, botaniaRL("split_lens"));
-		r.accept(TerraShattererTippingRecipe.SERIALIZER, botaniaRL("terra_pick_tipping"));
-		r.accept(WandOfTheForestRecipe.SERIALIZER, botaniaRL("twig_wand"));
-		r.accept(WaterBottleMatchingRecipe.SERIALIZER, botaniaRL("water_bottle_matching_shaped"));
 	}
 
 	public static Item getPetal(DyeColor color) {

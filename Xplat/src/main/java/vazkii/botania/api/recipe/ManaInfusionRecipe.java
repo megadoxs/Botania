@@ -18,8 +18,6 @@ import net.minecraft.world.item.crafting.RecipeInput;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.Level;
 
-import org.jetbrains.annotations.NotNull;
-
 import static vazkii.botania.api.BotaniaAPI.botaniaRL;
 
 public interface ManaInfusionRecipe extends Recipe<RecipeInput> {
@@ -40,9 +38,8 @@ public interface ManaInfusionRecipe extends Recipe<RecipeInput> {
 	 *
 	 * @return The output stack of the recipe.
 	 */
-	@NotNull
 	@Override
-	ItemStack getResultItem(@NotNull HolderLookup.Provider registries);
+	ItemStack getResultItem(HolderLookup.Provider registries);
 
 	/**
 	 * Get the actual recipe output, not just for display. Defaults to a copy of {@link #getResultItem}.
@@ -50,8 +47,7 @@ public interface ManaInfusionRecipe extends Recipe<RecipeInput> {
 	 * @param input The whole stack that is in the Mana Pool, not a copy.
 	 * @return The output stack of the recipe for the specific input.
 	 */
-	@NotNull
-	default ItemStack getRecipeOutput(@NotNull RegistryAccess registries, @NotNull ItemStack input) {
+	default ItemStack getRecipeOutput(RegistryAccess registries, ItemStack input) {
 		return getResultItem(registries).copy();
 	}
 
@@ -60,7 +56,6 @@ public interface ManaInfusionRecipe extends Recipe<RecipeInput> {
 	 *
 	 * @return The catalyst ingredient.
 	 */
-	@NotNull
 	StateIngredient getRecipeCatalyst();
 
 	/**
@@ -68,7 +63,6 @@ public interface ManaInfusionRecipe extends Recipe<RecipeInput> {
 	 */
 	int getManaToConsume();
 
-	@NotNull
 	@Override
 	default RecipeType<?> getType() {
 		return BuiltInRegistries.RECIPE_TYPE.get(TYPE_ID);
@@ -76,14 +70,13 @@ public interface ManaInfusionRecipe extends Recipe<RecipeInput> {
 
 	// Ignored IRecipe stuff
 
-	@NotNull
 	@Override
-	default ItemStack assemble(@NotNull RecipeInput inv, @NotNull HolderLookup.Provider registries) {
+	default ItemStack assemble(RecipeInput inv, HolderLookup.Provider registries) {
 		return ItemStack.EMPTY;
 	}
 
 	@Override
-	default boolean matches(@NotNull RecipeInput inv, @NotNull Level world) {
+	default boolean matches(RecipeInput inv, Level world) {
 		return false;
 	}
 

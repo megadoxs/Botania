@@ -28,6 +28,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class PetalApothecaryRecipe implements vazkii.botania.api.recipe.PetalApothecaryRecipe {
+	public static final RecipeSerializer<PetalApothecaryRecipe> SERIALIZER = new Serializer();
 	private final ItemStack output;
 	private final Ingredient reagent;
 	private final NonNullList<Ingredient> ingredients;
@@ -103,7 +104,7 @@ public class PetalApothecaryRecipe implements vazkii.botania.api.recipe.PetalApo
 
 	@Override
 	public RecipeSerializer<? extends PetalApothecaryRecipe> getSerializer() {
-		return BotaniaRecipeTypes.PETAL_SERIALIZER;
+		return SERIALIZER;
 	}
 
 	public static class Serializer implements RecipeSerializer<PetalApothecaryRecipe> {

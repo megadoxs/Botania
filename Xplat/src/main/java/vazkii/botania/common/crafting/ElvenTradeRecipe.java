@@ -28,6 +28,7 @@ import java.util.List;
 import java.util.Optional;
 
 public class ElvenTradeRecipe implements vazkii.botania.api.recipe.ElvenTradeRecipe {
+	public static final RecipeSerializer<ElvenTradeRecipe> SERIALIZER = new Serializer();
 	private final ImmutableList<ItemStack> outputs;
 	private final NonNullList<Ingredient> inputs;
 
@@ -87,7 +88,7 @@ public class ElvenTradeRecipe implements vazkii.botania.api.recipe.ElvenTradeRec
 
 	@Override
 	public RecipeSerializer<?> getSerializer() {
-		return BotaniaRecipeTypes.ELVEN_TRADE_SERIALIZER;
+		return SERIALIZER;
 	}
 
 	@Override

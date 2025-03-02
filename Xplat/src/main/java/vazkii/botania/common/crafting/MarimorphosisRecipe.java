@@ -11,6 +11,7 @@ package vazkii.botania.common.crafting;
 import com.mojang.serialization.MapCodec;
 
 import net.minecraft.commands.CacheableFunction;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.tags.TagKey;
@@ -25,6 +26,8 @@ import vazkii.botania.api.recipe.StateIngredient;
 import java.util.function.Function;
 
 public class MarimorphosisRecipe extends OrechidRecipe {
+	public static final RecipeSerializer<MarimorphosisRecipe> SERIALIZER = new Serializer();
+
 	public MarimorphosisRecipe(StateIngredient input, StateIngredient output, int weight,
 			@Nullable CacheableFunction successFunction, int weightBonus, @Nullable TagKey<Biome> biomes) {
 		super(input, output, weight, successFunction, weightBonus, biomes);
@@ -36,20 +39,21 @@ public class MarimorphosisRecipe extends OrechidRecipe {
 				orechidRecipe.getBiomes().orElse(null));
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public RecipeType<? extends vazkii.botania.api.recipe.OrechidRecipe> getType() {
-		return BotaniaRecipeTypes.MARIMORPHOSIS_TYPE;
+		return (RecipeType<? extends vazkii.botania.api.recipe.OrechidRecipe>) BuiltInRegistries.RECIPE_TYPE.get(MARIMORPHOSIS_TYPE_ID);
 	}
 
 	@Override
 	public RecipeSerializer<?> getSerializer() {
-		return BotaniaRecipeTypes.MARIMORPHOSIS_SERIALIZER;
+		return SERIALIZER;
 	}
 
 	public static class Serializer implements RecipeSerializer<MarimorphosisRecipe> {
-		public static final MapCodec<MarimorphosisRecipe> CODEC = BotaniaRecipeTypes.ORECHID_SERIALIZER.codec()
+		public static final MapCodec<MarimorphosisRecipe> CODEC = OrechidRecipe.SERIALIZER.codec()
 				.xmap(MarimorphosisRecipe::new, Function.identity());
-		public static final StreamCodec<RegistryFriendlyByteBuf, MarimorphosisRecipe> STREAM_CODEC = BotaniaRecipeTypes.ORECHID_SERIALIZER.streamCodec()
+		public static final StreamCodec<RegistryFriendlyByteBuf, MarimorphosisRecipe> STREAM_CODEC = OrechidRecipe.SERIALIZER.streamCodec()
 				.map(MarimorphosisRecipe::new, Function.identity());
 
 		@Override

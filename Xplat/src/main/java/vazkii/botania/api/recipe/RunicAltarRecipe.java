@@ -16,23 +16,19 @@ import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.RecipeInput;
 import net.minecraft.world.item.crafting.RecipeType;
 
-import org.jetbrains.annotations.NotNull;
-
 import static vazkii.botania.api.BotaniaAPI.botaniaRL;
 
 public interface RunicAltarRecipe extends RecipeWithReagent {
 	ResourceLocation TYPE_ID = botaniaRL("runic_altar");
+	ResourceLocation HEAD_TYPE_ID = botaniaRL("runic_altar_head");
 
 	int getMana();
 
-	@NotNull
 	NonNullList<Ingredient> getCatalysts();
 
-	@NotNull
 	@Override
 	NonNullList<ItemStack> getRemainingItems(RecipeInput container);
 
-	@NotNull
 	@Override
 	default RecipeType<?> getType() {
 		return BuiltInRegistries.RECIPE_TYPE.get(TYPE_ID);

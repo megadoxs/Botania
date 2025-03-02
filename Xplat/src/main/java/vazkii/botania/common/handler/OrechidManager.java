@@ -21,7 +21,6 @@ import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 
-import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import vazkii.botania.api.recipe.OrechidRecipe;
@@ -41,7 +40,7 @@ public class OrechidManager implements ResourceManagerReloadListener {
 	}
 
 	@Override
-	public void onResourceManagerReload(@NotNull ResourceManager manager) {
+	public void onResourceManagerReload(ResourceManager manager) {
 		BY_TYPE.clear();
 		TOTAL_WEIGHTS_WITHOUT_POSITION.clear();
 	}

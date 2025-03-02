@@ -124,8 +124,10 @@ import java.util.function.BiConsumer;
 import static vazkii.botania.api.BotaniaAPI.botaniaRL;
 
 public class FabricCommonInitializer implements ModInitializer {
-	private static final Registry<Brew> BREW_REGISTRY = FabricRegistryBuilder.createDefaulted(BotaniaRegistries.BREWS, botaniaRL("fallback")).buildAndRegister();
-	private static final MappedRegistry<StateIngredientType<?>> STATE_INGREDIENT_TYPE_REGISTRY = FabricRegistryBuilder.createSimple(BotaniaRegistries.STATE_INGREDIENT_TYPE).buildAndRegister();
+	private static final Registry<Brew> BREW_REGISTRY = FabricRegistryBuilder
+			.createDefaulted(BotaniaRegistries.BREWS, botaniaRL("fallback")).buildAndRegister();
+	private static final MappedRegistry<StateIngredientType<?>> STATE_INGREDIENT_TYPE_REGISTRY = FabricRegistryBuilder
+			.createDefaulted(BotaniaRegistries.STATE_INGREDIENT_TYPE, botaniaRL("none")).buildAndRegister();
 
 	@Override
 	public void onInitialize() {
@@ -184,10 +186,9 @@ public class FabricCommonInitializer implements ModInitializer {
 
 		// GUI and Recipe
 		BotaniaItems.registerMenuTypes(bind(BuiltInRegistries.MENU));
-		BotaniaItems.registerRecipeSerializers(bind(BuiltInRegistries.RECIPE_SERIALIZER));
+		StateIngredients.submitRegistrations(bind(STATE_INGREDIENT_TYPE_REGISTRY));
 		BotaniaRecipeTypes.submitRecipeTypes(bind(BuiltInRegistries.RECIPE_TYPE));
 		BotaniaRecipeTypes.submitRecipeSerializers(bind(BuiltInRegistries.RECIPE_SERIALIZER));
-		StateIngredients.submitRegistrations(bind(STATE_INGREDIENT_TYPE_REGISTRY));
 
 		// Entities
 		BotaniaEntities.registerEntities(bind(BuiltInRegistries.ENTITY_TYPE));
