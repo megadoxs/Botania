@@ -30,6 +30,7 @@ import java.util.Optional;
 import java.util.function.Function;
 
 public class HeadRecipe extends RunicAltarRecipe {
+	public static final RecipeSerializer<HeadRecipe> SERIALIZER = new Serializer();
 
 	public HeadRecipe(ItemStack output, Ingredient reagent, int mana, Ingredient... inputs) {
 		super(output, reagent, mana, inputs, new Ingredient[0]);
@@ -61,6 +62,11 @@ public class HeadRecipe extends RunicAltarRecipe {
 		}
 
 		return matches;
+	}
+
+	@Override
+	public RecipeSerializer<? extends RunicAltarRecipe> getSerializer() {
+		return SERIALIZER;
 	}
 
 	@Override
