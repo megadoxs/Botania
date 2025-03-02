@@ -84,27 +84,27 @@ public class BotaniaRecipeTypes {
 		r.accept(MarimorphosisRecipe.SERIALIZER, vazkii.botania.api.recipe.OrechidRecipe.MARIMORPHOSIS_TYPE_ID);
 
 		// serializers for crafting recipe variants
-		r.accept(AncientWillRecipe.SERIALIZER, botaniaRL("ancient_will_attach"));
-		r.accept(ArmorUpgradeRecipe.SERIALIZER, botaniaRL("armor_upgrade"));
-		r.accept(BlackHoleTalismanExtractRecipe.SERIALIZER, botaniaRL("black_hole_talisman_extract"));
-		r.accept(CompositeLensRecipe.SERIALIZER, botaniaRL("composite_lens"));
-		r.accept(CosmeticAttachRecipe.SERIALIZER, botaniaRL("cosmetic_attach"));
-		r.accept(CosmeticRemoveRecipe.SERIALIZER, botaniaRL("cosmetic_remove"));
-		r.accept(LaputaShardUpgradeRecipe.SERIALIZER, botaniaRL("laputa_shard_upgrade"));
-		r.accept(LensDyeingRecipe.SERIALIZER, botaniaRL("lens_dye"));
-		r.accept(ManaBlasterClipRecipe.SERIALIZER, botaniaRL("mana_gun_add_clip"));
-		r.accept(ManaBlasterLensRecipe.SERIALIZER, botaniaRL("mana_gun_add_lens"));
-		r.accept(ManaBlasterRemoveLensRecipe.SERIALIZER, botaniaRL("mana_gun_remove_lens"));
-		r.accept(ManaUpgradeRecipe.SERIALIZER, botaniaRL("mana_upgrade"));
-		r.accept(MergeVialRecipe.SERIALIZER, botaniaRL("merge_vial"));
-		r.accept(PhantomInkRecipe.SERIALIZER, botaniaRL("phantom_ink_apply"));
-		r.accept(ResoluteIvyRecipe.SERIALIZER, botaniaRL("keep_ivy"));
-		r.accept(ShapelessManaUpgradeRecipe.SERIALIZER, botaniaRL("mana_upgrade_shapeless"));
-		r.accept(SpellbindingClothRecipe.SERIALIZER, botaniaRL("spell_cloth_apply"));
-		r.accept(SplitLensRecipe.SERIALIZER, botaniaRL("split_lens"));
-		r.accept(TerraShattererTippingRecipe.SERIALIZER, botaniaRL("terra_pick_tipping"));
-		r.accept(WandOfTheForestRecipe.SERIALIZER, botaniaRL("twig_wand"));
-		r.accept(WaterBottleMatchingRecipe.SERIALIZER, botaniaRL("water_bottle_matching_shaped"));
+		r.accept(AncientWillRecipe.SERIALIZER, botaniaRL("crafting_special_ancient_will_attach"));
+		r.accept(ArmorUpgradeRecipe.SERIALIZER, botaniaRL("crafting_shaped_armor_upgrade"));
+		r.accept(BlackHoleTalismanExtractRecipe.SERIALIZER, botaniaRL("crafting_special_black_hole_talisman_extract"));
+		r.accept(CompositeLensRecipe.SERIALIZER, botaniaRL("crafting_special_composite_lens"));
+		r.accept(CosmeticAttachRecipe.SERIALIZER, botaniaRL("crafting_special_cosmetic_attach"));
+		r.accept(CosmeticRemoveRecipe.SERIALIZER, botaniaRL("crafting_special_cosmetic_remove"));
+		r.accept(LaputaShardUpgradeRecipe.SERIALIZER, botaniaRL("crafting_special_laputa_shard_upgrade"));
+		r.accept(LensDyeingRecipe.SERIALIZER, botaniaRL("crafting_special_lens_dye"));
+		r.accept(ManaBlasterClipRecipe.SERIALIZER, botaniaRL("crafting_special_mana_gun_add_clip"));
+		r.accept(ManaBlasterLensRecipe.SERIALIZER, botaniaRL("crafting_special_mana_gun_add_lens"));
+		r.accept(ManaBlasterRemoveLensRecipe.SERIALIZER, botaniaRL("crafting_special_mana_gun_remove_lens"));
+		r.accept(ManaUpgradeRecipe.SERIALIZER, botaniaRL("crafting_shaped_mana_upgrade"));
+		r.accept(MergeVialRecipe.SERIALIZER, botaniaRL("crafting_special_merge_vial"));
+		r.accept(PhantomInkRecipe.SERIALIZER, botaniaRL("crafting_special_phantom_ink_apply"));
+		r.accept(ResoluteIvyRecipe.SERIALIZER, botaniaRL("crafting_special_keep_ivy"));
+		r.accept(ShapelessManaUpgradeRecipe.SERIALIZER, botaniaRL("crafting_shapeless_mana_upgrade"));
+		r.accept(SpellbindingClothRecipe.SERIALIZER, botaniaRL("crafting_special_spell_cloth_apply"));
+		r.accept(SplitLensRecipe.SERIALIZER, botaniaRL("crafting_special_split_lens"));
+		r.accept(TerraShattererTippingRecipe.SERIALIZER, botaniaRL("crafting_special_terra_pick_tipping"));
+		r.accept(WandOfTheForestRecipe.SERIALIZER, botaniaRL("crafting_shaped_wand"));
+		r.accept(WaterBottleMatchingRecipe.SERIALIZER, botaniaRL("crafting_shaped_water_bottle_matching"));
 
 		// wrapper serializers without a fixed recipe type
 		r.accept(GogAlternationRecipe.SERIALIZER, botaniaRL("gog_alternation"));

@@ -34,7 +34,8 @@ public class BotaniaSpecialRecipeBuilder {
 		Recipe<?> recipe = this.factory.apply(category);
 		RecipeSerializer<?> serializer = recipe.getSerializer();
 		ResourceLocation serializerKey = BuiltInRegistries.RECIPE_SERIALIZER.getKey(serializer);
-		ResourceLocation recipeId = ResourceLocation.fromNamespaceAndPath(serializerKey.getNamespace(), "dynamic/" + serializerKey.getPath());
+		ResourceLocation recipeId = ResourceLocation.fromNamespaceAndPath(serializerKey.getNamespace(),
+				"dynamic/" + serializerKey.getPath().replaceFirst("crafting_(?:special|shaped|shapeless)_", ""));
 		recipeOutput.accept(recipeId, recipe, null);
 	}
 }
