@@ -40,7 +40,6 @@ import vazkii.botania.common.lib.BotaniaTags;
 import vazkii.botania.common.lib.LibBlockNames;
 import vazkii.botania.common.lib.LibItemNames;
 import vazkii.botania.data.recipes.builder.BotaniaSpecialRecipeBuilder;
-import vazkii.botania.data.recipes.builder.GogAlternationRecipeBuilder;
 import vazkii.botania.data.recipes.builder.TiaraWingsRecipeBuilder;
 import vazkii.botania.data.recipes.builder.WrapperRecipeBuilder;
 import vazkii.botania.mixin.RecipeProviderAccessor;
@@ -112,25 +111,26 @@ public class CraftingRecipeProvider extends BotaniaRecipeProvider {
 		Criterion<InventoryChangeTrigger.TriggerInstance> hasAnyDye = conditionsFromItems(
 				ColorHelper.supportedColors().map(DyeItem::byColor).toArray(ItemLike[]::new)
 		);
-		GogAlternationRecipeBuilder.alternatives(
-				ShapedRecipeBuilder.shaped(RecipeCategory.REDSTONE, BotaniaBlocks.manaSpreader)
-						.define('P', BotaniaTags.Items.PETALS)
-						.define('W', BotaniaTags.Items.LIVINGWOOD_LOGS)
-						.define('C', Items.COPPER_INGOT)
-						.pattern("WWW")
-						.pattern("CP ")
-						.pattern("WWW")
-						.group("botania:spreader")
-						.unlockedBy("has_item", conditionsFromTag(BotaniaTags.Items.LIVINGWOOD_LOGS)),
-				ShapedRecipeBuilder.shaped(RecipeCategory.REDSTONE, BotaniaBlocks.manaSpreader)
-						.define('P', BotaniaTags.Items.PETALS)
-						.define('W', BotaniaTags.Items.LIVINGWOOD_LOGS)
-						.pattern("WWW")
-						.pattern("WP ")
-						.pattern("WWW")
-						.group("botania:spreader")
-						.unlockedBy("has_item", conditionsFromTag(BotaniaTags.Items.LIVINGWOOD_LOGS))
-		).save(recipeOutput);
+		//GogAlternationRecipeBuilder.alternatives(
+		ShapedRecipeBuilder.shaped(RecipeCategory.REDSTONE, BotaniaBlocks.manaSpreader)
+				.define('P', BotaniaTags.Items.PETALS)
+				.define('W', BotaniaTags.Items.LIVINGWOOD_LOGS)
+				.define('C', Items.COPPER_INGOT)
+				.pattern("WWW")
+				.pattern("CP ")
+				.pattern("WWW")
+				.group("botania:spreader")
+				.unlockedBy("has_item", conditionsFromTag(BotaniaTags.Items.LIVINGWOOD_LOGS))/*,
+																								TODO: move to GoG data pack
+																								ShapedRecipeBuilder.shaped(RecipeCategory.REDSTONE, BotaniaBlocks.manaSpreader)
+																								.define('P', BotaniaTags.Items.PETALS)
+																								.define('W', BotaniaTags.Items.LIVINGWOOD_LOGS)
+																								.pattern("WWW")
+																								.pattern("WP ")
+																								.pattern("WWW")
+																								.group("botania:spreader")
+																								.unlockedBy("has_item", conditionsFromTag(BotaniaTags.Items.LIVINGWOOD_LOGS))
+																								)*/.save(recipeOutput);
 		ShapelessRecipeBuilder.shapeless(RecipeCategory.REDSTONE, BotaniaBlocks.redstoneSpreader)
 				.requires(BotaniaBlocks.manaSpreader)
 				.requires(Items.REDSTONE)
@@ -492,25 +492,26 @@ public class CraftingRecipeProvider extends BotaniaRecipeProvider {
 				.pattern(" G ")
 				.unlockedBy("has_item", conditionsFromItem(Items.PUMPKIN))
 				.save(recipeOutput);
-		GogAlternationRecipeBuilder.alternatives(
-				ShapedRecipeBuilder.shaped(RecipeCategory.MISC, BotaniaBlocks.cocoon)
-						.define('S', Items.STRING)
-						.define('C', BotaniaItems.manaweaveCloth)
-						.define('P', BotaniaBlocks.felPumpkin)
-						.define('D', BotaniaItems.pixieDust)
-						.pattern("SSS")
-						.pattern("CPC")
-						.pattern("SDS")
-						.unlockedBy("has_item", conditionsFromItem(BotaniaBlocks.felPumpkin)),
-				ShapedRecipeBuilder.shaped(RecipeCategory.MISC, BotaniaBlocks.cocoon)
-						.define('S', Items.STRING)
-						.define('P', BotaniaBlocks.felPumpkin)
-						.define('I', BotaniaTags.Items.INGOTS_MANASTEEL)
-						.pattern("SSS")
-						.pattern("SPS")
-						.pattern("SIS")
-						.unlockedBy("has_item", conditionsFromItem(BotaniaBlocks.felPumpkin))
-		).save(recipeOutput);
+		//GogAlternationRecipeBuilder.alternatives(
+		ShapedRecipeBuilder.shaped(RecipeCategory.MISC, BotaniaBlocks.cocoon)
+				.define('S', Items.STRING)
+				.define('C', BotaniaItems.manaweaveCloth)
+				.define('P', BotaniaBlocks.felPumpkin)
+				.define('D', BotaniaItems.pixieDust)
+				.pattern("SSS")
+				.pattern("CPC")
+				.pattern("SDS")
+				.unlockedBy("has_item", conditionsFromItem(BotaniaBlocks.felPumpkin))/*,
+																						TODO: move to GoG data pack
+																						ShapedRecipeBuilder.shaped(RecipeCategory.MISC, BotaniaBlocks.cocoon)
+																						.define('S', Items.STRING)
+																						.define('P', BotaniaBlocks.felPumpkin)
+																						.define('I', BotaniaTags.Items.INGOTS_MANASTEEL)
+																						.pattern("SSS")
+																						.pattern("SPS")
+																						.pattern("SIS")
+																						.unlockedBy("has_item", conditionsFromItem(BotaniaBlocks.felPumpkin))
+																						)*/.save(recipeOutput);
 		ShapelessRecipeBuilder.shapeless(RecipeCategory.TRANSPORTATION, BotaniaBlocks.lightRelayDefault)
 				.requires(BotaniaItems.redString)
 				.requires(BotaniaTags.Items.GEMS_DRAGONSTONE)
@@ -629,16 +630,17 @@ public class CraftingRecipeProvider extends BotaniaRecipeProvider {
 				Items.LIGHT_BLUE_DYE, Items.YELLOW_DYE, Items.LIME_DYE, Items.PINK_DYE, Items.GRAY_DYE,
 				Items.LIGHT_GRAY_DYE, Items.CYAN_DYE, Items.PURPLE_DYE, Items.BLUE_DYE, Items.BROWN_DYE,
 				Items.GREEN_DYE, Items.RED_DYE, Items.BLACK_DYE);
-		GogAlternationRecipeBuilder.alternatives(
-				ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, BotaniaItems.fertilizer)
-						.requires(Items.BONE_MEAL)
-						.requires(dyes, 4)
-						.unlockedBy("has_item", hasAnyDye),
-				ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, BotaniaItems.fertilizer, 3)
-						.requires(Items.BONE_MEAL)
-						.requires(dyes, 4)
-						.unlockedBy("has_item", hasAnyDye)
-		).save(recipeOutput, "botania:fertilizer_dye");
+		//GogAlternationRecipeBuilder.alternatives(
+		ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, BotaniaItems.fertilizer)
+				.requires(Items.BONE_MEAL)
+				.requires(dyes, 4)
+				.unlockedBy("has_item", hasAnyDye)/*,
+													TODO: move to GoG data pack
+													ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, BotaniaItems.fertilizer, 3)
+													.requires(Items.BONE_MEAL)
+													.requires(dyes, 4)
+													.unlockedBy("has_item", hasAnyDye)
+													)*/.save(recipeOutput, "botania:fertilizer_dye");
 		ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, BotaniaItems.drySeeds)
 				.requires(BotaniaItems.grassSeeds)
 				.requires(Items.DEAD_BUSH)
@@ -2037,10 +2039,12 @@ public class CraftingRecipeProvider extends BotaniaRecipeProvider {
 		compression(BotaniaBlocks.manaDiamondBlock, BotaniaTags.Items.GEMS_MANA_DIAMOND).save(recipeOutput);
 		compression(BotaniaBlocks.dragonstoneBlock, BotaniaTags.Items.GEMS_DRAGONSTONE).save(recipeOutput);
 
-		GogAlternationRecipeBuilder.alternatives(
-				compression(BotaniaBlocks.blazeBlock, Items.BLAZE_ROD),
-				compression(BotaniaBlocks.blazeBlock, Items.BLAZE_POWDER)
-		).save(recipeOutput);
+		//GogAlternationRecipeBuilder.alternatives(
+		compression(BotaniaBlocks.blazeBlock, Items.BLAZE_ROD)//,
+				// TODO: move to GoG data pack
+				//		compression(BotaniaBlocks.blazeBlock, Items.BLAZE_POWDER)
+				//)
+				.save(recipeOutput);
 
 		deconstructPetalBlock(recipeOutput, BotaniaItems.whitePetal, BotaniaBlocks.petalBlockWhite);
 		deconstructPetalBlock(recipeOutput, BotaniaItems.orangePetal, BotaniaBlocks.petalBlockOrange);
@@ -2059,10 +2063,12 @@ public class CraftingRecipeProvider extends BotaniaRecipeProvider {
 		deconstructPetalBlock(recipeOutput, BotaniaItems.redPetal, BotaniaBlocks.petalBlockRed);
 		deconstructPetalBlock(recipeOutput, BotaniaItems.blackPetal, BotaniaBlocks.petalBlockBlack);
 
-		GogAlternationRecipeBuilder.saveAlternatives(recipeOutput,
-				output -> deconstruct(output, Items.BLAZE_ROD, BotaniaBlocks.blazeBlock, "blazeblock_deconstruct"),
-				output -> deconstruct(output, Items.BLAZE_POWDER, BotaniaBlocks.blazeBlock, "blazeblock_deconstruct")
-		);
+		/*GogAlternationRecipeBuilder.saveAlternatives(recipeOutput,
+				output ->*/ deconstruct(recipeOutput, Items.BLAZE_ROD, BotaniaBlocks.blazeBlock, "blazeblock_deconstruct")/*,
+																															TODO: move to GoG data pack
+																															output -> deconstruct(output, Items.BLAZE_POWDER, BotaniaBlocks.blazeBlock, "blazeblock_deconstruct")
+																															)*/;
+
 		deconstruct(recipeOutput, BotaniaItems.manaSteel, BotaniaTags.Items.BLOCKS_MANASTEEL, "manasteel_block_deconstruct");
 		deconstruct(recipeOutput, BotaniaItems.manaDiamond, BotaniaBlocks.manaDiamondBlock, "manadiamond_block_deconstruct");
 		deconstruct(recipeOutput, BotaniaItems.terrasteel, BotaniaTags.Items.BLOCKS_TERRASTEEL, "terrasteel_block_deconstruct");

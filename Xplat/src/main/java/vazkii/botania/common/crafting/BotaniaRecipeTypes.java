@@ -108,7 +108,8 @@ public class BotaniaRecipeTypes {
 		r.accept(WaterBottleMatchingRecipe.SERIALIZER, botaniaRL("crafting_shaped_water_bottle_matching"));
 
 		// wrapper serializers without a fixed recipe type
-		r.accept(GogAlternationRecipe.SERIALIZER, botaniaRL("gog_alternation"));
+		// TODO: purge every mention of this after moving GoG recipes to an actual data pack
+		// r.accept(GogAlternationRecipe.SERIALIZER, botaniaRL("gog_alternation"));
 	}
 
 	public static <C extends RecipeInput, T extends Recipe<C>> Collection<RecipeHolder<T>> getRecipes(Level world, RecipeType<T> type) {

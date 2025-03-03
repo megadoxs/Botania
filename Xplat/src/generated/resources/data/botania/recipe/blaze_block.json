@@ -1,39 +1,18 @@
 {
-  "type": "botania:gog_alternation",
-  "base": {
-    "type": "minecraft:crafting_shaped",
-    "category": "building",
-    "key": {
-      "I": {
-        "item": "minecraft:blaze_rod"
-      }
-    },
-    "pattern": [
-      "III",
-      "III",
-      "III"
-    ],
-    "result": {
-      "count": 1,
-      "id": "botania:blaze_block"
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "key": {
+    "I": {
+      "item": "minecraft:blaze_rod"
     }
   },
-  "gog": {
-    "type": "minecraft:crafting_shaped",
-    "category": "building",
-    "key": {
-      "I": {
-        "item": "minecraft:blaze_powder"
-      }
-    },
-    "pattern": [
-      "III",
-      "III",
-      "III"
-    ],
-    "result": {
-      "count": 1,
-      "id": "botania:blaze_block"
-    }
+  "pattern": [
+    "III",
+    "III",
+    "III"
+  ],
+  "result": {
+    "count": 1,
+    "id": "botania:blaze_block"
   }
 }

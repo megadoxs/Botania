@@ -27,7 +27,6 @@ import net.minecraft.world.level.ItemLike;
 import vazkii.botania.common.block.BotaniaBlocks;
 import vazkii.botania.common.block.BotaniaFlowerBlocks;
 import vazkii.botania.common.crafting.PetalApothecaryRecipe;
-import vazkii.botania.common.crafting.recipe.GogAlternationRecipe;
 import vazkii.botania.common.item.BotaniaItems;
 import vazkii.botania.common.lib.BotaniaTags;
 
@@ -112,8 +111,9 @@ public class PetalApothecaryProvider extends BotaniaRecipeProvider {
 		make(consumer, BotaniaFlowerBlocks.tigerseye, yellow, brown, orange, lime, runeAutumn);
 
 		PetalApothecaryRecipe base = new PetalApothecaryRecipe(new ItemStack(BotaniaFlowerBlocks.orechid), DEFAULT_REAGENT, gray, gray, yellow, green, red, runePride, runeGreed, redstoneRoot, pixieDust);
-		PetalApothecaryRecipe gog = new PetalApothecaryRecipe(new ItemStack(BotaniaFlowerBlocks.orechid), DEFAULT_REAGENT, gray, gray, yellow, yellow, green, green, red, red);
-		consumer.accept(idFor(botaniaRL("orechid")), new GogAlternationRecipe<>(base, gog), null);
+		// TODO: move to GoG data pack
+		//PetalApothecaryRecipe gog = new PetalApothecaryRecipe(new ItemStack(BotaniaFlowerBlocks.orechid), DEFAULT_REAGENT, gray, gray, yellow, yellow, green, green, red, red);
+		consumer.accept(idFor(botaniaRL("orechid")), /*new GogAlternationRecipe<>(*/base/*, gog)*/, null);
 
 		make(consumer, BotaniaFlowerBlocks.orechidIgnem, red, red, white, white, pink, runePride, runeGreed, redstoneRoot, pixieDust);
 		make(consumer, BotaniaFlowerBlocks.fallenKanade, white, white, yellow, yellow, orange, runeSpring);

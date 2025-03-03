@@ -29,6 +29,7 @@ import vazkii.botania.xplat.XplatAbstractions;
 
 import java.util.function.Supplier;
 
+@Deprecated(forRemoval = true)
 public class GogAlternationRecipe<C extends RecipeInput> implements Recipe<C> {
 	public static final RecipeSerializer<GogAlternationRecipe<?>> SERIALIZER = new Serializer();
 

@@ -19,6 +19,7 @@ import java.util.Objects;
 import java.util.function.BiConsumer;
 import java.util.function.Consumer;
 
+@Deprecated(forRemoval = true)
 public class GogAlternationRecipeBuilder {
 	private final RecipeBuilder baseRecipeBuilder;
 	private final RecipeBuilder gogRecipeBuilder;
@@ -51,6 +52,7 @@ public class GogAlternationRecipeBuilder {
 			// TODO: How to handle differences in the unlock advancements?
 		}
 
+		@SuppressWarnings("removal")
 		GogAlternationRecipe<?> alternationRecipe = new GogAlternationRecipe<>(baseOutput.getMiddle(), gogOutput.getMiddle());
 		recipeOutput.accept(baseOutput.getLeft(), alternationRecipe, baseOutput.getRight().orElse(null));
 	}
