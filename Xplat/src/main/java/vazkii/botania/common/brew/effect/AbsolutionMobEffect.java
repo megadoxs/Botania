@@ -12,8 +12,7 @@ import net.minecraft.world.effect.InstantenousMobEffect;
 import net.minecraft.world.effect.MobEffectCategory;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
-
-import javax.annotation.Nullable;
+import org.jetbrains.annotations.Nullable;
 
 public class AbsolutionMobEffect extends InstantenousMobEffect {
 
