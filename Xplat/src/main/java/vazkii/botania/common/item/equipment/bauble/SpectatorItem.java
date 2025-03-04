@@ -193,6 +193,7 @@ public class SpectatorItem extends BaubleItem {
 		}
 		return BlockPos.betweenClosedStream(new AABB(player.blockPosition()).inflate(RANGE_BLOCKS))
 				.filter(pos -> scanBlock(player, pos, mainHandStack, offHandStack))
+				.map(BlockPos::immutable)
 				.toList();
 	}
 
