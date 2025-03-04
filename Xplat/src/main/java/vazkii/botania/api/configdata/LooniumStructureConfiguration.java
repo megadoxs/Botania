@@ -11,7 +11,6 @@ import net.minecraft.util.random.WeightedRandomList;
 import net.minecraft.world.level.levelgen.structure.StructureSpawnOverride;
 
 import org.jetbrains.annotations.Nullable;
-import org.jetbrains.annotations.UnknownNullability;
 
 import java.util.List;
 import java.util.Optional;
