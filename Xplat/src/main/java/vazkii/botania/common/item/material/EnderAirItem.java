@@ -31,8 +31,6 @@ import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.HitResult;
 
-import org.jetbrains.annotations.NotNull;
-
 import vazkii.botania.common.entity.EnderAirBottleEntity;
 import vazkii.botania.common.entity.EnderAirEntity;
 import vazkii.botania.common.handler.BotaniaSounds;
@@ -94,9 +92,8 @@ public class EnderAirItem extends Item implements ProjectileItem {
 		return false;
 	}
 
-	@NotNull
 	@Override
-	public InteractionResultHolder<ItemStack> use(Level world, Player player, @NotNull InteractionHand hand) {
+	public InteractionResultHolder<ItemStack> use(Level world, Player player, InteractionHand hand) {
 		ItemStack stack = player.getItemInHand(hand);
 		if (!player.getAbilities().instabuild) {
 			stack.shrink(1);

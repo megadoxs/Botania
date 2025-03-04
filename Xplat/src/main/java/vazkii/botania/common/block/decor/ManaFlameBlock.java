@@ -25,8 +25,6 @@ import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
-import org.jetbrains.annotations.NotNull;
-
 import vazkii.botania.client.fx.WispParticleData;
 import vazkii.botania.common.block.BotaniaWaterloggedBlock;
 import vazkii.botania.common.block.block_entity.ManaFlameBlockEntity;
@@ -42,13 +40,11 @@ public class ManaFlameBlock extends BotaniaWaterloggedBlock implements EntityBlo
 		super(builder);
 	}
 
-	@NotNull
 	@Override
 	public VoxelShape getShape(BlockState state, BlockGetter world, BlockPos pos, CollisionContext ctx) {
 		return SHAPE;
 	}
 
-	@NotNull
 	@Override
 	public RenderShape getRenderShape(BlockState state) {
 		return RenderShape.INVISIBLE;
@@ -101,9 +97,8 @@ public class ManaFlameBlock extends BotaniaWaterloggedBlock implements EntityBlo
 		}
 	}
 
-	@NotNull
 	@Override
-	public BlockEntity newBlockEntity(@NotNull BlockPos pos, @NotNull BlockState state) {
+	public BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
 		return new ManaFlameBlockEntity(pos, state);
 	}
 }

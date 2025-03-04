@@ -18,7 +18,6 @@ import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 
-import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import vazkii.botania.api.BotaniaAPI;
@@ -34,7 +33,7 @@ import java.util.regex.Pattern;
 
 public class ManasteelPickaxeItem extends PickaxeItem implements CustomDamageItem, SortableTool {
 
-	private static final Pattern TORCH_PATTERN = Pattern.compile("(?:(?:(?:[A-Z-_.:]|^)torch)|(?:(?:[a-z-_.:]|^)Torch))(?:[A-Z-_.:]|$)");
+	private static final Pattern TORCH_PATTERN = Pattern.compile("(?:(?:[A-Z-_.:]|^)torch|(?:[a-z-_.:]|^)Torch)(?:[A-Z-_.:]|$)");
 
 	private static final int MANA_PER_DAMAGE = 60;
 
@@ -54,7 +53,6 @@ public class ManasteelPickaxeItem extends PickaxeItem implements CustomDamageIte
 		return ToolCommons.damageItemIfPossible(stack, amount, entity, manaPerDamage);
 	}
 
-	@NotNull
 	@Override
 	public InteractionResult useOn(UseOnContext ctx) {
 		Player player = ctx.getPlayer();

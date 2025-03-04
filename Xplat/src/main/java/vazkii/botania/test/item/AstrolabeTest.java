@@ -21,7 +21,6 @@ import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.Vec3;
 
 import org.apache.commons.lang3.mutable.MutableInt;
-import org.jetbrains.annotations.NotNull;
 
 import vazkii.botania.api.mana.ManaItem;
 import vazkii.botania.common.item.AstrolabeItem;
@@ -378,7 +377,6 @@ public class AstrolabeTest {
 				() -> String.format("Expected %d remaining mana, but found %d", expectedMana, manaItem.getMana()));
 	}
 
-	@NotNull
 	private Player mockPlayerWithAstrolabe(final GameTestHelper helper, Vec3 posPlayer, final Vec3 lookTarget, int mana) {
 		final Player player = helper.makeMockPlayer(GameType.CREATIVE);
 		player.setItemInHand(InteractionHand.MAIN_HAND, new ItemStack(BotaniaItems.astrolabe));
@@ -391,7 +389,6 @@ public class AstrolabeTest {
 		return player;
 	}
 
-	@NotNull
 	private ItemStack getAstrolabeForBlockType(final Player player, Block block) {
 		final ItemStack stack = player.getItemInHand(InteractionHand.MAIN_HAND);
 		AstrolabeItem.setBlock(stack, block.defaultBlockState());

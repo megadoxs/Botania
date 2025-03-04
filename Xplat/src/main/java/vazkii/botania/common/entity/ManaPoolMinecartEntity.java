@@ -24,8 +24,6 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 
-import org.jetbrains.annotations.NotNull;
-
 import vazkii.botania.api.mana.ManaPool;
 import vazkii.botania.client.fx.WispParticleData;
 import vazkii.botania.common.annotations.SoftImplement;
@@ -54,13 +52,11 @@ public class ManaPoolMinecartEntity extends AbstractMinecart {
 		builder.define(MANA, 0);
 	}
 
-	@NotNull
 	@Override
 	public BlockState getDisplayBlockState() {
 		return BotaniaBlocks.manaPool.defaultBlockState();
 	}
 
-	@NotNull
 	@Override
 	public AbstractMinecart.Type getMinecartType() {
 		return Type.RIDEABLE;
@@ -77,7 +73,6 @@ public class ManaPoolMinecartEntity extends AbstractMinecart {
 		this.setDeltaMovement(getDeltaMovement().multiply(f, 0, f));
 	}
 
-	@NotNull
 	@Override
 	public ItemStack getPickResult() {
 		return new ItemStack(BotaniaItems.poolMinecart);
@@ -169,7 +164,7 @@ public class ManaPoolMinecartEntity extends AbstractMinecart {
 	}
 
 	@Override
-	protected void addAdditionalSaveData(@NotNull CompoundTag cmp) {
+	protected void addAdditionalSaveData(CompoundTag cmp) {
 		super.addAdditionalSaveData(cmp);
 		cmp.putInt(TAG_MANA, getMana());
 	}

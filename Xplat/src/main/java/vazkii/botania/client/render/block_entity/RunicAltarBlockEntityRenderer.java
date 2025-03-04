@@ -26,7 +26,6 @@ import net.minecraft.util.FastColor;
 import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStack;
 
-import org.jetbrains.annotations.NotNull;
 import org.joml.Quaternionf;
 
 import vazkii.botania.client.core.handler.ClientTickHandler;
@@ -48,7 +47,7 @@ public class RunicAltarBlockEntityRenderer implements BlockEntityRenderer<RunicA
 	}
 
 	@Override
-	public void render(@NotNull RunicAltarBlockEntity altar, float partialTick, PoseStack ms, MultiBufferSource buffers, int light, int overlay) {
+	public void render(RunicAltarBlockEntity altar, float partialTick, PoseStack ms, MultiBufferSource buffers, int light, int overlay) {
 		ms.pushPose();
 
 		int items = 0;

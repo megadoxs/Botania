@@ -27,7 +27,6 @@ import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
-import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import vazkii.botania.common.block.BotaniaWaterloggedBlock;
@@ -50,25 +49,21 @@ public class ManaPumpBlock extends BotaniaWaterloggedBlock implements EntityBloc
 		builder.add(BlockStateProperties.HORIZONTAL_FACING);
 	}
 
-	@NotNull
 	@Override
 	public BlockState getStateForPlacement(BlockPlaceContext context) {
 		return super.getStateForPlacement(context).setValue(BlockStateProperties.HORIZONTAL_FACING, context.getHorizontalDirection().getOpposite());
 	}
 
-	@NotNull
 	@Override
-	public BlockState mirror(@NotNull BlockState state, Mirror mirror) {
+	public BlockState mirror(BlockState state, Mirror mirror) {
 		return state.setValue(BlockStateProperties.HORIZONTAL_FACING, mirror.mirror(state.getValue(BlockStateProperties.HORIZONTAL_FACING)));
 	}
 
-	@NotNull
 	@Override
-	public BlockState rotate(@NotNull BlockState state, Rotation rot) {
+	public BlockState rotate(BlockState state, Rotation rot) {
 		return state.setValue(BlockStateProperties.HORIZONTAL_FACING, rot.rotate(state.getValue(BlockStateProperties.HORIZONTAL_FACING)));
 	}
 
-	@NotNull
 	@Override
 	public VoxelShape getShape(BlockState state, BlockGetter world, BlockPos pos, CollisionContext ctx) {
 		if (state.getValue(BlockStateProperties.HORIZONTAL_FACING).getAxis() == Direction.Axis.X) {
@@ -88,9 +83,8 @@ public class ManaPumpBlock extends BotaniaWaterloggedBlock implements EntityBloc
 		return ((ManaPumpBlockEntity) world.getBlockEntity(pos)).comparator;
 	}
 
-	@NotNull
 	@Override
-	public BlockEntity newBlockEntity(@NotNull BlockPos pos, @NotNull BlockState state) {
+	public BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
 		return new ManaPumpBlockEntity(pos, state);
 	}
 

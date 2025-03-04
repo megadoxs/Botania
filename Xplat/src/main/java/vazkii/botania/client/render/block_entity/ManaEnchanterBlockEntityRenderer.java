@@ -19,7 +19,7 @@ import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.inventory.InventoryMenu;
 
-import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import vazkii.botania.client.core.handler.ClientTickHandler;
 import vazkii.botania.client.core.helper.RenderHelper;
@@ -34,6 +34,7 @@ import static vazkii.botania.api.BotaniaAPI.botaniaRL;
 public class ManaEnchanterBlockEntityRenderer implements BlockEntityRenderer<ManaEnchanterBlockEntity> {
 
 	private final TextureAtlasSprite overlaySprite;
+	@Nullable
 	private ItemEntity item;
 
 	public ManaEnchanterBlockEntityRenderer(BlockEntityRendererProvider.Context ctx) {
@@ -44,7 +45,7 @@ public class ManaEnchanterBlockEntityRenderer implements BlockEntityRenderer<Man
 	}
 
 	@Override
-	public void render(@NotNull ManaEnchanterBlockEntity enchanter, float partTicks, PoseStack ms, MultiBufferSource buffers, int light, int overlay) {
+	public void render(ManaEnchanterBlockEntity enchanter, float partTicks, PoseStack ms, MultiBufferSource buffers, int light, int overlay) {
 		float alphaMod = 0F;
 
 		if (enchanter.stage == ManaEnchanterBlockEntity.State.GATHER_MANA) {

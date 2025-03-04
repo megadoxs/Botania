@@ -19,8 +19,6 @@ import mezz.jei.api.recipe.category.extensions.vanilla.crafting.ICraftingCategor
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.RecipeHolder;
 
-import org.jetbrains.annotations.NotNull;
-
 import vazkii.botania.common.crafting.recipe.TerraShattererTippingRecipe;
 import vazkii.botania.common.item.BotaniaItems;
 import vazkii.botania.common.item.equipment.tool.terrasteel.TerraShattererItem;
@@ -39,7 +37,7 @@ public class TerraShattererTippingRecipeWrapper implements ICraftingCategoryExte
 	}
 
 	@Override
-	public void setRecipe(RecipeHolder<TerraShattererTippingRecipe> recipe, @NotNull IRecipeLayoutBuilder builder, @NotNull ICraftingGridHelper helper, @NotNull IFocusGroup focuses) {
+	public void setRecipe(RecipeHolder<TerraShattererTippingRecipe> recipe, IRecipeLayoutBuilder builder, ICraftingGridHelper helper, IFocusGroup focuses) {
 		helper.createAndSetInputs(builder, VanillaTypes.ITEM_STACK, inputs, 0, 0);
 		helper.createAndSetOutputs(builder, VanillaTypes.ITEM_STACK, Collections.singletonList(output));
 	}

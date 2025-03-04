@@ -18,8 +18,6 @@ import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.world.inventory.InventoryMenu;
 
-import org.jetbrains.annotations.NotNull;
-
 import vazkii.botania.client.core.handler.ClientTickHandler;
 import vazkii.botania.client.core.helper.RenderHelper;
 import vazkii.botania.common.block.block_entity.TerrestrialAgglomerationPlateBlockEntity;
@@ -40,7 +38,7 @@ public class TerrestrialAgglomerationPlateBlockEntityRenderer implements BlockEn
 	}
 
 	@Override
-	public void render(@NotNull TerrestrialAgglomerationPlateBlockEntity plate, float f, PoseStack ms, MultiBufferSource buffers, int light, int overlay) {
+	public void render(TerrestrialAgglomerationPlateBlockEntity plate, float f, PoseStack ms, MultiBufferSource buffers, int light, int overlay) {
 		float alphaMod = Math.min(1.0F, plate.getCompletion() / 0.1F);
 
 		ms.pushPose();

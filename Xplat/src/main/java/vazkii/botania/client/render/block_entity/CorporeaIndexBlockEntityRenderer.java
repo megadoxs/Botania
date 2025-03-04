@@ -21,7 +21,6 @@ import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
 import net.minecraft.resources.ResourceLocation;
 
-import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.joml.Quaternionf;
 
@@ -57,7 +56,7 @@ public class CorporeaIndexBlockEntityRenderer implements BlockEntityRenderer<Cor
 	}
 
 	@Override
-	public boolean shouldRenderOffScreen(@NotNull CorporeaIndexBlockEntity blockEntity) {
+	public boolean shouldRenderOffScreen(CorporeaIndexBlockEntity blockEntity) {
 		return true;
 	}
 

@@ -17,14 +17,11 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.DispenserBlock;
 
-import org.jetbrains.annotations.NotNull;
-
 import vazkii.botania.common.block.BotaniaBlocks;
 
 // TODO maybe update copy
 // Taken from vanilla pumpkin dispense behaviour
 public class FelPumpkinBehavior extends OptionalDispenseItemBehavior {
-	@NotNull
 	@Override
 	protected ItemStack execute(BlockSource source, ItemStack stack) {
 		Level world = source.level();

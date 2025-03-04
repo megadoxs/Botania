@@ -14,8 +14,6 @@ import me.shedaniel.rei.api.common.util.EntryIngredients;
 
 import net.minecraft.world.item.crafting.RecipeHolder;
 
-import org.jetbrains.annotations.NotNull;
-
 import vazkii.botania.api.recipe.PetalApothecaryRecipe;
 
 public class PetalApothecaryREIDisplay extends BotaniaRecipeDisplay<PetalApothecaryRecipe> {
@@ -36,7 +34,7 @@ public class PetalApothecaryREIDisplay extends BotaniaRecipeDisplay<PetalApothec
 	}
 
 	@Override
-	public @NotNull CategoryIdentifier<?> getCategoryIdentifier() {
+	public CategoryIdentifier<?> getCategoryIdentifier() {
 		return BotaniaREICategoryIdentifiers.PETAL_APOTHECARY;
 	}
 }

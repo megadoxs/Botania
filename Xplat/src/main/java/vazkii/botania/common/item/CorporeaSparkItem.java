@@ -18,8 +18,6 @@ import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
 
-import org.jetbrains.annotations.NotNull;
-
 import vazkii.botania.api.corporea.CorporeaHelper;
 import vazkii.botania.common.entity.BotaniaEntities;
 import vazkii.botania.common.entity.CorporeaSparkEntity;
@@ -34,7 +32,6 @@ public class CorporeaSparkItem extends Item {
 		super(props);
 	}
 
-	@NotNull
 	@Override
 	public InteractionResult useOn(UseOnContext ctx) {
 		return attachSpark(ctx.getLevel(), ctx.getClickedPos(), ctx.getItemInHand())

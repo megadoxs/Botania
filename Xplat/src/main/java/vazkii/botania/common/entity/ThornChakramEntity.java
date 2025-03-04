@@ -35,8 +35,6 @@ import net.minecraft.world.phys.EntityHitResult;
 import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
 
-import org.jetbrains.annotations.NotNull;
-
 import vazkii.botania.common.helper.VecHelper;
 import vazkii.botania.common.item.BotaniaItems;
 
@@ -129,14 +127,14 @@ public class ThornChakramEntity extends ThrowableProjectile implements ItemSuppl
 	}
 
 	@Override
-	protected void onHit(@NotNull HitResult pos) {
+	protected void onHit(HitResult pos) {
 		if (!isReturning()) {
 			super.onHit(pos);
 		}
 	}
 
 	@Override
-	protected void onHitBlock(@NotNull BlockHitResult hit) {
+	protected void onHitBlock(BlockHitResult hit) {
 		super.onHitBlock(hit);
 		BlockState state = level().getBlockState(hit.getBlockPos());
 		if (state.getBlock() instanceof BushBlock || state.is(BlockTags.LEAVES)) {
@@ -160,7 +158,7 @@ public class ThornChakramEntity extends ThrowableProjectile implements ItemSuppl
 	}
 
 	@Override
-	protected void onHitEntity(@NotNull EntityHitResult hit) {
+	protected void onHitEntity(EntityHitResult hit) {
 		super.onHitEntity(hit);
 		if (!level().isClientSide && hit.getEntity() instanceof LivingEntity hitEntity && hit.getEntity() != getOwner()) {
 			Entity thrower = getOwner();
@@ -230,7 +228,6 @@ public class ThornChakramEntity extends ThrowableProjectile implements ItemSuppl
 		setFire(compound.getBoolean("flare"));
 	}
 
-	@NotNull
 	@Override
 	public ItemStack getItem() {
 		return getItemStack();

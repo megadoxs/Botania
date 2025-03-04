@@ -20,7 +20,6 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.inventory.InventoryMenu;
 import net.minecraft.world.level.block.state.BlockState;
 
-import org.jetbrains.annotations.NotNull;
 import org.joml.Matrix4f;
 
 import vazkii.botania.api.block_entity.RadiusDescriptor;
@@ -50,7 +49,7 @@ public class LuminizerBlockEntityRenderer implements BlockEntityRenderer<Luminiz
 	}
 
 	@Override
-	public void render(@NotNull LuminizerBlockEntity tile, float pticks, PoseStack ms, MultiBufferSource buffers, int light, int overlay) {
+	public void render(LuminizerBlockEntity tile, float pticks, PoseStack ms, MultiBufferSource buffers, int light, int overlay) {
 		BlockState state = tile.getBlockState();
 
 		Minecraft mc = Minecraft.getInstance();

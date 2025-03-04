@@ -17,8 +17,6 @@ import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
 import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStack;
 
-import org.jetbrains.annotations.NotNull;
-
 import vazkii.botania.common.block.block_entity.SparkTinkererBlockEntity;
 import vazkii.botania.common.helper.VecHelper;
 
@@ -27,7 +25,7 @@ public class SparkTinkererBlockEntityRenderer implements BlockEntityRenderer<Spa
 	public SparkTinkererBlockEntityRenderer(BlockEntityRendererProvider.Context ctx) {}
 
 	@Override
-	public void render(@NotNull SparkTinkererBlockEntity tileentity, float pticks, PoseStack ms, MultiBufferSource buffers, int light, int overlay) {
+	public void render(SparkTinkererBlockEntity tileentity, float pticks, PoseStack ms, MultiBufferSource buffers, int light, int overlay) {
 		ms.pushPose();
 		ms.mulPose(VecHelper.rotateX(90));
 		ms.translate(1.0F, -0.125F, -0.25F);

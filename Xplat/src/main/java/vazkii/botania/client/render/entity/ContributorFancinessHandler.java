@@ -23,8 +23,6 @@ import net.minecraft.world.entity.player.PlayerModelPart;
 import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStack;
 
-import org.jetbrains.annotations.NotNull;
-
 import vazkii.botania.client.core.handler.MiscellaneousModels;
 import vazkii.botania.common.handler.ContributorList;
 
@@ -37,7 +35,7 @@ public final class ContributorFancinessHandler extends RenderLayer<AbstractClien
 	}
 
 	@Override
-	public void render(PoseStack ms, MultiBufferSource buffers, int light, @NotNull AbstractClientPlayer player, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch) {
+	public void render(PoseStack ms, MultiBufferSource buffers, int light, AbstractClientPlayer player, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch) {
 		ContributorList.firstStart();
 
 		if (player.isInvisible()) {

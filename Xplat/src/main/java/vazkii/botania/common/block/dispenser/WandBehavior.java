@@ -17,14 +17,11 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.DispenserBlock;
 import net.minecraft.world.level.block.state.BlockState;
 
-import org.jetbrains.annotations.NotNull;
-
 import vazkii.botania.api.block.Wandable;
 import vazkii.botania.xplat.XplatAbstractions;
 
 public class WandBehavior extends OptionalDispenseItemBehavior {
 
-	@NotNull
 	@Override
 	protected ItemStack execute(BlockSource source, ItemStack stack) {
 		Level world = source.level();

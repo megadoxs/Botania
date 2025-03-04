@@ -27,8 +27,6 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 
-import org.jetbrains.annotations.NotNull;
-
 import static vazkii.botania.api.BotaniaAPI.botaniaRL;
 
 public class FelPumpkinBlock extends BotaniaBlock {
@@ -70,15 +68,13 @@ public class FelPumpkinBlock extends BotaniaBlock {
 		return defaultBlockState().setValue(BlockStateProperties.HORIZONTAL_FACING, context.getHorizontalDirection().getOpposite());
 	}
 
-	@NotNull
 	@Override
-	public BlockState mirror(@NotNull BlockState state, Mirror mirror) {
+	public BlockState mirror(BlockState state, Mirror mirror) {
 		return state.setValue(BlockStateProperties.HORIZONTAL_FACING, mirror.mirror(state.getValue(BlockStateProperties.HORIZONTAL_FACING)));
 	}
 
-	@NotNull
 	@Override
-	public BlockState rotate(@NotNull BlockState state, Rotation rot) {
+	public BlockState rotate(BlockState state, Rotation rot) {
 		return state.setValue(BlockStateProperties.HORIZONTAL_FACING, rot.rotate(state.getValue(BlockStateProperties.HORIZONTAL_FACING)));
 	}
 }

@@ -12,8 +12,6 @@ import me.shedaniel.rei.api.common.category.CategoryIdentifier;
 
 import net.minecraft.world.item.crafting.RecipeHolder;
 
-import org.jetbrains.annotations.NotNull;
-
 import vazkii.botania.api.recipe.OrechidRecipe;
 
 public class OrechidIgnemREIDisplay extends OrechidBaseREIDisplay {
@@ -22,7 +20,7 @@ public class OrechidIgnemREIDisplay extends OrechidBaseREIDisplay {
 	}
 
 	@Override
-	public @NotNull CategoryIdentifier<?> getCategoryIdentifier() {
+	public CategoryIdentifier<?> getCategoryIdentifier() {
 		return BotaniaREICategoryIdentifiers.ORECHID_IGNEM;
 	}
 }

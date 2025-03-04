@@ -37,13 +37,18 @@ public class LooniumMobSpawnData extends WeightedEntry.IntrusiveBase {
 	);
 
 	public final EntityType<?> type;
+	@Nullable
 	public final Boolean spawnAsBaby;
+	@Nullable
 	public final CompoundTag nbt;
+	@Nullable
 	public final ResourceKey<LootTable> equipmentTable;
+	@Nullable
 	public final List<LooniumMobEffectToApply> effectsToApply;
+	@Nullable
 	public final List<LooniumMobAttributeModifier> attributeModifiers;
 
-	private LooniumMobSpawnData(EntityType<?> type, Weight weight, Boolean spawnAsBaby, @Nullable CompoundTag nbt,
+	private LooniumMobSpawnData(EntityType<?> type, Weight weight, @Nullable Boolean spawnAsBaby, @Nullable CompoundTag nbt,
 			@Nullable ResourceKey<LootTable> equipmentTable,
 			@Nullable List<LooniumMobEffectToApply> effectsToApply,
 			@Nullable List<LooniumMobAttributeModifier> attributeModifiers) {

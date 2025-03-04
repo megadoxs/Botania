@@ -19,8 +19,6 @@ import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 
-import org.jetbrains.annotations.NotNull;
-
 import vazkii.botania.common.block.block_entity.IncensePlateBlockEntity;
 import vazkii.botania.common.helper.VecHelper;
 
@@ -28,7 +26,7 @@ public class IncensePlateBlockEntityRenderer implements BlockEntityRenderer<Ince
 	public IncensePlateBlockEntityRenderer(BlockEntityRendererProvider.Context ctx) {}
 
 	@Override
-	public void render(@NotNull IncensePlateBlockEntity plate, float ticks, PoseStack ms, MultiBufferSource buffers, int light, int overlay) {
+	public void render(IncensePlateBlockEntity plate, float ticks, PoseStack ms, MultiBufferSource buffers, int light, int overlay) {
 		ItemStack stack = plate.getItemHandler().getItem(0);
 		if (stack.isEmpty()) {
 			return;

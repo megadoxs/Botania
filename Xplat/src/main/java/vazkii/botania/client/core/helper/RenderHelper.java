@@ -38,7 +38,6 @@ import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 
-import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.joml.Matrix4f;
 import org.joml.Matrix4fStack;
@@ -446,7 +445,7 @@ public final class RenderHelper extends RenderType {
 
 		buffer = new DelegatedVertexConsumer(buffer) {
 			@Override
-			public @NotNull VertexConsumer setColor(float red, float green, float blue, float alpha) {
+			public VertexConsumer setColor(float red, float green, float blue, float alpha) {
 				return super.setColor(r, g, b, a);
 			}
 		};
@@ -648,32 +647,32 @@ public final class RenderHelper extends RenderType {
 	// TODO: is this even still relevant? it doesn't exist anymore where it was borrowed from
 	public record GhostVertexConsumer(VertexConsumer wrapped, int alpha) implements VertexConsumer {
 		@Override
-		public @NotNull VertexConsumer addVertex(float x, float y, float z) {
+		public VertexConsumer addVertex(float x, float y, float z) {
 			return wrapped.addVertex(x, y, z);
 		}
 
 		@Override
-		public @NotNull VertexConsumer setColor(int red, int green, int blue, int alpha) {
+		public VertexConsumer setColor(int red, int green, int blue, int alpha) {
 			return wrapped.setColor(red, green, blue, (alpha * this.alpha) / 0xFF);
 		}
 
 		@Override
-		public @NotNull VertexConsumer setUv(float u, float v) {
+		public VertexConsumer setUv(float u, float v) {
 			return wrapped.setUv(u, v);
 		}
 
 		@Override
-		public @NotNull VertexConsumer setUv1(int u, int v) {
+		public VertexConsumer setUv1(int u, int v) {
 			return wrapped.setUv1(u, v);
 		}
 
 		@Override
-		public @NotNull VertexConsumer setUv2(int u, int v) {
+		public VertexConsumer setUv2(int u, int v) {
 			return wrapped.setUv2(u, v);
 		}
 
 		@Override
-		public @NotNull VertexConsumer setNormal(float x, float y, float z) {
+		public VertexConsumer setNormal(float x, float y, float z) {
 			return wrapped.setNormal(x, y, z);
 		}
 	}

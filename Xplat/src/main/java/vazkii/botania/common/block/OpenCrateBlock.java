@@ -20,7 +20,6 @@ import net.minecraft.world.level.block.entity.BlockEntityTicker;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 
-import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import vazkii.botania.common.block.block_entity.BotaniaBlockEntities;
@@ -34,7 +33,7 @@ public class OpenCrateBlock extends BotaniaBlock implements EntityBlock {
 	}
 
 	@Override
-	public void onRemove(@NotNull BlockState state, @NotNull Level world, @NotNull BlockPos pos, @NotNull BlockState newState, boolean isMoving) {
+	public void onRemove(BlockState state, Level world, BlockPos pos, BlockState newState, boolean isMoving) {
 		if (!newState.is(state.getBlock())) {
 			BlockEntity be = world.getBlockEntity(pos);
 			if (be instanceof SimpleInventoryBlockEntity inventory) {
@@ -64,9 +63,8 @@ public class OpenCrateBlock extends BotaniaBlock implements EntityBlock {
 		}
 	}
 
-	@NotNull
 	@Override
-	public BlockEntity newBlockEntity(@NotNull BlockPos pos, @NotNull BlockState state) {
+	public BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
 		return new OpenCrateBlockEntity(pos, state);
 	}
 

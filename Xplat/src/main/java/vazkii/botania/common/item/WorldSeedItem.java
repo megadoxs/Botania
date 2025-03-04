@@ -21,8 +21,6 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.phys.Vec3;
 
-import org.jetbrains.annotations.NotNull;
-
 import vazkii.botania.client.fx.SparkleParticleData;
 import vazkii.botania.common.handler.BotaniaSounds;
 
@@ -32,9 +30,8 @@ public class WorldSeedItem extends Item {
 		super(builder);
 	}
 
-	@NotNull
 	@Override
-	public InteractionResultHolder<ItemStack> use(Level world, Player player, @NotNull InteractionHand hand) {
+	public InteractionResultHolder<ItemStack> use(Level world, Player player, InteractionHand hand) {
 		ItemStack stack = player.getItemInHand(hand);
 
 		BlockPos coords = world.getSharedSpawnPos();

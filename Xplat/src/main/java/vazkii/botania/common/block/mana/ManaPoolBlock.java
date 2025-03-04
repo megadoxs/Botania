@@ -34,7 +34,6 @@ import net.minecraft.world.phys.shapes.EntityCollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
-import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import vazkii.botania.api.state.BotaniaStateProperties.OptionalDyeColor;
@@ -101,7 +100,6 @@ public class ManaPoolBlock extends BotaniaWaterloggedBlock implements EntityBloc
 		}
 	}
 
-	@NotNull
 	@Override
 	public VoxelShape getShape(BlockState state, BlockGetter world, BlockPos pos, CollisionContext ctx) {
 		return switch (this.variant) {
@@ -126,7 +124,6 @@ public class ManaPoolBlock extends BotaniaWaterloggedBlock implements EntityBloc
 		}
 	}
 
-	@NotNull
 	@Override
 	public VoxelShape getInteractionShape(BlockState state, BlockGetter level, BlockPos pos) {
 		return switch (this.variant) {
@@ -166,9 +163,8 @@ public class ManaPoolBlock extends BotaniaWaterloggedBlock implements EntityBloc
 		return ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
 	}
 
-	@NotNull
 	@Override
-	public BlockEntity newBlockEntity(@NotNull BlockPos pos, @NotNull BlockState state) {
+	public BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
 		return new ManaPoolBlockEntity(pos, state);
 	}
 
@@ -186,7 +182,6 @@ public class ManaPoolBlock extends BotaniaWaterloggedBlock implements EntityBloc
 		}
 	}
 
-	@NotNull
 	@Override
 	public RenderShape getRenderShape(BlockState state) {
 		if (variant == Variant.FABULOUS) {

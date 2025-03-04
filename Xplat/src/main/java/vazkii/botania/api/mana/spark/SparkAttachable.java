@@ -11,6 +11,8 @@ package vazkii.botania.api.mana.spark;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 
+import org.jetbrains.annotations.Nullable;
+
 import static vazkii.botania.api.BotaniaAPI.botaniaRL;
 
 /**
@@ -42,12 +44,13 @@ public interface SparkAttachable {
 	 * Gets the Spark that is attached to this block. A common implementation is
 	 * to check for Spark entities above using world.getEntitiesWithinAABB()
 	 */
+	@Nullable
 	ManaSpark getAttachedSpark();
 
 	/**
 	 * Return true if this Tile no longer requires mana and all Sparks
 	 * transferring mana to it should cancel their transfer.
 	 */
-	boolean areIncomingTranfersDone();
+	boolean areIncomingTransfersDone();
 
 }

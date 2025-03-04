@@ -18,8 +18,6 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 
-import org.jetbrains.annotations.NotNull;
-
 import vazkii.botania.common.block.block_entity.CacophoniumBlockEntity;
 
 public class CacophoniumBlock extends BotaniaBlock implements EntityBlock {
@@ -60,9 +58,8 @@ public class CacophoniumBlock extends BotaniaBlock implements EntityBlock {
 		}
 	}
 
-	@NotNull
 	@Override
-	public BlockEntity newBlockEntity(@NotNull BlockPos pos, @NotNull BlockState state) {
+	public BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
 		return new CacophoniumBlockEntity(pos, state);
 	}
 

@@ -24,8 +24,6 @@ import net.minecraft.world.level.block.FlowerBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
 
-import org.jetbrains.annotations.NotNull;
-
 import vazkii.botania.client.fx.SparkleParticleData;
 import vazkii.botania.common.item.material.MysticalPetalItem;
 import vazkii.botania.xplat.BotaniaConfig;
@@ -77,17 +75,17 @@ public class BotaniaFlowerBlock extends FlowerBlock implements BonemealableBlock
 	}
 
 	@Override
-	public boolean isValidBonemealTarget(@NotNull LevelReader world, @NotNull BlockPos pos, @NotNull BlockState state) {
+	public boolean isValidBonemealTarget(LevelReader world, BlockPos pos, BlockState state) {
 		return world.getBlockState(pos.above()).isAir();
 	}
 
 	@Override
-	public boolean isBonemealSuccess(@NotNull Level world, @NotNull RandomSource rand, @NotNull BlockPos pos, @NotNull BlockState state) {
+	public boolean isBonemealSuccess(Level world, RandomSource rand, BlockPos pos, BlockState state) {
 		return isValidBonemealTarget(world, pos, state);
 	}
 
 	@Override
-	public void performBonemeal(@NotNull ServerLevel world, @NotNull RandomSource rand, @NotNull BlockPos pos, @NotNull BlockState state) {
+	public void performBonemeal(ServerLevel world, RandomSource rand, BlockPos pos, BlockState state) {
 		Block block = BotaniaBlocks.getDoubleFlower(color);
 		if (block instanceof DoublePlantBlock) {
 			DoublePlantBlock.placeAt(world, block.defaultBlockState(), pos, 3);

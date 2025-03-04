@@ -22,7 +22,6 @@ import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.properties.*;
 
-import org.jetbrains.annotations.NotNull;
 import org.slf4j.Logger;
 
 import vazkii.botania.api.BotaniaAPI;
@@ -72,7 +71,6 @@ public class BlockstateProvider implements DataProvider {
 		return BotaniaAPI.LOGGER;
 	}
 
-	@NotNull
 	@Override
 	public String getName() {
 		return "Botania Blockstates and Models";

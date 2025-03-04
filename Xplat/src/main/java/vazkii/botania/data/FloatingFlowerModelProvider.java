@@ -19,8 +19,6 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Tuple;
 import net.minecraft.world.level.block.Block;
 
-import org.jetbrains.annotations.NotNull;
-
 import vazkii.botania.client.lib.ResourcesLib;
 import vazkii.botania.common.block.decor.FloatingFlowerBlock;
 import vazkii.botania.common.lib.LibMisc;
@@ -73,7 +71,6 @@ public class FloatingFlowerModelProvider implements DataProvider {
 		return CompletableFuture.allOf(output.toArray(CompletableFuture[]::new));
 	}
 
-	@NotNull
 	@Override
 	public String getName() {
 		return "Botania floating flower models";

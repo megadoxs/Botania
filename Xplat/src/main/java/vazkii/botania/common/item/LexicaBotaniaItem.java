@@ -33,8 +33,6 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BannerPattern;
 import net.minecraft.world.phys.BlockHitResult;
 
-import org.jetbrains.annotations.NotNull;
-
 import vazkii.botania.common.advancements.UseItemSuccessTrigger;
 import vazkii.botania.common.component.BotaniaDataComponents;
 import vazkii.botania.common.handler.BotaniaSounds;
@@ -73,7 +71,6 @@ public class LexicaBotaniaItem extends Item implements ItemWithBannerPattern, Cu
 		tooltip.add(getEdition().copy().withStyle(ChatFormatting.GRAY));
 	}
 
-	@NotNull
 	@Override
 	public InteractionResultHolder<ItemStack> use(Level worldIn, Player playerIn, InteractionHand handIn) {
 		ItemStack stack = playerIn.getItemInHand(handIn);

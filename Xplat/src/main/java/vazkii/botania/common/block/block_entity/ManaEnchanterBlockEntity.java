@@ -535,7 +535,7 @@ public class ManaEnchanterBlockEntity extends BotaniaBlockEntity implements Mana
 	}
 
 	@Override
-	public boolean areIncomingTranfersDone() {
+	public boolean areIncomingTransfersDone() {
 		return stage == State.DO_ENCHANT;
 	}
 

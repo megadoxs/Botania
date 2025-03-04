@@ -31,7 +31,6 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.world.inventory.InventoryMenu;
 import net.minecraft.world.item.ItemStack;
 
-import org.jetbrains.annotations.NotNull;
 import org.joml.Matrix3f;
 import org.joml.Matrix4f;
 
@@ -57,32 +56,28 @@ public class ElvenTradeRecipeCategory implements IRecipeCategory<ElvenTradeRecip
 		icon = guiHelper.createDrawableIngredient(VanillaTypes.ITEM_STACK, new ItemStack(BotaniaBlocks.alfPortal));
 	}
 
-	@NotNull
 	@Override
 	public RecipeType<ElvenTradeRecipe> getRecipeType() {
 		return TYPE;
 	}
 
-	@NotNull
 	@Override
 	public Component getTitle() {
 		return localizedName;
 	}
 
-	@NotNull
 	@Override
 	public IDrawable getBackground() {
 		return background;
 	}
 
-	@NotNull
 	@Override
 	public IDrawable getIcon() {
 		return icon;
 	}
 
 	@Override
-	public void draw(@NotNull ElvenTradeRecipe recipe, @NotNull IRecipeSlotsView slotsView, @NotNull GuiGraphics gui, double mouseX, double mouseY) {
+	public void draw(ElvenTradeRecipe recipe, IRecipeSlotsView slotsView, GuiGraphics gui, double mouseX, double mouseY) {
 		PoseStack matrices = gui.pose();
 		RenderSystem.enableBlend();
 		overlay.draw(gui, 0, 4);
@@ -107,7 +102,7 @@ public class ElvenTradeRecipeCategory implements IRecipeCategory<ElvenTradeRecip
 	}
 
 	@Override
-	public void setRecipe(@NotNull IRecipeLayoutBuilder builder, @NotNull ElvenTradeRecipe recipe, @NotNull IFocusGroup focusGroup) {
+	public void setRecipe(IRecipeLayoutBuilder builder, ElvenTradeRecipe recipe, IFocusGroup focusGroup) {
 		int posX = 42;
 		for (var ingr : recipe.getIngredients()) {
 			builder.addSlot(RecipeIngredientRole.INPUT, posX, 0)

@@ -26,7 +26,6 @@ import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.ItemStack;
 
-import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import vazkii.botania.api.recipe.OrechidRecipe;
@@ -55,26 +54,23 @@ public abstract class OrechidRecipeCategoryBase implements IRecipeCategory<Orech
 		this.iconStack = iconStack;
 	}
 
-	@NotNull
 	@Override
 	public Component getTitle() {
 		return localizedName;
 	}
 
-	@NotNull
 	@Override
 	public IDrawable getBackground() {
 		return background;
 	} //todo
 
-	@NotNull
 	@Override
 	public IDrawable getIcon() {
 		return icon;
 	}
 
 	@Override
-	public void setRecipe(@NotNull IRecipeLayoutBuilder builder, @NotNull OrechidRecipe recipe, @NotNull IFocusGroup focusGroup) {
+	public void setRecipe(IRecipeLayoutBuilder builder, OrechidRecipe recipe, IFocusGroup focusGroup) {
 
 		builder.addSlot(RecipeIngredientRole.INPUT, 9, 12)
 				.addItemStacks(recipe.getInput().getDisplayedStacks());
@@ -86,7 +82,7 @@ public abstract class OrechidRecipeCategoryBase implements IRecipeCategory<Orech
 	}
 
 	@Override
-	public void draw(@NotNull OrechidRecipe recipe, @NotNull IRecipeSlotsView view, @NotNull GuiGraphics gui, double mouseX, double mouseY) {
+	public void draw(OrechidRecipe recipe, IRecipeSlotsView view, GuiGraphics gui, double mouseX, double mouseY) {
 		final Double chance = getChance(recipe);
 		if (chance != null) {
 			final Component chanceComponent = OrechidUIHelper.getPercentageComponent(chance);
@@ -99,9 +95,8 @@ public abstract class OrechidRecipeCategoryBase implements IRecipeCategory<Orech
 		RenderSystem.disableBlend();
 	}
 
-	@NotNull
 	@Override
-	public List<Component> getTooltipStrings(@NotNull OrechidRecipe recipe, @NotNull IRecipeSlotsView recipeSlotsView, double mouseX, double mouseY) {
+	public List<Component> getTooltipStrings(OrechidRecipe recipe, IRecipeSlotsView recipeSlotsView, double mouseX, double mouseY) {
 		if (mouseX > 0.6 * background.getWidth() && mouseX < 90 && mouseY < 12) {
 			final Double chance = getChance(recipe);
 			if (chance != null) {
@@ -111,8 +106,7 @@ public abstract class OrechidRecipeCategoryBase implements IRecipeCategory<Orech
 		return Collections.emptyList();
 	}
 
-	@NotNull
-	protected Stream<Component> getChanceTooltipComponents(double chance, @NotNull OrechidRecipe recipe) {
+	protected Stream<Component> getChanceTooltipComponents(double chance, OrechidRecipe recipe) {
 		final var ratio = OrechidUIHelper.getRatioForChance(chance);
 		Stream<Component> genericChanceTooltipComponents = Stream.of(OrechidUIHelper.getRatioTooltipComponent(ratio));
 		Stream<Component> biomeChanceTooltipComponents = OrechidUIHelper.getBiomeChanceAndRatioTooltipComponents(chance, recipe);
@@ -120,7 +114,7 @@ public abstract class OrechidRecipeCategoryBase implements IRecipeCategory<Orech
 	}
 
 	@Nullable
-	protected Double getChance(@NotNull OrechidRecipe recipe) {
+	protected Double getChance(OrechidRecipe recipe) {
 		return OrechidUIHelper.getChance(recipe, null);
 	}
 }

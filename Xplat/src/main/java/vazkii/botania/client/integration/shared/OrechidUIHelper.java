@@ -9,7 +9,6 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
 import net.minecraft.util.Mth;
 
-import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import vazkii.botania.api.recipe.OrechidRecipe;
@@ -35,29 +34,25 @@ public class OrechidUIHelper {
 	 */
 	private static final int MAX_NUM_INPUTS_FOR_RATIO = 16;
 
-	@NotNull
 	public static Component getPercentageComponent(double chance) {
 		final String chanceText = LocaleHelper.formatAsPercentage(chance, 1);
 		return Component.literal(chanceText);
 	}
 
-	@NotNull
-	public static Component getRatioTooltipComponent(@NotNull IntIntPair ratio) {
+	public static Component getRatioTooltipComponent(IntIntPair ratio) {
 		final NumberFormat formatter = LocaleHelper.getIntegerFormat();
 		return Component.translatable("botaniamisc.conversionRatio",
 				formatter.format(ratio.secondInt()),
 				formatter.format(ratio.firstInt()));
 	}
 
-	@NotNull
-	public static Component getBiomeChanceTooltipComponent(double chance, @NotNull String biomeTranslationKey) {
+	public static Component getBiomeChanceTooltipComponent(double chance, String biomeTranslationKey) {
 		return Component.translatable("botaniamisc.conversionChanceBiome",
 				getPercentageComponent(chance),
 				Component.translatable(biomeTranslationKey).withStyle(ChatFormatting.ITALIC)
 		).withStyle(ChatFormatting.GRAY);
 	}
 
-	@NotNull
 	public static Stream<Component> getBiomeChanceAndRatioTooltipComponents(double chance, OrechidRecipe recipe) {
 		final var biomeTranslationKey = OrechidUIHelper.getPlayerBiomeTranslationKey();
 		final var player = Minecraft.getInstance().player;
@@ -103,7 +98,6 @@ public class OrechidUIHelper {
 	 * @return A pair of ints, first int being the number of input blocks, and second int being the expected number of
 	 *         output blocks.
 	 */
-	@NotNull
 	public static IntIntPair getRatioForChance(double actualRatio) {
 		// First shot: 1 desired output from N input blocks
 		int bestNumOutputs = 1;

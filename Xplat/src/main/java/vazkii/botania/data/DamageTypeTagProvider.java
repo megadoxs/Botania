@@ -8,8 +8,6 @@ import net.minecraft.tags.DamageTypeTags;
 import net.minecraft.world.damagesource.DamageType;
 import net.minecraft.world.damagesource.DamageTypes;
 
-import org.jetbrains.annotations.NotNull;
-
 import vazkii.botania.common.BotaniaDamageTypes;
 import vazkii.botania.common.lib.BotaniaTags;
 
@@ -22,7 +20,7 @@ public class DamageTypeTagProvider extends TagsProvider<DamageType> {
 	}
 
 	@Override
-	protected void addTags(@NotNull HolderLookup.Provider provider) {
+	protected void addTags(HolderLookup.Provider provider) {
 		this.tag(BotaniaTags.DamageTypes.RING_OF_ODIN_IMMUNE)
 				.add(DamageTypes.DROWN)
 				.add(DamageTypes.FALL)

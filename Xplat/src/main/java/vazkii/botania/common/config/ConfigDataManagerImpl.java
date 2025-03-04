@@ -11,7 +11,6 @@ import net.minecraft.server.packs.resources.ResourceManager;
 import net.minecraft.server.packs.resources.SimpleJsonResourceReloadListener;
 import net.minecraft.util.profiling.ProfilerFiller;
 
-import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import vazkii.botania.api.BotaniaAPI;
@@ -69,7 +68,7 @@ public class ConfigDataManagerImpl implements ConfigDataManager {
 	}
 
 	private static boolean findTopmostParent(Map<ResourceLocation, LooniumStructureConfiguration> map,
-			ResourceLocation id, ResourceLocation parent, Set<ResourceLocation> visitedEntries) {
+			ResourceLocation id, @Nullable ResourceLocation parent, Set<ResourceLocation> visitedEntries) {
 		if (!visitedEntries.add(id)) {
 			BotaniaAPI.LOGGER.warn("Cyclic dependency between Loonium structure configurations detected: {}", visitedEntries);
 			return false;
@@ -86,11 +85,10 @@ public class ConfigDataManagerImpl implements ConfigDataManager {
 		this.looniumConfigs.putAll(looniumConfigs);
 	}
 
-	@NotNull
 	@Override
-	public CompletableFuture<Void> reload(@NotNull PreparationBarrier barrier, @NotNull ResourceManager manager,
-			@NotNull ProfilerFiller prepProfiler, @NotNull ProfilerFiller reloadProfiler,
-			@NotNull Executor backgroundExecutor, @NotNull Executor gameExecutor) {
+	public CompletableFuture<Void> reload(PreparationBarrier barrier, ResourceManager manager,
+			ProfilerFiller prepProfiler, ProfilerFiller reloadProfiler,
+			Executor backgroundExecutor, Executor gameExecutor) {
 		var looniumTask = scheduleConfigParse(barrier, manager, backgroundExecutor, gameExecutor, ConfigDataType.LOONUIM);
 
 		return CompletableFuture.allOf(looniumTask).thenRun(() -> BotaniaAPI.instance().setConfigData(this));

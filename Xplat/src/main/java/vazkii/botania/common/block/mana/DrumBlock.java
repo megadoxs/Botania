@@ -28,8 +28,6 @@ import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
-import org.jetbrains.annotations.NotNull;
-
 import vazkii.botania.api.internal.ManaBurst;
 import vazkii.botania.api.mana.ManaTrigger;
 import vazkii.botania.common.block.BotaniaWaterloggedBlock;
@@ -67,7 +65,6 @@ public class DrumBlock extends BotaniaWaterloggedBlock {
 		this.variant = v;
 	}
 
-	@NotNull
 	@Override
 	public VoxelShape getShape(BlockState state, BlockGetter world, BlockPos pos, CollisionContext ctx) {
 		return SHAPE;

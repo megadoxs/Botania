@@ -22,7 +22,6 @@ import net.minecraft.world.item.*;
 import net.minecraft.world.item.alchemy.PotionContents;
 import net.minecraft.world.level.Level;
 
-import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import vazkii.botania.api.BotaniaAPI;
@@ -34,6 +33,7 @@ import vazkii.botania.common.helper.DataComponentHelper;
 import vazkii.botania.common.item.CustomCreativeTabContents;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.function.Supplier;
 
@@ -58,21 +58,18 @@ public class BaseBrewItem extends Item implements BrewItem, CustomCreativeTabCon
 		return drinkSpeed;
 	}
 
-	@NotNull
 	@Override
 	public UseAnim getUseAnimation(ItemStack stack) {
 		return UseAnim.DRINK;
 	}
 
-	@NotNull
 	@Override
-	public InteractionResultHolder<ItemStack> use(Level world, Player player, @NotNull InteractionHand hand) {
+	public InteractionResultHolder<ItemStack> use(Level world, Player player, InteractionHand hand) {
 		return ItemUtils.startUsingInstantly(world, player, hand);
 	}
 
-	@NotNull
 	@Override
-	public ItemStack finishUsingItem(@NotNull ItemStack stack, Level world, LivingEntity living) {
+	public ItemStack finishUsingItem(ItemStack stack, Level world, LivingEntity living) {
 		if (!world.isClientSide) {
 			for (MobEffectInstance effect : getBrew(stack).getPotionEffects(stack)) {
 				MobEffectInstance newEffect = new MobEffectInstance(effect.getEffect(), effect.getDuration(), effect.getAmplifier(), true, true);
@@ -118,9 +115,8 @@ public class BaseBrewItem extends Item implements BrewItem, CustomCreativeTabCon
 		}
 	}
 
-	@NotNull
 	@Override
-	public Component getName(@NotNull ItemStack stack) {
+	public Component getName(ItemStack stack) {
 		return Component.translatable(getDescriptionId(), Component.translatable(getBrew(stack).getTranslationKey(stack)),
 				Component.literal(Integer.toString(getSwigsLeft(stack))).withStyle(ChatFormatting.BOLD));
 	}
@@ -133,7 +129,7 @@ public class BaseBrewItem extends Item implements BrewItem, CustomCreativeTabCon
 	@Override
 	public Brew getBrew(ItemStack stack) {
 		ResourceLocation id = stack.get(BotaniaDataComponents.BREW);
-		return BotaniaAPI.instance().getBrewRegistry().get(id);
+		return Objects.requireNonNull(BotaniaAPI.instance().getBrewRegistry().get(id));
 	}
 
 	public static void setBrew(ItemStack stack, @Nullable Brew brew) {
@@ -150,7 +146,6 @@ public class BaseBrewItem extends Item implements BrewItem, CustomCreativeTabCon
 		DataComponentHelper.setOptional(stack, BotaniaDataComponents.BREW, brew);
 	}
 
-	@NotNull
 	public static String getSubtype(ItemStack stack) {
 		return Optional.ofNullable(stack.get(BotaniaDataComponents.BREW)).map(ResourceLocation::toString).orElse("none");
 	}

@@ -24,8 +24,6 @@ import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.Property;
 import net.minecraft.world.level.block.state.properties.RailShape;
 
-import org.jetbrains.annotations.NotNull;
-
 import vazkii.botania.common.annotations.SoftImplement;
 import vazkii.botania.common.internal_caps.SpectralRailComponent;
 import vazkii.botania.common.lib.BotaniaTags;
@@ -106,7 +104,6 @@ public class SpectralRailBlock extends BaseRailBlock {
 		return CODEC;
 	}
 
-	@NotNull
 	@Override
 	public Property<RailShape> getShapeProperty() {
 		return BlockStateProperties.RAIL_SHAPE_STRAIGHT;

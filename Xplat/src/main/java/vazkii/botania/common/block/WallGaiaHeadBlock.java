@@ -13,8 +13,6 @@ import net.minecraft.world.level.block.WallSkullBlock;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 
-import org.jetbrains.annotations.NotNull;
-
 import vazkii.botania.common.block.block_entity.GaiaHeadBlockEntity;
 
 public class WallGaiaHeadBlock extends WallSkullBlock {
@@ -22,7 +20,6 @@ public class WallGaiaHeadBlock extends WallSkullBlock {
 		super(GaiaHeadBlock.GAIA_TYPE, builder);
 	}
 
-	@NotNull
 	@Override
 	public BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
 		return new GaiaHeadBlockEntity(pos, state);

@@ -26,8 +26,6 @@ import net.minecraft.world.item.ItemStack;
 import net.neoforged.neoforge.capabilities.RegisterCapabilitiesEvent;
 import net.neoforged.neoforge.common.NeoForge;
 
-import org.jetbrains.annotations.NotNull;
-
 import top.theillusivec4.curios.api.CuriosApi;
 import top.theillusivec4.curios.api.CuriosCapability;
 import top.theillusivec4.curios.api.SlotContext;
@@ -40,6 +38,7 @@ import top.theillusivec4.curios.api.type.capability.ICurio.DropRule;
 import top.theillusivec4.curios.api.type.capability.ICuriosItemHandler;
 
 import vazkii.botania.client.render.AccessoryRenderRegistry;
+import vazkii.botania.common.component.BotaniaDataComponents;
 import vazkii.botania.common.handler.BotaniaSounds;
 import vazkii.botania.common.handler.EquipmentHandler;
 import vazkii.botania.common.item.ResoluteIvyItem;
@@ -59,7 +58,7 @@ public class CurioIntegration extends EquipmentHandler {
 	public static void keepCurioDrops(DropRulesEvent event) { //TODO make this less hacky
 		event.addOverride(stack -> {
 			if (ResoluteIvyItem.hasIvy(stack)) {
-				// FIXME: use data component - stack.removeTagKey(ResoluteIvyItem.TAG_KEEP);
+				stack.remove(BotaniaDataComponents.RESOLUTE_IVY);
 				return true;
 			}
 			return false;
@@ -157,7 +156,6 @@ public class CurioIntegration extends EquipmentHandler {
 			return true;
 		}
 
-		@NotNull
 		@Override
 		public SoundInfo getEquipSound(SlotContext slotContext) {
 			return SOUND_INFO;

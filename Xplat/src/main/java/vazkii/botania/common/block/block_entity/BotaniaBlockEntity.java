@@ -18,7 +18,6 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 
-import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 public class BotaniaBlockEntity extends BlockEntity {
@@ -32,7 +31,6 @@ public class BotaniaBlockEntity extends BlockEntity {
 		writePacketNBT(tag, registries);
 	}
 
-	@NotNull
 	@Override
 	public final CompoundTag getUpdateTag(HolderLookup.Provider registries) {
 		var tag = new CompoundTag();
@@ -41,7 +39,7 @@ public class BotaniaBlockEntity extends BlockEntity {
 	}
 
 	@Override
-	public void loadAdditional(@NotNull CompoundTag tag, HolderLookup.Provider registries) {
+	public void loadAdditional(CompoundTag tag, HolderLookup.Provider registries) {
 		super.loadAdditional(tag, registries);
 		readPacketNBT(tag, registries);
 	}

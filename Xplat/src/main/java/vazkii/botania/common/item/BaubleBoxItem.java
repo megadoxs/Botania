@@ -25,8 +25,6 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.ItemUtils;
 import net.minecraft.world.level.Level;
 
-import org.jetbrains.annotations.NotNull;
-
 import vazkii.botania.client.gui.box.BaubleBoxContainer;
 import vazkii.botania.common.component.BotaniaDataComponents;
 import vazkii.botania.common.handler.EquipmentHandler;
@@ -45,15 +43,14 @@ public class BaubleBoxItem extends Item {
 	public static SimpleContainer getInventory(ItemStack stack) {
 		return new ItemBackedInventory(stack, SIZE) {
 			@Override
-			public boolean canPlaceItem(int index, @NotNull ItemStack stack) {
+			public boolean canPlaceItem(int index, ItemStack stack) {
 				return EquipmentHandler.instance.isAccessory(stack);
 			}
 		};
 	}
 
-	@NotNull
 	@Override
-	public InteractionResultHolder<ItemStack> use(Level world, Player player, @NotNull InteractionHand hand) {
+	public InteractionResultHolder<ItemStack> use(Level world, Player player, InteractionHand hand) {
 		if (!world.isClientSide) {
 			ItemStack stack = player.getItemInHand(hand);
 			stack.set(BotaniaDataComponents.ACTIVE_TRANSIENT, Unit.INSTANCE);
@@ -73,7 +70,7 @@ public class BaubleBoxItem extends Item {
 	}
 
 	@Override
-	public void onDestroyed(@NotNull ItemEntity entity) {
+	public void onDestroyed(ItemEntity entity) {
 		var container = getInventory(entity.getItem());
 		var stream = IntStream.range(0, container.getContainerSize())
 				.mapToObj(container::getItem)
@@ -83,9 +80,7 @@ public class BaubleBoxItem extends Item {
 	}
 
 	@Override
-	public boolean overrideStackedOnOther(
-			@NotNull ItemStack box, @NotNull Slot slot,
-			@NotNull ClickAction clickAction, @NotNull Player player) {
+	public boolean overrideStackedOnOther(ItemStack box, Slot slot, ClickAction clickAction, Player player) {
 		return InventoryHelper.overrideStackedOnOther(
 				BaubleBoxItem::getInventory,
 				player.containerMenu instanceof BaubleBoxContainer,
@@ -93,10 +88,8 @@ public class BaubleBoxItem extends Item {
 	}
 
 	@Override
-	public boolean overrideOtherStackedOnMe(
-			@NotNull ItemStack box, @NotNull ItemStack toInsert,
-			@NotNull Slot slot, @NotNull ClickAction clickAction,
-			@NotNull Player player, @NotNull SlotAccess cursorAccess) {
+	public boolean overrideOtherStackedOnMe(ItemStack box, ItemStack toInsert, Slot slot, ClickAction clickAction,
+			Player player, SlotAccess cursorAccess) {
 		return InventoryHelper.overrideOtherStackedOnMe(
 				BaubleBoxItem::getInventory,
 				player.containerMenu instanceof BaubleBoxContainer,

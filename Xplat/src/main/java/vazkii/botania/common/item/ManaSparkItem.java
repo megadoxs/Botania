@@ -16,8 +16,6 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
 
-import org.jetbrains.annotations.NotNull;
-
 import vazkii.botania.common.entity.ManaSparkEntity;
 import vazkii.botania.xplat.XplatAbstractions;
 
@@ -27,7 +25,6 @@ public class ManaSparkItem extends Item {
 		super(builder);
 	}
 
-	@NotNull
 	@Override
 	public InteractionResult useOn(UseOnContext ctx) {
 		return attachSpark(ctx.getLevel(), ctx.getClickedPos(), ctx.getItemInHand())

@@ -28,8 +28,6 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
-import org.jetbrains.annotations.NotNull;
-
 import vazkii.botania.client.fx.SparkleParticleData;
 import vazkii.botania.common.block.BotaniaBlocks;
 import vazkii.botania.common.item.material.MysticalPetalItem;
@@ -54,9 +52,8 @@ public class BuriedPetalBlock extends BushBlock implements BonemealableBlock {
 		this.color = color;
 	}
 
-	@NotNull
 	@Override
-	public VoxelShape getShape(BlockState state, @NotNull BlockGetter world, @NotNull BlockPos pos, CollisionContext ctx) {
+	public VoxelShape getShape(BlockState state, BlockGetter world, BlockPos pos, CollisionContext ctx) {
 		return SHAPE;
 	}
 
@@ -71,24 +68,23 @@ public class BuriedPetalBlock extends BushBlock implements BonemealableBlock {
 		world.addParticle(data, pos.getX() + 0.3 + rand.nextFloat() * 0.5, pos.getY() + 0.1 + rand.nextFloat() * 0.1, pos.getZ() + 0.3 + rand.nextFloat() * 0.5, 0, 0, 0);
 	}
 
-	@NotNull
 	@Override
 	public RenderShape getRenderShape(BlockState state) {
 		return RenderShape.INVISIBLE;
 	}
 
 	@Override
-	public boolean isValidBonemealTarget(@NotNull LevelReader world, @NotNull BlockPos pos, @NotNull BlockState state) {
+	public boolean isValidBonemealTarget(LevelReader world, BlockPos pos, BlockState state) {
 		return world.getBlockState(pos.above()).isAir();
 	}
 
 	@Override
-	public boolean isBonemealSuccess(@NotNull Level world, @NotNull RandomSource rand, @NotNull BlockPos pos, @NotNull BlockState state) {
+	public boolean isBonemealSuccess(Level world, RandomSource rand, BlockPos pos, BlockState state) {
 		return isValidBonemealTarget(world, pos, state);
 	}
 
 	@Override
-	public void performBonemeal(@NotNull ServerLevel world, @NotNull RandomSource rand, @NotNull BlockPos pos, @NotNull BlockState state) {
+	public void performBonemeal(ServerLevel world, RandomSource rand, BlockPos pos, BlockState state) {
 		Block block = BotaniaBlocks.getDoubleFlower(color);
 		if (block instanceof DoublePlantBlock) {
 			DoublePlantBlock.placeAt(world, block.defaultBlockState(), pos, 3);

@@ -26,8 +26,6 @@ import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
-import org.jetbrains.annotations.NotNull;
-
 import vazkii.botania.common.block.block_entity.LuminizerBlockEntity;
 
 import java.util.ArrayList;
@@ -42,7 +40,6 @@ public class LuminizerLauncherBlock extends BotaniaWaterloggedBlock {
 		registerDefaultState(defaultBlockState().setValue(BlockStateProperties.POWERED, false));
 	}
 
-	@NotNull
 	@Override
 	public VoxelShape getShape(BlockState state, BlockGetter world, BlockPos pos, CollisionContext ctx) {
 		return SHAPE;

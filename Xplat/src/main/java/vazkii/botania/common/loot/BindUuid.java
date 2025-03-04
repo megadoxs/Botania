@@ -19,8 +19,6 @@ import net.minecraft.world.level.storage.loot.functions.LootItemFunctionType;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
 import net.minecraft.world.level.storage.loot.predicates.LootItemCondition;
 
-import org.jetbrains.annotations.NotNull;
-
 import vazkii.botania.xplat.XplatAbstractions;
 
 import java.util.List;
@@ -32,9 +30,8 @@ public class BindUuid extends LootItemConditionalFunction {
 		super(predicates);
 	}
 
-	@NotNull
 	@Override
-	public ItemStack run(@NotNull ItemStack stack, @NotNull LootContext context) {
+	public ItemStack run(ItemStack stack, LootContext context) {
 		if (context.getParamOrNull(LootContextParams.ATTACKING_ENTITY) instanceof Player player) {
 			var relic = XplatAbstractions.INSTANCE.findRelic(stack);
 			if (relic != null) {

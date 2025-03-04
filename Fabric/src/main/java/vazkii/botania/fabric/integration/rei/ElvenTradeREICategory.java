@@ -31,7 +31,6 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.inventory.InventoryMenu;
 import net.minecraft.world.item.ItemStack;
 
-import org.jetbrains.annotations.NotNull;
 import org.joml.Matrix3f;
 import org.joml.Matrix4f;
 
@@ -46,22 +45,22 @@ public class ElvenTradeREICategory implements DisplayCategory<ElvenTradeREIDispl
 	private final ResourceLocation TRADE_OVERLAY = BotaniaAPI.botaniaRL("textures/gui/elven_trade_overlay.png");
 
 	@Override
-	public @NotNull CategoryIdentifier<ElvenTradeREIDisplay> getCategoryIdentifier() {
+	public CategoryIdentifier<ElvenTradeREIDisplay> getCategoryIdentifier() {
 		return BotaniaREICategoryIdentifiers.ELVEN_TRADE;
 	}
 
 	@Override
-	public @NotNull Renderer getIcon() {
+	public Renderer getIcon() {
 		return gateway;
 	}
 
 	@Override
-	public @NotNull Component getTitle() {
+	public Component getTitle() {
 		return Component.translatable("botania.nei.elvenTrade");
 	}
 
 	@Override
-	public @NotNull List<Widget> setupDisplay(ElvenTradeREIDisplay display, Rectangle bounds) {
+	public List<Widget> setupDisplay(ElvenTradeREIDisplay display, Rectangle bounds) {
 		List<Widget> widgets = new ArrayList<>();
 		Point center = new Point(bounds.getCenterX() - 8, bounds.getCenterY() - 4);
 		widgets.add(Widgets.createRecipeBase(bounds));

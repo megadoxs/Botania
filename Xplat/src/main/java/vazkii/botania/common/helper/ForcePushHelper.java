@@ -3,6 +3,8 @@ package vazkii.botania.common.helper;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 
+import org.jetbrains.annotations.Nullable;
+
 import java.util.ArrayDeque;
 import java.util.Deque;
 import java.util.Map;
@@ -25,6 +27,7 @@ public class ForcePushHelper implements AutoCloseable {
 		return !forcePushOriginStack.get().isEmpty();
 	}
 
+	@Nullable
 	public static BlockPos getForcePushOrigin() {
 		if (!isForcePush()) {
 			throw new IllegalStateException("Not currently performing a Force Relay or Force Lens push");
@@ -45,6 +48,7 @@ public class ForcePushHelper implements AutoCloseable {
 		return entry == null || entry.getKey();
 	}
 
+	@Nullable
 	public static Direction getMovementContextDirection() {
 		Map.Entry<Boolean, Direction> entry = movementTypeContextStack.get().peek();
 		return entry != null ? entry.getValue() : null;

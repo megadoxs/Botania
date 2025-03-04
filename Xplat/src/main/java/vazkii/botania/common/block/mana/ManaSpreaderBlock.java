@@ -33,7 +33,6 @@ import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
-import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import vazkii.botania.api.mana.BasicLensItem;
@@ -89,7 +88,6 @@ public class ManaSpreaderBlock extends BotaniaWaterloggedBlock implements Entity
 		builder.add(BotaniaStateProperties.HAS_SCAFFOLDING);
 	}
 
-	@NotNull
 	@Override
 	public VoxelShape getShape(BlockState blockState, BlockGetter blockGetter, BlockPos blockPos, CollisionContext collisionContext) {
 		if (blockState.getValue(BotaniaStateProperties.HAS_SCAFFOLDING)) {
@@ -99,9 +97,8 @@ public class ManaSpreaderBlock extends BotaniaWaterloggedBlock implements Entity
 		return be instanceof ManaSpreaderBlockEntity spreader && spreader.paddingColor != null ? SHAPE_PADDING : SHAPE;
 	}
 
-	@NotNull
 	@Override
-	public VoxelShape getOcclusionShape(BlockState state, @NotNull BlockGetter world, @NotNull BlockPos pos) {
+	public VoxelShape getOcclusionShape(BlockState state, BlockGetter world, BlockPos pos) {
 		return SHAPE;
 	}
 
@@ -136,7 +133,6 @@ public class ManaSpreaderBlock extends BotaniaWaterloggedBlock implements Entity
 		}
 	}
 
-	@NotNull
 	@Override
 	public RenderShape getRenderShape(BlockState state) {
 		return RenderShape.ENTITYBLOCK_ANIMATED;
@@ -332,7 +328,7 @@ public class ManaSpreaderBlock extends BotaniaWaterloggedBlock implements Entity
 	}
 
 	@Override
-	public void onRemove(@NotNull BlockState state, @NotNull Level world, @NotNull BlockPos pos, @NotNull BlockState newState, boolean isMoving) {
+	public void onRemove(BlockState state, Level world, BlockPos pos, BlockState newState, boolean isMoving) {
 		if (!state.is(newState.getBlock())) {
 			BlockEntity tile = world.getBlockEntity(pos);
 			if (!(tile instanceof ManaSpreaderBlockEntity spreader)) {
@@ -355,13 +351,12 @@ public class ManaSpreaderBlock extends BotaniaWaterloggedBlock implements Entity
 		}
 	}
 
-	@NotNull
 	@Override
-	public BlockEntity newBlockEntity(@NotNull BlockPos pos, @NotNull BlockState state) {
+	public BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
 		return new ManaSpreaderBlockEntity(pos, state);
 	}
 
-	@org.jetbrains.annotations.Nullable
+	@Nullable
 	@Override
 	public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> type) {
 		return createTickerHelper(type, BotaniaBlockEntities.SPREADER, ManaSpreaderBlockEntity::commonTick);

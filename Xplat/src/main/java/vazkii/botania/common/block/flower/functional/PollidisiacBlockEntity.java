@@ -29,7 +29,6 @@ import net.minecraft.world.level.block.SuspiciousEffectHolder;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.AABB;
 
-import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import vazkii.botania.api.block.Wandable;
@@ -49,7 +48,6 @@ public class PollidisiacBlockEntity extends FunctionalFlowerBlockEntity implemen
 	private static final int RANGE = 6;
 	private static final int MANA_COST = 12;
 
-	@NotNull
 	private Mode mode = Mode.FEED_ADULTS;
 
 	public PollidisiacBlockEntity(BlockPos pos, BlockState state) {
@@ -72,7 +70,7 @@ public class PollidisiacBlockEntity extends FunctionalFlowerBlockEntity implemen
 	/**
 	 * Finds items around flower's actual position.
 	 */
-	private @NotNull List<ItemEntity> getItems() {
+	private List<ItemEntity> getItems() {
 		var pickupBounds = new AABB(getBlockPos()).inflate(RANGE);
 		return getLevel().getEntitiesOfClass(ItemEntity.class, pickupBounds,
 				itemEntity -> DelayHelper.canInteractWith(this, itemEntity));
@@ -81,7 +79,7 @@ public class PollidisiacBlockEntity extends FunctionalFlowerBlockEntity implemen
 	/**
 	 * Finds animals around flower's effective position. Depending on mode, adults, babies, or both will be selected.
 	 */
-	private @NotNull List<Animal> getAnimals() {
+	private List<Animal> getAnimals() {
 		var bounds = new AABB(getEffectivePos()).inflate(RANGE);
 		return getLevel().getEntitiesOfClass(Animal.class, bounds, mode);
 	}
@@ -164,6 +162,7 @@ public class PollidisiacBlockEntity extends FunctionalFlowerBlockEntity implemen
 		return RadiusDescriptor.Rectangle.square(getEffectivePos(), RANGE);
 	}
 
+	@Nullable
 	@Override
 	public RadiusDescriptor getSecondaryRadius() {
 		return getBlockPos().equals(getEffectivePos()) ? null : RadiusDescriptor.Rectangle.square(getBlockPos(), RANGE);
@@ -179,7 +178,6 @@ public class PollidisiacBlockEntity extends FunctionalFlowerBlockEntity implemen
 		return 0xCF4919;
 	}
 
-	@NotNull
 	public Mode getMode() {
 		return this.mode;
 	}
@@ -220,12 +218,10 @@ public class PollidisiacBlockEntity extends FunctionalFlowerBlockEntity implemen
 			return CODEC.byName(name, FEED_ADULTS);
 		}
 
-		@NotNull
 		private final String name;
-		@NotNull
 		private final Predicate<Animal> predicate;
 
-		Mode(@NotNull String name, @NotNull Predicate<Animal> predicate) {
+		Mode(String name, Predicate<Animal> predicate) {
 			this.name = name;
 			this.predicate = predicate;
 		}
@@ -235,13 +231,11 @@ public class PollidisiacBlockEntity extends FunctionalFlowerBlockEntity implemen
 			return predicate.test(animal);
 		}
 
-		@NotNull
 		@Override
 		public String getSerializedName() {
 			return this.name;
 		}
 
-		@NotNull
 		public Mode getNextMode() {
 			Mode[] modes = values();
 			int nextMode = ordinal() + 1;

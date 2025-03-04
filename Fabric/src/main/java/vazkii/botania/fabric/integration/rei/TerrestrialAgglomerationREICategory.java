@@ -24,8 +24,6 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 
-import org.jetbrains.annotations.NotNull;
-
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.client.gui.HUDHandler;
 import vazkii.botania.common.block.BotaniaBlocks;
@@ -39,25 +37,25 @@ public class TerrestrialAgglomerationREICategory implements DisplayCategory<Terr
 	private final EntryStack<ItemStack> icon = EntryStacks.of(BotaniaBlocks.terraPlate);
 
 	@Override
-	public @NotNull CategoryIdentifier<TerrestrialAgglomerationREIDisplay> getCategoryIdentifier() {
+	public CategoryIdentifier<TerrestrialAgglomerationREIDisplay> getCategoryIdentifier() {
 		return BotaniaREICategoryIdentifiers.TERRA_PLATE;
 	}
 
 	@Override
-	public @NotNull Renderer getIcon() {
+	public Renderer getIcon() {
 		return icon;
 	}
 
 	@Override
-	public @NotNull Component getTitle() {
+	public Component getTitle() {
 		return Component.translatable("botania.nei.terraPlate");
 	}
 
 	@Override
-	public @NotNull List<Widget> setupDisplay(TerrestrialAgglomerationREIDisplay display, Rectangle bounds) {
+	public List<Widget> setupDisplay(TerrestrialAgglomerationREIDisplay display, Rectangle bounds) {
 		List<Widget> widgets = new ArrayList<>();
 		List<EntryIngredient> inputs = display.getInputEntries();
-		EntryStack<?> output = display.getOutputEntries().get(0).get(0);
+		EntryStack<?> output = display.getOutputEntries().getFirst().getFirst();
 
 		double angleBetweenEach = 360.0 / inputs.size();
 		FloatingPoint point = new FloatingPoint(bounds.getCenterX() - 8, bounds.getCenterY() - 44);

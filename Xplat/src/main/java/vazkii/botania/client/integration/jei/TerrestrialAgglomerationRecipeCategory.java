@@ -28,8 +28,6 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.phys.Vec2;
 
-import org.jetbrains.annotations.NotNull;
-
 import vazkii.botania.api.recipe.TerrestrialAgglomerationRecipe;
 import vazkii.botania.client.gui.HUDHandler;
 import vazkii.botania.common.block.BotaniaBlocks;
@@ -61,32 +59,28 @@ public class TerrestrialAgglomerationRecipeCategory implements IRecipeCategory<T
 		);
 	}
 
-	@NotNull
 	@Override
 	public RecipeType<TerrestrialAgglomerationRecipe> getRecipeType() {
 		return TYPE;
 	}
 
-	@NotNull
 	@Override
 	public Component getTitle() {
 		return localizedName;
 	}
 
-	@NotNull
 	@Override
 	public IDrawable getBackground() {
 		return background;
 	}
 
-	@NotNull
 	@Override
 	public IDrawable getIcon() {
 		return icon;
 	}
 
 	@Override
-	public void draw(@NotNull TerrestrialAgglomerationRecipe recipe, @NotNull IRecipeSlotsView view, @NotNull GuiGraphics gui, double mouseX, double mouseY) {
+	public void draw(TerrestrialAgglomerationRecipe recipe, IRecipeSlotsView view, GuiGraphics gui, double mouseX, double mouseY) {
 		RenderSystem.enableBlend();
 		overlay.draw(gui, 25, 14);
 		HUDHandler.renderManaBar(gui, 6, 126, 0x0000FF, 0.75F, recipe.getMana(), 100000);
@@ -95,7 +89,7 @@ public class TerrestrialAgglomerationRecipeCategory implements IRecipeCategory<T
 	}
 
 	@Override
-	public void setRecipe(@NotNull IRecipeLayoutBuilder builder, @NotNull TerrestrialAgglomerationRecipe recipe, @NotNull IFocusGroup focusGroup) {
+	public void setRecipe(IRecipeLayoutBuilder builder, TerrestrialAgglomerationRecipe recipe, IFocusGroup focusGroup) {
 		// TODO 1.19.4 figure out the proper way to get a registry access
 		builder.addSlot(RecipeIngredientRole.OUTPUT, 48, 37)
 				.addItemStack(recipe.getResultItem(RegistryAccess.EMPTY));

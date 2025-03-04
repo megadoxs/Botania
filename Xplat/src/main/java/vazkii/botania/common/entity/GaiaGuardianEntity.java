@@ -70,7 +70,6 @@ import net.minecraft.world.level.storage.loot.LootTable;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 
-import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import vazkii.botania.api.internal.ManaBurst;
@@ -193,6 +192,7 @@ public class GaiaGuardianEntity extends Mob {
 	private final List<UUID> playersWhoAttacked = new ArrayList<>();
 	private final ServerBossEvent bossInfo = (ServerBossEvent) new ServerBossEvent(BotaniaEntities.DOPPLEGANGER.getDescription(), BossEvent.BossBarColor.PINK, BossEvent.BossBarOverlay.PROGRESS).setCreateWorldFog(true);
 	private UUID bossInfoUUID = bossInfo.getId();
+	@Nullable
 	public Player trueKiller = null;
 
 	public GaiaGuardianEntity(EntityType<GaiaGuardianEntity> type, Level world) {
@@ -435,7 +435,7 @@ public class GaiaGuardianEntity extends Mob {
 	}
 
 	@Override
-	public boolean hurt(@NotNull DamageSource source, float amount) {
+	public boolean hurt(DamageSource source, float amount) {
 		Entity e = source.getEntity();
 		if (e instanceof Player player && isTruePlayer(e) && getInvulTime() == 0) {
 
@@ -450,7 +450,7 @@ public class GaiaGuardianEntity extends Mob {
 	}
 
 	@Override
-	protected void actuallyHurt(@NotNull DamageSource source, float amount) {
+	protected void actuallyHurt(DamageSource source, float amount) {
 		super.actuallyHurt(source, Math.min(DAMAGE_CAP, amount));
 
 		Entity attacker = source.getDirectEntity();
@@ -474,7 +474,7 @@ public class GaiaGuardianEntity extends Mob {
 	}
 
 	@Override
-	public void die(@NotNull DamageSource source) {
+	public void die(DamageSource source) {
 		super.die(source);
 		LivingEntity lastAttacker = getKillCredit();
 
@@ -529,7 +529,7 @@ public class GaiaGuardianEntity extends Mob {
 	}
 
 	@Override
-	protected void dropFromLootTable(@NotNull DamageSource source, boolean wasRecentlyHit) {
+	protected void dropFromLootTable(DamageSource source, boolean wasRecentlyHit) {
 		// Save true killer, they get extra loot
 		if (wasRecentlyHit && isTruePlayer(source.getEntity())) {
 			trueKiller = (Player) source.getEntity();
@@ -577,8 +577,7 @@ public class GaiaGuardianEntity extends Mob {
 		return l.size();
 	}
 
-	@NotNull
-	private static AABB getArenaBB(@NotNull BlockPos source) {
+	private static AABB getArenaBB(BlockPos source) {
 		double range = 15.0;
 		return new AABB(source.getX() + 0.5 - range, source.getY() + 0.5 - range, source.getZ() + 0.5 - range, source.getX() + 0.5 + range, source.getY() + 0.5 + range, source.getZ() + 0.5 + range);
 	}

@@ -28,7 +28,6 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.BlockAndTintGetter;
 import net.minecraft.world.level.block.state.BlockState;
 
-import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.joml.Vector3f;
 
@@ -53,14 +52,13 @@ public class FabricFloatingFlowerModel extends BlockModel {
 		this.unbakedFlower = flower;
 	}
 
-	@NotNull
 	@Override
 	public Collection<ResourceLocation> getDependencies() {
 		return Collections.emptyList();
 	}
 
 	@Override
-	public void resolveParents(@NotNull Function<ResourceLocation, UnbakedModel> modelGetter) {
+	public void resolveParents(Function<ResourceLocation, UnbakedModel> modelGetter) {
 		this.unbakedFlower.resolveParents(modelGetter);
 		for (var e : BotaniaAPIClient.instance().getRegisteredIslandTypeModels().entrySet()) {
 			UnbakedModel islandModel = modelGetter.apply(e.getValue());
@@ -69,7 +67,6 @@ public class FabricFloatingFlowerModel extends BlockModel {
 		}
 	}
 
-	@NotNull
 	@Override
 	public BakedModel bake(ModelBaker baker, BlockModel model, Function<Material, TextureAtlasSprite> spriteGetter,
 			ModelState transform, boolean guiLight3d) {
@@ -104,9 +101,8 @@ public class FabricFloatingFlowerModel extends BlockModel {
 			this.islands = islands;
 		}
 
-		@NotNull
 		@Override
-		public List<BakedQuad> getQuads(@Nullable BlockState state, @Nullable Direction side, @NotNull RandomSource rand) {
+		public List<BakedQuad> getQuads(@Nullable BlockState state, @Nullable Direction side, RandomSource rand) {
 			List<BakedQuad> flower = wrapped.getQuads(null, null, rand);
 			List<BakedQuad> island = islands.get(FloatingFlower.IslandType.GRASS).getQuads(null, null, rand);
 			List<BakedQuad> ret = new ArrayList<>(flower.size() + island.size());

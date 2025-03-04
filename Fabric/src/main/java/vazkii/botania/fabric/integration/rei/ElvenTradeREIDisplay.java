@@ -13,8 +13,6 @@ import me.shedaniel.rei.api.common.util.EntryIngredients;
 
 import net.minecraft.world.item.crafting.RecipeHolder;
 
-import org.jetbrains.annotations.NotNull;
-
 import vazkii.botania.api.recipe.ElvenTradeRecipe;
 import vazkii.botania.common.block.block_entity.AlfheimPortalBlockEntity;
 
@@ -31,7 +29,7 @@ public class ElvenTradeREIDisplay extends BotaniaRecipeDisplay<ElvenTradeRecipe>
 	}
 
 	@Override
-	public @NotNull CategoryIdentifier<?> getCategoryIdentifier() {
+	public CategoryIdentifier<?> getCategoryIdentifier() {
 		return BotaniaREICategoryIdentifiers.ELVEN_TRADE;
 	}
 }

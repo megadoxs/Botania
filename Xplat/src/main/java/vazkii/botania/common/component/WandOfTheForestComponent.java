@@ -14,8 +14,6 @@ import net.minecraft.util.StringRepresentable;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.TooltipFlag;
 
-import org.jetbrains.annotations.NotNull;
-
 import java.util.List;
 import java.util.function.Consumer;
 import java.util.function.IntFunction;
@@ -67,7 +65,7 @@ public record WandOfTheForestComponent(WandMode wandMode, TooltipVisibility tool
 		}
 
 		@Override
-		public @NotNull String getSerializedName() {
+		public String getSerializedName() {
 			return name;
 		}
 

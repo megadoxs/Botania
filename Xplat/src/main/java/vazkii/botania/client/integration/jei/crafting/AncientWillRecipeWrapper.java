@@ -18,8 +18,6 @@ import mezz.jei.api.recipe.category.extensions.vanilla.crafting.ICraftingCategor
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.RecipeHolder;
 
-import org.jetbrains.annotations.NotNull;
-
 import vazkii.botania.api.item.AncientWillContainer;
 import vazkii.botania.common.crafting.recipe.AncientWillRecipe;
 import vazkii.botania.common.item.AncientWillItem;
@@ -31,7 +29,7 @@ import java.util.List;
 
 public class AncientWillRecipeWrapper implements ICraftingCategoryExtension<AncientWillRecipe> {
 	@Override
-	public void setRecipe(RecipeHolder<AncientWillRecipe> recipe, @NotNull IRecipeLayoutBuilder builder, @NotNull ICraftingGridHelper helper, @NotNull IFocusGroup focusGroup) {
+	public void setRecipe(RecipeHolder<AncientWillRecipe> recipe, IRecipeLayoutBuilder builder, ICraftingGridHelper helper, IFocusGroup focusGroup) {
 		var foci = focusGroup.getFocuses(VanillaTypes.ITEM_STACK, RecipeIngredientRole.INPUT)
 				.filter(f -> f.getTypedValue().getIngredient().getItem() instanceof AncientWillItem)
 				.map(f -> f.getTypedValue().getIngredient())

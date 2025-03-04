@@ -21,7 +21,6 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
-import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import vazkii.botania.common.block.BotaniaWaterloggedBlock;
@@ -36,21 +35,18 @@ public class CorporeaIndexBlock extends BotaniaWaterloggedBlock implements Entit
 		super(builder);
 	}
 
-	@NotNull
 	@Override
 	public VoxelShape getShape(BlockState blockState, BlockGetter blockGetter, BlockPos blockPos, CollisionContext collisionContext) {
 		return SHAPE;
 	}
 
-	@NotNull
 	@Override
 	public RenderShape getRenderShape(BlockState state) {
 		return RenderShape.ENTITYBLOCK_ANIMATED;
 	}
 
-	@NotNull
 	@Override
-	public BaseCorporeaBlockEntity newBlockEntity(@NotNull BlockPos pos, @NotNull BlockState state) {
+	public BaseCorporeaBlockEntity newBlockEntity(BlockPos pos, BlockState state) {
 		return new CorporeaIndexBlockEntity(pos, state);
 	}
 

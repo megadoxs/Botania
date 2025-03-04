@@ -25,8 +25,6 @@ import net.minecraft.world.level.block.SnowLayerBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.lighting.LightEngine;
 
-import org.jetbrains.annotations.NotNull;
-
 import vazkii.botania.api.block.FloatingFlower.IslandType;
 import vazkii.botania.client.fx.WispParticleData;
 import vazkii.botania.common.block.BotaniaBlocks;
@@ -59,7 +57,6 @@ public class GrassSeedsItem extends Item implements FloatingFlowerVariant {
 		this.type = type;
 	}
 
-	@NotNull
 	@Override
 	public InteractionResult useOn(UseOnContext ctx) {
 		Level world = ctx.getLevel();

@@ -16,13 +16,10 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.DispenserBlock;
 
-import org.jetbrains.annotations.NotNull;
-
 import vazkii.botania.common.item.FloralObedienceStickItem;
 
 public class StickBehavior extends OptionalDispenseItemBehavior {
 
-	@NotNull
 	@Override
 	protected ItemStack execute(BlockSource source, ItemStack stack) {
 		Level world = source.level();

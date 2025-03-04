@@ -32,8 +32,6 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.IronBarsBlock;
 import net.minecraft.world.level.block.WallBlock;
 
-import org.jetbrains.annotations.NotNull;
-
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.common.block.*;
 import vazkii.botania.common.block.decor.BotaniaMushroomBlock;
@@ -601,7 +599,6 @@ public class ItemModelProvider implements DataProvider {
 		return ret;
 	}
 
-	@NotNull
 	@Override
 	public String getName() {
 		return "Botania item models";

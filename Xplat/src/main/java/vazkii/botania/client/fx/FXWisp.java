@@ -22,7 +22,6 @@ import net.minecraft.client.renderer.texture.AbstractTexture;
 import net.minecraft.client.renderer.texture.TextureAtlas;
 import net.minecraft.client.renderer.texture.TextureManager;
 
-import org.jetbrains.annotations.NotNull;
 import org.lwjgl.opengl.GL11;
 
 import vazkii.botania.xplat.ClientXplatAbstractions;
@@ -74,7 +73,6 @@ public class FXWisp extends TextureSheetParticle {
 		return 0xF000F0;
 	}
 
-	@NotNull
 	@Override
 	public ParticleRenderType getRenderType() {
 		return depthTest ? NORMAL_RENDER : DIW_RENDER;

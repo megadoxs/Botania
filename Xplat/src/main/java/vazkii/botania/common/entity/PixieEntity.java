@@ -19,8 +19,6 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 
-import org.jetbrains.annotations.NotNull;
-
 import vazkii.botania.client.fx.SparkleParticleData;
 
 public class PixieEntity extends FlyingMob {
@@ -102,7 +100,7 @@ public class PixieEntity extends FlyingMob {
 	}
 
 	@Override
-	public boolean isInvulnerableTo(@NotNull DamageSource source) {
+	public boolean isInvulnerableTo(DamageSource source) {
 		if (getPixieType() == 0 && source.getEntity() == summoner) {
 			return true;
 		}

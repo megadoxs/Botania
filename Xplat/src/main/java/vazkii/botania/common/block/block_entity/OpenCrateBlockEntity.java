@@ -20,7 +20,6 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 
-import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import vazkii.botania.xplat.XplatAbstractions;
@@ -74,7 +73,7 @@ public class OpenCrateBlockEntity extends ExposedSimpleInventoryBlockEntity {
 	}
 
 	@Override
-	public boolean canTakeItemThroughFace(int index, @NotNull ItemStack stack, @Nullable Direction direction) {
+	public boolean canTakeItemThroughFace(int index, ItemStack stack, @Nullable Direction direction) {
 		return false;
 	}
 }

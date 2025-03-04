@@ -20,7 +20,6 @@ import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.HitResult;
 
-import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.jetbrains.annotations.UnknownNullability;
 
@@ -71,9 +70,8 @@ public class LensItem extends Item implements ControlLensItem, CompositableLensI
 		}
 	}
 
-	@NotNull
 	@Override
-	public Component getName(@NotNull ItemStack stack) {
+	public Component getName(ItemStack stack) {
 		ItemStack compositeLens = getCompositeLens(stack);
 		if (compositeLens.isEmpty()) {
 			return super.getName(stack);

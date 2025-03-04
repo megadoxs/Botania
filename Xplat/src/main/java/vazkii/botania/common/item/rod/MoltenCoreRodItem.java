@@ -26,8 +26,6 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.HitResult;
 
-import org.jetbrains.annotations.NotNull;
-
 import vazkii.botania.api.mana.ManaItemHandler;
 import vazkii.botania.client.fx.WispParticleData;
 import vazkii.botania.common.handler.BotaniaSounds;
@@ -48,7 +46,6 @@ public class MoltenCoreRodItem extends Item {
 		super(props);
 	}
 
-	@NotNull
 	@Override
 	public UseAnim getUseAnimation(ItemStack stack) {
 		return UseAnim.BOW;
@@ -59,9 +56,8 @@ public class MoltenCoreRodItem extends Item {
 		return 72000;
 	}
 
-	@NotNull
 	@Override
-	public InteractionResultHolder<ItemStack> use(Level world, Player player, @NotNull InteractionHand hand) {
+	public InteractionResultHolder<ItemStack> use(Level world, Player player, InteractionHand hand) {
 		return ItemUtils.startUsingInstantly(world, player, hand);
 	}
 
@@ -133,7 +129,7 @@ public class MoltenCoreRodItem extends Item {
 		}
 	}
 
-	static class SmeltData {
+	public static class SmeltData {
 		public final BlockHitResult pos;
 		public int progress;
 

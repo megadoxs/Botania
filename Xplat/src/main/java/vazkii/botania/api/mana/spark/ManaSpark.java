@@ -52,7 +52,7 @@ public interface ManaSpark extends SparkEntity {
 	void setUpgrade(SparkUpgradeType upgrade);
 
 	/**
-	 * See {@link SparkAttachable#areIncomingTranfersDone()}
+	 * See {@link SparkAttachable#areIncomingTransfersDone()}
 	 */
 	boolean areIncomingTransfersDone();
 }

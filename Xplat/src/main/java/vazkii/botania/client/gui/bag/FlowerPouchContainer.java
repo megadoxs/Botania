@@ -18,8 +18,6 @@ import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.Block;
 
-import org.jetbrains.annotations.NotNull;
-
 import vazkii.botania.client.gui.SlotLocked;
 import vazkii.botania.common.block.BotaniaDoubleFlowerBlock;
 import vazkii.botania.common.block.BotaniaFlowerBlock;
@@ -45,7 +43,7 @@ public class FlowerPouchContainer extends AbstractContainerMenu {
 				int slot = col + row * 8;
 				addSlot(new Slot(flowerBagInv, slot, 17 + col * 18, 26 + row * 18) {
 					@Override
-					public boolean mayPlace(@NotNull ItemStack stack) {
+					public boolean mayPlace(ItemStack stack) {
 						return stack.is(FlowerPouchItem.getFlowerForSlot(slot));
 					}
 				});
@@ -69,13 +67,12 @@ public class FlowerPouchContainer extends AbstractContainerMenu {
 	}
 
 	@Override
-	public boolean stillValid(@NotNull Player player) {
+	public boolean stillValid(Player player) {
 		ItemStack main = player.getMainHandItem();
 		ItemStack off = player.getOffhandItem();
 		return !main.isEmpty() && main == bag || !off.isEmpty() && off == bag;
 	}
 
-	@NotNull
 	@Override
 	public ItemStack quickMoveStack(Player player, int slotIndex) {
 		ItemStack itemstack = ItemStack.EMPTY;

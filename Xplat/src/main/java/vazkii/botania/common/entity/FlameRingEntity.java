@@ -23,8 +23,6 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.AABB;
 
-import org.jetbrains.annotations.NotNull;
-
 import vazkii.botania.client.fx.WispParticleData;
 import vazkii.botania.common.helper.MathHelper;
 
@@ -100,15 +98,15 @@ public class FlameRingEntity extends Entity {
 	}
 
 	@Override
-	public boolean hurt(@NotNull DamageSource source, float amount) {
+	public boolean hurt(DamageSource source, float amount) {
 		return false;
 	}
 
 	@Override
-	protected void readAdditionalSaveData(@NotNull CompoundTag var1) {}
+	protected void readAdditionalSaveData(CompoundTag var1) {}
 
 	@Override
-	protected void addAdditionalSaveData(@NotNull CompoundTag var1) {}
+	protected void addAdditionalSaveData(CompoundTag var1) {}
 
 	@Override
 	public Packet<ClientGamePacketListener> getAddEntityPacket(ServerEntity entity) {

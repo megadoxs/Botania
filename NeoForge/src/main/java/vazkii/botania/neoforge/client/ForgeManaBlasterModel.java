@@ -13,8 +13,6 @@ import net.neoforged.neoforge.client.model.geometry.IGeometryBakingContext;
 import net.neoforged.neoforge.client.model.geometry.IGeometryLoader;
 import net.neoforged.neoforge.client.model.geometry.IUnbakedGeometry;
 
-import org.jetbrains.annotations.NotNull;
-
 import vazkii.botania.client.model.ManaBlasterBakedModel;
 
 import java.util.function.Function;
@@ -38,7 +36,6 @@ public class ForgeManaBlasterModel implements IUnbakedGeometry<ForgeManaBlasterM
 			ModelState modelState, ItemOverrides overrides) {
 		Transformation transform = context.getRootTransform();
 		ModelState state = new ModelState() {
-			@NotNull
 			@Override
 			public Transformation getRotation() {
 				return transform;
@@ -50,7 +47,6 @@ public class ForgeManaBlasterModel implements IUnbakedGeometry<ForgeManaBlasterM
 	enum Loader implements IGeometryLoader<ForgeManaBlasterModel> {
 		INSTANCE;
 
-		@NotNull
 		@Override
 		public ForgeManaBlasterModel read(JsonObject json, JsonDeserializationContext deserializationContext) {
 			return new ForgeManaBlasterModel(

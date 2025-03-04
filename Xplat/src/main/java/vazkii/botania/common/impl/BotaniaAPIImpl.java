@@ -23,8 +23,6 @@ import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 
-import org.jetbrains.annotations.NotNull;
-
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.BotaniaRegistries;
 import vazkii.botania.api.brew.Brew;
@@ -112,7 +110,6 @@ public class BotaniaAPIImpl implements BotaniaAPI {
 		return 4;
 	}
 
-	@NotNull
 	@Override
 	public Registry<Brew> getBrewRegistry() {
 		return RegistryHelper.getRegistry(BotaniaRegistries.BREWS);
@@ -196,7 +193,6 @@ public class BotaniaAPIImpl implements BotaniaAPI {
 		CorporeaNodeDetectors.register(detector);
 	}
 
-	@NotNull
 	@Override
 	public ConfigDataManager getConfigData() {
 		return configDataManager;

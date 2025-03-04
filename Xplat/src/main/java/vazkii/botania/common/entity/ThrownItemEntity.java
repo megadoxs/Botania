@@ -22,8 +22,6 @@ import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.EntityHitResult;
 import net.minecraft.world.phys.HitResult;
 
-import org.jetbrains.annotations.NotNull;
-
 import vazkii.botania.mixin.ItemEntityAccessor;
 
 import java.util.function.Predicate;
@@ -41,7 +39,6 @@ public class ThrownItemEntity extends ItemEntity {
 		setInvulnerable(true);
 	}
 
-	@NotNull
 	@Override
 	public EntityType<?> getType() {
 		return BotaniaEntities.THROWN_ITEM;

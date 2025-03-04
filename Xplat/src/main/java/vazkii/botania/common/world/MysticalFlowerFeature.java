@@ -18,8 +18,6 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.feature.FeaturePlaceContext;
 
-import org.jetbrains.annotations.NotNull;
-
 import vazkii.botania.common.block.BotaniaBlocks;
 import vazkii.botania.common.block.BotaniaFlowerBlock;
 
@@ -34,7 +32,7 @@ public class MysticalFlowerFeature extends Feature<MysticalFlowerConfig> {
 	}
 
 	@Override
-	public boolean place(@NotNull FeaturePlaceContext<MysticalFlowerConfig> ctx) {
+	public boolean place(FeaturePlaceContext<MysticalFlowerConfig> ctx) {
 		MysticalFlowerConfig config = ctx.config();
 		WorldGenLevel level = ctx.level();
 		BlockPos pos = ctx.origin();

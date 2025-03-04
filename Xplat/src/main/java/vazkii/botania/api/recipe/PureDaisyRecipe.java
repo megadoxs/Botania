@@ -20,8 +20,6 @@ import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 
-import org.jetbrains.annotations.NotNull;
-
 import java.util.Objects;
 import java.util.Optional;
 
@@ -84,7 +82,7 @@ public interface PureDaisyRecipe extends Recipe<RecipeInput> {
 	 */
 	@Override
 	@Deprecated
-	default ItemStack assemble(RecipeInput container, @NotNull HolderLookup.Provider registryAccess) {
+	default ItemStack assemble(RecipeInput container, HolderLookup.Provider registryAccess) {
 		return ItemStack.EMPTY;
 	}
 
@@ -102,7 +100,7 @@ public interface PureDaisyRecipe extends Recipe<RecipeInput> {
 	 */
 	@Override
 	@Deprecated
-	default ItemStack getResultItem(@NotNull HolderLookup.Provider registryAccess) {
+	default ItemStack getResultItem(HolderLookup.Provider registryAccess) {
 		return ItemStack.EMPTY;
 	}
 

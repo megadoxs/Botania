@@ -26,8 +26,6 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.util.Unit;
 import net.minecraft.world.item.ItemStack;
 
-import org.jetbrains.annotations.NotNull;
-
 import vazkii.botania.api.recipe.ManaInfusionRecipe;
 import vazkii.botania.client.gui.HUDHandler;
 import vazkii.botania.common.block.BotaniaBlocks;
@@ -57,32 +55,28 @@ public class ManaPoolRecipeCategory implements IRecipeCategory<ManaInfusionRecip
 		icon = guiHelper.createDrawableIngredient(VanillaTypes.ITEM_STACK, renderStack.copy());
 	}
 
-	@NotNull
 	@Override
 	public RecipeType<ManaInfusionRecipe> getRecipeType() {
 		return TYPE;
 	}
 
-	@NotNull
 	@Override
 	public Component getTitle() {
 		return localizedName;
 	}
 
-	@NotNull
 	@Override
 	public IDrawable getBackground() {
 		return background;
 	}
 
-	@NotNull
 	@Override
 	public IDrawable getIcon() {
 		return icon;
 	}
 
 	@Override
-	public void draw(ManaInfusionRecipe recipe, @NotNull IRecipeSlotsView slotsView, @NotNull GuiGraphics gui, double mouseX, double mouseY) {
+	public void draw(ManaInfusionRecipe recipe, IRecipeSlotsView slotsView, GuiGraphics gui, double mouseX, double mouseY) {
 		RenderSystem.enableBlend();
 		overlay.draw(gui, 40, 0);
 		HUDHandler.renderManaBar(gui, 20, 50, 0x0000FF, 0.75F, recipe.getManaToConsume(), ManaPoolBlockEntity.MAX_MANA / 10);
@@ -90,9 +84,9 @@ public class ManaPoolRecipeCategory implements IRecipeCategory<ManaInfusionRecip
 	}
 
 	@Override
-	public void setRecipe(@NotNull IRecipeLayoutBuilder builder, @NotNull ManaInfusionRecipe recipe, @NotNull IFocusGroup focusGroup) {
+	public void setRecipe(IRecipeLayoutBuilder builder, ManaInfusionRecipe recipe, IFocusGroup focusGroup) {
 		builder.addSlot(RecipeIngredientRole.INPUT, 32, 12)
-				.addIngredients(recipe.getIngredients().get(0));
+				.addIngredients(recipe.getIngredients().getFirst());
 
 		var catalyst = recipe.getRecipeCatalyst();
 		if (catalyst != StateIngredients.NONE) {

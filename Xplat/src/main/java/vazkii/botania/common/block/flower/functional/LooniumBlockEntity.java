@@ -52,7 +52,6 @@ import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.scores.Team;
 
-import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import vazkii.botania.api.BotaniaAPI;
@@ -101,13 +100,11 @@ public class LooniumBlockEntity extends FunctionalFlowerBlockEntity {
 	// this should never collide with the /team command, since space is not allowed in scoreboard team names
 	public static final String LOONIUM_TEAM_NAME = "Loonium Monsters";
 	public static final Team LOONIUM_TEAM = new Team() {
-		@NotNull
 		@Override
 		public String getName() {
 			return LOONIUM_TEAM_NAME;
 		}
 
-		@NotNull
 		@Override
 		public MutableComponent getFormattedName(Component component) {
 			return component.copy();
@@ -123,31 +120,26 @@ public class LooniumBlockEntity extends FunctionalFlowerBlockEntity {
 			return true;
 		}
 
-		@NotNull
 		@Override
 		public Visibility getNameTagVisibility() {
 			return Visibility.ALWAYS;
 		}
 
-		@NotNull
 		@Override
 		public ChatFormatting getColor() {
 			return ChatFormatting.RESET;
 		}
 
-		@NotNull
 		@Override
 		public Collection<String> getPlayers() {
 			return List.of();
 		}
 
-		@NotNull
 		@Override
 		public Visibility getDeathMessageVisibility() {
 			return Visibility.ALWAYS;
 		}
 
-		@NotNull
 		@Override
 		public CollisionRule getCollisionRule() {
 			return CollisionRule.ALWAYS;
@@ -383,7 +375,6 @@ public class LooniumBlockEntity extends FunctionalFlowerBlockEntity {
 		}
 	}
 
-	@NotNull
 	private List<Pair<ResourceLocation, LootTable>> determineLootTables(ServerLevel world,
 			Set<ResourceLocation> structureIds) {
 		var lootTables = new ArrayList<Pair<ResourceLocation, LootTable>>();
@@ -429,9 +420,8 @@ public class LooniumBlockEntity extends FunctionalFlowerBlockEntity {
 	 * @param structures Detected structures to work with.
 	 * @return The map, which is guaranteed to not be empty.
 	 */
-	@NotNull
 	private Map<ResourceLocation, LooniumStructureConfiguration> determineStructureConfigs(
-			@NotNull ConfigDataManager configData, @NotNull Object2BooleanMap<ResourceLocation> structures) {
+			ConfigDataManager configData, Object2BooleanMap<ResourceLocation> structures) {
 		if (configOverride != null) {
 			LooniumStructureConfiguration overrideConfig =
 					configData.getEffectiveLooniumStructureConfiguration(configOverride);
@@ -445,8 +435,8 @@ public class LooniumBlockEntity extends FunctionalFlowerBlockEntity {
 			LooniumStructureConfiguration structureSpecificConfig =
 					configData.getEffectiveLooniumStructureConfiguration(structureEntry.getKey());
 			LooniumStructureConfiguration structureConfig = structureSpecificConfig != null ? structureSpecificConfig : defaultConfig;
-			if (structureConfig != null && (structureEntry.getBooleanValue()
-					|| structureConfig.boundingBoxType == StructureSpawnOverride.BoundingBoxType.STRUCTURE)) {
+			if (structureEntry.getBooleanValue() ||
+					structureConfig.boundingBoxType == StructureSpawnOverride.BoundingBoxType.STRUCTURE) {
 				structureConfigs.put(structureEntry.getKey(), structureConfig);
 			}
 		}

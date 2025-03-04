@@ -7,8 +7,6 @@ import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.util.ByIdMap;
 import net.minecraft.util.StringRepresentable;
 
-import org.jetbrains.annotations.NotNull;
-
 import java.util.function.IntFunction;
 
 import io.netty.buffer.ByteBuf;
@@ -30,7 +28,7 @@ public enum TooltipVisibility implements StringRepresentable {
 	}
 
 	@Override
-	public @NotNull String getSerializedName() {
+	public String getSerializedName() {
 		return name;
 	}
 }

@@ -18,8 +18,6 @@ import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.inventory.MenuType;
 import net.minecraft.world.item.*;
 
-import org.jetbrains.annotations.NotNull;
-
 import vazkii.botania.api.block.FloatingFlower;
 import vazkii.botania.api.item.AncientWillContainer;
 import vazkii.botania.api.mana.spark.SparkUpgradeType;
@@ -429,7 +427,6 @@ public final class BotaniaItems {
 		return item;
 	}
 
-	@NotNull
 	private static MysticalPetalItem makePetal(DyeColor dyeColor) {
 		return make(dyeColor.getName() + LibItemNames.PETAL_SUFFIX,
 				new MysticalPetalItem(BotaniaBlocks.getBuriedPetal(dyeColor), dyeColor, defaultBuilder()));

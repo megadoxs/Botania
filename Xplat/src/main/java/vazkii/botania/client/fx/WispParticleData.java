@@ -16,8 +16,6 @@ import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleType;
 import net.minecraft.network.codec.StreamCodec;
 
-import org.jetbrains.annotations.NotNull;
-
 import io.netty.buffer.ByteBuf;
 
 public class WispParticleData implements ParticleOptions {
@@ -104,7 +102,6 @@ public class WispParticleData implements ParticleOptions {
 		}
 	}
 
-	@NotNull
 	@Override
 	public ParticleType<WispParticleData> getType() {
 		return BotaniaParticles.WISP;

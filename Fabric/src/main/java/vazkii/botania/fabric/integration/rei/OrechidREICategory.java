@@ -23,7 +23,6 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.Block;
 
-import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import vazkii.botania.api.recipe.OrechidRecipe;
@@ -47,22 +46,22 @@ public class OrechidREICategory implements DisplayCategory<OrechidBaseREIDisplay
 	}
 
 	@Override
-	public @NotNull CategoryIdentifier<? extends OrechidBaseREIDisplay> getCategoryIdentifier() {
+	public CategoryIdentifier<? extends OrechidBaseREIDisplay> getCategoryIdentifier() {
 		return categoryId;
 	}
 
 	@Override
-	public @NotNull Renderer getIcon() {
+	public Renderer getIcon() {
 		return orechid;
 	}
 
 	@Override
-	public @NotNull Component getTitle() {
+	public Component getTitle() {
 		return Component.translatable(langKey);
 	}
 
 	@Override
-	public @NotNull List<Widget> setupDisplay(OrechidBaseREIDisplay display, Rectangle bounds) {
+	public List<Widget> setupDisplay(OrechidBaseREIDisplay display, Rectangle bounds) {
 		List<Widget> widgets = setupPureDaisyDisplay(display, bounds, orechid);
 
 		final Double chance = getChance(display.getRecipe().value());
@@ -78,7 +77,6 @@ public class OrechidREICategory implements DisplayCategory<OrechidBaseREIDisplay
 		return widgets;
 	}
 
-	@NotNull
 	protected Stream<Component> getChanceTooltipComponents(double chance, OrechidRecipe recipe) {
 		final var ratio = OrechidUIHelper.getRatioForChance(chance);
 		Stream<Component> genericChanceTooltipComponents = Stream.of(OrechidUIHelper.getRatioTooltipComponent(ratio));
@@ -87,7 +85,7 @@ public class OrechidREICategory implements DisplayCategory<OrechidBaseREIDisplay
 	}
 
 	@Nullable
-	protected Double getChance(@NotNull OrechidRecipe recipe) {
+	protected Double getChance(OrechidRecipe recipe) {
 		return OrechidUIHelper.getChance(recipe, null);
 	}
 

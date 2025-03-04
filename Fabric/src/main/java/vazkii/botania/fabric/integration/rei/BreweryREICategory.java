@@ -23,8 +23,6 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 
-import org.jetbrains.annotations.NotNull;
-
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.common.block.BotaniaBlocks;
 
@@ -36,22 +34,22 @@ public class BreweryREICategory implements DisplayCategory<BreweryREIDisplay> {
 	private final ResourceLocation BREWERY_OVERLAY = BotaniaAPI.botaniaRL("textures/gui/nei_brewery.png");
 
 	@Override
-	public @NotNull CategoryIdentifier<BreweryREIDisplay> getCategoryIdentifier() {
+	public CategoryIdentifier<BreweryREIDisplay> getCategoryIdentifier() {
 		return BotaniaREICategoryIdentifiers.BREWERY;
 	}
 
 	@Override
-	public @NotNull Renderer getIcon() {
+	public Renderer getIcon() {
 		return this.brewery;
 	}
 
 	@Override
-	public @NotNull Component getTitle() {
+	public Component getTitle() {
 		return Component.translatable("botania.nei.brewery");
 	}
 
 	@Override
-	public @NotNull List<Widget> setupDisplay(BreweryREIDisplay display, Rectangle bounds) {
+	public List<Widget> setupDisplay(BreweryREIDisplay display, Rectangle bounds) {
 		List<Widget> widgets = new ArrayList<>();
 		List<EntryIngredient> inputs = display.getInputEntries();
 		Point center = new Point(bounds.getCenterX() - 8, bounds.getCenterY() + 9);

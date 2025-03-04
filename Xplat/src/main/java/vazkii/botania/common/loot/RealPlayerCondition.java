@@ -18,8 +18,6 @@ import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
 import net.minecraft.world.level.storage.loot.predicates.LootItemCondition;
 import net.minecraft.world.level.storage.loot.predicates.LootItemConditionType;
 
-import org.jetbrains.annotations.NotNull;
-
 import vazkii.botania.common.helper.PlayerHelper;
 
 import java.util.Set;
@@ -36,13 +34,11 @@ public class RealPlayerCondition implements LootItemCondition {
 		return PlayerHelper.isTruePlayer(player);
 	}
 
-	@NotNull
 	@Override
 	public Set<LootContextParam<?>> getReferencedContextParams() {
 		return ImmutableSet.of(LootContextParams.LAST_DAMAGE_PLAYER);
 	}
 
-	@NotNull
 	@Override
 	public LootItemConditionType getType() {
 		return BotaniaLootModifiers.KILLED_BY_REAL_PLAYER;

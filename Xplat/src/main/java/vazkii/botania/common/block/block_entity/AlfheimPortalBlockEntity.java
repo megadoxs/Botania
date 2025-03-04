@@ -33,7 +33,6 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.phys.AABB;
 
-import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import vazkii.botania.api.block.Wandable;
@@ -317,7 +316,7 @@ public class AlfheimPortalBlockEntity extends BotaniaBlockEntity implements Wand
 	}
 
 	@Override
-	public void loadAdditional(@NotNull CompoundTag cmp, HolderLookup.Provider registries) {
+	public void loadAdditional(CompoundTag cmp, HolderLookup.Provider registries) {
 		super.loadAdditional(cmp, registries);
 
 		int count = cmp.getInt(TAG_STACK_COUNT);

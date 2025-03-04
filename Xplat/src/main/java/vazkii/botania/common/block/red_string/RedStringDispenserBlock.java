@@ -20,7 +20,6 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 
-import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import vazkii.botania.common.block.block_entity.BotaniaBlockEntities;
@@ -53,9 +52,8 @@ public class RedStringDispenserBlock extends RedStringBlock {
 		}
 	}
 
-	@NotNull
 	@Override
-	public RedStringBlockEntity newBlockEntity(@NotNull BlockPos pos, @NotNull BlockState state) {
+	public RedStringBlockEntity newBlockEntity(BlockPos pos, BlockState state) {
 		return new RedStringDispenserBlockEntity(pos, state);
 	}
 

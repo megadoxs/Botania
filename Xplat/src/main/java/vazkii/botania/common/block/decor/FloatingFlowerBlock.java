@@ -26,8 +26,6 @@ import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
-import org.jetbrains.annotations.NotNull;
-
 import vazkii.botania.api.block.FloatingFlower;
 import vazkii.botania.api.block.FloatingFlower.IslandType;
 import vazkii.botania.api.block.FloatingFlowerProvider;
@@ -51,13 +49,11 @@ public class FloatingFlowerBlock extends BotaniaWaterloggedBlock implements Enti
 		this.color = color;
 	}
 
-	@NotNull
 	@Override
 	public VoxelShape getShape(BlockState state, BlockGetter world, BlockPos pos, CollisionContext ctx) {
 		return SHAPE;
 	}
 
-	@NotNull
 	@Override
 	public RenderShape getRenderShape(BlockState state) {
 		if (!XplatAbstractions.INSTANCE.isPhysicalClient()) {
@@ -110,9 +106,8 @@ public class FloatingFlowerBlock extends BotaniaWaterloggedBlock implements Enti
 		return ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
 	}
 
-	@NotNull
 	@Override
-	public BlockEntity newBlockEntity(@NotNull BlockPos pos, @NotNull BlockState state) {
+	public BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
 		return new FloatingFlowerBlockEntity(pos, state);
 	}
 }

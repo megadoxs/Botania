@@ -18,8 +18,6 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.phys.AABB;
 
-import org.jetbrains.annotations.NotNull;
-
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.common.item.equipment.tool.manasteel.ManasteelSwordItem;
 import vazkii.botania.network.EffectType;
@@ -35,7 +33,7 @@ public class ThundercallerItem extends ManasteelSwordItem {
 	}
 
 	@Override
-	public boolean hurtEnemy(ItemStack stack, LivingEntity entity, @NotNull LivingEntity attacker) {
+	public boolean hurtEnemy(ItemStack stack, LivingEntity entity, LivingEntity attacker) {
 		double range = 8;
 		IntList alreadyTargetedEntities = new IntArrayList();
 

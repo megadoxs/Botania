@@ -33,7 +33,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.AABB;
 
-import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import vazkii.botania.api.block.WandHUD;
 import vazkii.botania.api.corporea.CorporeaNode;
@@ -57,6 +57,7 @@ public class CorporeaSparkEntity extends SparkBaseEntity implements CorporeaSpar
 	private static final EntityDataAccessor<Boolean> MASTER = SynchedEntityData.defineId(CorporeaSparkEntity.class, EntityDataSerializers.BOOLEAN);
 	private static final EntityDataAccessor<Boolean> CREATIVE = SynchedEntityData.defineId(CorporeaSparkEntity.class, EntityDataSerializers.BOOLEAN);
 
+	@Nullable
 	private CorporeaSpark master;
 	private Set<CorporeaSpark> connections = new LinkedHashSet<>();
 	private List<CorporeaSpark> relatives = new ArrayList<>();
@@ -73,7 +74,6 @@ public class CorporeaSparkEntity extends SparkBaseEntity implements CorporeaSpar
 		builder.define(CREATIVE, false);
 	}
 
-	@NotNull
 	@Override
 	public ItemStack getPickResult() {
 		return new ItemStack(getSparkItem());
@@ -176,7 +176,7 @@ public class CorporeaSparkEntity extends SparkBaseEntity implements CorporeaSpar
 		}
 	}
 
-	private static void displayRelatives(Player player, List<CorporeaSpark> checked, CorporeaSpark spark) {
+	private static void displayRelatives(Player player, List<CorporeaSpark> checked, @Nullable CorporeaSpark spark) {
 		if (spark == null) {
 			return;
 		}
@@ -226,6 +226,7 @@ public class CorporeaSparkEntity extends SparkBaseEntity implements CorporeaSpar
 		}
 	}
 
+	@Nullable
 	@Override
 	public CorporeaSpark getMaster() {
 		return master;
@@ -306,14 +307,14 @@ public class CorporeaSparkEntity extends SparkBaseEntity implements CorporeaSpar
 	}
 
 	@Override
-	protected void readAdditionalSaveData(@NotNull CompoundTag cmp) {
+	protected void readAdditionalSaveData(CompoundTag cmp) {
 		super.readAdditionalSaveData(cmp);
 		setMaster(cmp.getBoolean(TAG_MASTER));
 		setCreative(cmp.getBoolean(TAG_CREATIVE));
 	}
 
 	@Override
-	protected void addAdditionalSaveData(@NotNull CompoundTag cmp) {
+	protected void addAdditionalSaveData(CompoundTag cmp) {
 		super.addAdditionalSaveData(cmp);
 		cmp.putBoolean(TAG_MASTER, isMaster());
 		cmp.putBoolean(TAG_CREATIVE, isCreative());

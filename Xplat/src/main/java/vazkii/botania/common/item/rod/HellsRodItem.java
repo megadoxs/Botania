@@ -20,8 +20,6 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.gameevent.GameEvent;
 
-import org.jetbrains.annotations.NotNull;
-
 import vazkii.botania.api.block.Avatar;
 import vazkii.botania.api.item.AvatarWieldable;
 import vazkii.botania.api.mana.ManaItemHandler;
@@ -43,7 +41,6 @@ public class HellsRodItem extends Item {
 		super(props);
 	}
 
-	@NotNull
 	@Override
 	public InteractionResult useOn(UseOnContext ctx) {
 		Level world = ctx.getLevel();

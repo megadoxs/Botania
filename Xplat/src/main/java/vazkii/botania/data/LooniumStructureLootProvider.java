@@ -18,8 +18,6 @@ import net.minecraft.world.level.storage.loot.entries.LootItem;
 import net.minecraft.world.level.storage.loot.entries.NestedLootTable;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
 
-import org.jetbrains.annotations.NotNull;
-
 import java.nio.file.Path;
 import java.util.*;
 import java.util.concurrent.CompletableFuture;
@@ -55,13 +53,12 @@ public class LooniumStructureLootProvider implements DataProvider {
 		return ResourceKey.create(Registries.LOOT_TABLE, botaniaRL("%s/%s".formatted(structureId.getNamespace(), structureId.getPath())));
 	}
 
-	@NotNull
 	@Override
-	public CompletableFuture<?> run(@NotNull CachedOutput cache) {
+	public CompletableFuture<?> run(CachedOutput cache) {
 		return registryLookupFuture.thenCompose(registryLookup -> this.run(cache, registryLookup));
 	}
 
-	private CompletableFuture<?> run(@NotNull CachedOutput cache, HolderLookup.Provider registries) {
+	private CompletableFuture<?> run(CachedOutput cache, HolderLookup.Provider registries) {
 		Map<ResourceKey<LootTable>, LootTable.Builder> tables = new HashMap<>();
 		addLootTables(tables);
 
@@ -200,7 +197,6 @@ public class LooniumStructureLootProvider implements DataProvider {
 		return LootTable.lootTable().withPool(lootPool);
 	}
 
-	@NotNull
 	public static LootTable.Builder buildShipwreckLootTable() {
 		return LootTable.lootTable().withPool(LootPool.lootPool()
 				.add(NestedLootTable.lootTableReference(BuiltInLootTables.SHIPWRECK_MAP))
@@ -209,14 +205,12 @@ public class LooniumStructureLootProvider implements DataProvider {
 		);
 	}
 
-	@NotNull
 	public static LootTable.Builder buildDelegateLootTable(ResourceKey<LootTable> reference) {
 		return LootTable.lootTable().withPool(LootPool.lootPool()
 				.add(NestedLootTable.lootTableReference(reference))
 		);
 	}
 
-	@NotNull
 	public static LootTable.Builder buildOceanRuinLootTable(ResourceKey<LootTable> archaeology) {
 		// Note: since the Loonium does not supply a location, treasure maps will roll as empty maps
 		return LootTable.lootTable().withPool(LootPool.lootPool()
@@ -228,7 +222,6 @@ public class LooniumStructureLootProvider implements DataProvider {
 		);
 	}
 
-	@NotNull
 	@Override
 	public String getName() {
 		return "Structure-specific loot tables for the Loonium";

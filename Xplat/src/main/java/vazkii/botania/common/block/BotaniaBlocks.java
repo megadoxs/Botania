@@ -30,7 +30,6 @@ import net.minecraft.world.level.material.MapColor;
 import net.minecraft.world.level.material.PushReaction;
 
 import org.apache.commons.lang3.tuple.Triple;
-import org.jetbrains.annotations.NotNull;
 
 import vazkii.botania.api.block.PetalApothecary;
 import vazkii.botania.api.state.BotaniaStateProperties;
@@ -1485,9 +1484,8 @@ public final class BotaniaBlocks {
 		DispenserBlock.registerBehavior(BotaniaBlocks.felPumpkin, new FelPumpkinBehavior());
 		DispenserBlock.registerBehavior(BotaniaItems.spark, new ManaSparkBehavior());
 		DispenserBlock.registerBehavior(BotaniaBlocks.gaiaHead, new OptionalDispenseItemBehavior() {
-			@NotNull
 			@Override
-			protected ItemStack execute(@NotNull BlockSource source, @NotNull ItemStack stack) {
+			protected ItemStack execute(BlockSource source, ItemStack stack) {
 				setSuccess(ArmorItem.dispenseArmor(source, stack));
 				return stack;
 			}

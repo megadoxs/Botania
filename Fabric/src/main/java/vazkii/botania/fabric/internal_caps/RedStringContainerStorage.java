@@ -11,7 +11,6 @@ import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.level.Level;
 
-import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import vazkii.botania.common.block.block_entity.red_string.RedStringContainerBlockEntity;
@@ -60,7 +59,6 @@ public class RedStringContainerStorage implements Storage<ItemVariant> {
 		return getStorage().extract(resource, maxAmount, transaction);
 	}
 
-	@NotNull
 	@Override
 	public Iterator<StorageView<ItemVariant>> iterator() {
 		return getStorage().iterator();

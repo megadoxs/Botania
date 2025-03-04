@@ -14,8 +14,6 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 
-import org.jetbrains.annotations.NotNull;
-
 import vazkii.botania.api.internal.ManaBurst;
 import vazkii.botania.common.block.flower.functional.BubbellBlockEntity;
 
@@ -48,7 +46,7 @@ public class FakeAirBlockEntity extends BotaniaBlockEntity {
 	}
 
 	@Override
-	public void loadAdditional(@NotNull CompoundTag tag, HolderLookup.Provider registries) {
+	public void loadAdditional(CompoundTag tag, HolderLookup.Provider registries) {
 		super.loadAdditional(tag, registries);
 		flowerPos = new BlockPos(
 				tag.getInt(TAG_FLOWER_X),

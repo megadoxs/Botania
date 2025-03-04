@@ -23,8 +23,6 @@ import net.minecraft.world.level.block.LevelEvent;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.RailShape;
 
-import org.jetbrains.annotations.NotNull;
-
 import vazkii.botania.common.entity.ManaPoolMinecartEntity;
 
 // TODO maybe update copy
@@ -32,7 +30,6 @@ import vazkii.botania.common.entity.ManaPoolMinecartEntity;
 public class ManaPoolMinecartBehavior extends DefaultDispenseItemBehavior {
 	private final DefaultDispenseItemBehavior behaviourDefaultDispenseItem = new DefaultDispenseItemBehavior();
 
-	@NotNull
 	@Override
 	public ItemStack execute(BlockSource source, ItemStack stack) {
 		Direction direction = source.state().getValue(DispenserBlock.FACING);

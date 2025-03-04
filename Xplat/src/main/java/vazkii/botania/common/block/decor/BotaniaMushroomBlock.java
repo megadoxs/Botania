@@ -23,8 +23,6 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
-import org.jetbrains.annotations.NotNull;
-
 import vazkii.botania.api.recipe.CustomApothecaryColor;
 import vazkii.botania.client.fx.SparkleParticleData;
 import vazkii.botania.common.item.material.MysticalPetalItem;
@@ -45,7 +43,6 @@ public class BotaniaMushroomBlock extends MushroomBlock implements CustomApothec
 		return false;
 	}
 
-	@NotNull
 	@Override
 	public VoxelShape getShape(BlockState state, BlockGetter world, BlockPos pos, CollisionContext ctx) {
 		return SHAPE;

@@ -34,7 +34,6 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.NoteBlock;
 import net.minecraft.world.level.gameevent.GameEvent;
 
-import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import vazkii.botania.common.block.BotaniaBlocks;
@@ -78,7 +77,6 @@ public class CacophoniumItem extends Item {
 		return InteractionResult.PASS;
 	}
 
-	@NotNull
 	@Override
 	public InteractionResult useOn(UseOnContext ctx) {
 		ItemStack stack = ctx.getItemInHand();
@@ -118,9 +116,8 @@ public class CacophoniumItem extends Item {
 		return 72000;
 	}
 
-	@NotNull
 	@Override
-	public InteractionResultHolder<ItemStack> use(Level world, Player player, @NotNull InteractionHand hand) {
+	public InteractionResultHolder<ItemStack> use(Level world, Player player, InteractionHand hand) {
 		ItemStack stack = player.getItemInHand(hand);
 		if (getSound(stack) != null) {
 			return ItemUtils.startUsingInstantly(world, player, hand);
@@ -129,7 +126,7 @@ public class CacophoniumItem extends Item {
 	}
 
 	@Override
-	public void onUseTick(Level world, @NotNull LivingEntity living, @NotNull ItemStack stack, int count) {
+	public void onUseTick(Level world, LivingEntity living, ItemStack stack, int count) {
 		if (!world.isClientSide && count % (isDOIT(stack) ? 20 : 6) == 0) {
 			playSound(living.level(), stack, living.getX(), living.getY(), living.getZ(), living.getSoundSource(), 0.9F);
 			living.gameEvent(GameEvent.INSTRUMENT_PLAY);

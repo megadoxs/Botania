@@ -10,6 +10,9 @@ import net.minecraft.util.ExtraCodecs;
 import net.minecraft.util.random.WeightedRandomList;
 import net.minecraft.world.level.levelgen.structure.StructureSpawnOverride;
 
+import org.jetbrains.annotations.Nullable;
+import org.jetbrains.annotations.UnknownNullability;
+
 import java.util.List;
 import java.util.Optional;
 import java.util.function.Function;
@@ -55,17 +58,24 @@ public class LooniumStructureConfiguration {
 	});
 	public static final ResourceLocation DEFAULT_CONFIG_ID = botaniaRL("default");
 
+	@Nullable
 	public final Integer manaCost;
+	@Nullable
 	public final Integer maxNearbyMobs;
+	@Nullable
 	public final StructureSpawnOverride.BoundingBoxType boundingBoxType;
+	@Nullable
 	public final WeightedRandomList<LooniumMobSpawnData> spawnedMobs;
+	@Nullable
 	public final List<LooniumMobAttributeModifier> attributeModifiers;
+	@Nullable
 	public final List<LooniumMobEffectToApply> effectsToApply;
+	@Nullable
 	public final ResourceLocation parent;
 
-	private LooniumStructureConfiguration(ResourceLocation parent, Integer manaCost, Integer maxNearbyMobs,
-			StructureSpawnOverride.BoundingBoxType boundingBoxType, WeightedRandomList<LooniumMobSpawnData> spawnedMobs,
-			List<LooniumMobAttributeModifier> attributeModifiers, List<LooniumMobEffectToApply> effectsToApply) {
+	private LooniumStructureConfiguration(@Nullable ResourceLocation parent, @Nullable Integer manaCost, @Nullable Integer maxNearbyMobs,
+			@Nullable StructureSpawnOverride.BoundingBoxType boundingBoxType, @Nullable WeightedRandomList<LooniumMobSpawnData> spawnedMobs,
+			@Nullable List<LooniumMobAttributeModifier> attributeModifiers, @Nullable List<LooniumMobEffectToApply> effectsToApply) {
 		this.manaCost = manaCost;
 		this.maxNearbyMobs = maxNearbyMobs;
 		this.spawnedMobs = spawnedMobs;
@@ -128,12 +138,19 @@ public class LooniumStructureConfiguration {
 	}
 
 	public static class Builder {
+		@Nullable
 		private ResourceLocation parent;
+		@Nullable
 		private Integer manaCost;
+		@Nullable
 		private Integer maxNearbyMobs;
+		@Nullable
 		private StructureSpawnOverride.BoundingBoxType boundingBoxType;
+		@Nullable
 		private WeightedRandomList<LooniumMobSpawnData> spawnedMobs;
+		@Nullable
 		private List<LooniumMobAttributeModifier> attributeModifiers;
+		@Nullable
 		private List<LooniumMobEffectToApply> effectsToApply;
 
 		private Builder() {}

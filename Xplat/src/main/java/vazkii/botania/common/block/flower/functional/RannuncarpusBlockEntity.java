@@ -37,7 +37,6 @@ import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.Vec3;
 
-import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import vazkii.botania.api.block.Wandable;
@@ -135,7 +134,6 @@ public class RannuncarpusBlockEntity extends FunctionalFlowerBlockEntity impleme
 		}
 	}
 
-	@NotNull
 	private BlockPlaceContext getBlockPlaceContext(ItemStack stack, BlockPos coords) {
 		BlockHitResult ray = new BlockHitResult(new Vec3(coords.getX() + 0.5, coords.getY() + 1, coords.getZ() + 0.5), Direction.UP,
 				coords, false);
@@ -341,19 +339,16 @@ public class RannuncarpusBlockEntity extends FunctionalFlowerBlockEntity impleme
 			}
 		}
 
-		@NotNull
 		@Override
 		public Direction getNearestLookingDirection() {
 			return getNearestLookingDirections()[0];
 		}
 
-		@NotNull
 		@Override
 		public Direction[] getNearestLookingDirections() {
 			return lookDirs;
 		}
 
-		@NotNull
 		@Override
 		public Direction getHorizontalDirection() {
 			return getNearestLookingDirection().getAxis().isHorizontal() ? getNearestLookingDirection() : getNearestLookingDirections()[1];

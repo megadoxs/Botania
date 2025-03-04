@@ -19,7 +19,6 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 
-import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.Set;
@@ -107,7 +106,7 @@ public abstract class ExposedSimpleInventoryBlockEntity extends SimpleInventoryB
 	}
 
 	@Override
-	public boolean canPlaceItemThroughFace(int index, @NotNull ItemStack stack, @Nullable Direction direction) {
+	public boolean canPlaceItemThroughFace(int index, ItemStack stack, @Nullable Direction direction) {
 		if (canPlaceItem(index, stack)) {
 			// Vanilla hoppers do not check the inventory's stack limit, so do so here.
 			// We don't have to check anything else like stackability because the hopper logic will do it
@@ -119,7 +118,7 @@ public abstract class ExposedSimpleInventoryBlockEntity extends SimpleInventoryB
 	}
 
 	@Override
-	public boolean canTakeItemThroughFace(int index, @NotNull ItemStack stack, @Nullable Direction direction) {
+	public boolean canTakeItemThroughFace(int index, ItemStack stack, @Nullable Direction direction) {
 		return true;
 	}
 }

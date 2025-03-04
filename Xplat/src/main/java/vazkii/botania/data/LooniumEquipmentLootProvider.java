@@ -37,7 +37,6 @@ import net.minecraft.world.level.storage.loot.providers.number.ConstantValue;
 import net.minecraft.world.level.storage.loot.providers.number.UniformGenerator;
 
 import org.apache.commons.lang3.function.TriFunction;
-import org.jetbrains.annotations.NotNull;
 
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.common.loot.BotaniaLootTables;
@@ -68,13 +67,12 @@ public class LooniumEquipmentLootProvider implements DataProvider {
 		this.registryLookupFuture = registryLookupFuture;
 	}
 
-	@NotNull
 	@Override
-	public CompletableFuture<?> run(@NotNull CachedOutput cache) {
+	public CompletableFuture<?> run(CachedOutput cache) {
 		return registryLookupFuture.thenCompose(registryLookup -> this.run(cache, registryLookup));
 	}
 
-	private CompletableFuture<?> run(@NotNull CachedOutput cache, HolderLookup.Provider registryLookup) {
+	private CompletableFuture<?> run(CachedOutput cache, HolderLookup.Provider registryLookup) {
 		HolderLookup.RegistryLookup<TrimPattern> patternRegistry = registryLookup.lookupOrThrow(Registries.TRIM_PATTERN);
 		HolderLookup.RegistryLookup<TrimMaterial> materialRegistry = registryLookup.lookupOrThrow(Registries.TRIM_MATERIAL);
 		BiFunction<ResourceKey<TrimPattern>, ResourceKey<TrimMaterial>, ArmorTrim> trimFactory =
@@ -841,7 +839,6 @@ public class LooniumEquipmentLootProvider implements DataProvider {
 		return lootTable;
 	}
 
-	@NotNull
 	@Override
 	public String getName() {
 		return "Equipment tables for Loonium-spawned mobs";

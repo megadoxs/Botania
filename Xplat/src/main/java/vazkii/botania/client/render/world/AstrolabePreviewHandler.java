@@ -31,8 +31,6 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.Vec3;
 
-import org.jetbrains.annotations.NotNull;
-
 import vazkii.botania.client.core.helper.RenderHelper;
 import vazkii.botania.common.item.AstrolabeItem;
 
@@ -78,7 +76,6 @@ public final class AstrolabePreviewHandler {
 		}
 	}
 
-	@NotNull
 	private static BlockPlaceContext getPlaceContext(Player player, BlockPlaceContext ctx, BlockPos pos) {
 		Vec3 newHitVec = new Vec3(pos.getX() + Mth.frac(ctx.getClickLocation().x()),
 				pos.getY() + Mth.frac(ctx.getClickLocation().y()),

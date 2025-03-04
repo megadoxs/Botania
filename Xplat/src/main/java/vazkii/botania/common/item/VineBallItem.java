@@ -20,8 +20,6 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.ProjectileItem;
 import net.minecraft.world.level.Level;
 
-import org.jetbrains.annotations.NotNull;
-
 import vazkii.botania.common.entity.VineBallEntity;
 import vazkii.botania.common.handler.BotaniaSounds;
 
@@ -31,9 +29,8 @@ public class VineBallItem extends Item implements ProjectileItem {
 		super(builder);
 	}
 
-	@NotNull
 	@Override
-	public InteractionResultHolder<ItemStack> use(Level world, Player player, @NotNull InteractionHand hand) {
+	public InteractionResultHolder<ItemStack> use(Level world, Player player, InteractionHand hand) {
 		if (!player.getAbilities().instabuild) {
 			player.getItemInHand(hand).shrink(1);
 		}

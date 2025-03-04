@@ -23,8 +23,6 @@ import net.minecraft.world.level.block.SlabBlock;
 import net.minecraft.world.level.block.StairBlock;
 import net.minecraft.world.level.block.WallBlock;
 
-import org.jetbrains.annotations.NotNull;
-
 import vazkii.botania.common.block.*;
 import vazkii.botania.common.block.decor.FloatingFlowerBlock;
 import vazkii.botania.common.block.mana.DrumBlock;
@@ -152,7 +150,6 @@ public class BlockTagProvider extends IntrinsicHolderTagsProvider<Block> {
 		tag(BlockTags.BEACON_BASE_BLOCKS).add(BotaniaBlocks.manasteelBlock, BotaniaBlocks.terrasteelBlock, BotaniaBlocks.elementiumBlock,
 				BotaniaBlocks.manaDiamondBlock, BotaniaBlocks.dragonstoneBlock);
 
-		@NotNull
 		Block[] grassBlockVariants = getModBlocks(b -> b instanceof BotaniaGrassBlock);
 		tag(BlockTags.DIRT).add(grassBlockVariants);
 		tag(BlockTags.SNIFFER_DIGGABLE_BLOCK).add(grassBlockVariants);
@@ -318,7 +315,6 @@ public class BlockTagProvider extends IntrinsicHolderTagsProvider<Block> {
 		);
 	}
 
-	@NotNull
 	private Block[] getModBlocks(Predicate<Block> predicate) {
 		return BuiltInRegistries.BLOCK.stream().filter(BOTANIA_BLOCK.and(predicate))
 				.sorted(Comparator.comparing(BuiltInRegistries.BLOCK::getKey))

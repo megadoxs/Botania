@@ -20,8 +20,6 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
 
-import org.jetbrains.annotations.NotNull;
-
 import vazkii.botania.common.item.BotaniaItems;
 
 public class ManaStormEntity extends Entity {
@@ -87,7 +85,7 @@ public class ManaStormEntity extends Entity {
 	}
 
 	@Override
-	protected void readAdditionalSaveData(@NotNull CompoundTag cmp) {
+	protected void readAdditionalSaveData(CompoundTag cmp) {
 		liveTime = cmp.getInt(TAG_TIME);
 		burstColor = cmp.getInt(TAG_BURST_COLOR);
 		burstsFired = cmp.getInt(TAG_BURSTS_FIRED);
@@ -95,7 +93,7 @@ public class ManaStormEntity extends Entity {
 	}
 
 	@Override
-	protected void addAdditionalSaveData(@NotNull CompoundTag cmp) {
+	protected void addAdditionalSaveData(CompoundTag cmp) {
 		cmp.putInt(TAG_TIME, liveTime);
 		cmp.putInt(TAG_BURST_COLOR, burstColor);
 		cmp.putInt(TAG_BURSTS_FIRED, burstsFired);

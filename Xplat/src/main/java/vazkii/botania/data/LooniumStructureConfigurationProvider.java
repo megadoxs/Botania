@@ -25,8 +25,6 @@ import net.minecraft.world.level.levelgen.structure.BuiltinStructures;
 import net.minecraft.world.level.levelgen.structure.StructureSpawnOverride;
 import net.minecraft.world.level.storage.loot.LootTable;
 
-import org.jetbrains.annotations.NotNull;
-
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.configdata.LooniumMobAttributeModifier;
 import vazkii.botania.api.configdata.LooniumMobEffectToApply;
@@ -55,13 +53,12 @@ public class LooniumStructureConfigurationProvider implements DataProvider {
 		this.registryLookupFuture = registryLookupFuture;
 	}
 
-	@NotNull
 	@Override
-	public CompletableFuture<?> run(@NotNull CachedOutput cache) {
+	public CompletableFuture<?> run(CachedOutput cache) {
 		return registryLookupFuture.thenCompose(registryLookup -> this.run(cache, registryLookup));
 	}
 
-	private CompletableFuture<?> run(@NotNull CachedOutput cache, HolderLookup.Provider registries) {
+	private CompletableFuture<?> run(CachedOutput cache, HolderLookup.Provider registries) {
 		Map<ResourceLocation, LooniumStructureConfiguration> configs = new HashMap<>();
 		addConfigs(configs);
 
@@ -777,7 +774,6 @@ public class LooniumStructureConfigurationProvider implements DataProvider {
 				.build();
 	}
 
-	@NotNull
 	@Override
 	public String getName() {
 		return "Loonium structure configuration";

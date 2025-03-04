@@ -39,7 +39,6 @@ import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
-import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import vazkii.botania.api.block.PetalApothecary;
@@ -93,13 +92,11 @@ public class PetalApothecaryBlock extends BotaniaBlock implements EntityBlock {
 		builder.add(FLUID);
 	}
 
-	@NotNull
 	@Override
 	public VoxelShape getShape(BlockState state, BlockGetter world, BlockPos pos, CollisionContext ctx) {
 		return SHAPE;
 	}
 
-	@NotNull
 	@Override
 	public VoxelShape getInteractionShape(BlockState state, BlockGetter level, BlockPos pos) {
 		return SHAPE_INTERACT;
@@ -216,9 +213,8 @@ public class PetalApothecaryBlock extends BotaniaBlock implements EntityBlock {
 		return false;
 	}
 
-	@NotNull
 	@Override
-	public BlockEntity newBlockEntity(@NotNull BlockPos pos, @NotNull BlockState state) {
+	public BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
 		return new PetalApothecaryBlockEntity(pos, state);
 	}
 
@@ -233,7 +229,7 @@ public class PetalApothecaryBlock extends BotaniaBlock implements EntityBlock {
 	}
 
 	@Override
-	public void onRemove(@NotNull BlockState state, @NotNull Level world, @NotNull BlockPos pos, @NotNull BlockState newState, boolean isMoving) {
+	public void onRemove(BlockState state, Level world, BlockPos pos, BlockState newState, boolean isMoving) {
 		boolean blockChanged = !state.is(newState.getBlock());
 		if (blockChanged || newState.getValue(FLUID) != State.WATER) {
 			BlockEntity be = world.getBlockEntity(pos);

@@ -18,7 +18,6 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.inventory.InventoryMenu;
 import net.minecraft.world.phys.AABB;
 
-import org.jetbrains.annotations.NotNull;
 import org.joml.Matrix4f;
 
 import vazkii.botania.client.core.handler.ClientTickHandler;
@@ -63,9 +62,8 @@ public class MagicLandmineRenderer extends EntityRenderer<MagicLandmineEntity> {
 		ms.popPose();
 	}
 
-	@NotNull
 	@Override
-	public ResourceLocation getTextureLocation(@NotNull MagicLandmineEntity entity) {
+	public ResourceLocation getTextureLocation(MagicLandmineEntity entity) {
 		return InventoryMenu.BLOCK_ATLAS;
 	}
 }

@@ -17,8 +17,6 @@ import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
 
-import org.jetbrains.annotations.NotNull;
-
 import vazkii.botania.client.gui.SlotLocked;
 import vazkii.botania.common.component.BotaniaDataComponents;
 import vazkii.botania.common.handler.EquipmentHandler;
@@ -76,7 +74,6 @@ public class BaubleBoxContainer extends AbstractContainerMenu {
 		return !main.isEmpty() && main == box || !off.isEmpty() && off == box;
 	}
 
-	@NotNull
 	@Override
 	public ItemStack quickMoveStack(Player player, int slotIndex) {
 		ItemStack itemstack = ItemStack.EMPTY;

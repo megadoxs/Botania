@@ -33,7 +33,6 @@ import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
-import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import vazkii.botania.common.block.block_entity.BotaniaBlockEntities;
@@ -50,7 +49,6 @@ public class HoveringHourglassBlock extends BotaniaWaterloggedBlock implements E
 		registerDefaultState(defaultBlockState().setValue(BlockStateProperties.POWERED, false));
 	}
 
-	@NotNull
 	@Override
 	public VoxelShape getShape(BlockState state, BlockGetter world, BlockPos pos, CollisionContext ctx) {
 		return SHAPE;
@@ -140,7 +138,7 @@ public class HoveringHourglassBlock extends BotaniaWaterloggedBlock implements E
 	}
 
 	@Override
-	public void onRemove(@NotNull BlockState state, @NotNull Level world, @NotNull BlockPos pos, @NotNull BlockState newState, boolean isMoving) {
+	public void onRemove(BlockState state, Level world, BlockPos pos, BlockState newState, boolean isMoving) {
 		if (!state.is(newState.getBlock())) {
 			BlockEntity be = world.getBlockEntity(pos);
 			if (be instanceof SimpleInventoryBlockEntity inventory) {
@@ -150,15 +148,13 @@ public class HoveringHourglassBlock extends BotaniaWaterloggedBlock implements E
 		}
 	}
 
-	@NotNull
 	@Override
 	public RenderShape getRenderShape(BlockState state) {
 		return RenderShape.ENTITYBLOCK_ANIMATED;
 	}
 
-	@NotNull
 	@Override
-	public BlockEntity newBlockEntity(@NotNull BlockPos pos, @NotNull BlockState state) {
+	public BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
 		return new HoveringHourglassBlockEntity(pos, state);
 	}
 

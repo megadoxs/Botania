@@ -20,8 +20,8 @@ import net.minecraft.world.level.block.Rotation;
 import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
 
-import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import org.jetbrains.annotations.UnknownNullability;
 import org.lwjgl.glfw.GLFW;
 
 import vazkii.botania.client.core.handler.*;
@@ -38,6 +38,7 @@ import vazkii.patchouli.api.PatchouliAPI;
 import java.time.LocalDateTime;
 import java.time.Month;
 import java.util.Locale;
+import java.util.Objects;
 import java.util.function.Consumer;
 import java.util.function.Supplier;
 
@@ -46,6 +47,7 @@ public class ClientProxy implements Proxy {
 	public static boolean jingleTheBells = false;
 	public static boolean dootDoot = false;
 
+	@UnknownNullability
 	public static KeyMapping CORPOREA_REQUEST;
 
 	public static void initKeybindings(Consumer<KeyMapping> consumer) {
@@ -72,7 +74,7 @@ public class ClientProxy implements Proxy {
 
 	@Override
 	public Player getClientPlayer() {
-		return Minecraft.getInstance().player;
+		return Objects.requireNonNull(Minecraft.getInstance().player);
 	}
 
 	@Override
@@ -124,13 +126,12 @@ public class ClientProxy implements Proxy {
 		return Minecraft.getInstance().hitResult;
 	}
 
-	@NotNull
 	@Override
 	public Locale getLocale() {
 		final String languageCode = Minecraft.getInstance().getLanguageManager().getSelected();
 		final var parts = languageCode.split("_", 3);
 		return parts.length > 2
-				? new Locale(parts[0], parts[1], parts[2])
-				: parts.length == 2 ? new Locale(parts[0], parts[1]) : new Locale(languageCode);
+				? Locale.of(parts[0], parts[1], parts[2])
+				: parts.length == 2 ? Locale.of(parts[0], parts[1]) : Locale.of(languageCode);
 	}
 }

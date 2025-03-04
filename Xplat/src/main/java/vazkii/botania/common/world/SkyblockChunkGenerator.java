@@ -22,8 +22,6 @@ import net.minecraft.world.level.chunk.*;
 import net.minecraft.world.level.levelgen.*;
 import net.minecraft.world.level.levelgen.blending.Blender;
 
-import org.jetbrains.annotations.NotNull;
-
 import java.util.concurrent.CompletableFuture;
 import java.util.function.BiConsumer;
 
@@ -49,34 +47,33 @@ public class SkyblockChunkGenerator extends NoiseBasedChunkGenerator {
 		super(biomeSource, settings);
 	}
 
-	@NotNull
 	@Override
 	protected MapCodec<? extends ChunkGenerator> codec() {
 		return CODEC;
 	}
 
 	@Override
-	public void buildSurface(@NotNull ChunkAccess chunkAccess, @NotNull WorldGenerationContext context,
-			@NotNull RandomState randomState, @NotNull StructureManager structureManager,
-			@NotNull BiomeManager biomeManager, @NotNull Registry<Biome> biomes, @NotNull Blender blender) {}
+	public void buildSurface(ChunkAccess chunkAccess, WorldGenerationContext context,
+			RandomState randomState, StructureManager structureManager,
+			BiomeManager biomeManager, Registry<Biome> biomes, Blender blender) {}
 
 	@Override
-	public void applyCarvers(@NotNull WorldGenRegion worldGenRegion, long seed, @NotNull RandomState randomState,
-			@NotNull BiomeManager biomeManager, @NotNull StructureManager structureManager,
-			@NotNull ChunkAccess chunkAccess, GenerationStep.@NotNull Carving carving) {}
+	public void applyCarvers(WorldGenRegion worldGenRegion, long seed, RandomState randomState,
+			BiomeManager biomeManager, StructureManager structureManager,
+			ChunkAccess chunkAccess, GenerationStep.Carving carving) {}
 
 	@Override
-	public @NotNull CompletableFuture<ChunkAccess> fillFromNoise(@NotNull Blender blender,
-			@NotNull RandomState randomState, @NotNull StructureManager structureManager, @NotNull ChunkAccess chunk) {
+	public CompletableFuture<ChunkAccess> fillFromNoise(Blender blender,
+			RandomState randomState, StructureManager structureManager, ChunkAccess chunk) {
 		return CompletableFuture.completedFuture(chunk);
 	}
 
 	@Override
-	public void spawnOriginalMobs(@NotNull WorldGenRegion region) {}
+	public void spawnOriginalMobs(WorldGenRegion region) {}
 
 	@Override
-	public void applyBiomeDecoration(@NotNull WorldGenLevel level, @NotNull ChunkAccess chunkAccess,
-			@NotNull StructureManager structureManager) {}
+	public void applyBiomeDecoration(WorldGenLevel level, ChunkAccess chunkAccess,
+			StructureManager structureManager) {}
 
 	/**
 	 * Calculates the height at a particular location as it would be in a world with the same seed that isn't empty.

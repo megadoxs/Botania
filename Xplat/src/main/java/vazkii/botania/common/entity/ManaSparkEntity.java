@@ -28,7 +28,6 @@ import net.minecraft.world.item.*;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.AABB;
 
-import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import vazkii.botania.api.BotaniaAPI;
@@ -79,7 +78,6 @@ public class ManaSparkEntity extends SparkBaseEntity implements ManaSpark {
 		builder.define(UPGRADE, 0);
 	}
 
-	@NotNull
 	@Override
 	public ItemStack getPickResult() {
 		return new ItemStack(getSparkItem());
@@ -339,17 +337,18 @@ public class ManaSparkEntity extends SparkBaseEntity implements ManaSpark {
 	}
 
 	@Override
-	protected void readAdditionalSaveData(@NotNull CompoundTag cmp) {
+	protected void readAdditionalSaveData(CompoundTag cmp) {
 		super.readAdditionalSaveData(cmp);
 		setUpgrade(SparkUpgradeType.values()[cmp.getInt(TAG_UPGRADE)]);
 	}
 
 	@Override
-	protected void addAdditionalSaveData(@NotNull CompoundTag cmp) {
+	protected void addAdditionalSaveData(CompoundTag cmp) {
 		super.addAdditionalSaveData(cmp);
 		cmp.putInt(TAG_UPGRADE, getUpgrade().ordinal());
 	}
 
+	@Nullable
 	@Override
 	public SparkAttachable getAttachedTile() {
 		return XplatAbstractions.INSTANCE.findSparkAttachable(level(), getAttachPos(), level().getBlockState(getAttachPos()), level().getBlockEntity(getAttachPos()), Direction.UP);
@@ -436,7 +435,7 @@ public class ManaSparkEntity extends SparkBaseEntity implements ManaSpark {
 		}
 
 		SparkAttachable attachable = getAttachedTile();
-		return attachable != null && attachable.areIncomingTranfersDone();
+		return attachable != null && attachable.areIncomingTransfersDone();
 	}
 
 	public record WandHud(ManaSparkEntity entity) implements WandHUD {

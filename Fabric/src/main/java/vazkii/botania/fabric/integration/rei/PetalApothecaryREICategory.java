@@ -25,8 +25,6 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 
-import org.jetbrains.annotations.NotNull;
-
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.common.block.BotaniaBlocks;
 
@@ -39,22 +37,22 @@ public class PetalApothecaryREICategory implements DisplayCategory<PetalApotheca
 	private final ResourceLocation PETAL_OVERLAY = BotaniaAPI.botaniaRL("textures/gui/petal_overlay.png");
 
 	@Override
-	public @NotNull CategoryIdentifier<PetalApothecaryREIDisplay> getCategoryIdentifier() {
+	public CategoryIdentifier<PetalApothecaryREIDisplay> getCategoryIdentifier() {
 		return BotaniaREICategoryIdentifiers.PETAL_APOTHECARY;
 	}
 
 	@Override
-	public @NotNull Renderer getIcon() {
+	public Renderer getIcon() {
 		return this.apothecary;
 	}
 
 	@Override
-	public @NotNull Component getTitle() {
+	public Component getTitle() {
 		return Component.translatable("botania.nei.petalApothecary");
 	}
 
 	@Override
-	public @NotNull List<Widget> setupDisplay(PetalApothecaryREIDisplay display, Rectangle bounds) {
+	public List<Widget> setupDisplay(PetalApothecaryREIDisplay display, Rectangle bounds) {
 		List<EntryIngredient> inputs = display.getInputEntries();
 		EntryStack<?> output = display.getOutputEntries().get(0).get(0);
 

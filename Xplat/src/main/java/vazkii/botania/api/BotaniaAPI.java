@@ -27,7 +27,6 @@ import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 
-import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.UnknownNullability;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -129,7 +128,6 @@ public interface BotaniaAPI {
 			return 0;
 		}
 
-		@NotNull
 		@Override
 		public Ingredient getRepairIngredient() {
 			return Ingredient.EMPTY;

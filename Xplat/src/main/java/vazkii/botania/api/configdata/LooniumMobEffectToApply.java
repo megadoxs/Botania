@@ -9,8 +9,6 @@ import net.minecraft.util.ExtraCodecs;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectInstance;
 
-import org.jetbrains.annotations.NotNull;
-
 import java.util.Objects;
 
 public class LooniumMobEffectToApply {
@@ -38,7 +36,6 @@ public class LooniumMobEffectToApply {
 		return new Builder(effect);
 	}
 
-	@NotNull
 	public MobEffectInstance createMobEffectInstance() {
 		return new MobEffectInstance(effect, duration, amplifier);
 	}

@@ -12,7 +12,6 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.RecipeHolder;
 
-import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import vazkii.botania.api.recipe.OrechidRecipe;
@@ -56,7 +55,7 @@ public class OrechidEmiRecipe extends BotaniaEmiRecipe {
 
 	@Override
 	public void addWidgets(WidgetHolder widgets) {
-		PureDaisyEmiRecipe.addPureDaisyWidgets(widgets, this, input.get(0), orechid, output.get(0));
+		PureDaisyEmiRecipe.addPureDaisyWidgets(widgets, this, input.getFirst(), orechid, output.getFirst());
 
 		final Double chance = getChance(recipe);
 		if (chance != null) {
@@ -73,7 +72,6 @@ public class OrechidEmiRecipe extends BotaniaEmiRecipe {
 		}
 	}
 
-	@NotNull
 	protected Stream<Component> getChanceTooltipComponents(double chance) {
 		final var ratio = OrechidUIHelper.getRatioForChance(chance);
 		Stream<Component> biomeChanceTooltipComponents = OrechidUIHelper.getBiomeChanceAndRatioTooltipComponents(chance, recipe);
@@ -81,7 +79,7 @@ public class OrechidEmiRecipe extends BotaniaEmiRecipe {
 	}
 
 	@Nullable
-	protected Double getChance(@NotNull OrechidRecipe recipe) {
+	protected Double getChance(OrechidRecipe recipe) {
 		return OrechidUIHelper.getChance(recipe, null);
 	}
 

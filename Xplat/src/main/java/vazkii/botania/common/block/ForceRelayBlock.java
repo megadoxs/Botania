@@ -29,7 +29,6 @@ import net.minecraft.world.level.block.state.properties.PistonType;
 import net.minecraft.world.level.material.PushReaction;
 import net.minecraft.world.level.saveddata.SavedData;
 
-import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import vazkii.botania.api.BotaniaAPI;
@@ -52,7 +51,7 @@ public class ForceRelayBlock extends BotaniaBlock {
 	}
 
 	@Override
-	public void onRemove(@NotNull BlockState state, @NotNull Level world, @NotNull BlockPos pos, @NotNull BlockState newState, boolean isMoving) {
+	public void onRemove(BlockState state, Level world, BlockPos pos, BlockState newState, boolean isMoving) {
 		if (!world.isClientSide) {
 			var data = WorldData.get(world);
 
@@ -145,7 +144,6 @@ public class ForceRelayBlock extends BotaniaBlock {
 			}
 		}
 
-		@NotNull
 		@Override
 		public CompoundTag save(CompoundTag cmp, HolderLookup.Provider registries) {
 			ListTag list = new ListTag();

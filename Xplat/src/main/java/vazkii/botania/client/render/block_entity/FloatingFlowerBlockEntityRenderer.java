@@ -15,8 +15,6 @@ import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
 import net.minecraft.world.level.block.entity.BlockEntity;
 
-import org.jetbrains.annotations.NotNull;
-
 import vazkii.botania.client.core.handler.ClientTickHandler;
 import vazkii.botania.common.block.block_entity.FloatingFlowerBlockEntity;
 import vazkii.botania.common.helper.VecHelper;
@@ -30,7 +28,7 @@ public class FloatingFlowerBlockEntityRenderer implements BlockEntityRenderer<Fl
 	public FloatingFlowerBlockEntityRenderer(BlockEntityRendererProvider.Context ctx) {}
 
 	@Override
-	public void render(@NotNull FloatingFlowerBlockEntity tile, float t, PoseStack ms, MultiBufferSource buffers, int light, int overlay) {
+	public void render(FloatingFlowerBlockEntity tile, float t, PoseStack ms, MultiBufferSource buffers, int light, int overlay) {
 		renderFloatingIsland(tile, t, ms, buffers, overlay);
 	}
 

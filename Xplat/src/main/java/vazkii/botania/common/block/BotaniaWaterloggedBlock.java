@@ -20,8 +20,6 @@ import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.level.material.Fluids;
 
-import org.jetbrains.annotations.NotNull;
-
 import static net.minecraft.world.level.block.state.properties.BlockStateProperties.WATERLOGGED;
 
 public abstract class BotaniaWaterloggedBlock extends BotaniaBlock implements SimpleWaterloggedBlock {
@@ -41,7 +39,6 @@ public abstract class BotaniaWaterloggedBlock extends BotaniaBlock implements Si
 		return state.getValue(WATERLOGGED) ? Fluids.WATER.getSource(false) : Fluids.EMPTY.defaultFluidState();
 	}
 
-	@NotNull
 	@Override
 	public BlockState getStateForPlacement(BlockPlaceContext context) {
 		FluidState fluidState = context.getLevel().getFluidState(context.getClickedPos());

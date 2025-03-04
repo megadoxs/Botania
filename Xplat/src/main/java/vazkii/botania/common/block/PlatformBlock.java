@@ -33,7 +33,6 @@ import net.minecraft.world.phys.shapes.EntityCollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
-import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import vazkii.botania.api.mana.ManaCollisionGhost;
@@ -68,7 +67,7 @@ public class PlatformBlock extends BotaniaBlock implements ManaCollisionGhost, E
 
 	private final Variant variant;
 
-	public PlatformBlock(@NotNull Variant v, Properties builder) {
+	public PlatformBlock(Variant v, Properties builder) {
 		super(builder);
 		this.variant = v;
 	}
@@ -77,9 +76,8 @@ public class PlatformBlock extends BotaniaBlock implements ManaCollisionGhost, E
 		return variant;
 	}
 
-	@NotNull
 	@Override
-	public VoxelShape getShape(@NotNull BlockState state, @NotNull BlockGetter world, @NotNull BlockPos pos, @NotNull CollisionContext context) {
+	public VoxelShape getShape(BlockState state, BlockGetter world, BlockPos pos, CollisionContext context) {
 		BlockEntity te = world.getBlockEntity(pos);
 		if (te instanceof PlatformBlockEntity platform && platform.getCamoState() != null) {
 			return platform.getCamoState().getShape(world, pos);
@@ -88,9 +86,8 @@ public class PlatformBlock extends BotaniaBlock implements ManaCollisionGhost, E
 		}
 	}
 
-	@NotNull
 	@Override
-	public VoxelShape getCollisionShape(@NotNull BlockState state, @NotNull BlockGetter world, @NotNull BlockPos pos, CollisionContext context) {
+	public VoxelShape getCollisionShape(BlockState state, BlockGetter world, BlockPos pos, CollisionContext context) {
 		if (variant.collide.test(pos, context)) {
 			// NB: Use full shape from super.getOutlineShape instead of camo state. May change later.
 			return super.getShape(state, world, pos, context);
@@ -99,9 +96,8 @@ public class PlatformBlock extends BotaniaBlock implements ManaCollisionGhost, E
 		}
 	}
 
-	@NotNull
 	@Override
-	public VoxelShape getBlockSupportShape(@NotNull BlockState state, @NotNull BlockGetter level, @NotNull BlockPos pos) {
+	public VoxelShape getBlockSupportShape(BlockState state, BlockGetter level, BlockPos pos) {
 		// Vanilla defaults support shape to collision shape, but spectral platforms don't collide,
 		// so set this by hand.
 		return Shapes.block();
@@ -112,9 +108,8 @@ public class PlatformBlock extends BotaniaBlock implements ManaCollisionGhost, E
 		return 1.0F;
 	}
 
-	@NotNull
 	@Override
-	public BlockEntity newBlockEntity(@NotNull BlockPos pos, @NotNull BlockState state) {
+	public BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
 		return new PlatformBlockEntity(pos, state);
 	}
 
@@ -134,7 +129,6 @@ public class PlatformBlock extends BotaniaBlock implements ManaCollisionGhost, E
 		}
 	}
 
-	@NotNull
 	@Override
 	public ItemInteractionResult useItemOn(ItemStack stack, BlockState state, Level world, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
 		BlockEntity tile = world.getBlockEntity(pos);

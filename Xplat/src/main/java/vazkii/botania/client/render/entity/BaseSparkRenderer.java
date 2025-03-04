@@ -97,9 +97,8 @@ public abstract class BaseSparkRenderer<T extends SparkBaseEntity> extends Entit
 		return null;
 	}
 
-	@NotNull
 	@Override
-	public ResourceLocation getTextureLocation(@NotNull SparkBaseEntity entity) {
+	public ResourceLocation getTextureLocation(SparkBaseEntity entity) {
 		return InventoryMenu.BLOCK_ATLAS;
 	}
 

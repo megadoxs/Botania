@@ -21,7 +21,7 @@ import net.minecraft.world.item.UseAnim;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 
-import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import vazkii.botania.api.block.Avatar;
 import vazkii.botania.api.item.AvatarWieldable;
@@ -45,7 +45,6 @@ public class UnstableReservoirRodItem extends Item {
 		super(props);
 	}
 
-	@NotNull
 	@Override
 	public UseAnim getUseAnimation(ItemStack stack) {
 		return UseAnim.BOW;
@@ -72,7 +71,7 @@ public class UnstableReservoirRodItem extends Item {
 		}
 	}
 
-	public static boolean spawnMissile(Level world, LivingEntity thrower, double x, double y, double z) {
+	public static boolean spawnMissile(Level world, @Nullable LivingEntity thrower, double x, double y, double z) {
 		MagicMissileEntity missile;
 		if (thrower != null) {
 			missile = new MagicMissileEntity(thrower, false);
@@ -92,9 +91,8 @@ public class UnstableReservoirRodItem extends Item {
 		return false;
 	}
 
-	@NotNull
 	@Override
-	public InteractionResultHolder<ItemStack> use(Level world, Player player, @NotNull InteractionHand hand) {
+	public InteractionResultHolder<ItemStack> use(Level world, Player player, InteractionHand hand) {
 		return ItemUtils.startUsingInstantly(world, player, hand);
 	}
 

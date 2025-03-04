@@ -33,7 +33,6 @@ import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
-import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import vazkii.botania.api.internal.VanillaPacketDispatcher;
@@ -53,7 +52,6 @@ public class LuminizerBlock extends BotaniaWaterloggedBlock implements EntityBlo
 		registerDefaultState(defaultBlockState().setValue(BlockStateProperties.POWERED, false));
 	}
 
-	@NotNull
 	@Override
 	public VoxelShape getShape(BlockState state, BlockGetter world, BlockPos pos, CollisionContext ctx) {
 		return SHAPE;
@@ -137,15 +135,13 @@ public class LuminizerBlock extends BotaniaWaterloggedBlock implements EntityBlo
 				&& state.getValue(BlockStateProperties.POWERED) ? 15 : 0;
 	}
 
-	@NotNull
 	@Override
 	public RenderShape getRenderShape(BlockState state) {
 		return RenderShape.ENTITYBLOCK_ANIMATED;
 	}
 
-	@NotNull
 	@Override
-	public BlockEntity newBlockEntity(@NotNull BlockPos pos, @NotNull BlockState state) {
+	public BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
 		return new LuminizerBlockEntity(pos, state);
 	}
 

@@ -16,8 +16,6 @@ import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleType;
 import net.minecraft.network.codec.StreamCodec;
 
-import org.jetbrains.annotations.NotNull;
-
 import io.netty.buffer.ByteBuf;
 
 public class SparkleParticleData implements ParticleOptions {
@@ -87,7 +85,6 @@ public class SparkleParticleData implements ParticleOptions {
 		this.corrupt = corrupt;
 	}
 
-	@NotNull
 	@Override
 	public ParticleType<SparkleParticleData> getType() {
 		return BotaniaParticles.SPARKLE;

@@ -14,8 +14,6 @@ import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.block.state.properties.EnumProperty;
 
-import org.jetbrains.annotations.NotNull;
-
 import vazkii.botania.api.state.enums.AlfheimPortalState;
 import vazkii.botania.api.state.enums.CraftyCratePattern;
 
@@ -93,7 +91,7 @@ public final class BotaniaStateProperties {
 		}
 
 		@Override
-		public @NotNull String getSerializedName() {
+		public String getSerializedName() {
 			return this.toDyeColor().map(DyeColor::getSerializedName).orElse("none");
 		}
 	}

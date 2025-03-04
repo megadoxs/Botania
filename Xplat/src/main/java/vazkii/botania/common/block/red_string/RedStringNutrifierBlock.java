@@ -22,7 +22,6 @@ import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 
-import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import vazkii.botania.common.block.block_entity.BotaniaBlockEntities;
@@ -37,23 +36,22 @@ public class RedStringNutrifierBlock extends RedStringBlock implements Bonemeala
 	}
 
 	@Override
-	public boolean isValidBonemealTarget(@NotNull LevelReader world, @NotNull BlockPos pos, @NotNull BlockState state) {
+	public boolean isValidBonemealTarget(LevelReader world, BlockPos pos, BlockState state) {
 		return ((RedStringNutrifierBlockEntity) world.getBlockEntity(pos)).canGrow(world);
 	}
 
 	@Override
-	public boolean isBonemealSuccess(@NotNull Level world, @NotNull RandomSource rand, @NotNull BlockPos pos, @NotNull BlockState state) {
+	public boolean isBonemealSuccess(Level world, RandomSource rand, BlockPos pos, BlockState state) {
 		return ((RedStringNutrifierBlockEntity) world.getBlockEntity(pos)).canUseBonemeal(world, rand);
 	}
 
 	@Override
-	public void performBonemeal(@NotNull ServerLevel world, @NotNull RandomSource rand, @NotNull BlockPos pos, @NotNull BlockState state) {
+	public void performBonemeal(ServerLevel world, RandomSource rand, BlockPos pos, BlockState state) {
 		((RedStringNutrifierBlockEntity) world.getBlockEntity(pos)).grow(world, rand);
 	}
 
-	@NotNull
 	@Override
-	public RedStringBlockEntity newBlockEntity(@NotNull BlockPos pos, @NotNull BlockState state) {
+	public RedStringBlockEntity newBlockEntity(BlockPos pos, BlockState state) {
 		return new RedStringNutrifierBlockEntity(pos, state);
 	}
 

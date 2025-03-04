@@ -24,8 +24,6 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 
-import org.jetbrains.annotations.NotNull;
-
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.client.gui.HUDHandler;
 import vazkii.botania.common.block.BotaniaBlocks;
@@ -40,26 +38,26 @@ public class RunicAltarREICategory implements DisplayCategory<RunicAltarREIDispl
 	private final ResourceLocation PETAL_OVERLAY = BotaniaAPI.botaniaRL("textures/gui/petal_overlay.png");
 
 	@Override
-	public @NotNull CategoryIdentifier<RunicAltarREIDisplay> getCategoryIdentifier() {
+	public CategoryIdentifier<RunicAltarREIDisplay> getCategoryIdentifier() {
 		return BotaniaREICategoryIdentifiers.RUNE_ALTAR;
 	}
 
 	@Override
-	public @NotNull Renderer getIcon() {
+	public Renderer getIcon() {
 		return altar;
 	}
 
 	@Override
-	public @NotNull Component getTitle() {
+	public Component getTitle() {
 		return Component.translatable("botania.nei.runicAltar");
 	}
 
 	@Override
-	public @NotNull List<Widget> setupDisplay(RunicAltarREIDisplay display, Rectangle bounds) {
+	public List<Widget> setupDisplay(RunicAltarREIDisplay display, Rectangle bounds) {
 		// TODO: optimize catalyst handling
 		List<EntryIngredient> inputs = new ArrayList<>(display.getInputEntries());
 		inputs.addAll(display.getCatalysts());
-		EntryStack<?> output = display.getOutputEntries().get(0).get(0);
+		EntryStack<?> output = display.getOutputEntries().getFirst().getFirst();
 
 		double angleBetweenEach = 360.0 / inputs.size();
 		FloatingPoint point = new FloatingPoint(bounds.getCenterX() - 8, bounds.getCenterY() - 38);

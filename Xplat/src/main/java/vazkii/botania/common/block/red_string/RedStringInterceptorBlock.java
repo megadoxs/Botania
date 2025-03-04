@@ -27,7 +27,6 @@ import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.phys.BlockHitResult;
 
-import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import vazkii.botania.common.block.block_entity.BotaniaBlockEntities;
@@ -66,9 +65,8 @@ public class RedStringInterceptorBlock extends RedStringBlock {
 		world.setBlockAndUpdate(pos, state.setValue(BlockStateProperties.POWERED, false));
 	}
 
-	@NotNull
 	@Override
-	public RedStringBlockEntity newBlockEntity(@NotNull BlockPos pos, @NotNull BlockState state) {
+	public RedStringBlockEntity newBlockEntity(BlockPos pos, BlockState state) {
 		return new RedStringInterceptorBlockEntity(pos, state);
 	}
 

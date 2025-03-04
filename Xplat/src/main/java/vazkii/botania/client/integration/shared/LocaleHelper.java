@@ -1,7 +1,5 @@
 package vazkii.botania.client.integration.shared;
 
-import org.jetbrains.annotations.NotNull;
-
 import vazkii.botania.common.proxy.Proxy;
 
 import java.math.RoundingMode;
@@ -12,7 +10,6 @@ public class LocaleHelper {
 		return NumberFormat.getIntegerInstance(Proxy.INSTANCE.getLocale());
 	}
 
-	@NotNull
 	public static NumberFormat getPercentageFormat(int fractionDigits) {
 		final NumberFormat formatter = NumberFormat.getPercentInstance(Proxy.INSTANCE.getLocale());
 		formatter.setMinimumFractionDigits(fractionDigits);

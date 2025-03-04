@@ -37,7 +37,6 @@ import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
 
-import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import vazkii.botania.api.block.Bound;
@@ -153,7 +152,6 @@ public class WandOfTheForestItem extends Item implements CustomCreativeTabConten
 		return false;
 	}
 
-	@NotNull
 	@Override
 	public InteractionResult useOn(UseOnContext ctx) {
 		ItemStack stack = ctx.getItemInHand();
@@ -342,12 +340,10 @@ public class WandOfTheForestItem extends Item implements CustomCreativeTabConten
 		return canSurvive.test(newState) ? newState : oldState;
 	}
 
-	@NotNull
 	private static BlockState rotateClockwiseAroundSideDirect(BlockState oldState, Direction side, Predicate<BlockState> canSurvive, Property<Direction> facingProp, Direction oldDir) {
 		return rotateClockwiseAroundSide(side, oldDir, dir -> oldState.setValue(facingProp, dir), canSurvive);
 	}
 
-	@NotNull
 	private static BlockState rotateClockwiseAroundSide(Direction side, Direction oldDir, Function<Direction, BlockState> newStateFunction, Predicate<BlockState> canSurvive) {
 		BlockState newState;
 		Direction newDir = oldDir;
@@ -359,7 +355,6 @@ public class WandOfTheForestItem extends Item implements CustomCreativeTabConten
 		return newState;
 	}
 
-	@NotNull
 	private static Direction getClockwiseDirectionForSide(Direction side, Direction oldDir) {
 		return side.getAxisDirection() == Direction.AxisDirection.NEGATIVE
 				? oldDir.getCounterClockWise(side.getAxis())

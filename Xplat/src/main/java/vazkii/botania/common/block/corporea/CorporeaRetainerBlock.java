@@ -19,8 +19,6 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 
-import org.jetbrains.annotations.NotNull;
-
 import vazkii.botania.common.block.BotaniaBlock;
 import vazkii.botania.common.block.BotaniaBlocks;
 import vazkii.botania.common.block.block_entity.corporea.CorporeaRetainerBlockEntity;
@@ -70,9 +68,8 @@ public class CorporeaRetainerBlock extends BotaniaBlock implements EntityBlock {
 		return ((CorporeaRetainerBlockEntity) world.getBlockEntity(pos)).getComparatorValue();
 	}
 
-	@NotNull
 	@Override
-	public BlockEntity newBlockEntity(@NotNull BlockPos pos, @NotNull BlockState state) {
+	public BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
 		return new CorporeaRetainerBlockEntity(pos, state);
 	}
 }

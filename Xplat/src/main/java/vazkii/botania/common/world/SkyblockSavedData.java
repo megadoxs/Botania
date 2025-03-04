@@ -20,8 +20,6 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.datafix.DataFixTypes;
 import net.minecraft.world.level.saveddata.SavedData;
 
-import org.jetbrains.annotations.NotNull;
-
 import vazkii.botania.xplat.BotaniaConfig;
 
 import java.util.Map;
@@ -84,9 +82,8 @@ public class SkyblockSavedData extends SavedData {
 		return islandPos;
 	}
 
-	@NotNull
 	@Override
-	public CompoundTag save(@NotNull CompoundTag nbt, @NotNull HolderLookup.Provider registries) {
+	public CompoundTag save(CompoundTag nbt, HolderLookup.Provider registries) {
 		ListTag list = new ListTag();
 		for (Map.Entry<IslandPos, UUID> entry : skyblocks.entrySet()) {
 			CompoundTag entryTag = entry.getKey().toTag();

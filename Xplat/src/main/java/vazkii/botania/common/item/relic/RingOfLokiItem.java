@@ -32,7 +32,6 @@ import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
 
-import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.jetbrains.annotations.Unmodifiable;
 
@@ -144,7 +143,6 @@ public class RingOfLokiItem extends RelicBaubleItem implements WireframeCoordina
 		}
 	}
 
-	@NotNull
 	public static UseOnContext getUseOnContext(Player player, InteractionHand hand, BlockPos pos, Vec3 lookHit, Direction direction) {
 		Vec3 newHitVec = new Vec3(pos.getX() + Mth.frac(lookHit.x()), pos.getY() + Mth.frac(lookHit.y()), pos.getZ() + Mth.frac(lookHit.z()));
 		BlockHitResult newHit = new BlockHitResult(newHitVec, direction, pos, false);

@@ -27,7 +27,6 @@ import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.Level;
 
-import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import vazkii.botania.api.mana.ManaItemHandler;
@@ -45,9 +44,8 @@ public class CrystalBowItem extends LivingwoodBowItem {
 	}
 
 	// [VanillaCopy] super
-	@NotNull
 	@Override
-	public InteractionResultHolder<ItemStack> use(@NotNull Level worldIn, Player playerIn, @NotNull InteractionHand handIn) {
+	public InteractionResultHolder<ItemStack> use(Level worldIn, Player playerIn, InteractionHand handIn) {
 		ItemStack itemstack = playerIn.getItemInHand(handIn);
 		boolean canMaterializeArrow = canFire(itemstack, playerIn); // Botania - custom check
 
@@ -61,7 +59,7 @@ public class CrystalBowItem extends LivingwoodBowItem {
 
 	// [VanillaCopy] BowItem
 	@Override
-	public void releaseUsing(@NotNull ItemStack stack, @NotNull Level level, LivingEntity entityLiving, int timeLeft) {
+	public void releaseUsing(ItemStack stack, Level level, LivingEntity entityLiving, int timeLeft) {
 		if (entityLiving instanceof Player player) {
 			boolean canMaterializeArrow = canFire(stack, player); // Botania - custom check
 			ItemStack arrowStack = player.getProjectile(stack);

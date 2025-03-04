@@ -20,7 +20,6 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BannerPattern;
 
-import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import vazkii.botania.common.annotations.SoftImplement;
@@ -67,7 +66,7 @@ public class TinyPotatoBlockItem extends BlockItem implements ItemWithBannerPatt
 		}
 	}
 
-	public static boolean isEnchantedName(@NotNull Component name, @Nullable StringBuilder nameBuilder) {
+	public static boolean isEnchantedName(Component name, @Nullable StringBuilder nameBuilder) {
 		String trimmed = name.getString().trim();
 		var nameString = trimmed.toLowerCase(Locale.ROOT);
 		for (var prefix : ENCHANTMENT_NAMES) {
@@ -93,7 +92,7 @@ public class TinyPotatoBlockItem extends BlockItem implements ItemWithBannerPatt
 	}
 
 	@Override
-	public boolean isFoil(@NotNull ItemStack stack) {
+	public boolean isFoil(ItemStack stack) {
 		return super.isFoil(stack) || isEnchantedName(stack.getHoverName(), null);
 	}
 

@@ -35,8 +35,6 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
 
-import org.jetbrains.annotations.NotNull;
-
 import vazkii.botania.client.gui.bag.FlowerPouchContainer;
 import vazkii.botania.common.block.BotaniaBlocks;
 import vazkii.botania.common.block.BotaniaDoubleFlowerBlock;
@@ -76,7 +74,7 @@ public class FlowerPouchItem extends Item {
 	public static SimpleContainer getInventory(ItemStack stack) {
 		return new ItemBackedInventory(stack, SIZE) {
 			@Override
-			public boolean canPlaceItem(int slot, @NotNull ItemStack stack) {
+			public boolean canPlaceItem(int slot, ItemStack stack) {
 				return stack.is(getFlowerForSlot(slot));
 			}
 		};
@@ -126,9 +124,8 @@ public class FlowerPouchItem extends Item {
 		return false;
 	}
 
-	@NotNull
 	@Override
-	public InteractionResultHolder<ItemStack> use(Level world, Player player, @NotNull InteractionHand hand) {
+	public InteractionResultHolder<ItemStack> use(Level world, Player player, InteractionHand hand) {
 		if (!world.isClientSide) {
 			ItemStack stack = player.getItemInHand(hand);
 			XplatAbstractions.INSTANCE.openMenu((ServerPlayer) player, new MenuProvider() {
@@ -146,7 +143,6 @@ public class FlowerPouchItem extends Item {
 		return InteractionResultHolder.sidedSuccess(player.getItemInHand(hand), world.isClientSide());
 	}
 
-	@NotNull
 	@Override
 	public InteractionResult useOn(UseOnContext ctx) {
 		Level world = ctx.getLevel();
@@ -172,7 +168,7 @@ public class FlowerPouchItem extends Item {
 	}
 
 	@Override
-	public void onDestroyed(@NotNull ItemEntity entity) {
+	public void onDestroyed(ItemEntity entity) {
 		var container = getInventory(entity.getItem());
 		var stream = IntStream.range(0, container.getContainerSize())
 				.mapToObj(container::getItem)
@@ -182,9 +178,7 @@ public class FlowerPouchItem extends Item {
 	}
 
 	@Override
-	public boolean overrideStackedOnOther(
-			@NotNull ItemStack bag, @NotNull Slot slot,
-			@NotNull ClickAction clickAction, @NotNull Player player) {
+	public boolean overrideStackedOnOther(ItemStack bag, Slot slot, ClickAction clickAction, Player player) {
 		return InventoryHelper.overrideStackedOnOther(
 				FlowerPouchItem::getInventory,
 				player.containerMenu instanceof FlowerPouchContainer,
@@ -192,10 +186,8 @@ public class FlowerPouchItem extends Item {
 	}
 
 	@Override
-	public boolean overrideOtherStackedOnMe(
-			@NotNull ItemStack bag, @NotNull ItemStack toInsert,
-			@NotNull Slot slot, @NotNull ClickAction clickAction,
-			@NotNull Player player, @NotNull SlotAccess cursorAccess) {
+	public boolean overrideOtherStackedOnMe(ItemStack bag, ItemStack toInsert, Slot slot, ClickAction clickAction,
+			Player player, SlotAccess cursorAccess) {
 		return InventoryHelper.overrideOtherStackedOnMe(
 				FlowerPouchItem::getInventory,
 				player.containerMenu instanceof FlowerPouchContainer,

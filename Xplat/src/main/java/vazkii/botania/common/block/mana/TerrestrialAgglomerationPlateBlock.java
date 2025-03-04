@@ -29,7 +29,6 @@ import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
-import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import vazkii.botania.api.recipe.TerrestrialAgglomerationRecipe;
@@ -47,7 +46,6 @@ public class TerrestrialAgglomerationPlateBlock extends BotaniaWaterloggedBlock 
 		super(builder);
 	}
 
-	@NotNull
 	@Override
 	public VoxelShape getShape(BlockState state, BlockGetter world, BlockPos pos, CollisionContext ctx) {
 		return SHAPE;
@@ -87,9 +85,8 @@ public class TerrestrialAgglomerationPlateBlock extends BotaniaWaterloggedBlock 
 		return false;
 	}
 
-	@NotNull
 	@Override
-	public BlockEntity newBlockEntity(@NotNull BlockPos pos, @NotNull BlockState state) {
+	public BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
 		return new TerrestrialAgglomerationPlateBlockEntity(pos, state);
 	}
 

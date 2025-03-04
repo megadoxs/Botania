@@ -13,8 +13,6 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.ContainerLevelAccess;
 import net.minecraft.world.inventory.CraftingMenu;
 
-import org.jetbrains.annotations.NotNull;
-
 /*
  * We don't need to register a new ContainerType and can just piggyback off vanilla's,
  * because all we want to change is canInteractWith, which is only checked serverside.
@@ -28,7 +26,7 @@ public class AssemblyHaloContainer extends CraftingMenu {
 	}
 
 	@Override
-	public boolean stillValid(@NotNull Player player) {
+	public boolean stillValid(Player player) {
 		return true;
 	}
 }

@@ -13,8 +13,6 @@ import net.minecraft.world.level.block.SkullBlock;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 
-import org.jetbrains.annotations.NotNull;
-
 import vazkii.botania.common.block.block_entity.GaiaHeadBlockEntity;
 
 public class GaiaHeadBlock extends SkullBlock {
@@ -34,7 +32,6 @@ public class GaiaHeadBlock extends SkullBlock {
 		super(GAIA_TYPE, builder);
 	}
 
-	@NotNull
 	@Override
 	public BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
 		return new GaiaHeadBlockEntity(pos, state);

@@ -22,7 +22,6 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
-import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import vazkii.botania.api.block_entity.FunctionalFlowerBlockEntity;
@@ -82,9 +81,8 @@ public class FloatingSpecialFlowerBlock extends FloatingFlowerBlock {
 		super.onRemove(state, level, pos, newState, movedByPiston);
 	}
 
-	@NotNull
 	@Override
-	public BlockEntity newBlockEntity(@NotNull BlockPos pos, @NotNull BlockState state) {
+	public BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
 		SpecialFlowerBlockEntity te = blockEntityType.get().create(pos, state);
 		te.setFloating(true);
 		return te;

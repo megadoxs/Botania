@@ -14,8 +14,6 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 
-import org.jetbrains.annotations.NotNull;
-
 public class BifrostBlockEntity extends BotaniaBlockEntity {
 	private static final String TAG_TICKS = "ticks";
 
@@ -40,7 +38,7 @@ public class BifrostBlockEntity extends BotaniaBlockEntity {
 	}
 
 	@Override
-	public void loadAdditional(@NotNull CompoundTag tag, HolderLookup.Provider registries) {
+	public void loadAdditional(CompoundTag tag, HolderLookup.Provider registries) {
 		super.loadAdditional(tag, registries);
 		ticks = tag.getInt(TAG_TICKS);
 	}

@@ -15,8 +15,6 @@ import me.shedaniel.rei.api.common.util.EntryIngredients;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.RecipeHolder;
 
-import org.jetbrains.annotations.NotNull;
-
 import vazkii.botania.api.recipe.BotanicalBreweryRecipe;
 import vazkii.botania.common.item.BotaniaItems;
 
@@ -51,7 +49,7 @@ public class BreweryREIDisplay extends BotaniaRecipeDisplay<BotanicalBreweryReci
 	}
 
 	@Override
-	public @NotNull CategoryIdentifier<?> getCategoryIdentifier() {
+	public CategoryIdentifier<?> getCategoryIdentifier() {
 		return BotaniaREICategoryIdentifiers.BREWERY;
 	}
 }

@@ -26,8 +26,6 @@ import net.minecraft.world.level.block.DoublePlantBlock;
 import net.minecraft.world.level.block.FlowerBlock;
 import net.minecraft.world.level.block.state.BlockState;
 
-import org.jetbrains.annotations.NotNull;
-
 import vazkii.botania.api.item.BlockProvider;
 import vazkii.botania.api.mana.ManaItemHandler;
 import vazkii.botania.client.fx.SparkleParticleData;
@@ -44,7 +42,6 @@ public class TerraFirmaRodItem extends Item {
 		super(props);
 	}
 
-	@NotNull
 	@Override
 	public UseAnim getUseAnimation(ItemStack stack) {
 		return UseAnim.BOW;
@@ -56,15 +53,14 @@ public class TerraFirmaRodItem extends Item {
 	}
 
 	@Override
-	public void onUseTick(@NotNull Level world, @NotNull LivingEntity living, @NotNull ItemStack stack, int count) {
+	public void onUseTick(Level world, LivingEntity living, ItemStack stack, int count) {
 		if (count != getUseDuration(stack, living) && count % 10 == 0 && living instanceof Player player) {
 			terraform(stack, world, player);
 		}
 	}
 
-	@NotNull
 	@Override
-	public InteractionResultHolder<ItemStack> use(Level world, Player player, @NotNull InteractionHand hand) {
+	public InteractionResultHolder<ItemStack> use(Level world, Player player, InteractionHand hand) {
 		return ItemUtils.startUsingInstantly(world, player, hand);
 	}
 

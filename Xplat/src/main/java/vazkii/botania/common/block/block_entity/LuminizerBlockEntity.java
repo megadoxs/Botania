@@ -40,8 +40,6 @@ import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 
-import org.jetbrains.annotations.NotNull;
-
 import vazkii.botania.api.block.Bound;
 import vazkii.botania.api.block.WandBindable;
 import vazkii.botania.api.internal.ManaBurst;
@@ -375,17 +373,17 @@ public class LuminizerBlockEntity extends BotaniaBlockEntity implements WandBind
 		}
 
 		@Override
-		public boolean hurt(@NotNull DamageSource source, float damage) {
+		public boolean hurt(DamageSource source, float damage) {
 			return false;
 		}
 
 		@Override
-		protected void readAdditionalSaveData(@NotNull CompoundTag cmp) {
+		protected void readAdditionalSaveData(CompoundTag cmp) {
 			setExit(new BlockPos(cmp.getInt(TAG_EXIT_X), cmp.getInt(TAG_EXIT_Y), cmp.getInt(TAG_EXIT_Z)));
 		}
 
 		@Override
-		protected void addAdditionalSaveData(@NotNull CompoundTag cmp) {
+		protected void addAdditionalSaveData(CompoundTag cmp) {
 			BlockPos exit = getExitPos();
 			cmp.putInt(TAG_EXIT_X, exit.getX());
 			cmp.putInt(TAG_EXIT_Y, exit.getY());

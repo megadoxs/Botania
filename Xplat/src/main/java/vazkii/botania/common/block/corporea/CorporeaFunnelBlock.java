@@ -16,8 +16,6 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 
-import org.jetbrains.annotations.NotNull;
-
 import vazkii.botania.common.block.BotaniaBlock;
 import vazkii.botania.common.block.block_entity.corporea.BaseCorporeaBlockEntity;
 import vazkii.botania.common.block.block_entity.corporea.CorporeaFunnelBlockEntity;
@@ -47,9 +45,8 @@ public class CorporeaFunnelBlock extends BotaniaBlock implements EntityBlock {
 		}
 	}
 
-	@NotNull
 	@Override
-	public BaseCorporeaBlockEntity newBlockEntity(@NotNull BlockPos pos, @NotNull BlockState state) {
+	public BaseCorporeaBlockEntity newBlockEntity(BlockPos pos, BlockState state) {
 		return new CorporeaFunnelBlockEntity(pos, state);
 	}
 

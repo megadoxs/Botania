@@ -25,7 +25,6 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.gameevent.GameEvent;
 
-import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import vazkii.botania.api.block.HornHarvestable;
@@ -44,7 +43,6 @@ public class HornItem extends Item {
 		super(props);
 	}
 
-	@NotNull
 	@Override
 	public UseAnim getUseAnimation(ItemStack stack) {
 		return UseAnim.BOW;
@@ -55,14 +53,13 @@ public class HornItem extends Item {
 		return 72000;
 	}
 
-	@NotNull
 	@Override
-	public InteractionResultHolder<ItemStack> use(Level world, Player player, @NotNull InteractionHand hand) {
+	public InteractionResultHolder<ItemStack> use(Level world, Player player, InteractionHand hand) {
 		return ItemUtils.startUsingInstantly(world, player, hand);
 	}
 
 	@Override
-	public void onUseTick(Level world, @NotNull LivingEntity living, @NotNull ItemStack stack, int time) {
+	public void onUseTick(Level world, LivingEntity living, ItemStack stack, int time) {
 		if (!world.isClientSide) {
 			if (time != getUseDuration(stack, living) && time % 5 == 0) {
 				living.gameEvent(GameEvent.INSTRUMENT_PLAY);

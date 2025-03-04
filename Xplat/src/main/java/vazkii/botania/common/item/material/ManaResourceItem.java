@@ -14,8 +14,6 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.context.UseOnContext;
 
-import org.jetbrains.annotations.NotNull;
-
 import vazkii.botania.common.entity.GaiaGuardianEntity;
 import vazkii.botania.common.item.BotaniaItems;
 
@@ -24,7 +22,6 @@ public class ManaResourceItem extends Item {
 		super(props);
 	}
 
-	@NotNull
 	@Override
 	public InteractionResult useOn(UseOnContext ctx) {
 		ItemStack stack = ctx.getItemInHand();

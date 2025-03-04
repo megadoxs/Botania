@@ -36,7 +36,6 @@ import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
-import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import vazkii.botania.api.internal.VanillaPacketDispatcher;
@@ -132,15 +131,13 @@ public class IncensePlateBlock extends BotaniaWaterloggedBlock implements Entity
 		return super.getStateForPlacement(context).setValue(BlockStateProperties.HORIZONTAL_FACING, context.getHorizontalDirection().getOpposite());
 	}
 
-	@NotNull
 	@Override
-	public BlockState mirror(@NotNull BlockState state, Mirror mirror) {
+	public BlockState mirror(BlockState state, Mirror mirror) {
 		return state.setValue(BlockStateProperties.HORIZONTAL_FACING, mirror.mirror(state.getValue(BlockStateProperties.HORIZONTAL_FACING)));
 	}
 
-	@NotNull
 	@Override
-	public BlockState rotate(@NotNull BlockState state, Rotation rot) {
+	public BlockState rotate(BlockState state, Rotation rot) {
 		return state.setValue(BlockStateProperties.HORIZONTAL_FACING, rot.rotate(state.getValue(BlockStateProperties.HORIZONTAL_FACING)));
 	}
 
@@ -154,7 +151,6 @@ public class IncensePlateBlock extends BotaniaWaterloggedBlock implements Entity
 		return ((IncensePlateBlockEntity) world.getBlockEntity(pos)).comparatorOutput;
 	}
 
-	@NotNull
 	@Override
 	public VoxelShape getShape(BlockState state, BlockGetter world, BlockPos pos, CollisionContext ctx) {
 		if (state.getValue(BlockStateProperties.HORIZONTAL_FACING).getAxis() == Direction.Axis.X) {
@@ -164,9 +160,8 @@ public class IncensePlateBlock extends BotaniaWaterloggedBlock implements Entity
 		}
 	}
 
-	@NotNull
 	@Override
-	public BlockEntity newBlockEntity(@NotNull BlockPos pos, @NotNull BlockState state) {
+	public BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
 		return new IncensePlateBlockEntity(pos, state);
 	}
 
@@ -177,7 +172,7 @@ public class IncensePlateBlock extends BotaniaWaterloggedBlock implements Entity
 	}
 
 	@Override
-	public void onRemove(@NotNull BlockState state, @NotNull Level world, @NotNull BlockPos pos, @NotNull BlockState newState, boolean isMoving) {
+	public void onRemove(BlockState state, Level world, BlockPos pos, BlockState newState, boolean isMoving) {
 		if (!state.is(newState.getBlock())) {
 			BlockEntity block = world.getBlockEntity(pos);
 			if (block instanceof IncensePlateBlockEntity plate && !plate.burning) {
@@ -188,8 +183,7 @@ public class IncensePlateBlock extends BotaniaWaterloggedBlock implements Entity
 	}
 
 	@Override
-	public void onProjectileHit(@NotNull Level level, @NotNull BlockState blockState,
-			@NotNull BlockHitResult hit, @NotNull Projectile projectile) {
+	public void onProjectileHit(Level level, BlockState blockState, BlockHitResult hit, Projectile projectile) {
 		if (!level.isClientSide && projectile.mayInteract(level, hit.getBlockPos())
 				&& projectile.isOnFire()) {
 			if (level.getBlockEntity(hit.getBlockPos()) instanceof IncensePlateBlockEntity plate) {

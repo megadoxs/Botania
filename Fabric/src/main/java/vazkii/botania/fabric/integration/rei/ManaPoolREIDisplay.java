@@ -12,7 +12,6 @@ import me.shedaniel.rei.api.common.category.CategoryIdentifier;
 
 import net.minecraft.world.item.crafting.RecipeHolder;
 
-import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import vazkii.botania.api.recipe.ManaInfusionRecipe;
@@ -38,7 +37,7 @@ public class ManaPoolREIDisplay extends BotaniaRecipeDisplay<ManaInfusionRecipe>
 	}
 
 	@Override
-	public @NotNull CategoryIdentifier<?> getCategoryIdentifier() {
+	public CategoryIdentifier<?> getCategoryIdentifier() {
 		return BotaniaREICategoryIdentifiers.MANA_INFUSION;
 	}
 }

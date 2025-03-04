@@ -19,8 +19,6 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.DispenserBlock;
 import net.minecraft.world.phys.AABB;
 
-import org.jetbrains.annotations.NotNull;
-
 import vazkii.botania.common.item.BotaniaItems;
 import vazkii.botania.common.item.material.EnderAirItem;
 
@@ -52,9 +50,8 @@ public class EnderAirBottlingBehavior extends OptionalDispenseItemBehavior {
 				&& EnderAirItem.isClearFromDragonBreath(world, new AABB(facingPos).inflate(2.0D));
 	}
 
-	@NotNull
 	@Override
-	protected ItemStack execute(BlockSource source, @NotNull ItemStack stack) {
+	protected ItemStack execute(BlockSource source, ItemStack stack) {
 		Level world = source.level();
 		BlockPos blockpos = source.pos().relative(source.state().getValue(DispenserBlock.FACING));
 		if (pickupInEnd(world, blockpos) || EnderAirItem.pickupFromEntity(world, new AABB(blockpos))) {

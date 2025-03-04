@@ -33,8 +33,6 @@ import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.EntityCollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
-import org.jetbrains.annotations.NotNull;
-
 import vazkii.botania.api.mana.BasicLensItem;
 import vazkii.botania.api.mana.ManaCollisionGhost;
 import vazkii.botania.api.state.BotaniaStateProperties;
@@ -54,15 +52,13 @@ public class ManaPrismBlock extends BotaniaWaterloggedBlock implements EntityBlo
 				.setValue(BotaniaStateProperties.HAS_LENS, false));
 	}
 
-	@NotNull
 	@Override
 	public VoxelShape getShape(BlockState state, BlockGetter world, BlockPos pos, CollisionContext ctx) {
 		return SHAPE;
 	}
 
-	@NotNull
 	@Override
-	public VoxelShape getCollisionShape(@NotNull BlockState state, @NotNull BlockGetter world, @NotNull BlockPos pos, @NotNull CollisionContext context) {
+	public VoxelShape getCollisionShape(BlockState state, BlockGetter world, BlockPos pos, CollisionContext context) {
 		if (context instanceof EntityCollisionContext econtext
 				&& econtext.getEntity() instanceof ManaBurstEntity) {
 			// Expose the shape so bursts can actually collide with us
@@ -192,7 +188,7 @@ public class ManaPrismBlock extends BotaniaWaterloggedBlock implements EntityBlo
 	}
 
 	@Override
-	public void onRemove(@NotNull BlockState state, @NotNull Level world, @NotNull BlockPos pos, @NotNull BlockState newState, boolean isMoving) {
+	public void onRemove(BlockState state, Level world, BlockPos pos, BlockState newState, boolean isMoving) {
 		if (!state.is(newState.getBlock())) {
 			BlockEntity be = world.getBlockEntity(pos);
 			if (be instanceof SimpleInventoryBlockEntity inventory) {
@@ -202,9 +198,8 @@ public class ManaPrismBlock extends BotaniaWaterloggedBlock implements EntityBlo
 		}
 	}
 
-	@NotNull
 	@Override
-	public BlockEntity newBlockEntity(@NotNull BlockPos pos, @NotNull BlockState state) {
+	public BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
 		return new ManaPrismBlockEntity(pos, state);
 	}
 

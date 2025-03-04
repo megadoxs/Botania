@@ -25,8 +25,6 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.AABB;
 
-import org.jetbrains.annotations.NotNull;
-
 import vazkii.botania.api.block.Avatar;
 import vazkii.botania.api.item.AvatarWieldable;
 import vazkii.botania.api.item.BlockProvider;
@@ -47,7 +45,6 @@ public class LandsRodItem extends Item {
 		super(props);
 	}
 
-	@NotNull
 	@Override
 	public InteractionResult useOn(UseOnContext ctx) {
 		return place(ctx, Blocks.DIRT, COST, 0.35F, 0.2F, 0.05F);

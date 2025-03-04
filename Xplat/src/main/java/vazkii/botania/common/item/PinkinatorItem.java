@@ -24,8 +24,6 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.phys.AABB;
 
-import org.jetbrains.annotations.NotNull;
-
 import vazkii.botania.common.advancements.UseItemSuccessTrigger;
 import vazkii.botania.common.entity.BotaniaEntities;
 import vazkii.botania.common.entity.PinkWitherEntity;
@@ -39,9 +37,8 @@ public class PinkinatorItem extends Item {
 		super(builder);
 	}
 
-	@NotNull
 	@Override
-	public InteractionResultHolder<ItemStack> use(Level world, Player player, @NotNull InteractionHand hand) {
+	public InteractionResultHolder<ItemStack> use(Level world, Player player, InteractionHand hand) {
 		ItemStack stack = player.getItemInHand(hand);
 		int range = 16;
 		List<WitherBoss> withers = world.getEntitiesOfClass(WitherBoss.class, new AABB(player.getX() - range, player.getY() - range, player.getZ() - range, player.getX() + range, player.getY() + range, player.getZ() + range));

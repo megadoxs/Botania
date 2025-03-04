@@ -23,8 +23,6 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.gameevent.GameEvent;
 
-import org.jetbrains.annotations.NotNull;
-
 import vazkii.botania.api.internal.VanillaPacketDispatcher;
 import vazkii.botania.common.block.block_entity.BotaniaBlockEntities;
 import vazkii.botania.common.block.block_entity.BotaniaBlockEntity;
@@ -128,7 +126,7 @@ public class BellowsBlockEntity extends BotaniaBlockEntity {
 	}
 
 	@Override
-	public void writePacketNBT(@NotNull CompoundTag cmp, HolderLookup.Provider registries) {
+	public void writePacketNBT(CompoundTag cmp, HolderLookup.Provider registries) {
 		cmp.putBoolean(TAG_ACTIVE, active);
 	}
 

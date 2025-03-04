@@ -23,8 +23,6 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.gameevent.GameEvent;
 
-import org.jetbrains.annotations.NotNull;
-
 import vazkii.botania.api.block.Avatar;
 import vazkii.botania.api.item.AvatarWieldable;
 import vazkii.botania.api.mana.ManaItemHandler;
@@ -46,9 +44,8 @@ public class PlentifulMantleRodItem extends Item {
 		super(props);
 	}
 
-	@NotNull
 	@Override
-	public InteractionResultHolder<ItemStack> use(Level world, Player p, @NotNull InteractionHand hand) {
+	public InteractionResultHolder<ItemStack> use(Level world, Player p, InteractionHand hand) {
 		ItemStack stack = p.getItemInHand(hand);
 		if (ManaItemHandler.instance().requestManaExactForTool(stack, p, COST, true)) {
 			if (world.isClientSide) {

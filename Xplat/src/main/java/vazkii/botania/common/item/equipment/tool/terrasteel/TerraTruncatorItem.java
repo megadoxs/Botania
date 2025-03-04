@@ -20,8 +20,6 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.HitResult;
 
-import org.jetbrains.annotations.NotNull;
-
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.item.SequentialBreaker;
 import vazkii.botania.common.annotations.SoftImplement;
@@ -285,7 +283,7 @@ public class TerraTruncatorItem extends ManasteelAxeItem implements SequentialBr
 		 */
 		public record SwapCandidate(BlockPos coordinates, int range) implements Comparable<SwapCandidate> {
 			@Override
-			public int compareTo(@NotNull SwapCandidate other) {
+			public int compareTo(SwapCandidate other) {
 				// Aka, a bigger range implies a smaller value, meaning
 				// bigger ranges will be preferred in a min-heap
 				return other.range - range;

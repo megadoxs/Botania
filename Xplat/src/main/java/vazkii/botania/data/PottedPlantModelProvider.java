@@ -15,8 +15,6 @@ import net.minecraft.util.Tuple;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.FlowerPotBlock;
 
-import org.jetbrains.annotations.NotNull;
-
 import vazkii.botania.client.lib.ResourcesLib;
 import vazkii.botania.common.lib.LibBlockNames;
 import vazkii.botania.common.lib.LibMisc;
@@ -64,7 +62,6 @@ public class PottedPlantModelProvider implements DataProvider {
 		return MultiVariantGenerator.multiVariant(block, Variant.variant().with(VariantProperties.MODEL, resourceLocation));
 	}
 
-	@NotNull
 	@Override
 	public String getName() {
 		return "Botania potted plant models";

@@ -27,8 +27,6 @@ import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.HitResult;
 
-import org.jetbrains.annotations.NotNull;
-
 public class ExtrapolatedBucketItem extends Item {
 
 	public ExtrapolatedBucketItem(Properties props) {
@@ -36,9 +34,8 @@ public class ExtrapolatedBucketItem extends Item {
 	}
 
 	// [VanillaCopy] BucketItem, only the empty cases
-	@NotNull
 	@Override
-	public InteractionResultHolder<ItemStack> use(Level level, Player player, @NotNull InteractionHand interactionHand) {
+	public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand interactionHand) {
 		ItemStack itemStack = player.getItemInHand(interactionHand);
 		BlockHitResult blockHitResult = getPlayerPOVHitResult(level, player, ClipContext.Fluid.SOURCE_ONLY);
 		if (blockHitResult.getType() == HitResult.Type.MISS) {

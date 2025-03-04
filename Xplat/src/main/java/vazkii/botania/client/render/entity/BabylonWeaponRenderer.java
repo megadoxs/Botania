@@ -21,7 +21,6 @@ import net.minecraft.client.resources.model.BakedModel;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.inventory.InventoryMenu;
 
-import org.jetbrains.annotations.NotNull;
 import org.joml.Matrix4f;
 
 import vazkii.botania.client.core.handler.MiscellaneousModels;
@@ -38,7 +37,7 @@ public class BabylonWeaponRenderer extends EntityRenderer<BabylonWeaponEntity> {
 	}
 
 	@Override
-	public void render(@NotNull BabylonWeaponEntity weapon, float yaw, float partialTicks, PoseStack ms, MultiBufferSource buffers, int light) {
+	public void render(BabylonWeaponEntity weapon, float yaw, float partialTicks, PoseStack ms, MultiBufferSource buffers, int light) {
 		ms.pushPose();
 		ms.mulPose(VecHelper.rotateY(weapon.getRotation()));
 
@@ -81,9 +80,8 @@ public class BabylonWeaponRenderer extends EntityRenderer<BabylonWeaponEntity> {
 		ms.popPose();
 	}
 
-	@NotNull
 	@Override
-	public ResourceLocation getTextureLocation(@NotNull BabylonWeaponEntity entity) {
+	public ResourceLocation getTextureLocation(BabylonWeaponEntity entity) {
 		return InventoryMenu.BLOCK_ATLAS;
 	}
 

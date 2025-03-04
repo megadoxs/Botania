@@ -23,8 +23,6 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 
-import org.jetbrains.annotations.NotNull;
-
 import vazkii.botania.api.recipe.BotanicalBreweryRecipe;
 import vazkii.botania.common.block.BotaniaBlocks;
 import vazkii.botania.common.item.BotaniaItems;
@@ -50,32 +48,28 @@ public class BreweryRecipeCategory implements IRecipeCategory<BotanicalBreweryRe
 		icon = guiHelper.createDrawableIngredient(VanillaTypes.ITEM_STACK, new ItemStack(BotaniaBlocks.brewery));
 	}
 
-	@NotNull
 	@Override
 	public RecipeType<BotanicalBreweryRecipe> getRecipeType() {
 		return TYPE;
 	}
 
-	@NotNull
 	@Override
 	public Component getTitle() {
 		return localizedName;
 	}
 
-	@NotNull
 	@Override
 	public IDrawable getBackground() {
 		return background;
 	}
 
-	@NotNull
 	@Override
 	public IDrawable getIcon() {
 		return icon;
 	}
 
 	@Override
-	public void setRecipe(@NotNull IRecipeLayoutBuilder builder, @NotNull BotanicalBreweryRecipe recipe, @NotNull IFocusGroup focuses) {
+	public void setRecipe(IRecipeLayoutBuilder builder, BotanicalBreweryRecipe recipe, IFocusGroup focuses) {
 		List<ItemStack> outputs = new ArrayList<>();
 		List<ItemStack> containers = new ArrayList<>();
 

@@ -22,7 +22,6 @@ import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStack;
 
-import org.jetbrains.annotations.NotNull;
 import org.joml.Quaternionf;
 
 import vazkii.botania.api.state.BotaniaStateProperties;
@@ -39,7 +38,7 @@ public class ManaSpreaderBlockEntityRenderer implements BlockEntityRenderer<Mana
 	public ManaSpreaderBlockEntityRenderer(BlockEntityRendererProvider.Context ctx) {}
 
 	@Override
-	public void render(@NotNull ManaSpreaderBlockEntity spreader, float partialTicks, PoseStack ms, MultiBufferSource buffers, int light, int overlay) {
+	public void render(ManaSpreaderBlockEntity spreader, float partialTicks, PoseStack ms, MultiBufferSource buffers, int light, int overlay) {
 		ms.pushPose();
 
 		ms.translate(0.5F, 0.5, 0.5F);

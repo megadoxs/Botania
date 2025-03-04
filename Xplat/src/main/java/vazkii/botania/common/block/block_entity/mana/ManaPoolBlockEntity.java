@@ -34,7 +34,6 @@ import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 
 import org.apache.commons.lang3.mutable.MutableInt;
-import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.lwjgl.opengl.GL11;
 
@@ -58,6 +57,7 @@ import vazkii.botania.common.block.block_entity.BotaniaBlockEntities;
 import vazkii.botania.common.block.block_entity.BotaniaBlockEntity;
 import vazkii.botania.common.block.mana.ManaPoolBlock;
 import vazkii.botania.common.crafting.BotaniaRecipeTypes;
+import vazkii.botania.common.crafting.StateIngredients;
 import vazkii.botania.common.handler.BotaniaSounds;
 import vazkii.botania.common.handler.ManaNetworkHandler;
 import vazkii.botania.common.helper.EntityHelper;
@@ -147,13 +147,14 @@ public class ManaPoolBlockEntity extends BotaniaBlockEntity implements ManaPool,
 		return val;
 	}
 
-	public ManaInfusionRecipe getMatchingRecipe(@NotNull ItemStack stack, @NotNull BlockState state) {
+	@Nullable
+	public ManaInfusionRecipe getMatchingRecipe(ItemStack stack, BlockState state) {
 		List<ManaInfusionRecipe> matchingNonCatRecipes = new ArrayList<>();
 		List<ManaInfusionRecipe> matchingCatRecipes = new ArrayList<>();
 
 		for (var recipe : BotaniaRecipeTypes.getRecipes(level, BotaniaRecipeTypes.MANA_INFUSION_TYPE)) {
 			if (recipe.value().matches(stack)) {
-				if (recipe.value().getRecipeCatalyst() == null) {
+				if (recipe.value().getRecipeCatalyst() == StateIngredients.NONE) {
 					matchingNonCatRecipes.add(recipe.value());
 				} else if (recipe.value().getRecipeCatalyst().test(state)) {
 					matchingCatRecipes.add(recipe.value());
@@ -162,7 +163,7 @@ public class ManaPoolBlockEntity extends BotaniaBlockEntity implements ManaPool,
 		}
 
 		// Recipes with matching catalyst take priority above recipes with no catalyst specified
-		return !matchingCatRecipes.isEmpty() ? matchingCatRecipes.get(0) : !matchingNonCatRecipes.isEmpty() ? matchingNonCatRecipes.get(0) : null;
+		return !matchingCatRecipes.isEmpty() ? matchingCatRecipes.getFirst() : !matchingNonCatRecipes.isEmpty() ? matchingNonCatRecipes.getFirst() : null;
 	}
 
 	public boolean collideEntityItem(ItemEntity item) {
@@ -305,7 +306,6 @@ public class ManaPoolBlockEntity extends BotaniaBlockEntity implements ManaPool,
 		}
 	}
 
-	@NotNull
 	private static Vec3 randomizeItemPos(Vec3 itemPosRelBase) {
 		return itemPosRelBase.add(0.1 * Math.random() - 0.05, 0.1 * Math.random() + 0.25, 0.1 * Math.random() - 0.05);
 	}
@@ -459,7 +459,7 @@ public class ManaPoolBlockEntity extends BotaniaBlockEntity implements ManaPool,
 	}
 
 	@Override
-	public void writePacketNBT(@NotNull CompoundTag cmp, HolderLookup.Provider registries) {
+	public void writePacketNBT(CompoundTag cmp, HolderLookup.Provider registries) {
 		cmp.putInt(TAG_MANA, getCurrentMana());
 		cmp.putBoolean(TAG_OUTPUTTING, outputting);
 
@@ -613,7 +613,7 @@ public class ManaPoolBlockEntity extends BotaniaBlockEntity implements ManaPool,
 	}
 
 	@Override
-	public boolean areIncomingTranfersDone() {
+	public boolean areIncomingTransfersDone() {
 		return false;
 	}
 

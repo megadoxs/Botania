@@ -17,7 +17,6 @@ import net.minecraft.world.level.block.Rotation;
 import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
 
-import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import vazkii.botania.client.core.proxy.ClientProxy;
@@ -78,7 +77,6 @@ public interface Proxy {
 		return null;
 	}
 
-	@NotNull
 	default Locale getLocale() {
 		return Locale.getDefault();
 	}

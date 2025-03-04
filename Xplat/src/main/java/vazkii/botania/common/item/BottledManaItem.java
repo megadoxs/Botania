@@ -30,8 +30,6 @@ import net.minecraft.world.level.block.LiquidBlockContainer;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.material.Fluids;
 
-import org.jetbrains.annotations.NotNull;
-
 import vazkii.botania.common.component.BotaniaDataComponents;
 import vazkii.botania.common.entity.PixieEntity;
 
@@ -224,9 +222,8 @@ public class BottledManaItem extends Item {
 		stacks.add(Component.translatable("botaniamisc.bottleTooltip"));
 	}
 
-	@NotNull
 	@Override
-	public ItemStack finishUsingItem(@NotNull ItemStack stack, Level world, LivingEntity living) {
+	public ItemStack finishUsingItem(ItemStack stack, Level world, LivingEntity living) {
 		EFFECT_ACTIONS[new Random(getSeed(stack)).nextInt(EFFECT_ACTIONS.length)].apply(world, living);
 		int left = getSwigsLeft(stack);
 		if (left <= 1) {
@@ -245,7 +242,6 @@ public class BottledManaItem extends Item {
 		return 20;
 	}
 
-	@NotNull
 	@Override
 	public UseAnim getUseAnimation(ItemStack stack) {
 		return UseAnim.DRINK;

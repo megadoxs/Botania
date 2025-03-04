@@ -18,8 +18,6 @@ import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.level.block.entity.BannerPattern;
 
-import org.jetbrains.annotations.NotNull;
-
 import vazkii.botania.common.block.BotaniaBannerPatterns;
 
 import java.nio.file.Path;
@@ -42,7 +40,7 @@ public class BannerPatternProvider implements DataProvider {
 		return registryLookupFuture.thenCompose(registryLookup -> this.run(output, registryLookup));
 	}
 
-	private CompletableFuture<?> run(@NotNull CachedOutput cache, HolderLookup.Provider registries) {
+	private CompletableFuture<?> run(CachedOutput cache, HolderLookup.Provider registries) {
 		Map<ResourceKey<BannerPattern>, BannerPattern> patterns = new HashMap<>();
 		addBannerPatterns(patterns);
 

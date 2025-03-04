@@ -26,9 +26,6 @@ import net.minecraft.world.level.storage.loot.LootTable;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
 
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
-
 import vazkii.botania.api.item.Relic;
 import vazkii.botania.client.gui.TooltipHandler;
 import vazkii.botania.common.handler.BotaniaSounds;
@@ -56,9 +53,8 @@ public class DiceOfFateItem extends RelicItem {
 	)
 	);
 
-	@NotNull
 	@Override
-	public InteractionResultHolder<ItemStack> use(Level world, Player player, @NotNull InteractionHand hand) {
+	public InteractionResultHolder<ItemStack> use(Level world, Player player, InteractionHand hand) {
 		ItemStack stack = player.getItemInHand(hand);
 		var relic = XplatAbstractions.INSTANCE.findRelic(stack);
 
@@ -106,7 +102,7 @@ public class DiceOfFateItem extends RelicItem {
 	}
 
 	@Override
-	public void appendHoverText(ItemStack stack, @Nullable TooltipContext tooltipContext, List<Component> tooltip, TooltipFlag flags) {
+	public void appendHoverText(ItemStack stack, TooltipContext tooltipContext, List<Component> tooltip, TooltipFlag flags) {
 		super.appendHoverText(stack, tooltipContext, tooltip, flags);
 		tooltip.add(Component.literal(""));
 		TooltipHandler.addOnShift(tooltip, () -> {

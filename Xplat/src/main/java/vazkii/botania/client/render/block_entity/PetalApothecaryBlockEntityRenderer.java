@@ -23,7 +23,6 @@ import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.Blocks;
 
-import org.jetbrains.annotations.NotNull;
 import org.joml.Matrix4f;
 import org.joml.Quaternionf;
 
@@ -40,7 +39,7 @@ public class PetalApothecaryBlockEntityRenderer implements BlockEntityRenderer<P
 	}
 
 	@Override
-	public void render(@NotNull PetalApothecaryBlockEntity altar, float pticks, PoseStack ms, MultiBufferSource buffers, int light, int overlay) {
+	public void render(PetalApothecaryBlockEntity altar, float pticks, PoseStack ms, MultiBufferSource buffers, int light, int overlay) {
 		ms.pushPose();
 		ms.translate(0.5, 1.25, 0.5);
 

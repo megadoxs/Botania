@@ -18,7 +18,6 @@ import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 
-import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import vazkii.botania.common.block.block_entity.BotaniaBlockEntities;
@@ -42,9 +41,8 @@ public class RedStringComparatorBlock extends RedStringBlock {
 		return ((RedStringComparatorBlockEntity) world.getBlockEntity(pos)).getComparatorValue();
 	}
 
-	@NotNull
 	@Override
-	public RedStringBlockEntity newBlockEntity(@NotNull BlockPos pos, @NotNull BlockState state) {
+	public RedStringBlockEntity newBlockEntity(BlockPos pos, BlockState state) {
 		return new RedStringComparatorBlockEntity(pos, state);
 	}
 

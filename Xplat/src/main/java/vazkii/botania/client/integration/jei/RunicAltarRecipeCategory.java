@@ -25,8 +25,6 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
 
-import org.jetbrains.annotations.NotNull;
-
 import vazkii.botania.api.recipe.RunicAltarRecipe;
 import vazkii.botania.client.gui.HUDHandler;
 import vazkii.botania.common.block.BotaniaBlocks;
@@ -55,32 +53,28 @@ public class RunicAltarRecipeCategory implements IRecipeCategory<RunicAltarRecip
 		icon = guiHelper.createDrawableIngredient(VanillaTypes.ITEM_STACK, new ItemStack(BotaniaBlocks.runeAltar));
 	}
 
-	@NotNull
 	@Override
 	public RecipeType<RunicAltarRecipe> getRecipeType() {
 		return TYPE;
 	}
 
-	@NotNull
 	@Override
 	public Component getTitle() {
 		return localizedName;
 	}
 
-	@NotNull
 	@Override
 	public IDrawable getBackground() {
 		return background;
 	}
 
-	@NotNull
 	@Override
 	public IDrawable getIcon() {
 		return icon;
 	}
 
 	@Override
-	public void draw(RunicAltarRecipe recipe, @NotNull IRecipeSlotsView slotsView, @NotNull GuiGraphics gui, double mouseX, double mouseY) {
+	public void draw(RunicAltarRecipe recipe, IRecipeSlotsView slotsView, GuiGraphics gui, double mouseX, double mouseY) {
 		RenderSystem.enableBlend();
 		overlay.draw(gui, 0, 4);
 		HUDHandler.renderManaBar(gui, 6, 98, 0x0000FF, 0.75F, recipe.getMana(), ManaPoolBlockEntity.MAX_MANA / 10);
@@ -88,7 +82,7 @@ public class RunicAltarRecipeCategory implements IRecipeCategory<RunicAltarRecip
 	}
 
 	@Override
-	public void setRecipe(@NotNull IRecipeLayoutBuilder builder, @NotNull RunicAltarRecipe recipe, @NotNull IFocusGroup focusGroup) {
+	public void setRecipe(IRecipeLayoutBuilder builder, RunicAltarRecipe recipe, IFocusGroup focusGroup) {
 		var inputs = new ArrayList<>(recipe.getIngredients());
 		// TODO: visualize that the catalysts (usually runes) are returned
 		inputs.addAll(recipe.getCatalysts());

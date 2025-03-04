@@ -32,6 +32,8 @@ import net.minecraft.world.level.block.LevelEvent;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
 
+import org.jetbrains.annotations.Nullable;
+
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.mana.ManaItemHandler;
 import vazkii.botania.common.item.BotaniaItems;
@@ -46,7 +48,7 @@ public final class ToolCommons {
 	/**
 	 * Consumes as much mana as possible, returning the amount of damage that couldn't be paid with mana
 	 */
-	public static int damageItemIfPossible(ItemStack stack, int amount, LivingEntity entity, int manaPerDamage) {
+	public static int damageItemIfPossible(ItemStack stack, int amount, @Nullable LivingEntity entity, int manaPerDamage) {
 		if (!(entity instanceof Player player)) {
 			return amount;
 		}

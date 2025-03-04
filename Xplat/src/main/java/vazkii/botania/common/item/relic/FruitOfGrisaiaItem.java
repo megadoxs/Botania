@@ -18,8 +18,6 @@ import net.minecraft.world.item.UseAnim;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.gameevent.GameEvent;
 
-import org.jetbrains.annotations.NotNull;
-
 import vazkii.botania.api.item.Relic;
 import vazkii.botania.api.mana.ManaItemHandler;
 import vazkii.botania.mixin.LivingEntityAccessor;
@@ -40,15 +38,13 @@ public class FruitOfGrisaiaItem extends RelicItem {
 		return 32;
 	}
 
-	@NotNull
 	@Override
 	public UseAnim getUseAnimation(ItemStack stack) {
 		return isBoot(stack) ? UseAnim.DRINK : UseAnim.EAT;
 	}
 
-	@NotNull
 	@Override
-	public InteractionResultHolder<ItemStack> use(Level world, Player player, @NotNull InteractionHand hand) {
+	public InteractionResultHolder<ItemStack> use(Level world, Player player, InteractionHand hand) {
 		ItemStack stack = player.getItemInHand(hand);
 		var relic = XplatAbstractions.INSTANCE.findRelic(stack);
 		if (player.canEat(false) && relic != null && relic.isRightPlayer(player)) {
@@ -58,7 +54,7 @@ public class FruitOfGrisaiaItem extends RelicItem {
 	}
 
 	@Override
-	public void onUseTick(@NotNull Level world, @NotNull LivingEntity living, @NotNull ItemStack stack, int count) {
+	public void onUseTick(Level world, LivingEntity living, ItemStack stack, int count) {
 		if (!(living instanceof Player player)) {
 			return;
 		}

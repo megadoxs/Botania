@@ -22,8 +22,6 @@ import net.minecraft.client.renderer.entity.HumanoidMobRenderer;
 import net.minecraft.client.resources.DefaultPlayerSkin;
 import net.minecraft.resources.ResourceLocation;
 
-import org.jetbrains.annotations.NotNull;
-
 import vazkii.botania.client.core.helper.CoreShaders;
 import vazkii.botania.client.core.helper.RenderHelper;
 import vazkii.botania.client.model.armor.ArmorModels;
@@ -46,7 +44,7 @@ public class GaiaGuardianRenderer extends HumanoidMobRenderer<GaiaGuardianEntity
 	}
 
 	@Override
-	public void render(@NotNull GaiaGuardianEntity dopple, float yaw, float partialTicks, PoseStack ms, MultiBufferSource buffers, int light) {
+	public void render(GaiaGuardianEntity dopple, float yaw, float partialTicks, PoseStack ms, MultiBufferSource buffers, int light) {
 		int invulTime = dopple.getInvulTime();
 		ShaderInstance shader = CoreShaders.doppleganger();
 		if (shader != null) {
@@ -72,9 +70,8 @@ public class GaiaGuardianRenderer extends HumanoidMobRenderer<GaiaGuardianEntity
 		super.render(dopple, yaw, partialTicks, ms, buffers, light);
 	}
 
-	@NotNull
 	@Override
-	public ResourceLocation getTextureLocation(@NotNull GaiaGuardianEntity entity) {
+	public ResourceLocation getTextureLocation(GaiaGuardianEntity entity) {
 		Minecraft mc = Minecraft.getInstance();
 
 		if (!(mc.getCameraEntity() instanceof AbstractClientPlayer clientPlayer)) {

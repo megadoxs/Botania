@@ -23,8 +23,6 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.Block;
 
-import org.jetbrains.annotations.NotNull;
-
 import vazkii.botania.common.block.BotaniaBlocks;
 import vazkii.botania.common.helper.ColorHelper;
 import vazkii.botania.common.item.lens.LensItem;
@@ -248,7 +246,6 @@ public class ItemTagProvider extends ItemTagsProvider {
 				.addOptionalTag(ResourceLocation.fromNamespaceAndPath("forge", "seeds"));
 	}
 
-	@NotNull
 	private static Item[] getItems(Predicate<Item> predicate) {
 		Comparator<Item> itemComparator = Comparator.comparing(BuiltInRegistries.ITEM::getKey);
 		return BuiltInRegistries.ITEM.stream().filter(predicate).sorted(itemComparator).toArray(Item[]::new);

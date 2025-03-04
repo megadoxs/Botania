@@ -14,7 +14,6 @@ import net.neoforged.neoforge.client.model.BakedModelWrapper;
 import net.neoforged.neoforge.client.model.data.ModelData;
 import net.neoforged.neoforge.client.model.data.ModelProperty;
 
-import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import vazkii.botania.common.block.PlatformBlock;
@@ -29,9 +28,8 @@ public class ForgePlatformModel extends BakedModelWrapper<BakedModel> {
 		super(originalModel);
 	}
 
-	@NotNull
 	@Override
-	public ModelData getModelData(@NotNull BlockAndTintGetter world, @NotNull BlockPos pos, @NotNull BlockState state, @NotNull ModelData tileData) {
+	public ModelData getModelData(BlockAndTintGetter world, BlockPos pos, BlockState state, ModelData tileData) {
 		if (world.getBlockEntity(pos) instanceof PlatformBlockEntity platform) {
 			return ModelData.builder()
 					.with(PROPERTY, new PlatformBlockEntity.PlatformData(platform))
@@ -40,10 +38,9 @@ public class ForgePlatformModel extends BakedModelWrapper<BakedModel> {
 		return tileData;
 	}
 
-	@NotNull
 	@Override
 	public List<BakedQuad> getQuads(@Nullable BlockState state, @Nullable Direction side,
-			@NotNull RandomSource rand, @NotNull ModelData extraData, @Nullable RenderType renderType) {
+			RandomSource rand, ModelData extraData, @Nullable RenderType renderType) {
 		var data = extraData.get(PROPERTY);
 		if (state == null || !(state.getBlock() instanceof PlatformBlock) || data == null) {
 			return Minecraft.getInstance().getBlockRenderer().getBlockModelShaper()
@@ -62,9 +59,8 @@ public class ForgePlatformModel extends BakedModelWrapper<BakedModel> {
 		}
 	}
 
-	@NotNull
 	@Override
-	public ChunkRenderTypeSet getRenderTypes(@NotNull BlockState state, @NotNull RandomSource rand, @NotNull ModelData extraData) {
+	public ChunkRenderTypeSet getRenderTypes(BlockState state, RandomSource rand, ModelData extraData) {
 		var data = extraData.get(PROPERTY);
 		if (!(state.getBlock() instanceof PlatformBlock) || data == null) {
 			return Minecraft.getInstance().getBlockRenderer().getBlockModelShaper()

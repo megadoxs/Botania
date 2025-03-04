@@ -21,8 +21,6 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.AABB;
 
-import org.jetbrains.annotations.NotNull;
-
 import vazkii.botania.common.item.BotaniaItems;
 import vazkii.botania.common.item.equipment.tool.manasteel.ManasteelShearsItem;
 
@@ -34,7 +32,6 @@ public class ElementiumShearsItem extends ManasteelShearsItem {
 		super(props);
 	}
 
-	@NotNull
 	@Override
 	public UseAnim getUseAnimation(ItemStack stack) {
 		return UseAnim.BOW;
@@ -45,14 +42,13 @@ public class ElementiumShearsItem extends ManasteelShearsItem {
 		return 72000;
 	}
 
-	@NotNull
 	@Override
-	public InteractionResultHolder<ItemStack> use(Level world, Player player, @NotNull InteractionHand hand) {
+	public InteractionResultHolder<ItemStack> use(Level world, Player player, InteractionHand hand) {
 		return ItemUtils.startUsingInstantly(world, player, hand);
 	}
 
 	@Override
-	public void onUseTick(Level world, @NotNull LivingEntity living, @NotNull ItemStack stack, int count) {
+	public void onUseTick(Level world, LivingEntity living, ItemStack stack, int count) {
 		if (world.isClientSide) {
 			return;
 		}
@@ -60,7 +56,7 @@ public class ElementiumShearsItem extends ManasteelShearsItem {
 		if (count != getUseDuration(stack, living) && count % 5 == 0) {
 			int range = 12;
 			List<Entity> shearables = world.getEntitiesOfClass(Entity.class, new AABB(living.getX() - range, living.getY() - range, living.getZ() - range, living.getX() + range, living.getY() + range, living.getZ() + range), Shearable.class::isInstance);
-			if (shearables.size() > 0) {
+			if (!shearables.isEmpty()) {
 				for (Entity entity : shearables) {
 					if (entity instanceof Shearable shearable && shearable.readyForShearing()) {
 						shearable.shear(living.getSoundSource());
@@ -73,7 +69,7 @@ public class ElementiumShearsItem extends ManasteelShearsItem {
 	}
 
 	@Override
-	public boolean isValidRepairItem(ItemStack toRepair, @NotNull ItemStack repairBy) {
+	public boolean isValidRepairItem(ItemStack toRepair, ItemStack repairBy) {
 		return repairBy.is(BotaniaItems.elementium) || super.isValidRepairItem(toRepair, repairBy);
 	}
 

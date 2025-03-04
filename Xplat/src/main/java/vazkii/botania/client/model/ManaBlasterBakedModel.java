@@ -26,7 +26,6 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.state.BlockState;
 
 import org.apache.commons.lang3.tuple.Pair;
-import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.joml.Vector3f;
 
@@ -64,7 +63,6 @@ public class ManaBlasterBakedModel extends DelegatedModel {
 	}
 
 	private final ItemOverrides itemHandler = new ItemOverrides() {
-		@NotNull
 		@Override
 		public BakedModel resolve(BakedModel model, ItemStack stack, @Nullable ClientLevel worldIn, @Nullable LivingEntity entityIn, int seed) {
 			boolean clip = ManaBlasterItem.hasClip(stack);
@@ -77,15 +75,13 @@ public class ManaBlasterBakedModel extends DelegatedModel {
 		}
 	};
 
-	@NotNull
 	@Override
 	public ItemOverrides getOverrides() {
 		return itemHandler;
 	}
 
-	@NotNull
 	@Override
-	public List<BakedQuad> getQuads(@Nullable BlockState state, @Nullable Direction side, @NotNull RandomSource rand) {
+	public List<BakedQuad> getQuads(@Nullable BlockState state, @Nullable Direction side, RandomSource rand) {
 		return originalModel.getQuads(state, side, rand);
 	}
 
@@ -104,9 +100,8 @@ public class ManaBlasterBakedModel extends DelegatedModel {
 			this.lensModel = baker.bake(lensId, transform); //todo confirm this is correct
 		}
 
-		@NotNull
 		@Override
-		public List<BakedQuad> getQuads(BlockState state, Direction face, @NotNull RandomSource rand) {
+		public List<BakedQuad> getQuads(@Nullable BlockState state, @Nullable Direction face, RandomSource rand) {
 			List<BakedQuad> gunQuads = this.originalModel.getQuads(state, face, rand);
 			List<BakedQuad> lensQuads = this.lensModel.getQuads(state, face, rand);
 			List<BakedQuad> ret = new ArrayList<>(gunQuads.size() + lensQuads.size());

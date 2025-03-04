@@ -13,8 +13,6 @@ import net.minecraft.client.renderer.entity.WitherBossRenderer;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.boss.wither.WitherBoss;
 
-import org.jetbrains.annotations.NotNull;
-
 import vazkii.botania.client.lib.ResourcesLib;
 
 public class PinkWitherRenderer extends WitherBossRenderer {
@@ -25,7 +23,6 @@ public class PinkWitherRenderer extends WitherBossRenderer {
 		super(ctx);
 	}
 
-	@NotNull
 	@Override
 	public ResourceLocation getTextureLocation(WitherBoss entity) {
 		return resource;

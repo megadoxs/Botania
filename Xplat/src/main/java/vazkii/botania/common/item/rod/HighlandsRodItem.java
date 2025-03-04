@@ -24,8 +24,6 @@ import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.Vec3;
 
-import org.jetbrains.annotations.NotNull;
-
 import vazkii.botania.api.mana.ManaItemHandler;
 import vazkii.botania.client.fx.SparkleParticleData;
 import vazkii.botania.common.helper.PlayerHelper;
@@ -37,9 +35,8 @@ public class HighlandsRodItem extends LandsRodItem {
 		super(props);
 	}
 
-	@NotNull
 	@Override
-	public InteractionResultHolder<ItemStack> use(Level world, Player player, @NotNull InteractionHand hand) {
+	public InteractionResultHolder<ItemStack> use(Level world, Player player, InteractionHand hand) {
 		ItemStack stack = player.getItemInHand(hand);
 		if (!world.isClientSide && ManaItemHandler.instance().requestManaExactForTool(stack, player, COST * 2, false)) {
 			Vec3 playerVec = VecHelper.fromEntityCenter(player);

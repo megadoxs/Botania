@@ -16,8 +16,6 @@ import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.inventory.InventoryMenu;
 
-import org.jetbrains.annotations.NotNull;
-
 import vazkii.botania.client.core.helper.RenderHelper;
 import vazkii.botania.common.entity.ManaStormEntity;
 
@@ -36,9 +34,8 @@ public class ManaStormRenderer extends EntityRenderer<ManaStormEntity> {
 		ms.popPose();
 	}
 
-	@NotNull
 	@Override
-	public ResourceLocation getTextureLocation(@NotNull ManaStormEntity entity) {
+	public ResourceLocation getTextureLocation(ManaStormEntity entity) {
 		return InventoryMenu.BLOCK_ATLAS;
 	}
 

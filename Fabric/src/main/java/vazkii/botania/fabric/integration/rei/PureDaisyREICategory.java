@@ -23,8 +23,6 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 
-import org.jetbrains.annotations.NotNull;
-
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.common.block.BotaniaFlowerBlocks;
 
@@ -36,26 +34,25 @@ public class PureDaisyREICategory implements DisplayCategory<PureDaisyREIDisplay
 	private static final ResourceLocation OVERLAY = BotaniaAPI.botaniaRL("textures/gui/pure_daisy_overlay.png");
 
 	@Override
-	public @NotNull CategoryIdentifier<PureDaisyREIDisplay> getCategoryIdentifier() {
+	public CategoryIdentifier<PureDaisyREIDisplay> getCategoryIdentifier() {
 		return BotaniaREICategoryIdentifiers.PURE_DAISY;
 	}
 
 	@Override
-	public @NotNull Renderer getIcon() {
+	public Renderer getIcon() {
 		return daisy;
 	}
 
 	@Override
-	public @NotNull Component getTitle() {
+	public Component getTitle() {
 		return Component.translatable("botania.nei.pureDaisy");
 	}
 
 	@Override
-	public @NotNull List<Widget> setupDisplay(PureDaisyREIDisplay display, Rectangle bounds) {
+	public List<Widget> setupDisplay(PureDaisyREIDisplay display, Rectangle bounds) {
 		return setupPureDaisyDisplay(display, bounds, daisy);
 	}
 
-	@NotNull
 	public static List<Widget> setupPureDaisyDisplay(Display display, Rectangle bounds, EntryStack<ItemStack> entryStack) {
 		List<Widget> widgets = new ArrayList<>();
 		Point center = new Point(bounds.getCenterX() - 8, bounds.getCenterY() - 9);
@@ -63,8 +60,8 @@ public class PureDaisyREICategory implements DisplayCategory<PureDaisyREIDisplay
 		widgets.add(Widgets.createRecipeBase(bounds));
 		widgets.add(Widgets.createDrawableWidget(((gui, mouseX, mouseY, delta) -> CategoryUtils.drawOverlay(gui, OVERLAY, center.x - 23, center.y - 13, 0, 0, 65, 44))));
 		widgets.add(Widgets.createSlot(center).entry(entryStack).disableBackground());
-		widgets.add(Widgets.createSlot(new Point(center.x - 30, center.y)).entries(display.getInputEntries().get(0)).disableBackground());
-		widgets.add(Widgets.createSlot(new Point(center.x + 29, center.y)).entries(display.getOutputEntries().get(0)).disableBackground());
+		widgets.add(Widgets.createSlot(new Point(center.x - 30, center.y)).entries(display.getInputEntries().getFirst()).disableBackground());
+		widgets.add(Widgets.createSlot(new Point(center.x + 29, center.y)).entries(display.getOutputEntries().getFirst()).disableBackground());
 		return widgets;
 	}
 

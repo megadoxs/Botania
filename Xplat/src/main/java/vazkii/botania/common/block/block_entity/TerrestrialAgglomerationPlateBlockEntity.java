@@ -253,7 +253,7 @@ public class TerrestrialAgglomerationPlateBlockEntity extends BotaniaBlockEntity
 	}
 
 	@Override
-	public boolean areIncomingTranfersDone() {
+	public boolean areIncomingTransfersDone() {
 		return !isActive();
 	}
 

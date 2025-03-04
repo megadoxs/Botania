@@ -25,7 +25,6 @@ import net.neoforged.neoforge.client.model.geometry.IGeometryBakingContext;
 import net.neoforged.neoforge.client.model.geometry.IGeometryLoader;
 import net.neoforged.neoforge.client.model.geometry.IUnbakedGeometry;
 
-import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.joml.Vector3f;
 
@@ -112,27 +111,23 @@ public class ForgeFloatingFlowerModel implements IUnbakedGeometry<ForgeFloatingF
 			return false;
 		}
 
-		@NotNull
 		@Override
 		public TextureAtlasSprite getParticleIcon() {
 			return flower.getParticleIcon();
 		}
 
-		@NotNull
 		@Override
 		public ItemOverrides getOverrides() {
 			return flower.getOverrides();
 		}
 
-		@NotNull
 		@Override
 		public ItemTransforms getTransforms() {
 			return flower.getTransforms();
 		}
 
-		@NotNull
 		@Override
-		public ModelData getModelData(@NotNull BlockAndTintGetter level, @NotNull BlockPos pos, @NotNull BlockState state, @NotNull ModelData modelData) {
+		public ModelData getModelData(BlockAndTintGetter level, BlockPos pos, BlockState state, ModelData modelData) {
 			var be = level.getBlockEntity(pos);
 			if (be instanceof FloatingFlowerBlockEntity floating) {
 				return ModelData.builder()
@@ -146,18 +141,16 @@ public class ForgeFloatingFlowerModel implements IUnbakedGeometry<ForgeFloatingF
 			return modelData;
 		}
 
-		@NotNull
 		@Override
-		public List<BakedQuad> getQuads(@Nullable BlockState state, @Nullable Direction side, @NotNull RandomSource rand) {
+		public List<BakedQuad> getQuads(@Nullable BlockState state, @Nullable Direction side, RandomSource rand) {
 			// This shouldn't be called from anywhere on forge (blocks use the other overload,
 			// items call getRenderPasses), but implement a default just in case
 			return getQuads(state, side, rand, ModelData.EMPTY, RenderType.cutout());
 		}
 
-		@NotNull
 		@Override
 		public List<BakedQuad> getQuads(@Nullable BlockState state, @Nullable Direction side,
-				@NotNull RandomSource rand, @NotNull ModelData extraData, @Nullable RenderType renderType) {
+				RandomSource rand, ModelData extraData, @Nullable RenderType renderType) {
 			FloatingFlower.IslandType type = FloatingFlower.IslandType.GRASS;
 			if (extraData.has(FLOATING_PROPERTY)) {
 				type = extraData.get(FLOATING_PROPERTY).getIslandType();
@@ -174,15 +167,13 @@ public class ForgeFloatingFlowerModel implements IUnbakedGeometry<ForgeFloatingF
 			return ret;
 		}
 
-		@NotNull
 		@Override
-		public List<BakedModel> getRenderPasses(@NotNull ItemStack stack, boolean fabulous) {
+		public List<BakedModel> getRenderPasses(ItemStack stack, boolean fabulous) {
 			return List.of(flower, islands.get(FloatingFlower.IslandType.GRASS));
 		}
 
-		@NotNull
 		@Override
-		public ChunkRenderTypeSet getRenderTypes(@NotNull BlockState state, @NotNull RandomSource rand, @NotNull ModelData data) {
+		public ChunkRenderTypeSet getRenderTypes(BlockState state, RandomSource rand, ModelData data) {
 			return ChunkRenderTypeSet.union(BakedModel.super.getRenderTypes(state, rand, data), this.flower.getRenderTypes(state, rand, data));
 		}
 	}
@@ -190,7 +181,6 @@ public class ForgeFloatingFlowerModel implements IUnbakedGeometry<ForgeFloatingF
 	public enum Loader implements IGeometryLoader<ForgeFloatingFlowerModel> {
 		INSTANCE;
 
-		@NotNull
 		@Override
 		public ForgeFloatingFlowerModel read(JsonObject model, JsonDeserializationContext ctx) {
 			BlockModel flower = ctx.deserialize(model.getAsJsonObject("flower"), BlockModel.class);

@@ -31,8 +31,6 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.SpawnerBlockEntity;
 
-import org.jetbrains.annotations.NotNull;
-
 import vazkii.botania.client.fx.SparkleParticleData;
 import vazkii.botania.client.fx.WispParticleData;
 import vazkii.botania.common.advancements.UseItemSuccessTrigger;
@@ -60,7 +58,6 @@ public class LifeAggregatorItem extends Item {
 		}
 	}
 
-	@NotNull
 	@Override
 	public InteractionResult useOn(UseOnContext ctx) {
 		if (hasData(ctx.getItemInHand())) {

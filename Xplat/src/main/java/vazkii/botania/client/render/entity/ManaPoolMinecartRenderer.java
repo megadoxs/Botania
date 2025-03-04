@@ -18,8 +18,6 @@ import net.minecraft.client.renderer.entity.MinecartRenderer;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.world.level.block.state.BlockState;
 
-import org.jetbrains.annotations.NotNull;
-
 import vazkii.botania.api.internal.ManaBurst;
 import vazkii.botania.client.render.block_entity.ManaPoolBlockEntityRenderer;
 import vazkii.botania.common.block.BotaniaBlocks;
@@ -34,7 +32,7 @@ public class ManaPoolMinecartRenderer extends MinecartRenderer<ManaPoolMinecartE
 	}
 
 	@Override
-	protected void renderMinecartContents(ManaPoolMinecartEntity poolCart, float partialTicks, @NotNull BlockState state, PoseStack ms, MultiBufferSource buffers, int light) {
+	protected void renderMinecartContents(ManaPoolMinecartEntity poolCart, float partialTicks, BlockState state, PoseStack ms, MultiBufferSource buffers, int light) {
 		super.renderMinecartContents(poolCart, partialTicks, state, ms, buffers, light);
 		ManaPoolBlockEntityRenderer.cartMana = poolCart.getMana();
 		Minecraft.getInstance().getBlockEntityRenderDispatcher().getRenderer(DUMMY)

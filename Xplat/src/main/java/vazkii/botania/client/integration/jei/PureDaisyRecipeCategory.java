@@ -26,8 +26,6 @@ import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.ItemStack;
 
-import org.jetbrains.annotations.NotNull;
-
 import vazkii.botania.api.recipe.PureDaisyRecipe;
 import vazkii.botania.api.recipe.StateIngredient;
 import vazkii.botania.common.block.BotaniaFlowerBlocks;
@@ -54,25 +52,21 @@ public class PureDaisyRecipeCategory implements IRecipeCategory<PureDaisyRecipe>
 		this.fluidHelper = fluidHelper;
 	}
 
-	@NotNull
 	@Override
 	public RecipeType<PureDaisyRecipe> getRecipeType() {
 		return TYPE;
 	}
 
-	@NotNull
 	@Override
 	public Component getTitle() {
 		return localizedName;
 	}
 
-	@NotNull
 	@Override
 	public IDrawable getBackground() {
 		return background;
 	}
 
-	@NotNull
 	@Override
 	public IDrawable getIcon() {
 		return icon;
@@ -86,7 +80,7 @@ public class PureDaisyRecipeCategory implements IRecipeCategory<PureDaisyRecipe>
 	}
 
 	@Override
-	public void setRecipe(@NotNull IRecipeLayoutBuilder builder, @NotNull PureDaisyRecipe recipe, @NotNull IFocusGroup focusGroup) {
+	public void setRecipe(IRecipeLayoutBuilder builder, PureDaisyRecipe recipe, IFocusGroup focusGroup) {
 		buildSlot(recipe.getInput(), builder, RecipeIngredientRole.INPUT, 9, 12);
 
 		builder.addSlot(RecipeIngredientRole.CATALYST, 39, 12)
@@ -96,7 +90,7 @@ public class PureDaisyRecipeCategory implements IRecipeCategory<PureDaisyRecipe>
 	}
 
 	@SuppressWarnings("unchecked")
-	private void buildSlot(StateIngredient ingredient, @NotNull IRecipeLayoutBuilder builder, RecipeIngredientRole role, int x, int y) {
+	private void buildSlot(StateIngredient ingredient, IRecipeLayoutBuilder builder, RecipeIngredientRole role, int x, int y) {
 		IRecipeSlotBuilder inputSlotBuilder = builder.addSlot(role, x, y)
 				.setFluidRenderer(1000, false, 16, 16);
 		for (var state : ingredient.getDisplayed()) {

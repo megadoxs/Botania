@@ -19,8 +19,6 @@ import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
 import net.minecraft.client.resources.model.BakedModel;
 import net.minecraft.world.level.block.state.BlockState;
 
-import org.jetbrains.annotations.NotNull;
-
 import vazkii.botania.common.block.block_entity.CocoonBlockEntity;
 import vazkii.botania.common.helper.VecHelper;
 
@@ -32,7 +30,7 @@ public class CocoonBlockEntityRenderer implements BlockEntityRenderer<CocoonBloc
 	}
 
 	@Override
-	public void render(@NotNull CocoonBlockEntity cocoon, float partialTicks, PoseStack ms, MultiBufferSource buffers, int light, int overlay) {
+	public void render(CocoonBlockEntity cocoon, float partialTicks, PoseStack ms, MultiBufferSource buffers, int light, int overlay) {
 		float rot = 0F;
 		float modval = 60F - (float) cocoon.timePassed / (float) CocoonBlockEntity.TOTAL_TIME * 30F;
 		if (cocoon.timePassed % modval < 10) {

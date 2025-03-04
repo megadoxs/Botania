@@ -21,7 +21,6 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 
-import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import vazkii.botania.api.block.WandHUD;
@@ -58,7 +57,7 @@ public class SpreaderTurntableBlockEntity extends BotaniaBlockEntity implements 
 	}
 
 	@Override
-	public void writePacketNBT(@NotNull CompoundTag cmp, HolderLookup.Provider registries) {
+	public void writePacketNBT(CompoundTag cmp, HolderLookup.Provider registries) {
 		cmp.putInt(TAG_SPEED, speed);
 		cmp.putBoolean(TAG_BACKWARDS, backwards);
 	}

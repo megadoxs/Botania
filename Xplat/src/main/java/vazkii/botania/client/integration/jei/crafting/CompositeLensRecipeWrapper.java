@@ -21,8 +21,6 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.RecipeHolder;
 
-import org.jetbrains.annotations.NotNull;
-
 import vazkii.botania.common.crafting.recipe.CompositeLensRecipe;
 import vazkii.botania.common.item.lens.LensItem;
 import vazkii.botania.common.lib.BotaniaTags;
@@ -44,7 +42,7 @@ public class CompositeLensRecipeWrapper implements ICraftingCategoryExtension<Co
 	}
 
 	@Override
-	public void setRecipe(RecipeHolder<CompositeLensRecipe> recipe, @NotNull IRecipeLayoutBuilder builder, @NotNull ICraftingGridHelper helper, @NotNull IFocusGroup focusGroup) {
+	public void setRecipe(RecipeHolder<CompositeLensRecipe> recipe, IRecipeLayoutBuilder builder, ICraftingGridHelper helper, IFocusGroup focusGroup) {
 		var possibleFirstLenses = focusGroup.getFocuses(VanillaTypes.ITEM_STACK, RecipeIngredientRole.INPUT)
 				.filter(f -> allLenses.contains(f.getTypedValue().getIngredient().getItem()))
 				.map(f -> f.getTypedValue().getIngredient().getItem())

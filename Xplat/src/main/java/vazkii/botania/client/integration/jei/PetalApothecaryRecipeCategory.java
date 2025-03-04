@@ -30,8 +30,6 @@ import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.phys.Vec2;
 
-import org.jetbrains.annotations.NotNull;
-
 import vazkii.botania.api.recipe.PetalApothecaryRecipe;
 import vazkii.botania.common.block.BotaniaBlocks;
 import vazkii.botania.common.lib.LibMisc;
@@ -59,44 +57,40 @@ public class PetalApothecaryRecipeCategory implements IRecipeCategory<PetalApoth
 		icon = guiHelper.createDrawableIngredient(VanillaTypes.ITEM_STACK, new ItemStack(BotaniaBlocks.defaultAltar));
 	}
 
-	@NotNull
 	@Override
 	public RecipeType<PetalApothecaryRecipe> getRecipeType() {
 		return TYPE;
 	}
 
-	@NotNull
 	@Override
 	public Component getTitle() {
 		return localizedName;
 	}
 
-	@NotNull
 	@Override
 	public IDrawable getBackground() {
 		return background;
 	}
 
-	@NotNull
 	@Override
 	public IDrawable getIcon() {
 		return icon;
 	}
 
 	@Override
-	public void draw(@NotNull PetalApothecaryRecipe recipe, @NotNull IRecipeSlotsView slotsView, @NotNull GuiGraphics gui, double mouseX, double mouseY) {
+	public void draw(PetalApothecaryRecipe recipe, IRecipeSlotsView slotsView, GuiGraphics gui, double mouseX, double mouseY) {
 		RenderSystem.enableBlend();
 		overlay.draw(gui, 0, 4);
 		RenderSystem.disableBlend();
 	}
 
 	@Override
-	public void setRecipe(@NotNull IRecipeLayoutBuilder builder, @NotNull PetalApothecaryRecipe recipe, @NotNull IFocusGroup focusGroup) {
+	public void setRecipe(IRecipeLayoutBuilder builder, PetalApothecaryRecipe recipe, IFocusGroup focusGroup) {
 		setRecipeLayout(builder, recipe.getIngredients(), BotaniaBlocks.defaultAltar,
 				recipe.getResultItem(RegistryAccess.EMPTY), WATER_BUCKET, recipe.getReagent());
 	}
 
-	public static void setRecipeLayout(@NotNull IRecipeLayoutBuilder builder, List<Ingredient> ingredients, Block catalyst, ItemStack output, Ingredient... reagents) {
+	public static void setRecipeLayout(IRecipeLayoutBuilder builder, List<Ingredient> ingredients, Block catalyst, ItemStack output, Ingredient... reagents) {
 		Vec2 center = new Vec2(CENTER_X, CENTER_Y);
 		if (reagents.length > 0) {
 			Vec2 reagentPoint = new Vec2(CENTER_X, CENTER_Y + 10);

@@ -21,7 +21,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.material.Fluid;
 import net.minecraft.world.level.material.FluidState;
 
-import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import vazkii.botania.common.block.block_entity.FakeAirBlockEntity;
 
@@ -49,14 +49,13 @@ public class FakeAirBlock extends AirBlock implements EntityBlock, LiquidBlockCo
 		}
 	}
 
-	@NotNull
 	@Override
-	public BlockEntity newBlockEntity(@NotNull BlockPos pos, @NotNull BlockState state) {
+	public BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
 		return new FakeAirBlockEntity(pos, state);
 	}
 
 	@Override
-	public boolean canPlaceLiquid(Player player, BlockGetter blockGetter, BlockPos pos, BlockState state, Fluid fluid) {
+	public boolean canPlaceLiquid(@Nullable Player player, BlockGetter blockGetter, BlockPos pos, BlockState state, Fluid fluid) {
 		return false;
 	}
 

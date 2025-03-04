@@ -20,8 +20,6 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.level.Level;
 
-import org.jetbrains.annotations.NotNull;
-
 public class EnderAirEntity extends Entity {
 	private static final String TAG_AGE = "Age";
 	private static final int MAX_AGE = 3 * 20;
@@ -53,12 +51,12 @@ public class EnderAirEntity extends Entity {
 	protected void defineSynchedData(SynchedEntityData.Builder builder) {}
 
 	@Override
-	protected void readAdditionalSaveData(@NotNull CompoundTag tag) {
+	protected void readAdditionalSaveData(CompoundTag tag) {
 		tickCount = tag.getInt(TAG_AGE);
 	}
 
 	@Override
-	protected void addAdditionalSaveData(@NotNull CompoundTag tag) {
+	protected void addAdditionalSaveData(CompoundTag tag) {
 		tag.putInt(TAG_AGE, tickCount);
 	}
 

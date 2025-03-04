@@ -36,7 +36,6 @@ import net.minecraft.world.phys.EntityHitResult;
 import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
 
-import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import vazkii.botania.api.internal.ManaBurst;
@@ -487,7 +486,7 @@ public class ManaBurstEntity extends ThrowableProjectile implements ManaBurst {
 	}
 
 	@Override
-	protected void onHitBlock(@NotNull BlockHitResult hit) {
+	protected void onHitBlock(BlockHitResult hit) {
 		if (!isFake()) {
 			super.onHitBlock(hit);
 		}
@@ -542,7 +541,7 @@ public class ManaBurstEntity extends ThrowableProjectile implements ManaBurst {
 	}
 
 	@Override
-	protected void onHitEntity(@NotNull EntityHitResult hit) {
+	protected void onHitEntity(EntityHitResult hit) {
 		super.onHitEntity(hit);
 		onHitCommon(hit, false);
 	}

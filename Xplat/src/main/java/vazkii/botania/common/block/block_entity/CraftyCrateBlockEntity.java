@@ -32,7 +32,6 @@ import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 
-import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import vazkii.botania.api.block.WandHUD;
@@ -147,14 +146,13 @@ public class CraftyCrateBlockEntity extends OpenCrateBlockEntity implements Wand
 		}
 
 		CraftingContainer craft = new TransientCraftingContainer(new AbstractContainerMenu(MenuType.CRAFTING, -1) {
-			@NotNull
 			@Override
-			public ItemStack quickMoveStack(@NotNull Player player, int i) {
+			public ItemStack quickMoveStack(Player player, int i) {
 				return ItemStack.EMPTY;
 			}
 
 			@Override
-			public boolean stillValid(@NotNull Player player) {
+			public boolean stillValid(Player player) {
 				return false;
 			}
 		}, 3, 3);
