@@ -62,8 +62,8 @@ legacyForge {
             data()
             programArguments.addAll "-mixin.config=botania_xplat.mixins.json", "-mixin.config=botania_forge.mixins.json"
             programArguments.addAll '--mod', 'botania', '--all'
-            programArguments.addAll '--output', '"' + file('src/generated/resources/').getAbsolutePath() + '"'
-            programArguments.addAll '--existing', '"' + file('src/main/resources/').getAbsolutePath() + '"'
+            programArguments.addAll '--output', file('src/generated/resources/').getAbsolutePath()
+            programArguments.addAll '--existing', file('src/main/resources/').getAbsolutePath()
         }
 
         configureEach {
