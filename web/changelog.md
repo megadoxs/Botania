@@ -20,8 +20,13 @@ Note: Porting efforts to bring Botania to 1.21+ versions of Minecraft (supportin
 We cannot provide any ETA (even a rough one) due to the complexity of the work involved and the somewhat limited amount
 of time the maintainers can spend on this effort. For the time being, updates will still target Minecraft 1.20.1.
 
+* Add: Forge storage block tags for mana diamond, dragonstone, blaze mesh, and petal blocks
+* Add: Floral fertilizer can also produce shimmering mushrooms, if applied to mushroom-compatible soil
+* Add: An offline backup of the contributors list in the state of the currently installed Botania release will be used for head flowers, if the online copy is unavailable
 * Fix: Dandelifeon sometimes generated a randomly greater amount of mana than intended when on enchanted soil
 * Fix: Trinkets could not be equipped via right-click (Abbie)
+* Fix: Rod of the Highlands now includes placement sound and particles if not used on another solid block
+* Fix: Potted motif flowers are rendered using the correct textures
 * Language update:
   * ko_kr updated (UnineVesiKass)
 
