@@ -63,8 +63,8 @@ public final class PixieHandler {
 		r.accept(PIXIE_SPAWN_CHANCE.value(), botaniaRL("pixie_spawn_chance"));
 	}
 
-	public static AttributeModifier makeModifier(String name, double amount) {
-		return new AttributeModifier(botaniaRL(name), amount, AttributeModifier.Operation.ADD_VALUE);
+	public static AttributeModifier makeModifier(ResourceLocation slotId, double amount) {
+		return new AttributeModifier(slotId, amount, AttributeModifier.Operation.ADD_VALUE);
 	}
 
 	public static void onDamageTaken(Player player, DamageSource source) {

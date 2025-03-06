@@ -8,16 +8,14 @@
  */
 package vazkii.botania.common.item.equipment.bauble;
 
-import com.google.common.collect.HashMultimap;
 import com.google.common.collect.Multimap;
 
 import net.minecraft.core.Holder;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.ai.attributes.Attribute;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.item.ItemStack;
-
-import vazkii.botania.api.BotaniaAPI;
 
 public class RingOfFarReachItem extends BaubleItem {
 
@@ -26,12 +24,12 @@ public class RingOfFarReachItem extends BaubleItem {
 	}
 
 	@Override
-	public Multimap<Holder<Attribute>, AttributeModifier> getEquippedAttributeModifiers(ItemStack stack) {
-		Multimap<Holder<Attribute>, AttributeModifier> attributes = HashMultimap.create();
+	public Multimap<Holder<Attribute>, AttributeModifier> getEquippedAttributeModifiers(ItemStack stack, ResourceLocation slotId) {
+		Multimap<Holder<Attribute>, AttributeModifier> attributes = super.getEquippedAttributeModifiers(stack, slotId);
 		attributes.put(Attributes.BLOCK_INTERACTION_RANGE,
-				new AttributeModifier(BotaniaAPI.botaniaRL("reach_ring"), 3.5, AttributeModifier.Operation.ADD_VALUE));
+				new AttributeModifier(slotId, 3.5, AttributeModifier.Operation.ADD_VALUE));
 		attributes.put(Attributes.ENTITY_INTERACTION_RANGE,
-				new AttributeModifier(BotaniaAPI.botaniaRL("reach_ring"), 3.5, AttributeModifier.Operation.ADD_VALUE));
+				new AttributeModifier(slotId, 3.5, AttributeModifier.Operation.ADD_VALUE));
 		return attributes;
 	}
 }

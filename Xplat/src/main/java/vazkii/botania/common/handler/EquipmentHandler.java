@@ -8,6 +8,7 @@
  */
 package vazkii.botania.common.handler;
 
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.Container;
 import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.entity.LivingEntity;
@@ -26,6 +27,8 @@ import java.util.Arrays;
 import java.util.Map;
 import java.util.WeakHashMap;
 import java.util.function.Predicate;
+
+import static vazkii.botania.api.BotaniaAPI.botaniaRL;
 
 public abstract class EquipmentHandler {
 	@UnknownNullability
@@ -85,13 +88,14 @@ public abstract class EquipmentHandler {
 				ItemStack current = inv.getItem(i);
 
 				if (!ItemStack.matches(old, current)) {
+					ResourceLocation slotId = botaniaRL("bauble_slot_" + i);
 					if (old.getItem() instanceof BaubleItem bauble) {
-						player.getAttributes().removeAttributeModifiers(bauble.getEquippedAttributeModifiers(old));
+						player.getAttributes().removeAttributeModifiers(bauble.getEquippedAttributeModifiers(old, slotId));
 						bauble.onUnequipped(old, player);
 					}
 					if (canEquip(current, player)) {
 						BaubleItem bauble = (BaubleItem) current.getItem();
-						player.getAttributes().addTransientAttributeModifiers(bauble.getEquippedAttributeModifiers(current));
+						player.getAttributes().addTransientAttributeModifiers(bauble.getEquippedAttributeModifiers(current, slotId));
 						bauble.onEquipped(current, player);
 					}
 					oldStacks[i] = current.copy(); // shift-clicking mutates the stack we stored,

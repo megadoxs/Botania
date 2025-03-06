@@ -160,7 +160,7 @@ public class TrinketsIntegration extends EquipmentHandler {
 		public Multimap<Holder<Attribute>, AttributeModifier> getModifiers(ItemStack stack, SlotReference slot, LivingEntity entity, ResourceLocation slotIdentifier) {
 			var ret = Trinket.super.getModifiers(stack, slot, entity, slotIdentifier);
 			if (!stack.isEmpty()) {
-				ret.putAll(getItem(stack).getEquippedAttributeModifiers(stack));
+				ret.putAll(getItem(stack).getEquippedAttributeModifiers(stack, slotIdentifier));
 			}
 			return ret;
 		}

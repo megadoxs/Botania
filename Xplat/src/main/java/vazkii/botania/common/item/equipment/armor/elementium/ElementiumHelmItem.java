@@ -8,6 +8,8 @@
  */
 package vazkii.botania.common.item.equipment.armor.elementium;
 
+import net.minecraft.core.component.DataComponents;
+import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.EquipmentSlotGroup;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
@@ -18,17 +20,15 @@ import org.jetbrains.annotations.Nullable;
 import vazkii.botania.api.mana.ManaDiscountArmor;
 import vazkii.botania.common.handler.PixieHandler;
 
+import static vazkii.botania.api.BotaniaAPI.botaniaRL;
+
 public class ElementiumHelmItem extends ElementiumArmorItem implements ManaDiscountArmor {
 	public ElementiumHelmItem(Properties props) {
-		super(Type.HELMET, props);
-	}
-
-	//TODO Very unsure if this works
-	@Override
-	public ItemAttributeModifiers getDefaultAttributeModifiers() {
-		return super.getDefaultAttributeModifiers().withModifierAdded(PixieHandler.PIXIE_SPAWN_CHANCE,
-				PixieHandler.makeModifier("armor." + this.type.getName(), 0.11), //TODO I changed the name here to fit mc's way of naming the modifier. Check if this is alr!
-				EquipmentSlotGroup.bySlot(type.getSlot()));
+		super(Type.HELMET, props.component(DataComponents.ATTRIBUTE_MODIFIERS, ItemAttributeModifiers.builder()
+				.add(PixieHandler.PIXIE_SPAWN_CHANCE,
+						PixieHandler.makeModifier(botaniaRL("helmet_modifier"), 0.11),
+						EquipmentSlotGroup.bySlot(EquipmentSlot.MAINHAND))
+				.build()));
 	}
 
 	@Override

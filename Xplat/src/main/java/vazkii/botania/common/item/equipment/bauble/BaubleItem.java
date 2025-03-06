@@ -14,6 +14,7 @@ import com.google.common.collect.Multimap;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.Holder;
 import net.minecraft.network.chat.Component;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.Attribute;
@@ -31,13 +32,10 @@ import vazkii.botania.common.helper.PlayerHelper;
 import vazkii.botania.xplat.BotaniaConfig;
 
 import java.util.List;
-import java.util.UUID;
 
 import static vazkii.botania.api.BotaniaAPI.botaniaRL;
 
 public abstract class BaubleItem extends Item implements CosmeticAttachable, PhantomInkable {
-
-	private static final String TAG_BAUBLE_UUID = "baubleUUID";
 
 	public BaubleItem(Properties props) {
 		super(props);
@@ -66,26 +64,6 @@ public abstract class BaubleItem extends Item implements CosmeticAttachable, Pha
 		DataComponentHelper.setNonEmpty(stack, BotaniaDataComponents.COSMETIC_OVERRIDE, cosmetic);
 	}
 
-	public static UUID getBaubleUUID(ItemStack stack) {
-		/*TODO I think this whole method should now return a ResourceLocation instead
-		var tag = stack.getOrCreateTag();
-		
-		// Legacy handling
-		String tagBaubleUuidMostLegacy = "baubleUUIDMost";
-		String tagBaubleUuidLeastLegacy = "baubleUUIDLeast";
-		if (tag.contains(tagBaubleUuidMostLegacy) && tag.contains(tagBaubleUuidLeastLegacy)) {
-			UUID uuid = new UUID(tag.getLong(tagBaubleUuidMostLegacy), tag.getLong(tagBaubleUuidLeastLegacy));
-			tag.putUUID(TAG_BAUBLE_UUID, uuid);
-		}
-		
-		if (!tag.hasUUID(TAG_BAUBLE_UUID)) {
-			UUID uuid = UUID.randomUUID();
-			tag.putUUID(TAG_BAUBLE_UUID, uuid);
-		}
-		 */
-		return UUID.fromString("0e5420ba-bbba-4155-9d22-8894d78b9cc7"); //this is just some random UUID //tag.getUUID(TAG_BAUBLE_UUID);
-	}
-
 	@Override
 	public boolean hasPhantomInk(ItemStack stack) {
 		return stack.has(BotaniaDataComponents.PHANTOM_INKED);
@@ -110,7 +88,7 @@ public abstract class BaubleItem extends Item implements CosmeticAttachable, Pha
 		return true;
 	}
 
-	public Multimap<Holder<Attribute>, AttributeModifier> getEquippedAttributeModifiers(ItemStack stack) {
+	public Multimap<Holder<Attribute>, AttributeModifier> getEquippedAttributeModifiers(ItemStack stack, ResourceLocation slotId) {
 		return HashMultimap.create();
 	}
 

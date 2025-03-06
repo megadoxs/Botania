@@ -26,7 +26,8 @@ import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.item.ItemStack;
 
-import vazkii.botania.api.BotaniaAPI;
+import org.jetbrains.annotations.Nullable;
+
 import vazkii.botania.client.core.helper.AccessoryRenderHelper;
 import vazkii.botania.client.lib.ResourcesLib;
 import vazkii.botania.client.render.AccessoryRenderRegistry;
@@ -43,14 +44,17 @@ public class TectonicGirdleItem extends BaubleItem {
 	}
 
 	@Override
-	public Multimap<Holder<Attribute>, AttributeModifier> getEquippedAttributeModifiers(ItemStack stack) {
+	public Multimap<Holder<Attribute>, AttributeModifier> getEquippedAttributeModifiers(ItemStack stack, ResourceLocation slotId) {
 		Multimap<Holder<Attribute>, AttributeModifier> attributes = HashMultimap.create();
-		attributes.put(Attributes.KNOCKBACK_RESISTANCE, new AttributeModifier(BotaniaAPI.botaniaRL("knockback_belt"), 1, AttributeModifier.Operation.ADD_VALUE));
-		attributes.put(Attributes.EXPLOSION_KNOCKBACK_RESISTANCE, new AttributeModifier(BotaniaAPI.botaniaRL("explosion_knockback_belt"), 1, AttributeModifier.Operation.ADD_VALUE));
+		attributes.put(Attributes.KNOCKBACK_RESISTANCE,
+				new AttributeModifier(slotId, 1, AttributeModifier.Operation.ADD_VALUE));
+		attributes.put(Attributes.EXPLOSION_KNOCKBACK_RESISTANCE,
+				new AttributeModifier(slotId, 1, AttributeModifier.Operation.ADD_VALUE));
 		return attributes;
 	}
 
 	public static class Renderer implements AccessoryRenderer {
+		@Nullable
 		private static HumanoidModel<LivingEntity> model = null;
 
 		@Override

@@ -16,6 +16,7 @@ import net.minecraft.client.model.HumanoidModel;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.entity.RenderLayerParent;
 import net.minecraft.core.Holder;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.Container;
 import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.entity.LivingEntity;
@@ -47,7 +48,6 @@ import vazkii.botania.common.proxy.Proxy;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
 import java.util.function.Predicate;
 
 public class CurioIntegration extends EquipmentHandler {
@@ -145,10 +145,9 @@ public class CurioIntegration extends EquipmentHandler {
 			return getItem().canEquip(stack, slotContext.entity());
 		}
 
-		//TODO use the ResourceLocation variant
 		@Override
-		public Multimap<Holder<Attribute>, AttributeModifier> getAttributeModifiers(SlotContext slotContext, UUID uuid) {
-			return getItem().getEquippedAttributeModifiers(stack);
+		public Multimap<Holder<Attribute>, AttributeModifier> getAttributeModifiers(SlotContext slotContext, ResourceLocation id) {
+			return getItem().getEquippedAttributeModifiers(stack, id);
 		}
 
 		@Override
