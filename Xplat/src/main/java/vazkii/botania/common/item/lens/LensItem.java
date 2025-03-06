@@ -198,12 +198,12 @@ public class LensItem extends Item implements ControlLensItem, CompositableLensI
 
 	@Override
 	public ItemStack getCompositeLens(ItemStack stack) {
-		return stack.getOrDefault(BotaniaDataComponents.ATTACHED_LENS, ItemStack.EMPTY);
+		return DataComponentHelper.getSingleItem(stack, BotaniaDataComponents.ATTACHED_LENS);
 	}
 
 	@Override
 	public ItemStack setCompositeLens(ItemStack sourceLens, ItemStack compositeLens) {
-		DataComponentHelper.setOptional(sourceLens, BotaniaDataComponents.ATTACHED_LENS, compositeLens);
+		DataComponentHelper.setNonEmpty(sourceLens, BotaniaDataComponents.ATTACHED_LENS, compositeLens);
 		return sourceLens;
 	}
 

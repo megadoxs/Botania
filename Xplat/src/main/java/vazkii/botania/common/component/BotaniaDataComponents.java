@@ -56,9 +56,9 @@ public class BotaniaDataComponents {
 	 * Helper component that causes mana pool items to be rendered with mana content.
 	 */
 	public static final DataComponentType<Unit> RENDER_FULL = makeTransientUnit(LibComponentNames.RENDER_FULL);
-	public static final DataComponentType<ItemStack> COSMETIC_OVERRIDE = make(LibComponentNames.COSMETIC_OVERRIDE,
-			builder -> builder.persistent(ItemStack.SINGLE_ITEM_CODEC).cacheEncoding()
-					.networkSynchronized(ItemStack.STREAM_CODEC));
+	public static final DataComponentType<SingleItem> COSMETIC_OVERRIDE = make(LibComponentNames.COSMETIC_OVERRIDE,
+			builder -> builder.persistent(SingleItem.CODEC).cacheEncoding()
+					.networkSynchronized(SingleItem.STREAM_CODEC));
 
 	// wand properties
 	public static final DataComponentType<DyeColor> WAND_COLOR1 = make(LibComponentNames.WAND_COLOR1,
@@ -138,8 +138,9 @@ public class BotaniaDataComponents {
 	 * Defines that the lens is rainbow-tinted. Takes precedence over {@link #LENS_TINT}.
 	 */
 	public static final DataComponentType<Unit> LENS_RAINBOW_TINT = makeUnit(LibComponentNames.LENS_RAINBOW_TINT);
-	public static final DataComponentType<ItemStack> ATTACHED_LENS = make(LibComponentNames.ATTACHED_LENS,
-			builder -> builder.persistent(ItemStack.CODEC).cacheEncoding().networkSynchronized(ItemStack.STREAM_CODEC));
+	public static final DataComponentType<SingleItem> ATTACHED_LENS = make(LibComponentNames.ATTACHED_LENS,
+			builder -> builder.persistent(SingleItem.CODEC).cacheEncoding()
+					.networkSynchronized(SingleItem.STREAM_CODEC));
 
 	// brews and similar consumables
 	public static final DataComponentType<ResourceLocation> BREW = make(LibComponentNames.BREW,

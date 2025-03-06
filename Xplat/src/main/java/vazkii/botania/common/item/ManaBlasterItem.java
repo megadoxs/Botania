@@ -263,7 +263,7 @@ public class ManaBlasterItem extends Item {
 			return getLensAtPos(stack, getClipPos(stack));
 		}
 
-		return stack.getOrDefault(BotaniaDataComponents.ATTACHED_LENS, ItemStack.EMPTY);
+		return DataComponentHelper.getSingleItem(stack, BotaniaDataComponents.ATTACHED_LENS);
 	}
 
 	public static boolean isValidLens(ItemStack lens) {

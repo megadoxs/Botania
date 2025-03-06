@@ -14,13 +14,16 @@ import net.minecraft.core.component.DataComponentType;
 import net.minecraft.util.Unit;
 import net.minecraft.world.item.ItemStack;
 
+import org.checkerframework.dataflow.qual.Pure;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.Nullable;
 
 import vazkii.botania.api.mana.ManaItem;
+import vazkii.botania.common.component.SingleItem;
 import vazkii.botania.xplat.XplatAbstractions;
 
 import java.util.Collection;
+import java.util.Optional;
 
 public final class DataComponentHelper {
 	/**
@@ -92,18 +95,28 @@ public final class DataComponentHelper {
 	 * If that value is null or an empty item stack, the component is removed instead.
 	 */
 	@Contract(mutates = "param1")
-	public static void setNonEmpty(ItemStack stack, DataComponentType<ItemStack> component, @Nullable ItemStack value) {
-		if (value == null || value.isEmpty()) {
+	public static void setNonEmpty(ItemStack stack, DataComponentType<SingleItem> component, ItemStack item) {
+		if (item.isEmpty()) {
 			stack.remove(component);
 		} else {
+			SingleItem value = new SingleItem(item);
 			stack.set(component, value);
 		}
+	}
+
+	/**
+	 * Returns a potentially empty ItemStack for a single-item component.
+	 */
+	@Pure
+	public static ItemStack getSingleItem(ItemStack stack, DataComponentType<SingleItem> component) {
+		return Optional.ofNullable(stack.get(component)).map(SingleItem::item).orElse(ItemStack.EMPTY);
 	}
 
 	/**
 	 * Returns the fullness of the mana item:
 	 * 0 if empty, 1 if partially full, 2 if full.
 	 */
+	@Pure
 	public static int getFullness(ManaItem item) {
 		int mana = item.getMana();
 		if (mana == 0) {
@@ -115,6 +128,7 @@ public final class DataComponentHelper {
 		}
 	}
 
+	@Pure
 	public static ItemStack duplicateAndClearMana(ItemStack stack) {
 		ItemStack copy = stack.copy();
 		ManaItem manaItem = XplatAbstractions.INSTANCE.findManaItem(copy);
@@ -128,6 +142,7 @@ public final class DataComponentHelper {
 	 * Checks if two items are the same and have the same NBT. If they are `IManaItems`, their mana property is matched
 	 * on whether they are empty, partially full, or full.
 	 */
+	@Pure
 	public static boolean matchTagAndManaFullness(ItemStack stack1, ItemStack stack2) {
 		if (!ItemStack.isSameItem(stack1, stack2)) {
 			return false;

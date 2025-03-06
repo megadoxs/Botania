@@ -56,7 +56,7 @@ public abstract class BaubleItem extends Item implements CosmeticAttachable, Pha
 
 	@Override
 	public ItemStack getCosmeticItem(ItemStack stack) {
-		return stack.getOrDefault(BotaniaDataComponents.COSMETIC_OVERRIDE, ItemStack.EMPTY);
+		return DataComponentHelper.getSingleItem(stack, BotaniaDataComponents.COSMETIC_OVERRIDE);
 	}
 
 	@Override
