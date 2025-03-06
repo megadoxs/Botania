@@ -20,7 +20,6 @@ import mezz.jei.api.helpers.IGuiHelper;
 import mezz.jei.api.recipe.IFocusGroup;
 import mezz.jei.api.recipe.RecipeIngredientRole;
 import mezz.jei.api.recipe.RecipeType;
-import mezz.jei.api.recipe.category.IRecipeCategory;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
@@ -41,19 +40,15 @@ import vazkii.botania.common.lib.LibMisc;
 
 import static vazkii.botania.api.BotaniaAPI.botaniaRL;
 
-public class ElvenTradeRecipeCategory implements IRecipeCategory<ElvenTradeRecipe> {
+public class ElvenTradeRecipeCategory extends BotaniaRecipeCategoryBase<ElvenTradeRecipe> {
 
 	public static final RecipeType<ElvenTradeRecipe> TYPE = RecipeType.create(LibMisc.MOD_ID, "elven_trade", ElvenTradeRecipe.class);
-	private final Component localizedName;
-	private final IDrawable background;
 	private final IDrawable overlay;
-	private final IDrawable icon;
 
 	public ElvenTradeRecipeCategory(IGuiHelper guiHelper) {
-		localizedName = Component.translatable("botania.nei.elvenTrade");
-		background = guiHelper.createBlankDrawable(145, 95);
+		super(145, 95, Component.translatable("botania.nei.elvenTrade"),
+				guiHelper.createDrawableIngredient(VanillaTypes.ITEM_STACK, new ItemStack(BotaniaBlocks.alfPortal)), null);
 		overlay = guiHelper.createDrawable(botaniaRL("textures/gui/elven_trade_overlay.png"), 0, 15, 140, 90);
-		icon = guiHelper.createDrawableIngredient(VanillaTypes.ITEM_STACK, new ItemStack(BotaniaBlocks.alfPortal));
 	}
 
 	@Override
@@ -62,22 +57,8 @@ public class ElvenTradeRecipeCategory implements IRecipeCategory<ElvenTradeRecip
 	}
 
 	@Override
-	public Component getTitle() {
-		return localizedName;
-	}
-
-	@Override
-	public IDrawable getBackground() {
-		return background;
-	}
-
-	@Override
-	public IDrawable getIcon() {
-		return icon;
-	}
-
-	@Override
 	public void draw(ElvenTradeRecipe recipe, IRecipeSlotsView slotsView, GuiGraphics gui, double mouseX, double mouseY) {
+		super.draw(recipe, slotsView, gui, mouseX, mouseY);
 		PoseStack matrices = gui.pose();
 		RenderSystem.enableBlend();
 		overlay.draw(gui, 0, 4);
@@ -104,9 +85,9 @@ public class ElvenTradeRecipeCategory implements IRecipeCategory<ElvenTradeRecip
 	@Override
 	public void setRecipe(IRecipeLayoutBuilder builder, ElvenTradeRecipe recipe, IFocusGroup focusGroup) {
 		int posX = 42;
-		for (var ingr : recipe.getIngredients()) {
+		for (var ingredient : recipe.getIngredients()) {
 			builder.addSlot(RecipeIngredientRole.INPUT, posX, 0)
-					.addIngredients(ingr);
+					.addIngredients(ingredient);
 			posX += 18;
 		}
 

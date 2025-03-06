@@ -12,13 +12,12 @@ import com.mojang.blaze3d.systems.RenderSystem;
 
 import mezz.jei.api.constants.VanillaTypes;
 import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
-import mezz.jei.api.gui.drawable.IDrawable;
+import mezz.jei.api.gui.builder.ITooltipBuilder;
 import mezz.jei.api.gui.drawable.IDrawableStatic;
 import mezz.jei.api.gui.ingredient.IRecipeSlotsView;
 import mezz.jei.api.helpers.IGuiHelper;
 import mezz.jei.api.recipe.IFocusGroup;
 import mezz.jei.api.recipe.RecipeIngredientRole;
-import mezz.jei.api.recipe.category.IRecipeCategory;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
@@ -29,44 +28,24 @@ import net.minecraft.world.item.ItemStack;
 import org.jetbrains.annotations.Nullable;
 
 import vazkii.botania.api.recipe.OrechidRecipe;
+import vazkii.botania.client.integration.jei.BotaniaRecipeCategoryBase;
 import vazkii.botania.client.integration.shared.OrechidUIHelper;
 
-import java.util.Collections;
-import java.util.List;
 import java.util.stream.Stream;
 
 import static vazkii.botania.api.BotaniaAPI.botaniaRL;
 
-public abstract class OrechidRecipeCategoryBase implements IRecipeCategory<OrechidRecipe> {
+public abstract class OrechidRecipeCategoryBase extends BotaniaRecipeCategoryBase<OrechidRecipe> {
 
-	private final IDrawableStatic background;
-	private final Component localizedName;
 	private final IDrawableStatic overlay;
-	private final IDrawable icon;
 	private final ItemStack iconStack;
 
 	public OrechidRecipeCategoryBase(IGuiHelper guiHelper, ItemStack iconStack, Component localizedName) {
-		overlay = guiHelper.createDrawable(botaniaRL("textures/gui/pure_daisy_overlay.png"),
+		super(96, 44, localizedName,
+				guiHelper.createDrawableIngredient(VanillaTypes.ITEM_STACK, iconStack), null);
+		this.overlay = guiHelper.createDrawable(botaniaRL("textures/gui/pure_daisy_overlay.png"),
 				0, 0, 64, 44);
-		background = guiHelper.createBlankDrawable(96, 44);
-		this.localizedName = localizedName;
-		this.icon = guiHelper.createDrawableIngredient(VanillaTypes.ITEM_STACK, iconStack);
 		this.iconStack = iconStack;
-	}
-
-	@Override
-	public Component getTitle() {
-		return localizedName;
-	}
-
-	@Override
-	public IDrawable getBackground() {
-		return background;
-	} //todo
-
-	@Override
-	public IDrawable getIcon() {
-		return icon;
 	}
 
 	@Override
@@ -83,6 +62,7 @@ public abstract class OrechidRecipeCategoryBase implements IRecipeCategory<Orech
 
 	@Override
 	public void draw(OrechidRecipe recipe, IRecipeSlotsView view, GuiGraphics gui, double mouseX, double mouseY) {
+		super.draw(recipe, view, gui, mouseX, mouseY);
 		final Double chance = getChance(recipe);
 		if (chance != null) {
 			final Component chanceComponent = OrechidUIHelper.getPercentageComponent(chance);
@@ -96,14 +76,13 @@ public abstract class OrechidRecipeCategoryBase implements IRecipeCategory<Orech
 	}
 
 	@Override
-	public List<Component> getTooltipStrings(OrechidRecipe recipe, IRecipeSlotsView recipeSlotsView, double mouseX, double mouseY) {
-		if (mouseX > 0.6 * background.getWidth() && mouseX < 90 && mouseY < 12) {
+	public void getTooltip(ITooltipBuilder tooltip, OrechidRecipe recipe, IRecipeSlotsView recipeSlotsView, double mouseX, double mouseY) {
+		if (mouseX > 0.6 * getWidth() && mouseX < 90 && mouseY < 12) {
 			final Double chance = getChance(recipe);
 			if (chance != null) {
-				return getChanceTooltipComponents(chance, recipe).toList();
+				getChanceTooltipComponents(chance, recipe).forEach(tooltip::add);
 			}
 		}
-		return Collections.emptyList();
 	}
 
 	protected Stream<Component> getChanceTooltipComponents(double chance, OrechidRecipe recipe) {

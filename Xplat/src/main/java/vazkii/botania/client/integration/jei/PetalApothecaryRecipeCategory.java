@@ -12,17 +12,14 @@ import com.mojang.blaze3d.systems.RenderSystem;
 
 import mezz.jei.api.constants.VanillaTypes;
 import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
-import mezz.jei.api.gui.drawable.IDrawable;
 import mezz.jei.api.gui.drawable.IDrawableStatic;
 import mezz.jei.api.gui.ingredient.IRecipeSlotsView;
 import mezz.jei.api.helpers.IGuiHelper;
 import mezz.jei.api.recipe.IFocusGroup;
 import mezz.jei.api.recipe.RecipeIngredientRole;
 import mezz.jei.api.recipe.RecipeType;
-import mezz.jei.api.recipe.category.IRecipeCategory;
 
 import net.minecraft.client.gui.GuiGraphics;
-import net.minecraft.core.RegistryAccess;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
@@ -38,23 +35,19 @@ import java.util.List;
 
 import static vazkii.botania.api.BotaniaAPI.botaniaRL;
 
-public class PetalApothecaryRecipeCategory implements IRecipeCategory<PetalApothecaryRecipe> {
+public class PetalApothecaryRecipeCategory extends BotaniaRecipeCategoryBase<PetalApothecaryRecipe> {
 
 	public static final RecipeType<PetalApothecaryRecipe> TYPE = RecipeType.create(LibMisc.MOD_ID, "petals", PetalApothecaryRecipe.class);
 	public static final int CENTER_X = 48;
 	public static final int CENTER_Y = 45;
-	private final IDrawableStatic background;
-	private final Component localizedName;
 	private final IDrawableStatic overlay;
-	private final IDrawable icon;
 	private final Ingredient WATER_BUCKET = Ingredient.of(Items.WATER_BUCKET);
 
 	public PetalApothecaryRecipeCategory(IGuiHelper guiHelper) {
-		background = guiHelper.createBlankDrawable(114, 97);
-		localizedName = Component.translatable("botania.nei.petalApothecary");
+		super(114, 97, Component.translatable("botania.nei.petalApothecary"),
+				guiHelper.createDrawableIngredient(VanillaTypes.ITEM_STACK, new ItemStack(BotaniaBlocks.defaultAltar)), null);
 		overlay = guiHelper.createDrawable(botaniaRL("textures/gui/petal_overlay.png"),
 				17, 11, 114, 82);
-		icon = guiHelper.createDrawableIngredient(VanillaTypes.ITEM_STACK, new ItemStack(BotaniaBlocks.defaultAltar));
 	}
 
 	@Override
@@ -63,22 +56,8 @@ public class PetalApothecaryRecipeCategory implements IRecipeCategory<PetalApoth
 	}
 
 	@Override
-	public Component getTitle() {
-		return localizedName;
-	}
-
-	@Override
-	public IDrawable getBackground() {
-		return background;
-	}
-
-	@Override
-	public IDrawable getIcon() {
-		return icon;
-	}
-
-	@Override
 	public void draw(PetalApothecaryRecipe recipe, IRecipeSlotsView slotsView, GuiGraphics gui, double mouseX, double mouseY) {
+		super.draw(recipe, slotsView, gui, mouseX, mouseY);
 		RenderSystem.enableBlend();
 		overlay.draw(gui, 0, 4);
 		RenderSystem.disableBlend();
@@ -86,15 +65,15 @@ public class PetalApothecaryRecipeCategory implements IRecipeCategory<PetalApoth
 
 	@Override
 	public void setRecipe(IRecipeLayoutBuilder builder, PetalApothecaryRecipe recipe, IFocusGroup focusGroup) {
-		setRecipeLayout(builder, recipe.getIngredients(), BotaniaBlocks.defaultAltar,
-				recipe.getResultItem(RegistryAccess.EMPTY), WATER_BUCKET, recipe.getReagent());
+		setRecipeLayout(builder, recipe.getIngredients(), List.of(), BotaniaBlocks.defaultAltar,
+				recipe.getResultItem(getRegistryAccess()), WATER_BUCKET, recipe.getReagent());
 	}
 
-	public static void setRecipeLayout(IRecipeLayoutBuilder builder, List<Ingredient> ingredients, Block catalyst, ItemStack output, Ingredient... reagents) {
+	public static void setRecipeLayout(IRecipeLayoutBuilder builder, List<Ingredient> ingredients, List<Ingredient> catalysts, Block stationBlock, ItemStack output, Ingredient... reagents) {
 		Vec2 center = new Vec2(CENTER_X, CENTER_Y);
 		if (reagents.length > 0) {
 			Vec2 reagentPoint = new Vec2(CENTER_X, CENTER_Y + 10);
-			builder.addSlot(RecipeIngredientRole.CATALYST, (int) reagentPoint.x, (int) reagentPoint.y).addItemStack(new ItemStack(catalyst));
+			builder.addSlot(RecipeIngredientRole.CATALYST, (int) reagentPoint.x, (int) reagentPoint.y).addItemStack(new ItemStack(stationBlock));
 
 			double angleBetweenReagents = 360.0 / (reagents.length + 1);
 			for (int i = 0; i < reagents.length; i++) {
@@ -102,19 +81,22 @@ public class PetalApothecaryRecipeCategory implements IRecipeCategory<PetalApoth
 				builder.addSlot(RecipeIngredientRole.INPUT, (int) reagentPoint.x, (int) reagentPoint.y).addIngredients(reagents[i]);
 			}
 		} else {
-			builder.addSlot(RecipeIngredientRole.CATALYST, CENTER_X, CENTER_Y).addItemStack(new ItemStack(catalyst));
+			builder.addSlot(RecipeIngredientRole.CATALYST, CENTER_X, CENTER_Y).addItemStack(new ItemStack(stationBlock));
 		}
-		double angleBetweenEach = 360.0 / ingredients.size();
+		double angleBetweenEach = 360.0 / (ingredients.size() + catalysts.size());
 		Vec2 point = new Vec2(CENTER_X, 13);
 
-		for (var ingr : ingredients) {
-			builder.addSlot(RecipeIngredientRole.INPUT, (int) point.x, (int) point.y).addIngredients(ingr);
+		for (var ingredient : ingredients) {
+			builder.addSlot(RecipeIngredientRole.INPUT, (int) point.x, (int) point.y).addIngredients(ingredient);
 			point = rotatePointAbout(point, center, angleBetweenEach);
 		}
 
-		// TODO 1.19.4 figure out the proper way to get a registry access
-		builder.addSlot(RecipeIngredientRole.OUTPUT, 86, 10)
-				.addItemStack(output);
+		for (var catalyst : catalysts) {
+			builder.addSlot(RecipeIngredientRole.CATALYST, (int) point.x, (int) point.y).addIngredients(catalyst);
+			point = rotatePointAbout(point, center, angleBetweenEach);
+		}
+
+		builder.addSlot(RecipeIngredientRole.OUTPUT, 86, 10).addItemStack(output);
 	}
 
 	public static Vec2 rotatePointAbout(Vec2 in, Vec2 about, double degrees) {

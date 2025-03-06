@@ -20,7 +20,6 @@ import mezz.jei.api.helpers.IPlatformFluidHelper;
 import mezz.jei.api.recipe.IFocusGroup;
 import mezz.jei.api.recipe.RecipeIngredientRole;
 import mezz.jei.api.recipe.RecipeType;
-import mezz.jei.api.recipe.category.IRecipeCategory;
 
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.network.chat.Component;
@@ -33,22 +32,18 @@ import vazkii.botania.common.lib.LibMisc;
 
 import static vazkii.botania.api.BotaniaAPI.botaniaRL;
 
-public class PureDaisyRecipeCategory implements IRecipeCategory<PureDaisyRecipe> {
+public class PureDaisyRecipeCategory extends BotaniaRecipeCategoryBase<PureDaisyRecipe> {
 
 	public static final RecipeType<PureDaisyRecipe> TYPE = RecipeType.create(LibMisc.MOD_ID, "pure_daisy", PureDaisyRecipe.class);
-	private final IDrawable background;
-	private final Component localizedName;
 	private final IDrawable overlay;
-	private final IDrawable icon;
 	@SuppressWarnings("rawtypes")
 	private final IPlatformFluidHelper fluidHelper;
 
 	public PureDaisyRecipeCategory(IGuiHelper guiHelper, IPlatformFluidHelper<?> fluidHelper) {
-		background = guiHelper.createBlankDrawable(96, 44);
-		localizedName = Component.translatable("botania.nei.pureDaisy");
+		super(96, 44, Component.translatable("botania.nei.pureDaisy"),
+				guiHelper.createDrawableIngredient(VanillaTypes.ITEM_STACK, new ItemStack(BotaniaFlowerBlocks.pureDaisy)), null);
 		overlay = guiHelper.createDrawable(botaniaRL("textures/gui/pure_daisy_overlay.png"),
 				0, 0, 64, 44);
-		icon = guiHelper.createDrawableIngredient(VanillaTypes.ITEM_STACK, new ItemStack(BotaniaFlowerBlocks.pureDaisy));
 		this.fluidHelper = fluidHelper;
 	}
 
@@ -58,22 +53,8 @@ public class PureDaisyRecipeCategory implements IRecipeCategory<PureDaisyRecipe>
 	}
 
 	@Override
-	public Component getTitle() {
-		return localizedName;
-	}
-
-	@Override
-	public IDrawable getBackground() {
-		return background;
-	}
-
-	@Override
-	public IDrawable getIcon() {
-		return icon;
-	}
-
-	@Override
 	public void draw(PureDaisyRecipe recipe, IRecipeSlotsView slotsView, GuiGraphics gui, double mouseX, double mouseY) {
+		super.draw(recipe, slotsView, gui, mouseX, mouseY);
 		RenderSystem.enableBlend();
 		overlay.draw(gui, 17, 0);
 		RenderSystem.disableBlend();
@@ -100,6 +81,6 @@ public class PureDaisyRecipeCategory implements IRecipeCategory<PureDaisyRecipe>
 			}
 		}
 		inputSlotBuilder.addItemStacks(ingredient.getDisplayedStacks())
-				.addTooltipCallback((view, tooltip) -> tooltip.addAll(ingredient.descriptionTooltip()));
+				.addRichTooltipCallback((view, tooltip) -> tooltip.addAll(ingredient.descriptionTooltip()));
 	}
 }

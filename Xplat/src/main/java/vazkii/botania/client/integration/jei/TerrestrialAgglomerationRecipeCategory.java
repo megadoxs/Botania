@@ -18,12 +18,9 @@ import mezz.jei.api.helpers.IGuiHelper;
 import mezz.jei.api.recipe.IFocusGroup;
 import mezz.jei.api.recipe.RecipeIngredientRole;
 import mezz.jei.api.recipe.RecipeType;
-import mezz.jei.api.recipe.category.IRecipeCategory;
 
 import net.minecraft.client.gui.GuiGraphics;
-import net.minecraft.core.RegistryAccess;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.phys.Vec2;
@@ -35,23 +32,18 @@ import vazkii.botania.common.lib.LibMisc;
 
 import static vazkii.botania.api.BotaniaAPI.botaniaRL;
 
-public class TerrestrialAgglomerationRecipeCategory implements IRecipeCategory<TerrestrialAgglomerationRecipe> {
+public class TerrestrialAgglomerationRecipeCategory extends BotaniaRecipeCategoryBase<TerrestrialAgglomerationRecipe> {
 	public static final RecipeType<TerrestrialAgglomerationRecipe> TYPE =
 			RecipeType.create(LibMisc.MOD_ID, "terra_plate", TerrestrialAgglomerationRecipe.class);
 
-	private final Component localizedName;
-	private final IDrawable background;
 	private final IDrawable overlay;
-	private final IDrawable icon;
 
 	private final IDrawable terraPlate;
 
 	public TerrestrialAgglomerationRecipeCategory(IGuiHelper guiHelper) {
-		ResourceLocation location = botaniaRL("textures/gui/terrasteel_jei_overlay.png");
-		background = guiHelper.createBlankDrawable(114, 131);
-		overlay = guiHelper.createDrawable(location, 42, 29, 64, 64);
-		icon = guiHelper.createDrawableIngredient(VanillaTypes.ITEM_STACK, new ItemStack(BotaniaBlocks.terraPlate));
-		localizedName = Component.translatable("botania.nei.terraPlate");
+		super(114, 131, Component.translatable("botania.nei.terraPlate"),
+				guiHelper.createDrawableIngredient(VanillaTypes.ITEM_STACK, new ItemStack(BotaniaBlocks.terraPlate)), null);
+		overlay = guiHelper.createDrawable(botaniaRL("textures/gui/terrasteel_jei_overlay.png"), 42, 29, 64, 64);
 
 		IDrawable livingrock = guiHelper.createDrawableIngredient(VanillaTypes.ITEM_STACK, new ItemStack(BotaniaBlocks.livingrock));
 		terraPlate = new TerrestrialAgglomerationDrawable(livingrock, livingrock,
@@ -65,22 +57,8 @@ public class TerrestrialAgglomerationRecipeCategory implements IRecipeCategory<T
 	}
 
 	@Override
-	public Component getTitle() {
-		return localizedName;
-	}
-
-	@Override
-	public IDrawable getBackground() {
-		return background;
-	}
-
-	@Override
-	public IDrawable getIcon() {
-		return icon;
-	}
-
-	@Override
 	public void draw(TerrestrialAgglomerationRecipe recipe, IRecipeSlotsView view, GuiGraphics gui, double mouseX, double mouseY) {
+		super.draw(recipe, view, gui, mouseX, mouseY);
 		RenderSystem.enableBlend();
 		overlay.draw(gui, 25, 14);
 		HUDHandler.renderManaBar(gui, 6, 126, 0x0000FF, 0.75F, recipe.getMana(), 100000);
@@ -90,9 +68,8 @@ public class TerrestrialAgglomerationRecipeCategory implements IRecipeCategory<T
 
 	@Override
 	public void setRecipe(IRecipeLayoutBuilder builder, TerrestrialAgglomerationRecipe recipe, IFocusGroup focusGroup) {
-		// TODO 1.19.4 figure out the proper way to get a registry access
 		builder.addSlot(RecipeIngredientRole.OUTPUT, 48, 37)
-				.addItemStack(recipe.getResultItem(RegistryAccess.EMPTY));
+				.addItemStack(recipe.getResultItem(getRegistryAccess()));
 
 		double angleBetweenEach = 360.0 / recipe.getIngredients().size();
 		Vec2 point = new Vec2(48, 5), center = new Vec2(48, 37);

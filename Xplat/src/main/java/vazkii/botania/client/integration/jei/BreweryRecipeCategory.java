@@ -10,18 +10,16 @@ package vazkii.botania.client.integration.jei;
 
 import mezz.jei.api.constants.VanillaTypes;
 import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
-import mezz.jei.api.gui.drawable.IDrawable;
-import mezz.jei.api.gui.drawable.IDrawableStatic;
 import mezz.jei.api.helpers.IGuiHelper;
 import mezz.jei.api.recipe.IFocus;
 import mezz.jei.api.recipe.IFocusGroup;
 import mezz.jei.api.recipe.RecipeIngredientRole;
 import mezz.jei.api.recipe.RecipeType;
-import mezz.jei.api.recipe.category.IRecipeCategory;
 
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
+
+import org.jetbrains.annotations.Nullable;
 
 import vazkii.botania.api.recipe.BotanicalBreweryRecipe;
 import vazkii.botania.common.block.BotaniaBlocks;
@@ -34,38 +32,21 @@ import java.util.List;
 
 import static vazkii.botania.api.BotaniaAPI.botaniaRL;
 
-public class BreweryRecipeCategory implements IRecipeCategory<BotanicalBreweryRecipe> {
+public class BreweryRecipeCategory extends BotaniaRecipeCategoryBase<BotanicalBreweryRecipe> {
 
 	public static final RecipeType<BotanicalBreweryRecipe> TYPE = RecipeType.create(LibMisc.MOD_ID, "brewery", BotanicalBreweryRecipe.class);
-	private final IDrawableStatic background;
-	private final IDrawable icon;
-	private final Component localizedName;
+	public static final int WIDTH = 131;
+	public static final int HEIGHT = 55;
 
 	public BreweryRecipeCategory(IGuiHelper guiHelper) {
-		ResourceLocation location = botaniaRL("textures/gui/nei_brewery.png");
-		background = guiHelper.createDrawable(location, 28, 6, 131, 55);
-		localizedName = Component.translatable("botania.nei.brewery");
-		icon = guiHelper.createDrawableIngredient(VanillaTypes.ITEM_STACK, new ItemStack(BotaniaBlocks.brewery));
+		super(WIDTH, HEIGHT, Component.translatable("botania.nei.brewery"),
+				guiHelper.createDrawableIngredient(VanillaTypes.ITEM_STACK, new ItemStack(BotaniaBlocks.brewery)),
+				guiHelper.createDrawable(botaniaRL("textures/gui/nei_brewery.png"), 28, 6, WIDTH, HEIGHT));
 	}
 
 	@Override
 	public RecipeType<BotanicalBreweryRecipe> getRecipeType() {
 		return TYPE;
-	}
-
-	@Override
-	public Component getTitle() {
-		return localizedName;
-	}
-
-	@Override
-	public IDrawable getBackground() {
-		return background;
-	}
-
-	@Override
-	public IDrawable getIcon() {
-		return icon;
 	}
 
 	@Override
@@ -105,7 +86,7 @@ public class BreweryRecipeCategory implements IRecipeCategory<BotanicalBreweryRe
 	/**
 	 * If an item in this recipe is focused, returns the corresponding item instead of all the containers/results.
 	 */
-	private List<ItemStack> getItemMatchingFocus(IFocus<ItemStack> focus, List<ItemStack> focused, List<ItemStack> other) {
+	private List<ItemStack> getItemMatchingFocus(@Nullable IFocus<ItemStack> focus, List<ItemStack> focused, List<ItemStack> other) {
 		if (focus != null) {
 			ItemStack focusStack = focus.getTypedValue().getIngredient();
 			for (int i = 0; i < focused.size(); i++) {

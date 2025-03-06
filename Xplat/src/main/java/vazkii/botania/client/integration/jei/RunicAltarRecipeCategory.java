@@ -17,13 +17,11 @@ import mezz.jei.api.gui.ingredient.IRecipeSlotsView;
 import mezz.jei.api.helpers.IGuiHelper;
 import mezz.jei.api.recipe.IFocusGroup;
 import mezz.jei.api.recipe.RecipeType;
-import mezz.jei.api.recipe.category.IRecipeCategory;
 
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.core.RegistryAccess;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.crafting.Ingredient;
 
 import vazkii.botania.api.recipe.RunicAltarRecipe;
 import vazkii.botania.client.gui.HUDHandler;
@@ -31,26 +29,19 @@ import vazkii.botania.common.block.BotaniaBlocks;
 import vazkii.botania.common.block.block_entity.mana.ManaPoolBlockEntity;
 import vazkii.botania.common.lib.LibMisc;
 
-import java.util.ArrayList;
-
 import static vazkii.botania.api.BotaniaAPI.botaniaRL;
 
-public class RunicAltarRecipeCategory implements IRecipeCategory<RunicAltarRecipe> {
+public class RunicAltarRecipeCategory extends BotaniaRecipeCategoryBase<RunicAltarRecipe> {
 
 	public static final RecipeType<RunicAltarRecipe> TYPE =
 			RecipeType.create(LibMisc.MOD_ID, "runic_altar", RunicAltarRecipe.class);
-	private final IDrawable background;
-	private final Component localizedName;
 	private final IDrawable overlay;
-	private final IDrawable icon;
-	private final Ingredient LIVINGROCK = Ingredient.of(BotaniaBlocks.livingrock);
 
 	public RunicAltarRecipeCategory(IGuiHelper guiHelper) {
-		background = guiHelper.createBlankDrawable(114, 104);
-		localizedName = Component.translatable("botania.nei.runicAltar");
+		super(114, 104, Component.translatable("botania.nei.runicAltar"),
+				guiHelper.createDrawableIngredient(VanillaTypes.ITEM_STACK, new ItemStack(BotaniaBlocks.runeAltar)), null);
 		overlay = guiHelper.createDrawable(botaniaRL("textures/gui/petal_overlay.png"),
 				17, 11, 114, 82);
-		icon = guiHelper.createDrawableIngredient(VanillaTypes.ITEM_STACK, new ItemStack(BotaniaBlocks.runeAltar));
 	}
 
 	@Override
@@ -59,22 +50,8 @@ public class RunicAltarRecipeCategory implements IRecipeCategory<RunicAltarRecip
 	}
 
 	@Override
-	public Component getTitle() {
-		return localizedName;
-	}
-
-	@Override
-	public IDrawable getBackground() {
-		return background;
-	}
-
-	@Override
-	public IDrawable getIcon() {
-		return icon;
-	}
-
-	@Override
 	public void draw(RunicAltarRecipe recipe, IRecipeSlotsView slotsView, GuiGraphics gui, double mouseX, double mouseY) {
+		super.draw(recipe, slotsView, gui, mouseX, mouseY);
 		RenderSystem.enableBlend();
 		overlay.draw(gui, 0, 4);
 		HUDHandler.renderManaBar(gui, 6, 98, 0x0000FF, 0.75F, recipe.getMana(), ManaPoolBlockEntity.MAX_MANA / 10);
@@ -83,11 +60,8 @@ public class RunicAltarRecipeCategory implements IRecipeCategory<RunicAltarRecip
 
 	@Override
 	public void setRecipe(IRecipeLayoutBuilder builder, RunicAltarRecipe recipe, IFocusGroup focusGroup) {
-		var inputs = new ArrayList<>(recipe.getIngredients());
-		// TODO: visualize that the catalysts (usually runes) are returned
-		inputs.addAll(recipe.getCatalysts());
-		PetalApothecaryRecipeCategory.setRecipeLayout(builder, inputs, BotaniaBlocks.runeAltar,
-				recipe.getResultItem(RegistryAccess.EMPTY), LIVINGROCK);
+		PetalApothecaryRecipeCategory.setRecipeLayout(builder, recipe.getIngredients(), recipe.getCatalysts(),
+				BotaniaBlocks.runeAltar, recipe.getResultItem(RegistryAccess.EMPTY), recipe.getReagent());
 	}
 
 }
