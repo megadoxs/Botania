@@ -19,6 +19,7 @@ import mezz.jei.api.recipe.IFocusGroup;
 import mezz.jei.api.recipe.RecipeIngredientRole;
 import mezz.jei.api.recipe.RecipeType;
 
+import net.minecraft.ChatFormatting;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.ItemStack;
@@ -92,7 +93,10 @@ public class PetalApothecaryRecipeCategory extends BotaniaRecipeCategoryBase<Pet
 		}
 
 		for (var catalyst : catalysts) {
-			builder.addSlot(RecipeIngredientRole.CATALYST, (int) point.x, (int) point.y).addIngredients(catalyst);
+			builder.addSlot(RecipeIngredientRole.CATALYST, (int) point.x, (int) point.y).addIngredients(catalyst)
+					.addRichTooltipCallback((recipeSlotView, tooltip) -> tooltip
+							.add(Component.translatable("botaniamisc.catalyst_not_consumed")
+									.withStyle(ChatFormatting.DARK_GREEN)));
 			point = rotatePointAbout(point, center, angleBetweenEach);
 		}
 
