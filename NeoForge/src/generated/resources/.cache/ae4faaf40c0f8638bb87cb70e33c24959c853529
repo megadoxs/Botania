@@ -1,4 +1,4 @@
-// 1.21.1	2025-02-22T01:19:58.235751856	Botania item tags (Forge-specific)
+// 1.21.1	2025-03-06T08:25:26.272558317	Botania item tags (Forge-specific)
 104a5a31e3963affc9c2725f8c3c5b2d7fd1ba63 data/c/tags/item/dusts.json
 2f017c840473d769018019a575cd67bb91409786 data/c/tags/item/dusts/mana.json
 a856b9b38b820f5784e6b88b760cdb2209fdc26c data/c/tags/item/gems.json
@@ -15,7 +15,7 @@ c67d8639e6bdfe4d72f2c2b1602f44063fef4ce7 data/c/tags/item/nuggets.json
 f041265ef6a8d081107a30ec3c5bd85a892195b3 data/c/tags/item/nuggets/elementium.json
 4524d0297b0b2175348c4b87dcee14d2a7a7a196 data/c/tags/item/nuggets/manasteel.json
 8bd1be3b43d7134a44cf4bb334ca1fd58e47680c data/c/tags/item/nuggets/terrasteel.json
-5f0adafb74108fc6fd3472fbd1343d14a2174347 data/c/tags/item/storage_blocks.json
+a1720f6ff7e9a0bcc0e16088b602864c68d12ede data/c/tags/item/storage_blocks.json
 61ae96e93e2303b4ea5e262006efa92df0fdc516 data/c/tags/item/tools/shear.json
 aabe9dc2c91eb8822f833d19b258d7a5e8da3564 data/curios/tags/item/belt.json
 9bde6528555b75249a73b900157d7bc104d2baec data/curios/tags/item/body.json
@@ -24,8 +24,25 @@ aabe9dc2c91eb8822f833d19b258d7a5e8da3564 data/curios/tags/item/belt.json
 69c483b37b5c044b394dd15f010b6e27e174492f data/curios/tags/item/head.json
 bc5e0c035ee528a632919766a9eec1cc94a2e8c4 data/curios/tags/item/necklace.json
 0a9743c528ad404cfc2545e3db7f75385bb2f707 data/curios/tags/item/ring.json
-2998039792abc5a59492b43eb5285a1ce9b8f12b data/forge/tags/item/storage_blocks/dragonstone.json
+b91e7dbbe083fd5b1f065f22615c1155f67f55dd data/forge/tags/item/storage_blocks/black_petal_block.json
+ab815e23fe4fa9ac2960f35452596b2c5a2ccafb data/forge/tags/item/storage_blocks/blaze_mesh.json
+c1727f6546b41fd2f5fa688240edf074dc470c5e data/forge/tags/item/storage_blocks/blue_petal_block.json
+e0ed98a0ea92dff7a0542db8a2f884a0fbeb49e6 data/forge/tags/item/storage_blocks/brown_petal_block.json
+30cec97287ae83b6cccb7fc430fec871087ca3e7 data/forge/tags/item/storage_blocks/cyan_petal_block.json
+e46d4922c566e3ab0b8d60d0a57f40b50e810df1 data/forge/tags/item/storage_blocks/dragonstone.json
 932c9cd2bd579c4ad87f80f3a5787487fdc5be79 data/forge/tags/item/storage_blocks/elementium.json
-bf62a8fa3da6b623fd72392e58402c1d4a567e7a data/forge/tags/item/storage_blocks/mana_diamond.json
+30f115f037a8902188e907cb3db406282858a3f6 data/forge/tags/item/storage_blocks/gray_petal_block.json
+d63cebf716772d493da73eaf6328218e979b9206 data/forge/tags/item/storage_blocks/green_petal_block.json
+448e46f8ae94e3e7258348a8bdac26ead6ed665c data/forge/tags/item/storage_blocks/light_blue_petal_block.json
+997df0cc6ea89b4b99745f7f68ceb93088a764dd data/forge/tags/item/storage_blocks/light_gray_petal_block.json
+cbe7c4c24e24ced2bde716602bb6e8e037bbd2f3 data/forge/tags/item/storage_blocks/lime_petal_block.json
+497e5f113e25cdf5bb9c332060353532ce11cef9 data/forge/tags/item/storage_blocks/magenta_petal_block.json
+910046dca1d791f03ed50f893a6ce79a2d3b4737 data/forge/tags/item/storage_blocks/mana_diamond.json
 88f0390acdd56ff296f67149accdd14b52bb60fe data/forge/tags/item/storage_blocks/manasteel.json
+550c13e5955547f7468e06b755807e1e079e3581 data/forge/tags/item/storage_blocks/orange_petal_block.json
+cff4fe06b130f760df5dfd09bad5a79231f35362 data/forge/tags/item/storage_blocks/pink_petal_block.json
+38d4c6aa3e8131345293c1fbb913147ff9754f54 data/forge/tags/item/storage_blocks/purple_petal_block.json
+ea9cf45b4b0bb66e9f47acdd27ec131f4aa8c44d data/forge/tags/item/storage_blocks/red_petal_block.json
 d401d8e48f2c31db30278bca7d4fd177b002f4c8 data/forge/tags/item/storage_blocks/terrasteel.json
+84ac9785530c059133228630f7b2c8b4dbc12d0f data/forge/tags/item/storage_blocks/white_petal_block.json
+145cbeaa02f878afbd4a644e823f5dfdfb30a674 data/forge/tags/item/storage_blocks/yellow_petal_block.json
