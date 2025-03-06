@@ -14,7 +14,6 @@ import net.minecraft.core.component.DataComponentType;
 import net.minecraft.util.Unit;
 import net.minecraft.world.item.ItemStack;
 
-import org.checkerframework.dataflow.qual.Pure;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.Nullable;
 
@@ -107,7 +106,7 @@ public final class DataComponentHelper {
 	/**
 	 * Returns a potentially empty ItemStack for a single-item component.
 	 */
-	@Pure
+	@Contract(pure = true)
 	public static ItemStack getSingleItem(ItemStack stack, DataComponentType<SingleItem> component) {
 		return Optional.ofNullable(stack.get(component)).map(SingleItem::item).orElse(ItemStack.EMPTY);
 	}
@@ -116,7 +115,7 @@ public final class DataComponentHelper {
 	 * Returns the fullness of the mana item:
 	 * 0 if empty, 1 if partially full, 2 if full.
 	 */
-	@Pure
+	@Contract(pure = true)
 	public static int getFullness(ManaItem item) {
 		int mana = item.getMana();
 		if (mana == 0) {
@@ -128,7 +127,7 @@ public final class DataComponentHelper {
 		}
 	}
 
-	@Pure
+	@Contract(pure = true)
 	public static ItemStack duplicateAndClearMana(ItemStack stack) {
 		ItemStack copy = stack.copy();
 		ManaItem manaItem = XplatAbstractions.INSTANCE.findManaItem(copy);
@@ -142,7 +141,7 @@ public final class DataComponentHelper {
 	 * Checks if two items are the same and have the same NBT. If they are `IManaItems`, their mana property is matched
 	 * on whether they are empty, partially full, or full.
 	 */
-	@Pure
+	@Contract(pure = true)
 	public static boolean matchTagAndManaFullness(ItemStack stack1, ItemStack stack2) {
 		if (!ItemStack.isSameItem(stack1, stack2)) {
 			return false;
