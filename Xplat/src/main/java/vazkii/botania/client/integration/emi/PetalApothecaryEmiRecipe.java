@@ -4,7 +4,6 @@ import dev.emi.emi.api.stack.EmiIngredient;
 import dev.emi.emi.api.stack.EmiStack;
 import dev.emi.emi.api.widget.WidgetHolder;
 
-import net.minecraft.core.RegistryAccess;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.level.material.Fluids;
@@ -28,8 +27,7 @@ public class PetalApothecaryEmiRecipe extends BotaniaEmiRecipe {
 		this.ingredients = recipe.value().getIngredients().stream().map(EmiIngredient::of).toList();
 		this.reagent = EmiIngredient.of(recipe.value().getReagent());
 		this.input = Stream.concat(ingredients.stream(), Stream.of(WATER, reagent)).toList();
-		// TODO 1.19.4 figure out the proper way to get a registry access
-		this.output = List.of(EmiStack.of(recipe.value().getResultItem(RegistryAccess.EMPTY)));
+		this.output = List.of(EmiStack.of(recipe.value().getResultItem(getRegistryAccess())));
 	}
 
 	@Override
@@ -44,6 +42,6 @@ public class PetalApothecaryEmiRecipe extends BotaniaEmiRecipe {
 
 	@Override
 	public void addWidgets(WidgetHolder widgets) {
-		RunicAltarEmiRecipe.addRunicAltarWidgets(widgets, this, ingredients, APOTHECARY, output.get(0), reagent, WATER_BUCKET);
+		RunicAltarEmiRecipe.addRunicAltarWidgets(widgets, this, ingredients, List.of(), APOTHECARY, output.getFirst(), reagent, WATER_BUCKET);
 	}
 }

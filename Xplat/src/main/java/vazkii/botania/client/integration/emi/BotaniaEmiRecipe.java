@@ -5,6 +5,8 @@ import dev.emi.emi.api.recipe.EmiRecipeCategory;
 import dev.emi.emi.api.stack.EmiIngredient;
 import dev.emi.emi.api.stack.EmiStack;
 
+import net.minecraft.client.Minecraft;
+import net.minecraft.core.RegistryAccess;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.crafting.RecipeHolder;
 
@@ -53,5 +55,10 @@ public abstract class BotaniaEmiRecipe implements EmiRecipe {
 
 	public String getGroup() {
 		return group;
+	}
+
+	protected RegistryAccess getRegistryAccess() {
+		var level = Minecraft.getInstance().level;
+		return level != null ? level.registryAccess() : RegistryAccess.EMPTY;
 	}
 }

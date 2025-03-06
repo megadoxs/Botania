@@ -49,7 +49,7 @@ public class PureDaisyEmiRecipe extends BotaniaEmiRecipe {
 
 	@Override
 	public void addWidgets(WidgetHolder widgets) {
-		addPureDaisyWidgets(widgets, this, input.get(0), PURE_DAISY, output.get(0));
+		addPureDaisyWidgets(widgets, this, input.getFirst(), PURE_DAISY, output.getFirst());
 	}
 
 	public static void addPureDaisyWidgets(WidgetHolder widgets, EmiRecipe recipe,

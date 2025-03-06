@@ -21,23 +21,23 @@ import static vazkii.botania.api.BotaniaAPI.botaniaRL;
 public class BotanicalBreweryEmiRecipe extends BotaniaEmiRecipe {
 	private static final ResourceLocation TEXTURE = botaniaRL("textures/gui/nei_brewery.png");
 	private final List<EmiIngredient> ingredients;
-	private final ResourceLocation id;
+	private final ResourceLocation syntheticId;
 
 	public BotanicalBreweryEmiRecipe(RecipeHolder<? extends BotanicalBreweryRecipe> recipe, ItemStack container) {
 		super(BotaniaEmiPlugin.BOTANICAL_BREWERY, recipe);
 		this.ingredients = recipe.value().getIngredients().stream().map(EmiIngredient::of).toList();
 		this.input = Stream.concat(Stream.of(EmiStack.of(container)), ingredients.stream()).toList();
 		this.output = List.of(EmiStack.of(recipe.value().getOutput(container.copy())));
+		// since brews can exist for multiple container items, create a synthetic ID
 		ResourceLocation id = recipe.id();
 		ResourceLocation itemId = BuiltInRegistries.ITEM.getKey(container.getItem());
-		this.id = ResourceLocation.fromNamespaceAndPath("emi", "botania/botanical_brewery/"
-				+ id.getNamespace() + "/" + id.getPath() + "/"
-				+ itemId.getNamespace() + "/" + itemId.getPath());
+		this.syntheticId = ResourceLocation.fromNamespaceAndPath(id.getNamespace(), "/" + id.getPath()
+				+ "/" + itemId.getNamespace() + "/" + itemId.getPath());
 	}
 
 	@Override
 	public @Nullable ResourceLocation getId() {
-		return id;
+		return syntheticId;
 	}
 
 	@Override
@@ -59,6 +59,6 @@ public class BotanicalBreweryEmiRecipe extends BotaniaEmiRecipe {
 			widgets.addSlot(stack, sx, 1).drawBack(false);
 			sx += 18;
 		}
-		widgets.addSlot(output.get(0), 58, 35).recipeContext(this);
+		widgets.addSlot(output.getFirst(), 58, 35).recipeContext(this);
 	}
 }

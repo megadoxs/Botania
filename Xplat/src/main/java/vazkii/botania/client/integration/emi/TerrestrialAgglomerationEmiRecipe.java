@@ -4,7 +4,6 @@ import dev.emi.emi.api.stack.EmiIngredient;
 import dev.emi.emi.api.stack.EmiStack;
 import dev.emi.emi.api.widget.WidgetHolder;
 
-import net.minecraft.core.RegistryAccess;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.crafting.RecipeHolder;
 
@@ -26,8 +25,7 @@ public class TerrestrialAgglomerationEmiRecipe extends BotaniaEmiRecipe {
 	public TerrestrialAgglomerationEmiRecipe(RecipeHolder<? extends TerrestrialAgglomerationRecipe> recipe) {
 		super(BotaniaEmiPlugin.TERRESTRIAL_AGGLOMERATION, recipe);
 		this.input = recipe.value().getIngredients().stream().map(EmiIngredient::of).toList();
-		// TODO 1.19.4 figure out the proper way to get a registry access
-		this.output = List.of(EmiStack.of(recipe.value().getResultItem(RegistryAccess.EMPTY)));
+		this.output = List.of(EmiStack.of(recipe.value().getResultItem(getRegistryAccess())));
 		this.mana = recipe.value().getMana();
 	}
 
@@ -52,6 +50,6 @@ public class TerrestrialAgglomerationEmiRecipe extends BotaniaEmiRecipe {
 					BotaniaEmiPlugin.rotateYAround(CENTER_X, CENTER_Y - 30, CENTER_X, CENTER_Y, step * i)).drawBack(false);
 		}
 		widgets.addSlot(PLATE, CENTER_X, 80).drawBack(false).catalyst(true);
-		widgets.addSlot(output.get(0), CENTER_X, CENTER_Y).drawBack(false).recipeContext(this);
+		widgets.addSlot(output.getFirst(), CENTER_X, CENTER_Y).drawBack(false).recipeContext(this);
 	}
 }

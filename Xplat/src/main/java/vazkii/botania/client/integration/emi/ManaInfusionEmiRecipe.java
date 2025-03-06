@@ -4,7 +4,6 @@ import dev.emi.emi.api.stack.EmiIngredient;
 import dev.emi.emi.api.stack.EmiStack;
 import dev.emi.emi.api.widget.WidgetHolder;
 
-import net.minecraft.core.RegistryAccess;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Unit;
 import net.minecraft.world.item.ItemStack;
@@ -38,8 +37,7 @@ public class ManaInfusionEmiRecipe extends BotaniaEmiRecipe {
 			this.catalysts = List.of(EmiIngredient.of(recipe.value().getRecipeCatalyst().getDisplayed().stream()
 					.map(s -> EmiStack.of(s.getBlock())).toList()));
 		}
-		// TODO 1.19.4 figure out the proper way to get a registry access
-		this.output = List.of(EmiStack.of(recipe.value().getResultItem(RegistryAccess.EMPTY)));
+		this.output = List.of(EmiStack.of(recipe.value().getResultItem(getRegistryAccess())));
 		mana = recipe.value().getManaToConsume();
 	}
 
@@ -57,12 +55,12 @@ public class ManaInfusionEmiRecipe extends BotaniaEmiRecipe {
 	public void addWidgets(WidgetHolder widgets) {
 		widgets.add(new BlendTextureWidget(TEXTURE, 28, 0, 65, 44, 0, 0));
 		widgets.add(new ManaWidget(7, 50, mana, ManaPoolBlockEntity.MAX_MANA / 10));
-		widgets.addSlot(input.get(0), 21, 13).drawBack(false);
+		widgets.addSlot(input.getFirst(), 21, 13).drawBack(false);
 		widgets.addSlot(POOL, 50, 13).catalyst(true).drawBack(false);
 		if (!catalysts.isEmpty()) {
-			widgets.addSlot(catalysts.get(0), 0, 13).catalyst(true).drawBack(false);
+			widgets.addSlot(catalysts.getFirst(), 0, 13).catalyst(true).drawBack(false);
 		}
-		widgets.addSlot(output.get(0), 79, 13).drawBack(false).recipeContext(this);
+		widgets.addSlot(output.getFirst(), 79, 13).drawBack(false).recipeContext(this);
 	}
 
 }

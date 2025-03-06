@@ -4,10 +4,7 @@ import dev.emi.emi.api.EmiApi;
 import dev.emi.emi.api.EmiEntrypoint;
 import dev.emi.emi.api.EmiPlugin;
 import dev.emi.emi.api.EmiRegistry;
-import dev.emi.emi.api.recipe.EmiCraftingRecipe;
-import dev.emi.emi.api.recipe.EmiRecipe;
-import dev.emi.emi.api.recipe.EmiRecipeCategory;
-import dev.emi.emi.api.recipe.VanillaEmiRecipeCategories;
+import dev.emi.emi.api.recipe.*;
 import dev.emi.emi.api.render.EmiRenderable;
 import dev.emi.emi.api.stack.Comparison;
 import dev.emi.emi.api.stack.EmiIngredient;
@@ -15,6 +12,7 @@ import dev.emi.emi.api.stack.EmiStack;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.util.Unit;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.Block;
 
@@ -23,6 +21,7 @@ import org.apache.commons.lang3.StringUtils;
 import vazkii.botania.client.core.handler.CorporeaInputHandler;
 import vazkii.botania.common.block.BotaniaBlocks;
 import vazkii.botania.common.block.BotaniaFlowerBlocks;
+import vazkii.botania.common.component.BotaniaDataComponents;
 import vazkii.botania.common.crafting.*;
 import vazkii.botania.common.item.BotaniaItems;
 import vazkii.botania.common.item.equipment.tool.terrasteel.TerraShattererItem;
@@ -32,13 +31,14 @@ import vazkii.botania.common.lib.BotaniaTags;
 import java.util.Comparator;
 import java.util.List;
 import java.util.function.Supplier;
+import java.util.stream.Stream;
 import java.util.stream.StreamSupport;
 
 import static vazkii.botania.api.BotaniaAPI.botaniaRL;
 
 @EmiEntrypoint
 public class BotaniaEmiPlugin implements EmiPlugin {
-	private static final Comparator<EmiRecipe> BY_ID = Comparator.comparing(EmiRecipe::getId);
+	private static final Comparator<EmiRecipe> BY_ID = EmiRecipeSorting.identifier();
 	private static final Comparator<EmiRecipe> BY_GROUP =
 			Comparator.comparing(emiRecipe -> emiRecipe instanceof BotaniaEmiRecipe ber ? ber.getGroup() : "");
 	private static final Comparator<EmiRecipe> BY_CATALYST =
@@ -56,9 +56,9 @@ public class BotaniaEmiPlugin implements EmiPlugin {
 	public static final EmiRecipeCategory PETAL_APOTHECARY = createCategory("petal_apothecary",
 			EmiStack.of(BotaniaBlocks.defaultAltar), BY_ID);
 	public static final EmiRecipeCategory MANA_INFUSION = createCategory("mana_infusion",
-			EmiStack.of(BotaniaBlocks.manaPool), BY_CATALYST.thenComparing(BY_GROUP).thenComparing(BY_ID));
+			EmiStack.of(makeFullManaPool()), BY_CATALYST.thenComparing(BY_GROUP).thenComparing(BY_ID));
 	public static final EmiRecipeCategory RUNIC_ALTAR = createCategory("runic_altar",
-			EmiStack.of(BotaniaBlocks.runeAltar), BY_ID);
+			EmiStack.of(BotaniaBlocks.runeAltar), BY_GROUP.thenComparing(BY_ID));
 	public static final EmiRecipeCategory TERRESTRIAL_AGGLOMERATION = createCategory("terrestrial_agglomeration",
 			EmiStack.of(BotaniaBlocks.terraPlate), BY_ID);
 	public static final EmiRecipeCategory ELVEN_TRADE = createCategory("elven_trade",
@@ -78,10 +78,16 @@ public class BotaniaEmiPlugin implements EmiPlugin {
 		return new EmiRecipeCategory(botaniaRL(idPath), icon, icon, comp);
 	}
 
+	private static ItemStack makeFullManaPool() {
+		ItemStack pool = new ItemStack(BotaniaBlocks.manaPool);
+		pool.set(BotaniaDataComponents.RENDER_FULL, Unit.INSTANCE);
+		return pool;
+	}
+
 	private static final Supplier<ItemStack> HOVERED_STACK_GETTER = () -> {
-		EmiIngredient ingr = EmiApi.getHoveredStack(true).getStack();
-		if (!ingr.getEmiStacks().isEmpty()) {
-			var stack = ingr.getEmiStacks().get(0).getItemStack();
+		EmiIngredient ingredient = EmiApi.getHoveredStack(true).getStack();
+		if (!ingredient.getEmiStacks().isEmpty()) {
+			var stack = ingredient.getEmiStacks().getFirst().getItemStack();
 			if (!stack.isEmpty()) {
 				return stack;
 			}
@@ -143,8 +149,7 @@ public class BotaniaEmiPlugin implements EmiPlugin {
 		registry.setDefaultComparison(BotaniaItems.brewVial, Comparison.compareComponents());
 		registry.setDefaultComparison(BotaniaItems.bloodPendant, Comparison.compareComponents());
 		registry.setDefaultComparison(BotaniaItems.incenseStick, Comparison.compareComponents());
-		// Disables the ability to see the no wings tiara recipe, probably an nbt mismatch todo check if this is still the case for data components
-		//registry.setDefaultComparison(BotaniaItems.flightTiara, compareComponents);
+		registry.setDefaultComparison(BotaniaItems.flightTiara, Comparison.compareComponents());
 
 		registry.addRecipe(new AncientWillEmiRecipe(EmiStack.of(BotaniaItems.terrasteelHelm), EmiIngredient.of(List.of(
 				EmiStack.of(BotaniaItems.ancientWillAhrim),
@@ -183,8 +188,8 @@ public class BotaniaEmiPlugin implements EmiPlugin {
 		for (var recipe : registry.getRecipeManager().getAllRecipesFor(BotaniaRecipeTypes.ELVEN_TRADE_TYPE)) {
 			registry.addRecipe(new ElvenTradeEmiRecipe(recipe));
 		}
-		List<ItemStack> containers = List.of(BotaniaItems.vial, BotaniaItems.flask, BotaniaItems.incenseStick, BotaniaItems.bloodPendant)
-				.stream().map(ItemStack::new).toList();
+		List<ItemStack> containers = Stream.of(BotaniaItems.vial, BotaniaItems.flask, BotaniaItems.incenseStick, BotaniaItems.bloodPendant)
+				.map(ItemStack::new).toList();
 		for (var recipe : registry.getRecipeManager().getAllRecipesFor(BotaniaRecipeTypes.BREW_TYPE)) {
 			for (ItemStack container : containers) {
 				if (!recipe.value().getOutput(container.copy()).isEmpty()) {
