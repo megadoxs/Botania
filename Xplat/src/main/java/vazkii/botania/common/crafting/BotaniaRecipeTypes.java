@@ -119,7 +119,7 @@ public class BotaniaRecipeTypes {
 	@SuppressWarnings("unchecked")
 	public static <C extends RecipeInput, T extends Recipe<C>> Optional<RecipeHolder<T>> getRecipe(Level world, ResourceLocation id, RecipeType<T> expectedType) {
 		var holder = world.getRecipeManager().byKey(id);
-		BotaniaAPI.LOGGER.info("getRecipe found {}", holder);
+		BotaniaAPI.LOGGER.info("getRecipe found {} when looking for {}/{}", holder, expectedType, id);
 		return holder.isPresent() && holder.get().value().getType() == expectedType
 				? holder.map(h -> (RecipeHolder<T>) h)
 				: Optional.empty();
