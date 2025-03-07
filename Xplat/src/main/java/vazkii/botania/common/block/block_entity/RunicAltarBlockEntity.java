@@ -68,7 +68,7 @@ public class RunicAltarBlockEntity extends SimpleInventoryBlockEntity implements
 	private static final int CRAFT_EFFECT_EVENT = 2;
 
 	@Nullable
-	private RunicAltarRecipe currentRecipe;
+	private RecipeHolder<RunicAltarRecipe> currentRecipe;
 
 	public int manaToGet = 0;
 	private int mana = 0;
@@ -216,7 +216,7 @@ public class RunicAltarBlockEntity extends SimpleInventoryBlockEntity implements
 		int manaToGet = this.manaToGet;
 
 		if (currentRecipe != null) {
-			this.manaToGet = currentRecipe.getMana();
+			this.manaToGet = currentRecipe.value().getMana();
 		} else {
 			this.manaToGet = level.getRecipeManager().getRecipeFor(BotaniaRecipeTypes.RUNE_TYPE, getRecipeInput(), level)
 					.map(RecipeHolder::value)
@@ -266,14 +266,14 @@ public class RunicAltarBlockEntity extends SimpleInventoryBlockEntity implements
 			return true;
 		}
 
-		RunicAltarRecipe recipe = null;
+		RecipeHolder<RunicAltarRecipe> recipe = null;
 
 		if (currentRecipe != null) {
 			recipe = currentRecipe;
 		} else {
 			Optional<RecipeHolder<RunicAltarRecipe>> maybeRecipe = level.getRecipeManager().getRecipeFor(BotaniaRecipeTypes.RUNE_TYPE, getRecipeInput(), level);
 			if (maybeRecipe.isPresent()) {
-				recipe = maybeRecipe.get().value();
+				recipe = maybeRecipe.get();
 			}
 		}
 
@@ -288,12 +288,13 @@ public class RunicAltarBlockEntity extends SimpleInventoryBlockEntity implements
 			}
 
 			if (livingrock != null) {
-				int mana = recipe.getMana();
+				int mana = recipe.value().getMana();
 				receiveMana(-mana);
-				ItemStack output = recipe.assemble(getRecipeInput(), getLevel().registryAccess());
+				ItemStack output = recipe.value().assemble(getRecipeInput(), getLevel().registryAccess());
 				ItemEntity outputItem = new ItemEntity(level, worldPosition.getX() + 0.5, worldPosition.getY() + 1.5, worldPosition.getZ() + 0.5, output);
 				XplatAbstractions.INSTANCE.itemFlagsComponent(outputItem).runicAltarSpawned = true;
 				if (player != null) {
+					player.triggerRecipeCrafted(recipe, List.of(output));
 					output.onCraftedBy(level, player, output.getCount());
 				} else {
 					output.onCraftedBySystem(level);

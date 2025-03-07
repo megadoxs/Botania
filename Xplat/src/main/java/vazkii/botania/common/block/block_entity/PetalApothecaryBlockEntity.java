@@ -122,6 +122,7 @@ public class PetalApothecaryBlockEntity extends SimpleInventoryBlockEntity imple
 				ItemEntity outputItem = new ItemEntity(level, worldPosition.getX() + 0.5, worldPosition.getY() + 1.5, worldPosition.getZ() + 0.5, output);
 				XplatAbstractions.INSTANCE.itemFlagsComponent(outputItem).apothecarySpawned = true;
 				if (thrower instanceof Player player) {
+					player.triggerRecipeCrafted(recipe, List.of(output));
 					output.onCraftedBy(level, player, output.getCount());
 				} else {
 					output.onCraftedBySystem(level);

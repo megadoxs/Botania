@@ -24,6 +24,7 @@ import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
@@ -145,16 +146,16 @@ public class ManaPoolBlockEntity extends BotaniaBlockEntity implements ManaPool,
 	}
 
 	@Nullable
-	public ManaInfusionRecipe getMatchingRecipe(ItemStack stack, BlockState state) {
-		List<ManaInfusionRecipe> matchingNonCatRecipes = new ArrayList<>();
-		List<ManaInfusionRecipe> matchingCatRecipes = new ArrayList<>();
+	public RecipeHolder<ManaInfusionRecipe> getMatchingRecipe(ItemStack stack, BlockState state) {
+		List<RecipeHolder<ManaInfusionRecipe>> matchingNonCatRecipes = new ArrayList<>();
+		List<RecipeHolder<ManaInfusionRecipe>> matchingCatRecipes = new ArrayList<>();
 
 		for (var recipe : BotaniaRecipeTypes.getRecipes(level, BotaniaRecipeTypes.MANA_INFUSION_TYPE)) {
 			if (recipe.value().matches(stack)) {
 				if (recipe.value().getRecipeCatalyst() == StateIngredients.NONE) {
-					matchingNonCatRecipes.add(recipe.value());
+					matchingNonCatRecipes.add(recipe);
 				} else if (recipe.value().getRecipeCatalyst().test(state)) {
-					matchingCatRecipes.add(recipe.value());
+					matchingCatRecipes.add(recipe);
 				}
 			}
 		}
@@ -178,20 +179,21 @@ public class ManaPoolBlockEntity extends BotaniaBlockEntity implements ManaPool,
 			return false;
 		}
 
-		ManaInfusionRecipe recipe = getMatchingRecipe(stack, level.getBlockState(worldPosition.below()));
+		RecipeHolder<ManaInfusionRecipe> recipe = getMatchingRecipe(stack, level.getBlockState(worldPosition.below()));
 
 		if (recipe != null) {
-			int mana = recipe.getManaToConsume();
+			int mana = recipe.value().getManaToConsume();
 			if (getCurrentMana() >= mana) {
 				receiveMana(-mana);
 
-				ItemStack output = recipe.getRecipeOutput(level.registryAccess(), stack);
+				ItemStack output = recipe.value().getRecipeOutput(level.registryAccess(), stack);
 				EntityHelper.shrinkItem(item);
 				item.setOnGround(false); //Force entity collision update to run every tick if crafting is in progress
 
 				ItemEntity outputItem = new ItemEntity(level, worldPosition.getX() + 0.5, worldPosition.getY() + 1.5, worldPosition.getZ() + 0.5, output);
 				XplatAbstractions.INSTANCE.itemFlagsComponent(outputItem).manaInfusionSpawned = true;
 				if (item.getOwner() instanceof Player player) {
+					player.triggerRecipeCrafted(recipe, List.of(output));
 					output.onCraftedBy(level, player, output.getCount());
 				} else {
 					output.onCraftedBySystem(level);

@@ -27,6 +27,7 @@ import net.minecraft.util.profiling.ProfilerFiller;
 import net.minecraft.world.Container;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
@@ -269,12 +270,12 @@ public final class HUDHandler {
 		ProfilerFiller profiler = mc.getProfiler();
 
 		profiler.push("poolRecipe");
-		ManaInfusionRecipe recipe = tile.getMatchingRecipe(stack, tile.getLevel().getBlockState(tile.getBlockPos().below()));
+		RecipeHolder<ManaInfusionRecipe> recipe = tile.getMatchingRecipe(stack, tile.getLevel().getBlockState(tile.getBlockPos().below()));
 		if (recipe != null) {
 			int x = mc.getWindow().getGuiScaledWidth() / 2 - 11;
 			int y = mc.getWindow().getGuiScaledHeight() / 2 + (alternateRecipeHudPosition ? -25 : 10);
 
-			int u = tile.getCurrentMana() >= recipe.getManaToConsume() ? 0 : 22;
+			int u = tile.getCurrentMana() >= recipe.value().getManaToConsume() ? 0 : 22;
 			int v = mc.player.getName().getString().equals("haighyorkie") && mc.player.isShiftKeyDown() ? 23 : 8;
 
 			RenderSystem.enableBlend();
@@ -284,7 +285,7 @@ public final class HUDHandler {
 			RenderSystem.setShaderColor(1F, 1F, 1F, 1F);
 
 			gui.renderItem(stack, x - 20, y);
-			ItemStack result = recipe.getResultItem(mc.level.registryAccess());
+			ItemStack result = recipe.value().getResultItem(mc.level.registryAccess());
 			gui.renderItem(result, x + 26, y);
 			gui.renderItemDecorations(mc.font, result, x + 26, y);
 

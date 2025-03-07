@@ -156,20 +156,21 @@ public class CraftyCrateBlockEntity extends OpenCrateBlockEntity implements Wand
 		Optional<RecipeHolder<CraftingRecipe>> matchingRecipe = getMatchingRecipe(craft);
 		matchingRecipe.ifPresent(recipe -> {
 			CraftingInput input = CraftingInput.of(craft.getWidth(), craft.getHeight(), craft.getItems());
-			craftResult = recipe.value().assemble(input, this.getLevel().registryAccess());
+			ItemStack result = recipe.value().assemble(input, this.getLevel().registryAccess());
 
 			// Given some mods can return air by a bad implementation of their recipe handler,
 			// check for air before continuing on.
-			if (craftResult.isEmpty()) {
+			if (result.isEmpty()) {
 				// We have air, do not continue.
 				matchFailed = true;
 				return;
 			}
 
 			if (player != null) {
-				craftResult.onCraftedBy(level, player, craftResult.getCount());
+				player.triggerRecipeCrafted(recipe, List.of(result));
+				result.onCraftedBy(level, player, result.getCount());
 			} else {
-				craftResult.onCraftedBySystem(level);
+				result.onCraftedBySystem(level);
 			}
 			Container handler = getItemHandler();
 			List<ItemStack> remainders = recipe.value().getRemainingItems(input);
@@ -183,6 +184,8 @@ public class CraftyCrateBlockEntity extends OpenCrateBlockEntity implements Wand
 				}
 				handler.setItem(i, s);
 			}
+
+			craftResult = result;
 		});
 		if (matchingRecipe.isEmpty()) {
 			matchFailed = true;

@@ -49,6 +49,7 @@ import vazkii.patchouli.api.PatchouliAPI;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.OptionalInt;
 import java.util.function.Supplier;
 
 public class TerrestrialAgglomerationPlateBlockEntity extends BotaniaBlockEntity implements SparkAttachable, ManaReceiver {
@@ -90,7 +91,7 @@ public class TerrestrialAgglomerationPlateBlockEntity extends BotaniaBlockEntity
 			List<ItemStack> items = self.getItems(itemEntities);
 			RecipeInput inv = self.getRecipeInput(items);
 
-			TerrestrialAgglomerationRecipe recipe = self.getCurrentRecipe(inv);
+			RecipeHolder<TerrestrialAgglomerationRecipe> recipe = self.getCurrentRecipe(inv);
 			if (recipe != null) {
 				removeMana = false;
 				ManaSpark spark = self.getAttachedSpark();
@@ -102,10 +103,11 @@ public class TerrestrialAgglomerationPlateBlockEntity extends BotaniaBlockEntity
 							new BotaniaEffectPacket(EffectType.TERRA_PLATE, worldPosition.getX(), worldPosition.getY(), worldPosition.getZ(), proportion));
 				}
 
-				if (self.mana >= recipe.getMana()) {
+				if (self.mana >= recipe.value().getMana()) {
 					Player player = getCraftingPlayer(itemEntities);
-					ItemStack result = recipe.assemble(inv, level.registryAccess());
+					ItemStack result = recipe.value().assemble(inv, level.registryAccess());
 					if (player != null) {
+						player.triggerRecipeCrafted(recipe, List.of(result));
 						result.onCraftedBy(level, player, result.getCount());
 					} else {
 						result.onCraftedBySystem(level);
@@ -204,12 +206,12 @@ public class TerrestrialAgglomerationPlateBlockEntity extends BotaniaBlockEntity
 	}
 
 	@Nullable
-	private TerrestrialAgglomerationRecipe getCurrentRecipe(RecipeInput input) {
+	private RecipeHolder<TerrestrialAgglomerationRecipe> getCurrentRecipe(RecipeInput input) {
 		if (input.isEmpty()) {
 			return null;
 		}
 		return level.getRecipeManager().getRecipeFor(BotaniaRecipeTypes.TERRA_PLATE_TYPE, input, level)
-				.map(RecipeHolder::value).orElse(null);
+				.orElse(null);
 	}
 
 	private boolean isActive() {
@@ -246,10 +248,15 @@ public class TerrestrialAgglomerationPlateBlockEntity extends BotaniaBlockEntity
 		return mana;
 	}
 
+	private OptionalInt getCurrentRecipeMana() {
+		RecipeHolder<TerrestrialAgglomerationRecipe> recipe = getCurrentRecipe(getRecipeInput(getItems(getItemEntities())));
+		return recipe != null ? OptionalInt.of(recipe.value().getMana()) : OptionalInt.empty();
+	}
+
 	@Override
 	public boolean isFull() {
-		TerrestrialAgglomerationRecipe recipe = getCurrentRecipe(getRecipeInput(getItems(getItemEntities())));
-		return recipe == null || getCurrentMana() >= recipe.getMana();
+		var mana = getCurrentRecipeMana();
+		return mana.isEmpty() || getCurrentMana() >= mana.getAsInt();
 	}
 
 	@Override
@@ -275,16 +282,16 @@ public class TerrestrialAgglomerationPlateBlockEntity extends BotaniaBlockEntity
 
 	@Override
 	public int getAvailableSpaceForMana() {
-		TerrestrialAgglomerationRecipe recipe = getCurrentRecipe(getRecipeInput(getItems(getItemEntities())));
-		return recipe == null ? 0 : Math.max(0, recipe.getMana() - getCurrentMana());
+		var mana = getCurrentRecipeMana();
+		return mana.isEmpty() ? 0 : Math.max(0, mana.getAsInt() - getCurrentMana());
 	}
 
 	public float getCompletion() {
-		TerrestrialAgglomerationRecipe recipe = getCurrentRecipe(getRecipeInput(getItems(getItemEntities())));
-		if (recipe == null) {
+		var mana = getCurrentRecipeMana();
+		if (mana.isEmpty()) {
 			return 0;
 		}
-		return ((float) getCurrentMana()) / recipe.getMana();
+		return ((float) getCurrentMana()) / mana.getAsInt();
 	}
 
 	public int getComparatorLevel() {
