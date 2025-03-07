@@ -24,6 +24,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.AABB;
 
 import org.jetbrains.annotations.Nullable;
+import org.jetbrains.annotations.UnknownNullability;
 
 import vazkii.botania.api.block.WandHUD;
 import vazkii.botania.api.brew.BrewContainer;
@@ -45,6 +46,7 @@ public class BreweryBlockEntity extends SimpleInventoryBlockEntity implements Ma
 	private static final String TAG_MANA = "mana";
 	private static final int CRAFT_EFFECT_EVENT = 0;
 
+	@Nullable
 	public BotanicalBreweryRecipe recipe;
 	private int mana = 0;
 	private int manaLastTick = 0;
@@ -69,7 +71,7 @@ public class BreweryBlockEntity extends SimpleInventoryBlockEntity implements Ma
 
 				if (player == null || !player.getAbilities().instabuild) {
 					stack.shrink(1);
-					if (stack.isEmpty() && player != null) {
+					if (stack.isEmpty() && player != null && hand != null) {
 						player.setItemInHand(hand, ItemStack.EMPTY);
 					}
 				}
@@ -228,6 +230,7 @@ public class BreweryBlockEntity extends SimpleInventoryBlockEntity implements Ma
 	}
 
 	@Override
+	@UnknownNullability
 	public Level getManaReceiverLevel() {
 		return getLevel();
 	}

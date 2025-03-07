@@ -25,6 +25,7 @@ import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
 
 import org.jetbrains.annotations.Nullable;
+import org.jetbrains.annotations.UnknownNullability;
 
 import vazkii.botania.api.block.Bound;
 import vazkii.botania.api.item.CoordBoundItem;
@@ -164,6 +165,7 @@ public class ManaMirrorItem extends Item {
 		}
 
 		@Override
+		@UnknownNullability
 		public Level getManaReceiverLevel() {
 			return null;
 		}

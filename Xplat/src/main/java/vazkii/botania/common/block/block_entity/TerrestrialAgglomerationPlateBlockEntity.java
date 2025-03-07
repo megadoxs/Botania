@@ -29,6 +29,7 @@ import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 
 import org.jetbrains.annotations.Nullable;
+import org.jetbrains.annotations.UnknownNullability;
 
 import vazkii.botania.api.internal.VanillaPacketDispatcher;
 import vazkii.botania.api.mana.ManaPool;
@@ -205,6 +206,7 @@ public class TerrestrialAgglomerationPlateBlockEntity extends BotaniaBlockEntity
 	}
 
 	@Override
+	@UnknownNullability
 	public Level getManaReceiverLevel() {
 		return getLevel();
 	}

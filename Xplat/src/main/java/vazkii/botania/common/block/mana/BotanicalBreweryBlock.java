@@ -60,8 +60,7 @@ public class BotanicalBreweryBlock extends BotaniaWaterloggedBlock implements En
 
 	@Override
 	protected InteractionResult useWithoutItem(BlockState state, Level level, BlockPos pos, Player player, BlockHitResult hitResult) {
-		if (!state.getValue(BlockStateProperties.POWERED)) {
-			BreweryBlockEntity brew = (BreweryBlockEntity) level.getBlockEntity(pos);
+		if (!state.getValue(BlockStateProperties.POWERED) && level.getBlockEntity(pos) instanceof BreweryBlockEntity brew) {
 			InventoryHelper.withdrawFromInventory(brew, player);
 			return InteractionResult.sidedSuccess(level.isClientSide());
 		}
@@ -70,8 +69,7 @@ public class BotanicalBreweryBlock extends BotaniaWaterloggedBlock implements En
 
 	@Override
 	protected ItemInteractionResult useItemOn(ItemStack stack, BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hitResult) {
-		BreweryBlockEntity brew = (BreweryBlockEntity) level.getBlockEntity(pos);
-		return brew.addItem(player, stack, hand)
+		return level.getBlockEntity(pos) instanceof BreweryBlockEntity brew && brew.addItem(player, stack, hand)
 				? ItemInteractionResult.sidedSuccess(level.isClientSide())
 				: ItemInteractionResult.SKIP_DEFAULT_BLOCK_INTERACTION;
 	}
@@ -93,9 +91,8 @@ public class BotanicalBreweryBlock extends BotaniaWaterloggedBlock implements En
 	}
 
 	@Override
-	public int getAnalogOutputSignal(BlockState state, Level world, BlockPos pos) {
-		BreweryBlockEntity brew = (BreweryBlockEntity) world.getBlockEntity(pos);
-		return brew.signal;
+	public int getAnalogOutputSignal(BlockState state, Level level, BlockPos pos) {
+		return level.getBlockEntity(pos) instanceof BreweryBlockEntity brew ? brew.signal : 0;
 	}
 
 	@Override

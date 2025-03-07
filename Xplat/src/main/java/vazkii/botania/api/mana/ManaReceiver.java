@@ -12,6 +12,8 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.Level;
 
+import org.jetbrains.annotations.UnknownNullability;
+
 import static vazkii.botania.api.BotaniaAPI.botaniaRL;
 
 /**
@@ -20,6 +22,7 @@ import static vazkii.botania.api.BotaniaAPI.botaniaRL;
 public interface ManaReceiver {
 	ResourceLocation ID = botaniaRL("mana_receiver");
 
+	@UnknownNullability
 	Level getManaReceiverLevel();
 
 	BlockPos getManaReceiverPos();

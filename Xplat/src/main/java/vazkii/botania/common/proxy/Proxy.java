@@ -18,6 +18,7 @@ import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
 
 import org.jetbrains.annotations.Nullable;
+import org.jetbrains.annotations.UnknownNullability;
 
 import vazkii.botania.client.core.proxy.ClientProxy;
 import vazkii.botania.common.entity.GaiaGuardianEntity;
@@ -40,7 +41,7 @@ public interface Proxy {
 
 	default void runOnClient(Supplier<Runnable> s) {}
 
-	@Nullable
+	@UnknownNullability
 	default Player getClientPlayer() {
 		return null;
 	}

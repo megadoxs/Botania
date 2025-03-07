@@ -31,6 +31,7 @@ import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 
 import org.jetbrains.annotations.Nullable;
+import org.jetbrains.annotations.UnknownNullability;
 
 import vazkii.botania.api.block.Wandable;
 import vazkii.botania.api.internal.VanillaPacketDispatcher;
@@ -53,11 +54,12 @@ import java.util.List;
 
 public class RunicAltarBlockEntity extends SimpleInventoryBlockEntity implements ManaReceiver, Wandable {
 	private static final String TAG_MANA = "mana";
-	private static final String TAG_MANA_TO_GET = "manaToGet";
+	private static final String TAG_MANA_TO_GET = "mana_to_get";
 	private static final int SET_KEEP_TICKS_EVENT = 0;
 	private static final int SET_COOLDOWN_EVENT = 1;
 	private static final int CRAFT_EFFECT_EVENT = 2;
 
+	@Nullable
 	private RunicAltarRecipe currentRecipe;
 
 	public int manaToGet = 0;
@@ -65,6 +67,7 @@ public class RunicAltarBlockEntity extends SimpleInventoryBlockEntity implements
 	private int cooldown = 0;
 	public int signal = 0;
 
+	@Nullable
 	private List<ItemStack> lastRecipe = null;
 	private int recipeKeepTicks = 0;
 
@@ -349,6 +352,7 @@ public class RunicAltarBlockEntity extends SimpleInventoryBlockEntity implements
 	}
 
 	@Override
+	@UnknownNullability
 	public Level getManaReceiverLevel() {
 		return getLevel();
 	}

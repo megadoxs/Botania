@@ -23,6 +23,8 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.gameevent.GameEvent;
 
+import org.jetbrains.annotations.Nullable;
+
 import vazkii.botania.api.internal.VanillaPacketDispatcher;
 import vazkii.botania.common.block.block_entity.BotaniaBlockEntities;
 import vazkii.botania.common.block.block_entity.BotaniaBlockEntity;
@@ -120,6 +122,7 @@ public class BellowsBlockEntity extends BotaniaBlockEntity {
 
 	}
 
+	@Nullable
 	public BlockEntity getLinkedTile() {
 		Direction side = getBlockState().getValue(BlockStateProperties.HORIZONTAL_FACING);
 		return level.getBlockEntity(getBlockPos().relative(side));

@@ -16,6 +16,7 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 
+import org.jetbrains.annotations.UnknownNullability;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 import vazkii.botania.api.mana.ManaReceiver;
@@ -64,6 +65,7 @@ public class LifeImbuerBlockEntity extends BotaniaBlockEntity implements ManaRec
 	}
 
 	@Override
+	@UnknownNullability
 	public Level getManaReceiverLevel() {
 		return getLevel();
 	}

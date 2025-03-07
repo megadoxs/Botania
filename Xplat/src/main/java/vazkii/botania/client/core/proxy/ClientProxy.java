@@ -38,7 +38,6 @@ import vazkii.patchouli.api.PatchouliAPI;
 import java.time.LocalDateTime;
 import java.time.Month;
 import java.util.Locale;
-import java.util.Objects;
 import java.util.function.Consumer;
 import java.util.function.Supplier;
 
@@ -72,9 +71,10 @@ public class ClientProxy implements Proxy {
 		s.get().run();
 	}
 
+	@UnknownNullability
 	@Override
 	public Player getClientPlayer() {
-		return Objects.requireNonNull(Minecraft.getInstance().player);
+		return Minecraft.getInstance().player;
 	}
 
 	@Override

@@ -35,6 +35,7 @@ import net.minecraft.world.phys.Vec3;
 
 import org.apache.commons.lang3.mutable.MutableInt;
 import org.jetbrains.annotations.Nullable;
+import org.jetbrains.annotations.UnknownNullability;
 import org.lwjgl.opengl.GL11;
 
 import vazkii.botania.api.BotaniaAPI;
@@ -44,7 +45,6 @@ import vazkii.botania.api.block.Wandable;
 import vazkii.botania.api.internal.VanillaPacketDispatcher;
 import vazkii.botania.api.item.ManaDissolvable;
 import vazkii.botania.api.mana.*;
-import vazkii.botania.api.mana.spark.ManaSpark;
 import vazkii.botania.api.mana.spark.SparkAttachable;
 import vazkii.botania.api.recipe.ManaInfusionRecipe;
 import vazkii.botania.api.state.BotaniaStateProperties;
@@ -95,7 +95,6 @@ public class ManaPoolBlockEntity extends BotaniaBlockEntity implements ManaPool,
 
 	private boolean outputting = false;
 
-	private Optional<DyeColor> legacyColor = Optional.empty();
 	private int mana;
 
 	private int manaCap = -1;
@@ -341,12 +340,6 @@ public class ManaPoolBlockEntity extends BotaniaBlockEntity implements ManaPool,
 
 	public static void serverTick(Level level, BlockPos worldPosition, BlockState state, ManaPoolBlockEntity self) {
 
-		// Legacy color format
-		if (self.legacyColor.isPresent()) {
-			self.setColor(self.legacyColor);
-			self.legacyColor = Optional.empty();
-		}
-
 		self.initManaCapAndNetwork();
 		boolean wasDoingTransfer = self.isDoingTransfer;
 		self.isDoingTransfer = false;
@@ -476,16 +469,6 @@ public class ManaPoolBlockEntity extends BotaniaBlockEntity implements ManaPool,
 		mana = cmp.getInt(TAG_MANA);
 		outputting = cmp.getBoolean(TAG_OUTPUTTING);
 
-		// Legacy color format
-		if (cmp.contains("color")) {
-			DyeColor color = DyeColor.byId(cmp.getInt("color"));
-			// White was previously used as "no color"
-			if (color != DyeColor.WHITE) {
-				legacyColor = Optional.of(color);
-			} else {
-				legacyColor = Optional.empty();
-			}
-		}
 		if (cmp.contains(TAG_MANA_CAP)) {
 			manaCap = cmp.getInt(TAG_MANA_CAP);
 		}
@@ -564,6 +547,7 @@ public class ManaPoolBlockEntity extends BotaniaBlockEntity implements ManaPool,
 	}
 
 	@Override
+	@UnknownNullability
 	public Level getManaReceiverLevel() {
 		return getLevel();
 	}

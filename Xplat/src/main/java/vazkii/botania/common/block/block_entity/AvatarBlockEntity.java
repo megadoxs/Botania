@@ -21,6 +21,8 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 
+import org.jetbrains.annotations.UnknownNullability;
+
 import vazkii.botania.api.block.Avatar;
 import vazkii.botania.api.internal.VanillaPacketDispatcher;
 import vazkii.botania.api.mana.ManaReceiver;
@@ -129,6 +131,7 @@ public class AvatarBlockEntity extends SimpleInventoryBlockEntity implements Ava
 	}
 
 	@Override
+	@UnknownNullability
 	public Level getManaReceiverLevel() {
 		return getLevel();
 	}

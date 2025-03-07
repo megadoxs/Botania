@@ -13,6 +13,8 @@ import net.minecraft.core.Direction;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 
+import org.jetbrains.annotations.UnknownNullability;
+
 import vazkii.botania.api.mana.ManaPool;
 import vazkii.botania.api.mana.ManaReceiver;
 import vazkii.botania.common.block.block_entity.BotaniaBlockEntities;
@@ -45,6 +47,7 @@ public class ManaSplitterBlockEntity extends BotaniaBlockEntity implements ManaR
 	}
 
 	@Override
+	@UnknownNullability
 	public Level getManaReceiverLevel() {
 		return getLevel();
 	}

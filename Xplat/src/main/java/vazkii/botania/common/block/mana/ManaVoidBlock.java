@@ -13,6 +13,8 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 
+import org.jetbrains.annotations.UnknownNullability;
+
 import vazkii.botania.api.mana.ManaReceiver;
 import vazkii.botania.api.mana.PoolOverlayProvider;
 import vazkii.botania.client.fx.SparkleParticleData;
@@ -59,6 +61,7 @@ public class ManaVoidBlock extends BotaniaBlock implements PoolOverlayProvider {
 		}
 
 		@Override
+		@UnknownNullability
 		public Level getManaReceiverLevel() {
 			return level;
 		}

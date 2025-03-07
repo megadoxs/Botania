@@ -159,14 +159,15 @@ public class PetalApothecaryBlockEntity extends SimpleInventoryBlockEntity imple
 	}
 
 	public void saveLastRecipe(Ingredient reagent) {
-		lastRecipe = new ArrayList<>();
+		var recipe = new ArrayList<ItemStack>();
 		for (int i = 0; i < inventorySize(); i++) {
 			ItemStack stack = getItemHandler().getItem(i);
 			if (stack.isEmpty()) {
 				break;
 			}
-			lastRecipe.add(stack.copy());
+			recipe.add(stack.copy());
 		}
+		lastRecipe = recipe;
 		lastReagent = reagent;
 		recipeKeepTicks = 400;
 		level.blockEvent(getBlockPos(), getBlockState().getBlock(), SET_KEEP_TICKS_EVENT, 400);

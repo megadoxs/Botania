@@ -20,6 +20,8 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 
+import org.jetbrains.annotations.Nullable;
+
 import vazkii.botania.api.block.Bound;
 import vazkii.botania.api.block_entity.FunctionalFlowerBlockEntity;
 import vazkii.botania.api.block_entity.RadiusDescriptor;
@@ -141,6 +143,7 @@ public class SpectranthemumBlockEntity extends FunctionalFlowerBlockEntity {
 		return bound;
 	}
 
+	@Nullable
 	@Override
 	public BlockPos getBinding() {
 		return Proxy.INSTANCE.getClientPlayer().isShiftKeyDown() && bindPos.getY() != Integer.MIN_VALUE ? bindPos : super.getBinding();

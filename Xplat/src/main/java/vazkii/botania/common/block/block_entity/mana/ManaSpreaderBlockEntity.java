@@ -8,8 +8,6 @@
  */
 package vazkii.botania.common.block.block_entity.mana;
 
-import com.google.common.base.Predicates;
-
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.core.BlockPos;
@@ -34,7 +32,9 @@ import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
+import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.Nullable;
+import org.jetbrains.annotations.UnknownNullability;
 
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.BotaniaAPIClient;
@@ -119,7 +119,9 @@ public class ManaSpreaderBlockEntity extends ExposedSimpleInventoryBlockEntity i
 	private boolean requestsClientUpdate = false;
 	private boolean hasReceivedInitialPacket = false;
 
+	@Nullable
 	private ManaReceiver receiver = null;
+	@Nullable
 	private ManaReceiver receiverLastTick = null;
 
 	private boolean poweredLastTick = true;
@@ -132,6 +134,7 @@ public class ManaSpreaderBlockEntity extends ExposedSimpleInventoryBlockEntity i
 	public double lastPingbackY = Integer.MIN_VALUE;
 	public double lastPingbackZ = 0;
 
+	@Nullable
 	private List<PositionProperties> lastTentativeBurst;
 	private boolean invalidTentativeBurst = false;
 
@@ -199,11 +202,11 @@ public class ManaSpreaderBlockEntity extends ExposedSimpleInventoryBlockEntity i
 				double z = self.lastPingbackZ;
 				AABB aabb = new AABB(x, y, z, x, y, z).inflate(PINGBACK_EXPIRED_SEARCH_DISTANCE, PINGBACK_EXPIRED_SEARCH_DISTANCE, PINGBACK_EXPIRED_SEARCH_DISTANCE);
 				@SuppressWarnings("unchecked")
-				List<ManaBurst> bursts = (List<ManaBurst>) (List<?>) level.getEntitiesOfClass(ThrowableProjectile.class, aabb, Predicates.instanceOf(ManaBurst.class));
+				List<ManaBurst> bursts = (List<ManaBurst>) (List<?>) level.getEntitiesOfClass(ThrowableProjectile.class, aabb, ManaBurst.class::isInstance);
 				ManaBurst found = null;
 				UUID identity = self.getIdentifier();
 				for (ManaBurst burst : bursts) {
-					if (burst != null && identity.equals(burst.getShooterUUID())) {
+					if (identity.equals(burst.getShooterUUID())) {
 						found = burst;
 						break;
 					}
@@ -297,17 +300,8 @@ public class ManaSpreaderBlockEntity extends ExposedSimpleInventoryBlockEntity i
 	public void readPacketNBT(CompoundTag cmp, HolderLookup.Provider registries) {
 		super.readPacketNBT(cmp, registries);
 
-		String tagUuidMostDeprecated = "uuidMost";
-		String tagUuidLeastDeprecated = "uuidLeast";
-
 		if (cmp.hasUUID(TAG_UUID)) {
 			identity = cmp.getUUID(TAG_UUID);
-		} else if (cmp.contains(tagUuidLeastDeprecated) && cmp.contains(tagUuidMostDeprecated)) { // legacy world compat
-			long most = cmp.getLong(tagUuidMostDeprecated);
-			long least = cmp.getLong(tagUuidLeastDeprecated);
-			if (identity == null || most != identity.getMostSignificantBits() || least != identity.getLeastSignificantBits()) {
-				this.identity = new UUID(most, least);
-			}
 		}
 
 		mana = cmp.getInt(TAG_MANA);
@@ -365,6 +359,7 @@ public class ManaSpreaderBlockEntity extends ExposedSimpleInventoryBlockEntity i
 	}
 
 	@Override
+	@UnknownNullability
 	public Level getManaReceiverLevel() {
 		return getLevel();
 	}
@@ -491,6 +486,8 @@ public class ManaSpreaderBlockEntity extends ExposedSimpleInventoryBlockEntity i
 		return fakeBurst;
 	}
 
+	@Nullable
+	@Contract("true -> !null")
 	private ManaBurstEntity getBurst(boolean fake) {
 		ManaSpreaderBlock.Variant variant = getVariant();
 		float gravity = 0F;
@@ -528,6 +525,7 @@ public class ManaSpreaderBlockEntity extends ExposedSimpleInventoryBlockEntity i
 		return null;
 	}
 
+	@Nullable
 	public ControlLensItem getLensController(ItemStack stack) {
 		if (!stack.isEmpty() && stack.getItem() instanceof ControlLensItem control) {
 			if (control.isControlLens(stack)) {
@@ -610,6 +608,7 @@ public class ManaSpreaderBlockEntity extends ExposedSimpleInventoryBlockEntity i
 		}
 	}
 
+	@Nullable
 	@Override
 	public BlockPos getBinding() {
 		if (receiver == null) {

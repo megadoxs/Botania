@@ -8,7 +8,6 @@
  */
 package vazkii.botania.common.block.block_entity;
 
-import com.google.common.base.Predicates;
 import com.google.common.base.Suppliers;
 
 import it.unimi.dsi.fastutil.objects.Object2IntMap;
@@ -27,7 +26,6 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.tags.EnchantmentTags;
 import net.minecraft.world.Clearable;
-import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
@@ -44,13 +42,12 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.AABB;
 
 import org.jetbrains.annotations.Nullable;
+import org.jetbrains.annotations.UnknownNullability;
 
 import vazkii.botania.api.block.WandHUD;
 import vazkii.botania.api.block.Wandable;
 import vazkii.botania.api.internal.VanillaPacketDispatcher;
-import vazkii.botania.api.mana.ManaPool;
 import vazkii.botania.api.mana.ManaReceiver;
-import vazkii.botania.api.mana.spark.ManaSpark;
 import vazkii.botania.api.mana.spark.SparkAttachable;
 import vazkii.botania.api.mana.spark.SparkHelper;
 import vazkii.botania.api.state.BotaniaStateProperties;
@@ -182,16 +179,6 @@ public class ManaEnchanterBlockEntity extends BotaniaBlockEntity implements Mana
 							}
 						}
 					}
-					/*OLD
-					Map<Enchantment, Integer> enchants = EnchantmentHelper.getEnchantments(item);
-					if (enchants.size() > 0) {
-						Enchantment enchant = enchants.keySet().iterator().next();
-						if (isEnchantmentValid(enchant)) {
-							advanceStage();
-							return true;
-						}
-					}
-					 */
 				}
 			}
 		}
@@ -219,21 +206,6 @@ public class ManaEnchanterBlockEntity extends BotaniaBlockEntity implements Mana
 							}
 						}
 					}
-
-					/*OLD
-					Map<Enchantment, Integer> enchants = EnchantmentHelper.getEnchantments(item);
-					if (enchants.size() > 0) {
-						Map.Entry<Enchantment, Integer> e = enchants.entrySet().iterator().next();
-						Enchantment ench = e.getKey();
-						int enchantLvl = e.getValue();
-						if (!hasEnchantAlready(ench) && isEnchantmentValid(ench)) {
-							this.enchants.add(new EnchantmentInstance(ench, enchantLvl));
-							level.playSound(null, worldPosition, BotaniaSounds.ding, SoundSource.BLOCKS, 1F, 1F);
-							addedEnch = true;
-							break;
-						}
-					}
-					 */
 				}
 			}
 
@@ -269,15 +241,7 @@ public class ManaEnchanterBlockEntity extends BotaniaBlockEntity implements Mana
 
 			advanceStage();
 		} else {
-			ManaSpark spark = getAttachedSpark();
-			if (spark != null) {
-				var otherSparks = SparkHelper.getSparksAround(level, worldPosition.getX() + 0.5, worldPosition.getY() + 0.5, worldPosition.getZ() + 0.5, spark.getNetwork());
-				for (var otherSpark : otherSparks) {
-					if (spark != otherSpark && otherSpark.getAttachedManaReceiver() instanceof ManaPool) {
-						otherSpark.registerTransfer(spark);
-					}
-				}
-			}
+			SparkHelper.registerTransferFromSparksAround(getAttachedSpark(), level, worldPosition);
 			if (stageTicks % 5 == 0) {
 				sync();
 			}
@@ -368,26 +332,26 @@ public class ManaEnchanterBlockEntity extends BotaniaBlockEntity implements Mana
 
 	@Override
 	public boolean triggerEvent(int event, int param) {
-		switch (event) {
-			case CRAFT_EFFECT_EVENT: {
-				if (level.isClientSide) {
-					for (int i = 0; i < 25; i++) {
-						float red = (float) Math.random();
-						float green = (float) Math.random();
-						float blue = (float) Math.random();
-						SparkleParticleData data = SparkleParticleData.sparkle((float) Math.random(), red, green, blue, 10);
-						level.addParticle(data, getBlockPos().getX() + Math.random() * 0.4 - 0.2, getBlockPos().getY(), getBlockPos().getZ() + Math.random() * 0.4 - 0.2, 0, 0, 0);
-					}
-					level.playLocalSound(worldPosition.getX(), worldPosition.getY(), worldPosition.getZ(), BotaniaSounds.enchanterEnchant, SoundSource.BLOCKS, 1F, 1F, false);
+		if (event == CRAFT_EFFECT_EVENT) {
+			if (level.isClientSide) {
+				for (int i = 0; i < 25; i++) {
+					float red = (float) Math.random();
+					float green = (float) Math.random();
+					float blue = (float) Math.random();
+					SparkleParticleData data = SparkleParticleData.sparkle((float) Math.random(), red, green, blue, 10);
+					level.addParticle(data, getBlockPos().getX() + Math.random() * 0.4 - 0.2, getBlockPos().getY(),
+							getBlockPos().getZ() + Math.random() * 0.4 - 0.2, 0, 0, 0);
 				}
-				return true;
+				level.playLocalSound(worldPosition.getX(), worldPosition.getY(), worldPosition.getZ(),
+						BotaniaSounds.enchanterEnchant, SoundSource.BLOCKS, 1F, 1F, false);
 			}
-			default:
-				return super.triggerEvent(event, param);
+			return true;
 		}
+		return super.triggerEvent(event, param);
 	}
 
 	@Override
+	@UnknownNullability
 	public Level getManaReceiverLevel() {
 		return getLevel();
 	}
