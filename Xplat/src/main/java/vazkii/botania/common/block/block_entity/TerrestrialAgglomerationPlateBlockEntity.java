@@ -242,17 +242,6 @@ public class TerrestrialAgglomerationPlateBlockEntity extends BotaniaBlockEntity
 	}
 
 	@Override
-	public ManaSpark getAttachedSpark() {
-		List<Entity> sparks = level.getEntitiesOfClass(Entity.class, new AABB(worldPosition.above()), Predicates.instanceOf(ManaSpark.class));
-		if (sparks.size() == 1) {
-			Entity e = sparks.get(0);
-			return (ManaSpark) e;
-		}
-
-		return null;
-	}
-
-	@Override
 	public boolean areIncomingTransfersDone() {
 		return !isActive();
 	}

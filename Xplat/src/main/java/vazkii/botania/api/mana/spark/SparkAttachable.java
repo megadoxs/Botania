@@ -8,10 +8,18 @@
  */
 package vazkii.botania.api.mana.spark;
 
+import com.google.common.base.Predicates;
+
+import net.minecraft.core.BlockPos;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.entity.Entity;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.phys.AABB;
 
 import org.jetbrains.annotations.Nullable;
+
+import java.util.List;
 
 import static vazkii.botania.api.BotaniaAPI.botaniaRL;
 
@@ -41,11 +49,19 @@ public interface SparkAttachable {
 	int getAvailableSpaceForMana();
 
 	/**
-	 * Gets the Spark that is attached to this block. A common implementation is
+	 * Gets the Spark that is attached to this block. The default implementation is
 	 * to check for Spark entities above using world.getEntitiesWithinAABB()
 	 */
 	@Nullable
-	ManaSpark getAttachedSpark();
+	default ManaSpark getAttachedSpark() {
+		List<Entity> sparks = getLevel().getEntitiesOfClass(Entity.class, new AABB(getBlockPos().above()), Predicates.instanceOf(ManaSpark.class));
+		if (sparks.size() == 1) {
+			Entity e = sparks.getFirst();
+			return (ManaSpark) e;
+		}
+
+		return null;
+	}
 
 	/**
 	 * Return true if this Tile no longer requires mana and all Sparks
@@ -53,4 +69,6 @@ public interface SparkAttachable {
 	 */
 	boolean areIncomingTransfersDone();
 
+	BlockPos getBlockPos();
+	Level getLevel();
 }

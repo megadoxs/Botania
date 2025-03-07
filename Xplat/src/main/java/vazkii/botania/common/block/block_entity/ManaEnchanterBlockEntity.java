@@ -524,17 +524,6 @@ public class ManaEnchanterBlockEntity extends BotaniaBlockEntity implements Mana
 	}
 
 	@Override
-	public ManaSpark getAttachedSpark() {
-		List<Entity> sparks = level.getEntitiesOfClass(Entity.class, new AABB(worldPosition.getX(), worldPosition.getY() + 1, worldPosition.getZ(), worldPosition.getX() + 1, worldPosition.getY() + 2, worldPosition.getZ() + 1), Predicates.instanceOf(ManaSpark.class));
-		if (sparks.size() == 1) {
-			Entity e = sparks.get(0);
-			return (ManaSpark) e;
-		}
-
-		return null;
-	}
-
-	@Override
 	public boolean areIncomingTransfersDone() {
 		return stage == State.DO_ENCHANT;
 	}
