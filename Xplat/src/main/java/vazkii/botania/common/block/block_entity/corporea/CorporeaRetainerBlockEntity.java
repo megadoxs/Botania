@@ -24,10 +24,10 @@ import net.minecraft.world.level.block.state.BlockState;
 
 import org.jetbrains.annotations.Nullable;
 
+import vazkii.botania.api.block.Bound;
 import vazkii.botania.api.block.WandHUD;
 import vazkii.botania.api.block.Wandable;
 import vazkii.botania.api.corporea.*;
-import vazkii.botania.api.internal.ManaBurst;
 import vazkii.botania.api.internal.VanillaPacketDispatcher;
 import vazkii.botania.client.core.helper.RenderHelper;
 import vazkii.botania.common.block.block_entity.BotaniaBlockEntities;
@@ -48,7 +48,7 @@ public class CorporeaRetainerBlockEntity extends BotaniaBlockEntity implements W
 	private static final Map<ResourceLocation, Function<CompoundTag, ? extends CorporeaRequestMatcher>> corporeaMatcherDeserializers = new ConcurrentHashMap<>();
 	private static final Map<Class<? extends CorporeaRequestMatcher>, ResourceLocation> corporeaMatcherSerializers = new ConcurrentHashMap<>();
 
-	private BlockPos requestPos = ManaBurst.NO_SOURCE;
+	private BlockPos requestPos = Bound.UNBOUND_POS;
 
 	@Nullable
 	private CorporeaRequestMatcher request;

@@ -42,7 +42,6 @@ import net.minecraft.world.phys.Vec3;
 
 import vazkii.botania.api.block.Bound;
 import vazkii.botania.api.block.WandBindable;
-import vazkii.botania.api.internal.ManaBurst;
 import vazkii.botania.api.internal.VanillaPacketDispatcher;
 import vazkii.botania.client.fx.SparkleParticleData;
 import vazkii.botania.client.fx.WispParticleData;
@@ -296,7 +295,7 @@ public class LuminizerBlockEntity extends BotaniaBlockEntity implements WandBind
 
 		@Override
 		protected void defineSynchedData(SynchedEntityData.Builder builder) {
-			builder.define(EXIT_POS, ManaBurst.NO_SOURCE);
+			builder.define(EXIT_POS, Bound.UNBOUND_POS);
 		}
 
 		@Override

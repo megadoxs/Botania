@@ -72,7 +72,7 @@ import net.minecraft.world.phys.Vec3;
 
 import org.jetbrains.annotations.Nullable;
 
-import vazkii.botania.api.internal.ManaBurst;
+import vazkii.botania.api.block.Bound;
 import vazkii.botania.client.fx.WispParticleData;
 import vazkii.botania.common.advancements.GaiaGuardianNoArmorTrigger;
 import vazkii.botania.common.block.BotaniaBlocks;
@@ -188,7 +188,7 @@ public class GaiaGuardianEntity extends Mob {
 	private int mobSpawnTicks = 0;
 	private int playerCount = 0;
 	private boolean hardMode = false;
-	private BlockPos source = ManaBurst.NO_SOURCE;
+	private BlockPos source = Bound.UNBOUND_POS;
 	private final List<UUID> playersWhoAttacked = new ArrayList<>();
 	private final ServerBossEvent bossInfo = (ServerBossEvent) new ServerBossEvent(BotaniaEntities.DOPPLEGANGER.getDescription(), BossEvent.BossBarColor.PINK, BossEvent.BossBarOverlay.PROGRESS).setCreateWorldFog(true);
 	private UUID bossInfoUUID = bossInfo.getId();

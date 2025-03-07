@@ -20,6 +20,10 @@ import vazkii.botania.api.internal.ManaBurst;
  * over with a Wand of the Forest.
  */
 public interface Bound {
+	/**
+	 * @deprecated use {@code null} instead
+	 */
+	@Deprecated
 	BlockPos UNBOUND_POS = ManaBurst.NO_SOURCE;
 
 	/**

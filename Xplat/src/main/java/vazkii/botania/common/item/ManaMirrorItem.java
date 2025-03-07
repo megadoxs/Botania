@@ -26,7 +26,7 @@ import net.minecraft.world.level.Level;
 
 import org.jetbrains.annotations.Nullable;
 
-import vazkii.botania.api.internal.ManaBurst;
+import vazkii.botania.api.block.Bound;
 import vazkii.botania.api.item.CoordBoundItem;
 import vazkii.botania.api.mana.ManaBarTooltip;
 import vazkii.botania.api.mana.ManaPool;
@@ -170,7 +170,7 @@ public class ManaMirrorItem extends Item {
 
 		@Override
 		public BlockPos getManaReceiverPos() {
-			return ManaBurst.NO_SOURCE;
+			return Bound.UNBOUND_POS;
 		}
 
 		@Override
