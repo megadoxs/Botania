@@ -19,6 +19,7 @@ import net.minecraft.world.Container;
 import net.minecraft.world.ContainerHelper;
 import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.RecipeInput;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 
@@ -72,5 +73,19 @@ public abstract class SimpleInventoryBlockEntity extends BotaniaBlockEntity impl
 
 	public final Container getItemHandler() {
 		return itemHandler;
+	}
+
+	public RecipeInput getRecipeInput() {
+		return new RecipeInput() {
+			@Override
+			public ItemStack getItem(int index) {
+				return itemHandler.getItem(index);
+			}
+
+			@Override
+			public int size() {
+				return itemHandler.getContainerSize();
+			}
+		};
 	}
 }

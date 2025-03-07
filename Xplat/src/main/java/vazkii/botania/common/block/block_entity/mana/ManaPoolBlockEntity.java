@@ -8,7 +8,6 @@
  */
 package vazkii.botania.common.block.block_entity.mana;
 
-import com.google.common.base.Predicates;
 import com.mojang.blaze3d.systems.RenderSystem;
 
 import it.unimi.dsi.fastutil.ints.*;
@@ -21,7 +20,6 @@ import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.Mth;
-import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.DyeColor;
@@ -193,6 +191,11 @@ public class ManaPoolBlockEntity extends BotaniaBlockEntity implements ManaPool,
 
 				ItemEntity outputItem = new ItemEntity(level, worldPosition.getX() + 0.5, worldPosition.getY() + 1.5, worldPosition.getZ() + 0.5, output);
 				XplatAbstractions.INSTANCE.itemFlagsComponent(outputItem).manaInfusionSpawned = true;
+				if (item.getOwner() instanceof Player player) {
+					output.onCraftedBy(level, player, output.getCount());
+				} else {
+					output.onCraftedBySystem(level);
+				}
 				level.addFreshEntity(outputItem);
 
 				craftingEffect(true);

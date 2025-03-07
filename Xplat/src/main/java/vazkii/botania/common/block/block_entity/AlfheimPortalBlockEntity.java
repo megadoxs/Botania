@@ -299,6 +299,8 @@ public class AlfheimPortalBlockEntity extends BotaniaBlockEntity implements Wand
 	private void spawnItem(ItemStack stack) {
 		ItemEntity item = new ItemEntity(level, worldPosition.getX() + 0.5, worldPosition.getY() + 1.5, worldPosition.getZ() + 0.5, stack);
 		XplatAbstractions.INSTANCE.itemFlagsComponent(item).elvenPortalSpawned = true;
+		// probably can't easily associate this with a player for tracking stats
+		stack.onCraftedBySystem(level);
 		level.addFreshEntity(item);
 		ticksSinceLastItem = 0;
 	}
@@ -340,6 +342,7 @@ public class AlfheimPortalBlockEntity extends BotaniaBlockEntity implements Wand
 		ticksSinceLastItem = cmp.getInt(TAG_TICKS_SINCE_LAST_ITEM);
 	}
 
+	@Nullable
 	private static Rotation getStateRotation(AlfheimPortalState state) {
 		return switch (state) {
 			case ON_X -> Rotation.CLOCKWISE_90;

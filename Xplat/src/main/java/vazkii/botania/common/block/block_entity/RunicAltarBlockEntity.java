@@ -8,6 +8,7 @@
  */
 package vazkii.botania.common.block.block_entity;
 
+import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
 
 import net.minecraft.client.Minecraft;
@@ -24,6 +25,7 @@ import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.gameevent.GameEvent;
@@ -32,17 +34,22 @@ import net.minecraft.world.phys.Vec3;
 
 import org.jetbrains.annotations.Nullable;
 import org.jetbrains.annotations.UnknownNullability;
+import org.lwjgl.opengl.GL11;
 
 import vazkii.botania.api.block.Wandable;
 import vazkii.botania.api.internal.VanillaPacketDispatcher;
 import vazkii.botania.api.mana.ManaReceiver;
 import vazkii.botania.api.recipe.RunicAltarRecipe;
+import vazkii.botania.client.core.helper.RenderHelper;
 import vazkii.botania.client.fx.SparkleParticleData;
 import vazkii.botania.client.fx.WispParticleData;
+import vazkii.botania.client.gui.HUDHandler;
 import vazkii.botania.common.block.BotaniaBlocks;
+import vazkii.botania.common.crafting.BotaniaRecipeTypes;
 import vazkii.botania.common.handler.BotaniaSounds;
 import vazkii.botania.common.helper.EntityHelper;
 import vazkii.botania.common.helper.InventoryHelper;
+import vazkii.botania.common.helper.PlayerHelper;
 import vazkii.botania.common.item.BotaniaItems;
 import vazkii.botania.common.item.WandOfTheForestItem;
 import vazkii.botania.common.item.material.RuneItem;
@@ -51,6 +58,7 @@ import vazkii.botania.xplat.XplatAbstractions;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 public class RunicAltarBlockEntity extends SimpleInventoryBlockEntity implements ManaReceiver, Wandable {
 	private static final String TAG_MANA = "mana";
@@ -210,12 +218,10 @@ public class RunicAltarBlockEntity extends SimpleInventoryBlockEntity implements
 		if (currentRecipe != null) {
 			this.manaToGet = currentRecipe.getMana();
 		} else {
-			/*TODO we need the RecipeInput for this
-			this.manaToGet = level.getRecipeManager().getRecipeFor(BotaniaRecipeTypes.RUNE_TYPE, getItemHandler(), level)
+			this.manaToGet = level.getRecipeManager().getRecipeFor(BotaniaRecipeTypes.RUNE_TYPE, getRecipeInput(), level)
 					.map(RecipeHolder::value)
 					.map(RunicAltarRecipe::getMana)
 					.orElse(0);
-			 */
 		}
 
 		if (manaToGet != this.manaToGet) {
@@ -225,14 +231,15 @@ public class RunicAltarBlockEntity extends SimpleInventoryBlockEntity implements
 	}
 
 	private void saveLastRecipe() {
-		lastRecipe = new ArrayList<>();
+		var recipe = new ArrayList<ItemStack>();
 		for (int i = 0; i < inventorySize(); i++) {
 			ItemStack stack = getItemHandler().getItem(i);
 			if (stack.isEmpty()) {
 				break;
 			}
-			lastRecipe.add(stack.copy());
+			recipe.add(stack.copy());
 		}
+		lastRecipe = recipe;
 		recipeKeepTicks = 400;
 		level.blockEvent(getBlockPos(), BotaniaBlocks.runeAltar, SET_KEEP_TICKS_EVENT, 400);
 	}
@@ -264,12 +271,10 @@ public class RunicAltarBlockEntity extends SimpleInventoryBlockEntity implements
 		if (currentRecipe != null) {
 			recipe = currentRecipe;
 		} else {
-			/*TODO we need the RecipeInput for this
-			Optional<RecipeHolder<RunicAltarRecipe>> maybeRecipe = level.getRecipeManager().getRecipeFor(BotaniaRecipeTypes.RUNE_TYPE, getItemHandler(), level);
+			Optional<RecipeHolder<RunicAltarRecipe>> maybeRecipe = level.getRecipeManager().getRecipeFor(BotaniaRecipeTypes.RUNE_TYPE, getRecipeInput(), level);
 			if (maybeRecipe.isPresent()) {
 				recipe = maybeRecipe.get().value();
 			}
-			 */
 		}
 
 		if (recipe != null && manaToGet > 0 && mana >= manaToGet) {
@@ -285,9 +290,14 @@ public class RunicAltarBlockEntity extends SimpleInventoryBlockEntity implements
 			if (livingrock != null) {
 				int mana = recipe.getMana();
 				receiveMana(-mana);
-				ItemStack output = ItemStack.EMPTY; //todo recipe.assemble(getItemHandler(), getLevel().registryAccess());
+				ItemStack output = recipe.assemble(getRecipeInput(), getLevel().registryAccess());
 				ItemEntity outputItem = new ItemEntity(level, worldPosition.getX() + 0.5, worldPosition.getY() + 1.5, worldPosition.getZ() + 0.5, output);
 				XplatAbstractions.INSTANCE.itemFlagsComponent(outputItem).runicAltarSpawned = true;
+				if (player != null) {
+					output.onCraftedBy(level, player, output.getCount());
+				} else {
+					output.onCraftedBySystem(level);
+				}
 				level.addFreshEntity(outputItem);
 				currentRecipe = null;
 				level.gameEvent(null, GameEvent.BLOCK_ACTIVATE, getBlockPos());
@@ -298,6 +308,7 @@ public class RunicAltarBlockEntity extends SimpleInventoryBlockEntity implements
 				for (int i = 0; i < inventorySize(); i++) {
 					ItemStack stack = getItemHandler().getItem(i);
 					if (!stack.isEmpty()) {
+						// TODO: match recipe's catalyst items and return them
 						if (stack.getItem() instanceof RuneItem && (player == null || !player.getAbilities().instabuild)) {
 							ItemEntity outputRune = new ItemEntity(level, getBlockPos().getX() + 0.5, getBlockPos().getY() + 1.5, getBlockPos().getZ() + 0.5, stack.copy());
 							XplatAbstractions.INSTANCE.itemFlagsComponent(outputRune).runicAltarSpawned = true;
@@ -404,16 +415,15 @@ public class RunicAltarBlockEntity extends SimpleInventoryBlockEntity implements
 
 			if (amt > 0) {
 				float anglePer = 360F / amt;
-				/*TODO we need the RecipeInput for this
-				altar.level.getRecipeManager().getRecipeFor(BotaniaRecipeTypes.RUNE_TYPE, altar.getItemHandler(), altar.level).ifPresent(recipe -> {
+				altar.level.getRecipeManager().getRecipeFor(BotaniaRecipeTypes.RUNE_TYPE, altar.getRecipeInput(), altar.level).ifPresent(recipe -> {
 					RenderSystem.enableBlend();
 					RenderSystem.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
-				
+
 					float progress = (float) altar.mana / (float) altar.manaToGet;
-				
+
 					RenderSystem.setShaderColor(1F, 1F, 1F, 1F);
 					RenderHelper.drawTexturedModalRect(gui, HUDHandler.manaBar, xc + radius + 9, yc - 8, progress == 1F ? 0 : 22, 8, 22, 15);
-				
+
 					if (progress == 1F) {
 						gui.renderFakeItem(new ItemStack(BotaniaBlocks.livingrock), xc + radius + 16, yc + 8);
 						ms.pushPose();
@@ -427,15 +437,14 @@ public class RunicAltarBlockEntity extends SimpleInventoryBlockEntity implements
 						gui.renderFakeItem(wandToRender, xc + radius + 24, yc + 8);
 						ms.popPose();
 					}
-				
+
 					RenderHelper.renderProgressPie(gui, xc + radius + 32, yc - 8, progress,
-							recipe.value().assemble(altar.getItemHandler(), altar.getLevel().registryAccess()));
-				
+							recipe.value().assemble(altar.getRecipeInput(), altar.getLevel().registryAccess()));
+
 					if (progress == 1F) {
 						gui.drawString(mc.font, "+", xc + radius + 14, yc + 12, 0xFFFFFF, false);
 					}
 				});
-				*/
 
 				for (int i = 0; i < amt; i++) {
 					double xPos = xc + Math.cos(angle * Math.PI / 180D) * radius - 8;

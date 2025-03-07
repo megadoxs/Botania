@@ -8,10 +8,15 @@
  */
 package vazkii.botania.api.mana.spark;
 
+import net.minecraft.core.BlockPos;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.AABB;
+
+import org.jetbrains.annotations.Nullable;
+
+import vazkii.botania.api.mana.ManaPool;
 
 import java.util.List;
 import java.util.function.Predicate;
@@ -28,4 +33,15 @@ public final class SparkHelper {
 		return entities;
 	}
 
+	public static void registerTransferFromSparksAround(@Nullable ManaSpark spark, Level level, BlockPos worldPosition) {
+		if (spark == null) {
+			return;
+		}
+		var otherSparks = getSparksAround(level, worldPosition.getX() + 0.5, worldPosition.getY() + 0.5, worldPosition.getZ() + 0.5, spark.getNetwork());
+		for (var otherSpark : otherSparks) {
+			if (spark != otherSpark && otherSpark.getAttachedManaReceiver() instanceof ManaPool) {
+				otherSpark.registerTransfer(spark);
+			}
+		}
+	}
 }

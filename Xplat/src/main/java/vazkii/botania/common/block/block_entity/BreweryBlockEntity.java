@@ -19,8 +19,10 @@ import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.phys.AABB;
 
 import org.jetbrains.annotations.Nullable;
@@ -37,10 +39,12 @@ import vazkii.botania.client.fx.SparkleParticleData;
 import vazkii.botania.client.fx.WispParticleData;
 import vazkii.botania.common.block.BotaniaBlocks;
 import vazkii.botania.common.brew.BotaniaBrews;
+import vazkii.botania.common.crafting.BotaniaRecipeTypes;
 import vazkii.botania.common.handler.BotaniaSounds;
 import vazkii.botania.common.helper.EntityHelper;
 
 import java.util.List;
+import java.util.Optional;
 
 public class BreweryBlockEntity extends SimpleInventoryBlockEntity implements ManaReceiver {
 	private static final String TAG_MANA = "mana";
@@ -57,7 +61,9 @@ public class BreweryBlockEntity extends SimpleInventoryBlockEntity implements Ma
 	}
 
 	public boolean addItem(@Nullable Player player, ItemStack stack, @Nullable InteractionHand hand) {
-		if (recipe != null || stack.isEmpty() || stack.getItem() instanceof BrewItem brew && brew.getBrew(stack) != null && brew.getBrew(stack) != BotaniaBrews.fallbackBrew || getItemHandler().getItem(0).isEmpty() != stack.getItem() instanceof BrewContainer) {
+		if (recipe != null || stack.isEmpty()
+				|| stack.getItem() instanceof BrewItem brew && brew.getBrew(stack) != BotaniaBrews.fallbackBrew
+				|| getItemHandler().getItem(0).isEmpty() != stack.getItem() instanceof BrewContainer) {
 			return false;
 		}
 
@@ -89,14 +95,13 @@ public class BreweryBlockEntity extends SimpleInventoryBlockEntity implements Ma
 	}
 
 	private void findRecipe() {
-		/*TODO we need the RecipeInput for this
-		Optional<RecipeHolder<BotanicalBreweryRecipe>> maybeRecipe = level.getRecipeManager().getRecipeFor(BotaniaRecipeTypes.BREW_TYPE, getItemHandler(), level);
+		Optional<RecipeHolder<BotanicalBreweryRecipe>> maybeRecipe = level.getRecipeManager()
+				.getRecipeFor(BotaniaRecipeTypes.BREW_TYPE, getRecipeInput(), level);
 		maybeRecipe.ifPresent(recipeBrew -> {
 			this.recipe = recipeBrew.value();
-			level.setBlockAndUpdate(worldPosition, BotaniaBlocks.brewery.defaultBlockState().setValue(BlockStateProperties.POWERED, true));
+			level.setBlockAndUpdate(worldPosition,
+					BotaniaBlocks.brewery.defaultBlockState().setValue(BlockStateProperties.POWERED, true));
 		});
-		
-		 */
 	}
 
 	public static void commonTick(Level level, BlockPos worldPosition, BlockState state, BreweryBlockEntity self) {
@@ -124,7 +129,7 @@ public class BreweryBlockEntity extends SimpleInventoryBlockEntity implements Ma
 		}
 
 		if (self.recipe != null) {
-			if (/*!self.recipe.matches(self.getItemHandler(), level)*/ false) { //This also needs the recipe Input
+			if (!self.recipe.matches(self.getRecipeInput(), level)) {
 				self.recipe = null;
 				level.setBlockAndUpdate(worldPosition, BotaniaBlocks.brewery.defaultBlockState());
 			}
@@ -150,6 +155,8 @@ public class BreweryBlockEntity extends SimpleInventoryBlockEntity implements Ma
 					self.receiveMana(-mana);
 
 					ItemStack output = self.recipe.getOutput(self.getItemHandler().getItem(0));
+					// probably can't easily associate this with a player
+					output.onCraftedBySystem(level);
 					ItemEntity outputItem = new ItemEntity(level, worldPosition.getX() + 0.5, worldPosition.getY() + 1.5, worldPosition.getZ() + 0.5, output);
 					level.addFreshEntity(outputItem);
 					level.blockEvent(worldPosition, BotaniaBlocks.brewery, CRAFT_EFFECT_EVENT, self.recipe.getBrew().getColor(output));
