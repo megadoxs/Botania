@@ -35,7 +35,8 @@ public class BotaniaArmorMaterials {
 					ArmorItem.Type.CHESTPLATE, 6,
 					ArmorItem.Type.HELMET, 2
 			),
-			18, () -> Holder.direct(BotaniaSounds.equipManasteel), () -> Ingredient.of(BotaniaItems.manaSteel), 0);
+			18, getSountEventHolder(BotaniaSounds.equipManasteel), () -> Ingredient.of(BotaniaItems.manaSteel), 0);
+
 	public static final Holder<ArmorMaterial> MANAWEAVE = register("manaweave",
 			Map.of(
 					ArmorItem.Type.BOOTS, 1,
@@ -43,7 +44,7 @@ public class BotaniaArmorMaterials {
 					ArmorItem.Type.CHESTPLATE, 3,
 					ArmorItem.Type.HELMET, 1
 			),
-			18, () -> Holder.direct(BotaniaSounds.equipManaweave), () -> Ingredient.of(BotaniaItems.manaweaveCloth), 0);
+			18, getSountEventHolder(BotaniaSounds.equipManaweave), () -> Ingredient.of(BotaniaItems.manaweaveCloth), 0);
 	public static final Holder<ArmorMaterial> ELEMENTIUM = register("elementium",
 			Map.of(
 					ArmorItem.Type.BOOTS, 2,
@@ -51,7 +52,7 @@ public class BotaniaArmorMaterials {
 					ArmorItem.Type.CHESTPLATE, 6,
 					ArmorItem.Type.HELMET, 2
 			),
-			18, () -> Holder.direct(BotaniaSounds.equipElementium), () -> Ingredient.of(BotaniaItems.elementium), 0);
+			18, getSountEventHolder(BotaniaSounds.equipElementium), () -> Ingredient.of(BotaniaItems.elementium), 0);
 	public static final Holder<ArmorMaterial> TERRASTEEL = register("terrasteel",
 			Map.of(
 					ArmorItem.Type.BOOTS, 3,
@@ -59,7 +60,7 @@ public class BotaniaArmorMaterials {
 					ArmorItem.Type.CHESTPLATE, 8,
 					ArmorItem.Type.HELMET, 3
 			),
-			26, () -> Holder.direct(BotaniaSounds.equipTerrasteel), () -> Ingredient.of(BotaniaItems.terrasteel), 3);
+			26, getSountEventHolder(BotaniaSounds.equipTerrasteel), () -> Ingredient.of(BotaniaItems.terrasteel), 3);
 
 	private static Holder<ArmorMaterial> register(
 			String name,
@@ -70,6 +71,10 @@ public class BotaniaArmorMaterials {
 			float toughness) {
 		List<ArmorMaterial.Layer> list = List.of(new ArmorMaterial.Layer(botaniaRL(name)));
 		return register(name, defense, enchantmentValue, equipSound.get(), toughness, repairIngredient, list);
+	}
+
+	private static Supplier<Holder<SoundEvent>> getSountEventHolder(SoundEvent soundEvent) {
+		return () -> BuiltInRegistries.SOUND_EVENT.getHolder(soundEvent.getLocation()).orElseThrow();
 	}
 
 	private static Holder<ArmorMaterial> register(

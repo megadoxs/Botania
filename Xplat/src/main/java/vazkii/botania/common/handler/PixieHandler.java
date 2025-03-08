@@ -8,9 +8,8 @@
  */
 package vazkii.botania.common.handler;
 
-import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.core.Registry;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffectInstance;
@@ -26,11 +25,11 @@ import net.minecraft.world.level.ServerLevelAccessor;
 
 import vazkii.botania.common.entity.PixieEntity;
 import vazkii.botania.common.helper.PlayerHelper;
+import vazkii.botania.common.helper.RegistryHelper;
 import vazkii.botania.common.item.BotaniaItems;
 import vazkii.botania.common.item.equipment.armor.elementium.ElementiumHelmItem;
 
 import java.util.List;
-import java.util.function.BiConsumer;
 import java.util.function.Supplier;
 
 import static vazkii.botania.api.BotaniaAPI.botaniaRL;
@@ -39,9 +38,9 @@ public final class PixieHandler {
 
 	private PixieHandler() {}
 
-	// TODO: the usage of this is kind-of ugly, is there a better way?
-	public static final ResourceKey<Attribute> PIXIE_SPAWN_CHANCE = ResourceKey.create(Registries.ATTRIBUTE, botaniaRL("pixie_spawn_chance"));
-	public static final Attribute PIXIE_SPAWN_CHANCE_ATTRIBUTE = new RangedAttribute("attribute.name.botania.pixieSpawnChance", 0, 0, 1);
+	public static final RegistryHelper.HolderProxy<Attribute> PIXIE_SPAWN_CHANCE = RegistryHelper.holderProxy(
+			Registries.ATTRIBUTE, botaniaRL("pixie_spawn_chance"),
+			new RangedAttribute("attribute.name.botania.pixieSpawnChance", 0, 0, 1));
 
 	private static final List<Supplier<MobEffectInstance>> effectSuppliers = List.of(
 			() -> new MobEffectInstance(MobEffects.BLINDNESS, 40, 0),
@@ -50,8 +49,8 @@ public final class PixieHandler {
 			() -> new MobEffectInstance(MobEffects.WEAKNESS, 40, 0)
 	);
 
-	public static void registerAttribute(BiConsumer<Attribute, ResourceLocation> r) {
-		r.accept(PIXIE_SPAWN_CHANCE_ATTRIBUTE, PIXIE_SPAWN_CHANCE.location());
+	public static void registerAttribute(Registry<Attribute> registry) {
+		PIXIE_SPAWN_CHANCE.register(registry);
 	}
 
 	public static AttributeModifier makeModifier(ResourceLocation slotId, double amount) {
@@ -62,9 +61,8 @@ public final class PixieHandler {
 		if (!player.level().isClientSide && source.getEntity() instanceof LivingEntity livingSource) {
 			// Sometimes the player doesn't have the attribute, not sure why.
 			// Could be badly-written mixins on Fabric.
-			var holder = BuiltInRegistries.ATTRIBUTE.getHolderOrThrow(PIXIE_SPAWN_CHANCE);
-			double chance = player.getAttributes().hasAttribute(holder)
-					? player.getAttributeValue(holder) : 0;
+			double chance = player.getAttributes().hasAttribute(PIXIE_SPAWN_CHANCE)
+					? player.getAttributeValue(PIXIE_SPAWN_CHANCE) : 0;
 			ItemStack sword = PlayerHelper.getFirstHeldItem(player, s -> s.is(BotaniaItems.elementiumSword));
 
 			if (Math.random() < chance) {

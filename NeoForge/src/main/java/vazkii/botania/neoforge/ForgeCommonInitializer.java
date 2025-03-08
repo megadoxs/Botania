@@ -193,7 +193,7 @@ public class ForgeCommonInitializer {
 
 	@SubscribeEvent
 	private void modifyAttributes(EntityAttributeModificationEvent e) {
-		e.add(EntityType.PLAYER, BuiltInRegistries.ATTRIBUTE.getHolderOrThrow(PixieHandler.PIXIE_SPAWN_CHANCE));
+		e.add(EntityType.PLAYER, PixieHandler.PIXIE_SPAWN_CHANCE);
 	}
 
 	@SubscribeEvent
@@ -220,10 +220,10 @@ public class ForgeCommonInitializer {
 
 		// Entities
 		bind(event, Registries.ENTITY_TYPE, BotaniaEntities::registerEntities);
-		bind(event, Registries.ATTRIBUTE, PixieHandler::registerAttribute);
+		runRegistration(event, Registries.ATTRIBUTE, PixieHandler::registerAttribute);
 
 		// Potions
-		bind(event, Registries.MOB_EFFECT, BotaniaMobEffects::registerPotions);
+		runRegistration(event, Registries.MOB_EFFECT, BotaniaMobEffects::registerPotions);
 		bind(event, BotaniaRegistries.BREWS, BotaniaBrews::submitRegistrations);
 
 		// Worldgen
@@ -252,6 +252,13 @@ public class ForgeCommonInitializer {
 						.withSearchBar()
 						.build(),
 				BotaniaRegistries.BOTANIA_TAB_KEY.location()));
+	}
+
+	private static <T> void runRegistration(RegisterEvent event, ResourceKey<Registry<T>> registryKey, Consumer<Registry<T>> source) {
+		Registry<T> registry = event.getRegistry(registryKey);
+		if (registry != null) {
+			source.accept(registry);
+		}
 	}
 
 	private static <T> void bind(RegisterEvent event, ResourceKey<Registry<T>> registryKey, Consumer<BiConsumer<T, ResourceLocation>> source) {
