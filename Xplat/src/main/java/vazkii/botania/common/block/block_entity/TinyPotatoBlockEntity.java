@@ -14,8 +14,10 @@ import it.unimi.dsi.fastutil.objects.ObjectArrays;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.HolderLookup;
+import net.minecraft.core.component.DataComponentMap;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.Tag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
@@ -50,7 +52,7 @@ import vazkii.botania.common.helper.PlayerHelper;
 import vazkii.botania.common.helper.VecHelper;
 import vazkii.botania.common.item.block.TinyPotatoBlockItem;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.time.Month;
 import java.util.HashMap;
 import java.util.List;
@@ -61,6 +63,10 @@ import static vazkii.botania.api.BotaniaAPI.botaniaRL;
 
 public class TinyPotatoBlockEntity extends ExposedSimpleInventoryBlockEntity implements Nameable {
 	private static final ResourceLocation BIRTHDAY_ADVANCEMENT = botaniaRL("challenge/tiny_potato_birthday");
+	/**
+	 * Tiny Potato was added in commit c225a134043922724e6ff141ff26f31097d4d9d0, created on July 19, 2014
+	 */
+	private static final LocalDate BIRTHDAY = LocalDate.of(2014, Month.JULY, 19);
 	private static final boolean IS_BIRTHDAY = isTinyPotatoBirthday();
 	private static final String TAG_NAME = "name";
 	private static final int JUMP_EVENT = 0;
@@ -99,7 +105,8 @@ public class TinyPotatoBlockEntity extends ExposedSimpleInventoryBlockEntity imp
 	));
 
 	public int jumpTicks = 0;
-	public Component name = Component.literal("");
+	@Nullable
+	public Component name;
 	private int nextDoIt = 0;
 	private int birthdayTick = 0;
 
@@ -128,7 +135,7 @@ public class TinyPotatoBlockEntity extends ExposedSimpleInventoryBlockEntity imp
 
 			jump();
 
-			if (name.getString().toLowerCase(Locale.ROOT).trim().endsWith("shia labeouf") && nextDoIt == 0) {
+			if (getName().getString().toLowerCase(Locale.ROOT).trim().endsWith("shia labeouf") && nextDoIt == 0) {
 				nextDoIt = 40;
 				level.playSound(null, worldPosition, BotaniaSounds.doit, SoundSource.BLOCKS, 1F, 1F);
 			}
@@ -265,13 +272,31 @@ public class TinyPotatoBlockEntity extends ExposedSimpleInventoryBlockEntity imp
 	@Override
 	public void writePacketNBT(CompoundTag cmp, HolderLookup.Provider registries) {
 		super.writePacketNBT(cmp, registries);
-		cmp.putString(TAG_NAME, Component.Serializer.toJson(name, registries));
+		if (name != null) {
+			cmp.putString(TAG_NAME, Component.Serializer.toJson(name, registries));
+		}
 	}
 
 	@Override
 	public void readPacketNBT(CompoundTag cmp, HolderLookup.Provider registries) {
 		super.readPacketNBT(cmp, registries);
-		name = Component.Serializer.fromJson(cmp.getString(TAG_NAME), registries);
+		if (cmp.contains(TAG_NAME, Tag.TAG_STRING)) {
+			name = Component.Serializer.fromJson(cmp.getString(TAG_NAME), registries);
+		} else {
+			name = null;
+		}
+	}
+
+	@Override
+	protected void collectImplicitComponents(DataComponentMap.Builder components) {
+		super.collectImplicitComponents(components);
+		components.set(DataComponents.CUSTOM_NAME, this.name);
+	}
+
+	@Override
+	protected void applyImplicitComponents(DataComponentInput componentInput) {
+		super.applyImplicitComponents(componentInput);
+		this.name = componentInput.get(DataComponents.CUSTOM_NAME);
 	}
 
 	@Override
@@ -286,18 +311,13 @@ public class TinyPotatoBlockEntity extends ExposedSimpleInventoryBlockEntity imp
 
 	@Override
 	public Component getName() {
-		return BotaniaBlocks.tinyPotato.getName();
+		return name != null ? name : BotaniaBlocks.tinyPotato.getName();
 	}
 
 	@Nullable
 	@Override
 	public Component getCustomName() {
-		return name.getString().isEmpty() ? null : name;
-	}
-
-	@Override
-	public Component getDisplayName() {
-		return hasCustomName() ? getCustomName() : getName();
+		return name;
 	}
 
 	private static final List<Block> ALL_CANDLE_CAKES = List.of(
@@ -327,14 +347,12 @@ public class TinyPotatoBlockEntity extends ExposedSimpleInventoryBlockEntity imp
 	}
 
 	private static boolean isTinyPotatoBirthday() {
-		// Tiny Potato was added in commit c225a134043922724e6ff141ff26f31097d4d9d0,
-		// created on July 19, 2014
-		var now = LocalDateTime.now();
-		return now.getMonth() == Month.JULY && now.getDayOfMonth() == 19;
+		var now = LocalDate.now();
+		return now.getMonth() == BIRTHDAY.getMonth() && now.getDayOfMonth() == BIRTHDAY.getDayOfMonth();
 	}
 
 	private static int getTinyPotatoAge() {
-		var now = LocalDateTime.now();
-		return now.getYear() - 2014;
+		var now = LocalDate.now();
+		return now.getYear() - BIRTHDAY.getYear();
 	}
 }

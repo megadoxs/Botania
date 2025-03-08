@@ -13,12 +13,15 @@ import com.google.common.base.Preconditions;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.NonNullList;
+import net.minecraft.core.component.DataComponentMap;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.Clearable;
 import net.minecraft.world.Container;
 import net.minecraft.world.ContainerHelper;
 import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.component.ItemContainerContents;
 import net.minecraft.world.item.crafting.RecipeInput;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
@@ -87,5 +90,15 @@ public abstract class SimpleInventoryBlockEntity extends BotaniaBlockEntity impl
 				return itemHandler.getContainerSize();
 			}
 		};
+	}
+
+	@Override
+	protected void collectImplicitComponents(DataComponentMap.Builder components) {
+		components.set(DataComponents.CONTAINER, ItemContainerContents.fromItems(itemHandler.getItems()));
+	}
+
+	@Override
+	protected void applyImplicitComponents(DataComponentInput componentInput) {
+		componentInput.getOrDefault(DataComponents.CONTAINER, ItemContainerContents.EMPTY).copyInto(itemHandler.getItems());
 	}
 }

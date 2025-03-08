@@ -11,6 +11,17 @@
       "entries": [
         {
           "type": "minecraft:item",
+          "functions": [
+            {
+              "function": "minecraft:copy_components",
+              "include": [
+                "botania:streak_length",
+                "botania:last_repeats",
+                "botania:last_foods"
+              ],
+              "source": "block_entity"
+            }
+          ],
           "name": "botania:gourmaryllis"
         }
       ],

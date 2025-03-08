@@ -18,6 +18,7 @@ import net.minecraft.world.damagesource.DamageType;
 
 import vazkii.botania.common.block.BotaniaBannerPatterns;
 import vazkii.botania.data.*;
+import vazkii.botania.data.loot.BotaniaBlockLoot;
 import vazkii.botania.data.recipes.*;
 
 import static vazkii.botania.common.BotaniaDamageTypes.*;
@@ -41,7 +42,7 @@ public class FabricDatagenInitializer implements DataGeneratorEntrypoint {
 	}
 
 	private static void configureXplatDatagen(FabricDataGenerator.Pack pack) {
-		pack.addProvider(BlockLootProvider::new);
+		pack.addProvider(BotaniaBlockLootWrapper.wrap(BotaniaBlockLoot::new));
 		pack.addProvider(LooniumStructureLootProvider::new);
 		pack.addProvider(LooniumStructureConfigurationProvider::new);
 		pack.addProvider(LooniumEquipmentLootProvider::new);

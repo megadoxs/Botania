@@ -11,8 +11,10 @@ package vazkii.botania.common.block.flower.generating;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.HolderLookup;
+import net.minecraft.core.component.DataComponentMap;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.tags.BlockTags;
+import net.minecraft.util.Unit;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.LeavesBlock;
 import net.minecraft.world.level.block.LevelEvent;
@@ -22,6 +24,7 @@ import net.minecraft.world.level.gameevent.GameEvent;
 import vazkii.botania.api.block_entity.GeneratingFlowerBlockEntity;
 import vazkii.botania.api.block_entity.RadiusDescriptor;
 import vazkii.botania.common.block.BotaniaFlowerBlocks;
+import vazkii.botania.common.component.BotaniaDataComponents;
 import vazkii.botania.xplat.BotaniaConfig;
 
 import java.util.*;
@@ -143,4 +146,19 @@ public class MunchdewBlockEntity extends GeneratingFlowerBlockEntity {
 		return 10000;
 	}
 
+	@Override
+	protected void collectImplicitComponents(DataComponentMap.Builder components) {
+		if (cooldown > 0) {
+			components.set(BotaniaDataComponents.COOLDOWN, cooldown);
+		}
+		if (ateOnce) {
+			components.set(BotaniaDataComponents.ACTIVE, Unit.INSTANCE);
+		}
+	}
+
+	@Override
+	protected void applyImplicitComponents(DataComponentInput componentInput) {
+		cooldown = componentInput.getOrDefault(BotaniaDataComponents.COOLDOWN, 0);
+		ateOnce = componentInput.get(BotaniaDataComponents.ACTIVE) != null;
+	}
 }

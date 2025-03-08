@@ -11,6 +11,15 @@
       "entries": [
         {
           "type": "minecraft:item",
+          "functions": [
+            {
+              "function": "minecraft:copy_components",
+              "include": [
+                "botania:next_color"
+              ],
+              "source": "block_entity"
+            }
+          ],
           "name": "botania:spectrolus"
         }
       ],

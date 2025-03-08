@@ -54,8 +54,8 @@ public class CacophoniumBlock extends BotaniaBlock implements EntityBlock {
 			if (te instanceof CacophoniumBlockEntity cacophonium) {
 				Containers.dropItemStack(world, pos.getX(), pos.getY(), pos.getZ(), cacophonium.stack);
 			}
-			super.onRemove(state, world, pos, newState, isMoving);
 		}
+		super.onRemove(state, world, pos, newState, isMoving);
 	}
 
 	@Override

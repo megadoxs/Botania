@@ -10,6 +10,7 @@ package vazkii.botania.common.block.flower.generating;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.HolderLookup;
+import net.minecraft.core.component.DataComponentMap;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.nbt.*;
 import net.minecraft.resources.ResourceLocation;
@@ -19,8 +20,10 @@ import net.minecraft.world.level.block.state.BlockState;
 import vazkii.botania.api.block_entity.GeneratingFlowerBlockEntity;
 import vazkii.botania.api.block_entity.RadiusDescriptor;
 import vazkii.botania.common.block.BotaniaFlowerBlocks;
+import vazkii.botania.common.component.BotaniaDataComponents;
 import vazkii.botania.common.lib.BotaniaTags;
 
+import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.ListIterator;
@@ -45,7 +48,7 @@ public class RafflowsiaBlockEntity extends GeneratingFlowerBlockEntity {
 		super(BotaniaFlowerBlocks.RAFFLOWSIA, pos, state);
 	}
 
-	private int getMaxStreak() {
+	public static int getMaxStreak() {
 		return STREAK_OUTPUTS.length - 1;
 	}
 
@@ -69,13 +72,13 @@ public class RafflowsiaBlockEntity extends GeneratingFlowerBlockEntity {
 			ResourceLocation streakFlower = it.next();
 			if (streakFlower.equals(flowerKey)) {
 				it.remove();
-				lastFlowers.add(0, streakFlower);
+				lastFlowers.addFirst(streakFlower);
 				return index;
 			}
 		}
-		lastFlowers.add(0, flowerKey);
+		lastFlowers.addFirst(flowerKey);
 		if (lastFlowers.size() >= getMaxStreak()) {
-			lastFlowers.remove(lastFlowers.size() - 1);
+			lastFlowers.removeLast();
 		}
 		return getMaxStreak();
 	}
@@ -152,4 +155,24 @@ public class RafflowsiaBlockEntity extends GeneratingFlowerBlockEntity {
 		return STREAK_OUTPUTS[STREAK_OUTPUTS.length - 1];
 	}
 
+	@Override
+	protected void collectImplicitComponents(DataComponentMap.Builder components) {
+		if (streakLength >= 0) {
+			components.set(BotaniaDataComponents.STREAK_LENGTH, streakLength);
+		}
+		if (lastFlowerCount > 0) {
+			components.set(BotaniaDataComponents.LAST_REPEATS, lastFlowerCount);
+		}
+		if (!lastFlowers.isEmpty()) {
+			components.set(BotaniaDataComponents.LAST_FLOWERS, lastFlowers);
+		}
+	}
+
+	@Override
+	protected void applyImplicitComponents(DataComponentInput componentInput) {
+		streakLength = componentInput.getOrDefault(BotaniaDataComponents.STREAK_LENGTH, -1);
+		lastFlowerCount = componentInput.getOrDefault(BotaniaDataComponents.LAST_REPEATS, 0);
+		lastFlowers.clear();
+		lastFlowers.addAll(componentInput.getOrDefault(BotaniaDataComponents.LAST_FLOWERS, Collections.emptyList()));
+	}
 }

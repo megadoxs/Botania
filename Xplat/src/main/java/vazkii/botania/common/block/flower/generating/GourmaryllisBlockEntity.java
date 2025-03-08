@@ -10,6 +10,7 @@ package vazkii.botania.common.block.flower.generating;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.HolderLookup;
+import net.minecraft.core.component.DataComponentMap;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.particles.ItemParticleOption;
 import net.minecraft.core.particles.ParticleTypes;
@@ -30,9 +31,11 @@ import net.minecraft.world.phys.Vec3;
 import vazkii.botania.api.block_entity.GeneratingFlowerBlockEntity;
 import vazkii.botania.api.block_entity.RadiusDescriptor;
 import vazkii.botania.common.block.BotaniaFlowerBlocks;
+import vazkii.botania.common.component.BotaniaDataComponents;
 import vazkii.botania.common.helper.DelayHelper;
 import vazkii.botania.xplat.XplatAbstractions;
 
+import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.ListIterator;
@@ -60,7 +63,7 @@ public class GourmaryllisBlockEntity extends GeneratingFlowerBlockEntity {
 		super(BotaniaFlowerBlocks.GOURMARYLLIS, pos, state);
 	}
 
-	private int getMaxStreak() {
+	public static int getMaxStreak() {
 		return STREAK_MULTIPLIERS.length - 1;
 	}
 
@@ -85,14 +88,16 @@ public class GourmaryllisBlockEntity extends GeneratingFlowerBlockEntity {
 			ItemStack streakFood = it.next();
 			if (ItemStack.isSameItemSameComponents(streakFood, food)) {
 				it.remove();
-				lastFoods.add(0, streakFood);
+				lastFoods.addFirst(streakFood);
 				return index;
 			}
 		}
 		ItemStack newestFood = food.copyWithCount(1);
-		lastFoods.add(0, newestFood);
+		newestFood.remove(DataComponents.CUSTOM_NAME);
+		// TODO: VazkiiMods/Botania#4455 - strip other irrelevant components
+		lastFoods.addFirst(newestFood);
 		if (lastFoods.size() >= getMaxStreak()) {
-			lastFoods.remove(lastFoods.size() - 1);
+			lastFoods.removeLast();
 		}
 		return getMaxStreak();
 	}
@@ -126,7 +131,7 @@ public class GourmaryllisBlockEntity extends GeneratingFlowerBlockEntity {
 
 				Vec3 offset = getLevel().getBlockState(getEffectivePos()).getOffset(getLevel(), getEffectivePos()).add(0.4, 0.6, 0.4);
 
-				((ServerLevel) getLevel()).sendParticles(new ItemParticleOption(ParticleTypes.ITEM, lastFoods.get(0)), getEffectivePos().getX() + offset.x, getEffectivePos().getY() + offset.y, getEffectivePos().getZ() + offset.z, 10, 0.1D, 0.1D, 0.1D, 0.03D);
+				((ServerLevel) getLevel()).sendParticles(new ItemParticleOption(ParticleTypes.ITEM, lastFoods.getFirst()), getEffectivePos().getX() + offset.x, getEffectivePos().getY() + offset.y, getEffectivePos().getZ() + offset.z, 10, 0.1D, 0.1D, 0.1D, 0.03D);
 			}
 		}
 
@@ -177,8 +182,7 @@ public class GourmaryllisBlockEntity extends GeneratingFlowerBlockEntity {
 		cmp.putInt(TAG_DIGESTING_MANA, digestingMana);
 		ListTag foodList = new ListTag();
 		for (ItemStack food : lastFoods) {
-			//todo foodList.add(food.save(new CompoundTag()));
-			foodList.add(new CompoundTag());
+			foodList.add(food.save(registries));
 		}
 		cmp.put(TAG_LAST_FOODS, foodList);
 		cmp.putInt(TAG_LAST_FOOD_COUNT, lastFoodCount);
@@ -193,7 +197,7 @@ public class GourmaryllisBlockEntity extends GeneratingFlowerBlockEntity {
 		lastFoods.clear();
 		ListTag foodList = cmp.getList(TAG_LAST_FOODS, Tag.TAG_COMPOUND);
 		for (int i = 0; i < foodList.size(); i++) {
-			//todo lastFoods.add(ItemStack.of(foodList.getCompound(i)));
+			lastFoods.add(ItemStack.parseOptional(registries, foodList.getCompound(i)));
 		}
 		lastFoodCount = cmp.getInt(TAG_LAST_FOOD_COUNT);
 		streakLength = cmp.getInt(TAG_STREAK_LENGTH);
@@ -214,4 +218,24 @@ public class GourmaryllisBlockEntity extends GeneratingFlowerBlockEntity {
 		return 0xD3D604;
 	}
 
+	@Override
+	protected void collectImplicitComponents(DataComponentMap.Builder components) {
+		if (streakLength >= 0) {
+			components.set(BotaniaDataComponents.STREAK_LENGTH, streakLength);
+		}
+		if (lastFoodCount > 0) {
+			components.set(BotaniaDataComponents.LAST_REPEATS, lastFoodCount);
+		}
+		if (!lastFoods.isEmpty()) {
+			components.set(BotaniaDataComponents.LAST_FOODS, lastFoods);
+		}
+	}
+
+	@Override
+	protected void applyImplicitComponents(DataComponentInput componentInput) {
+		streakLength = componentInput.getOrDefault(BotaniaDataComponents.STREAK_LENGTH, -1);
+		lastFoodCount = componentInput.getOrDefault(BotaniaDataComponents.LAST_REPEATS, 0);
+		lastFoods.clear();
+		lastFoods.addAll(componentInput.getOrDefault(BotaniaDataComponents.LAST_FOODS, Collections.emptyList()));
+	}
 }

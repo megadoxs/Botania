@@ -11,6 +11,16 @@
       "entries": [
         {
           "type": "minecraft:item",
+          "functions": [
+            {
+              "function": "minecraft:copy_components",
+              "include": [
+                "botania:last_repeats",
+                "botania:last_flowers"
+              ],
+              "source": "block_entity"
+            }
+          ],
           "name": "botania:floating_rafflowsia"
         }
       ],

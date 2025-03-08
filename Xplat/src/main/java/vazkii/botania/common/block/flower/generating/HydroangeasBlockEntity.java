@@ -10,6 +10,7 @@ package vazkii.botania.common.block.flower.generating;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.HolderLookup;
+import net.minecraft.core.component.DataComponentMap;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
@@ -20,6 +21,7 @@ import net.minecraft.world.level.block.state.BlockState;
 
 import vazkii.botania.client.fx.WispParticleData;
 import vazkii.botania.common.block.BotaniaFlowerBlocks;
+import vazkii.botania.common.component.BotaniaDataComponents;
 
 public class HydroangeasBlockEntity extends FluidGeneratorBlockEntity {
 	public static final String TAG_PASSIVE_DECAY_TICKS = "passiveDecayTicks";
@@ -98,5 +100,19 @@ public class HydroangeasBlockEntity extends FluidGeneratorBlockEntity {
 	@Override
 	public boolean isOvergrowthAffected() {
 		return false;
+	}
+
+	@Override
+	protected void collectImplicitComponents(DataComponentMap.Builder components) {
+		super.collectImplicitComponents(components);
+		if (passiveDecayTicks > 0) {
+			components.set(BotaniaDataComponents.DECAY_TICKS, passiveDecayTicks);
+		}
+	}
+
+	@Override
+	protected void applyImplicitComponents(DataComponentInput componentInput) {
+		super.applyImplicitComponents(componentInput);
+		passiveDecayTicks = componentInput.getOrDefault(BotaniaDataComponents.DECAY_TICKS, 0);
 	}
 }

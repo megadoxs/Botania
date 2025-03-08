@@ -11,6 +11,7 @@ package vazkii.botania.common.block.flower.generating;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.HolderLookup;
+import net.minecraft.core.component.DataComponentMap;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.tags.FluidTags;
 import net.minecraft.tags.TagKey;
@@ -25,6 +26,7 @@ import net.minecraft.world.level.material.FluidState;
 import vazkii.botania.api.block_entity.GeneratingFlowerBlockEntity;
 import vazkii.botania.api.block_entity.RadiusDescriptor;
 import vazkii.botania.client.fx.WispParticleData;
+import vazkii.botania.common.component.BotaniaDataComponents;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -155,5 +157,15 @@ public abstract class FluidGeneratorBlockEntity extends GeneratingFlowerBlockEnt
 	@Override
 	public RadiusDescriptor getRadius() {
 		return RadiusDescriptor.Rectangle.square(getEffectivePos(), 1);
+	}
+
+	@Override
+	protected void collectImplicitComponents(DataComponentMap.Builder components) {
+		components.set(BotaniaDataComponents.COOLDOWN, cooldown > 0 ? cooldown : null);
+	}
+
+	@Override
+	protected void applyImplicitComponents(DataComponentInput componentInput) {
+		cooldown = componentInput.getOrDefault(BotaniaDataComponents.COOLDOWN, 0);
 	}
 }

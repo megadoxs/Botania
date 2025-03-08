@@ -17,6 +17,8 @@ import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.phys.Vec3;
 
+import vazkii.botania.common.block.flower.generating.GourmaryllisBlockEntity;
+import vazkii.botania.common.block.flower.generating.RafflowsiaBlockEntity;
 import vazkii.botania.common.item.LaputaShardItem;
 import vazkii.botania.common.item.ManaBlasterItem;
 import vazkii.botania.common.item.relic.RingOfLokiItem;
@@ -268,6 +270,22 @@ public class BotaniaDataComponents {
 			builder -> builder.persistent(Codec.INT).networkSynchronized(ByteBufCodecs.VAR_INT));
 	public static final DataComponentType<Float> TARGET_DIST = make(LibComponentNames.TARGET_DIST,
 			builder -> builder.persistent(ExtraCodecs.POSITIVE_FLOAT).networkSynchronized(ByteBufCodecs.FLOAT));
+
+	// Various block entity data
+	public static final DataComponentType<Integer> DECAY_TICKS = make("decay_ticks",
+			builder -> builder.persistent(ExtraCodecs.POSITIVE_INT).networkSynchronized(ByteBufCodecs.VAR_INT));
+	public static final DataComponentType<Integer> STREAK_LENGTH = make("streak_length",
+			builder -> builder.persistent(ExtraCodecs.NON_NEGATIVE_INT).networkSynchronized(ByteBufCodecs.VAR_INT));
+	public static final DataComponentType<Integer> LAST_REPEATS = make("last_repeats",
+			builder -> builder.persistent(ExtraCodecs.POSITIVE_INT).networkSynchronized(ByteBufCodecs.VAR_INT));
+	public static final DataComponentType<List<ItemStack>> LAST_FOODS = make("last_foods",
+			builder -> builder.persistent(ExtraCodecs.nonEmptyList(ItemStack.SINGLE_ITEM_CODEC.sizeLimitedListOf(GourmaryllisBlockEntity.getMaxStreak())))
+					.cacheEncoding().networkSynchronized(ItemStack.LIST_STREAM_CODEC));
+	public static final DataComponentType<List<ResourceLocation>> LAST_FLOWERS = make("last_flowers",
+			builder -> builder.persistent(ExtraCodecs.nonEmptyList(ResourceLocation.CODEC.sizeLimitedListOf(RafflowsiaBlockEntity.getMaxStreak())))
+					.cacheEncoding().networkSynchronized(ResourceLocation.STREAM_CODEC.apply(ByteBufCodecs.list(RafflowsiaBlockEntity.getMaxStreak()))));
+	public static final DataComponentType<DyeColor> NEXT_COLOR = make("next_color",
+			builder -> builder.persistent(DyeColor.CODEC).networkSynchronized(DyeColor.STREAM_CODEC));
 
 	public static void registerComponents(BiConsumer<DataComponentType<?>, ResourceLocation> biConsumer) {
 		for (Map.Entry<String, DataComponentType<?>> entry : ALL.entrySet()) {
