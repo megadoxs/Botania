@@ -10,6 +10,7 @@ import net.minecraft.client.renderer.ItemBlockRenderTypes;
 import net.minecraft.client.renderer.ShaderInstance;
 import net.minecraft.client.renderer.entity.player.PlayerRenderer;
 import net.minecraft.client.renderer.item.ItemProperties;
+import net.minecraft.client.resources.model.ModelResourceLocation;
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleType;
 import net.minecraft.world.entity.Entity;
@@ -199,8 +200,8 @@ public class ForgeClientInitializer {
 	@SubscribeEvent
 	public static void onModelRegister(ModelEvent.RegisterAdditional evt) {
 		var resourceManager = Minecraft.getInstance().getResourceManager();
-		// TODO: needs to be converted to use ModelResourceLocation
-		//MiscellaneousModels.INSTANCE.onModelRegister(resourceManager, evt::register);
+		MiscellaneousModels.INSTANCE.onModelRegister(resourceManager,
+				id -> evt.register(ModelResourceLocation.standalone(id)));
 		BotaniaItemProperties.init((item, id, prop) -> ItemProperties.register(item.asItem(), id, prop));
 	}
 

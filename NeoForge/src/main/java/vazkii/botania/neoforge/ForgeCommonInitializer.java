@@ -199,7 +199,8 @@ public class ForgeCommonInitializer {
 	@SubscribeEvent
 	private void registryInit(RegisterEvent event) {
 		// Core item/block/BE
-		bind(event, Registries.SOUND_EVENT, BotaniaSounds::init);
+		runRegistration(event, Registries.SOUND_EVENT, BotaniaSounds::init);
+		runRegistration(event, Registries.ARMOR_MATERIAL, BotaniaArmorMaterials::registerArmorMaterials);
 		bind(event, Registries.DATA_COMPONENT_TYPE, BotaniaDataComponents::registerComponents);
 		bind(event, Registries.BLOCK, consumer -> {
 			BotaniaBlocks.registerBlocks(consumer);

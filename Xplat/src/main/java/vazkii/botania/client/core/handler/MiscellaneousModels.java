@@ -14,6 +14,9 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.packs.resources.ResourceManager;
 import net.minecraft.world.item.DyeColor;
 
+import org.jetbrains.annotations.Nullable;
+import org.jetbrains.annotations.UnknownNullability;
+
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.BotaniaAPIClient;
 import vazkii.botania.api.block.FloatingFlower;
@@ -77,6 +80,7 @@ public class MiscellaneousModels {
 	public final BakedModel[] tiaraWingIcons;
 	public final BakedModel[] thirdEyeLayers;
 
+	@UnknownNullability
 	public BakedModel goldfishModel,
 			phiFlowerModel,
 			nerfBatModel,
@@ -135,6 +139,7 @@ public class MiscellaneousModels {
 		}
 	}
 
+	// NeoForge
 	public void onModelBake(ModelBakery loader, Map<ResourceLocation, BakedModel> map) {
 		if (!registeredModels) {
 			BotaniaAPI.LOGGER.error("Additional models failed to register! Aborting baking models to avoid early crashing.");
@@ -144,7 +149,11 @@ public class MiscellaneousModels {
 		modelConsumers.forEach((resourceLocation, bakedModelConsumer) -> bakedModelConsumer.accept(map.get(resourceLocation)));
 	}
 
-	public BakedModel modifyModelAfterbake(BakedModel bakedModel, ResourceLocation id) {
+	// Fabric
+	public BakedModel modifyModelAfterbake(BakedModel bakedModel, @Nullable ResourceLocation id) {
+		if (id == null) {
+			return bakedModel;
+		}
 		modelConsumers.getOrDefault(id, model -> {}).accept(bakedModel);
 		return afterBakeModifiers.getOrDefault(id, Function.identity()).apply(bakedModel);
 	}

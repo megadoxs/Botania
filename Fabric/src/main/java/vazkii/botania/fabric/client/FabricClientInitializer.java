@@ -142,10 +142,9 @@ public class FabricClientInitializer implements ClientModInitializer {
 		for (var entry : BuiltInRegistries.ITEM.entrySet()) {
 			Item item = entry.getValue();
 			ResourceLocation id = entry.getKey().location();
-			if (item instanceof ManasteelArmorItem
+			if (item instanceof ManasteelArmorItem armor
 					&& id.getNamespace().equals(LibMisc.MOD_ID)) {
-				// FIXME: missing armor material
-				// armors.put(item, BuiltInRegistries.ARMOR_MATERIAL.get(id).layers().getFirst());
+				armors.put(armor, armor.getMaterial().value().layers().getFirst());
 			}
 		}
 
@@ -158,8 +157,7 @@ public class FabricClientInitializer implements ClientModInitializer {
 				ArmorRenderer.renderPart(matrices, vertexConsumers, light, stack, model, texture);
 			}
 		};
-		// FIXME: no items to register yet
-		// ArmorRenderer.register(renderer, armors.keySet().toArray(Item[]::new));
+		ArmorRenderer.register(renderer, armors.keySet().toArray(Item[]::new));
 	}
 
 	private void loadComplete(Minecraft mc) {

@@ -8,17 +8,21 @@
  */
 package vazkii.botania.common.handler;
 
+import net.minecraft.core.Holder;
+import net.minecraft.core.Registry;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvent;
 
+import vazkii.botania.common.helper.RegistryHelper;
+
 import java.util.ArrayList;
 import java.util.List;
-import java.util.function.BiConsumer;
 
 import static vazkii.botania.api.BotaniaAPI.botaniaRL;
 
 public final class BotaniaSounds {
-	private static final List<SoundEvent> EVENTS = new ArrayList<>();
+	private static final List<RegistryHelper.HolderProxy<SoundEvent>> EVENTS = new ArrayList<>();
 	//blocks
 	public static final SoundEvent altarCraft = makeSoundEvent("altar_craft");
 	public static final SoundEvent bellows = makeSoundEvent("bellows");
@@ -57,10 +61,10 @@ public final class BotaniaSounds {
 	public static final SoundEvent divinationRod = makeSoundEvent("divination_rod");
 	public static final SoundEvent enderAirThrow = makeSoundEvent("ender_air_throw");
 	public static final SoundEvent equipBauble = makeSoundEvent("equip_bauble");
-	public static final SoundEvent equipElementium = makeSoundEvent("equip_elementium");
-	public static final SoundEvent equipManasteel = makeSoundEvent("equip_manasteel");
-	public static final SoundEvent equipManaweave = makeSoundEvent("equip_manaweave");
-	public static final SoundEvent equipTerrasteel = makeSoundEvent("equip_terrasteel");
+	public static final Holder<SoundEvent> equipElementium = makeSoundEventHolder("equip_elementium");
+	public static final Holder<SoundEvent> equipManasteel = makeSoundEventHolder("equip_manasteel");
+	public static final Holder<SoundEvent> equipManaweave = makeSoundEventHolder("equip_manaweave");
+	public static final Holder<SoundEvent> equipTerrasteel = makeSoundEventHolder("equip_terrasteel");
 	public static final SoundEvent fireRod = makeSoundEvent("fire_rod");
 	public static final SoundEvent flareChakramThrow = makeSoundEvent("flare_chakram_throw");
 	public static final SoundEvent flugelEyeBind = makeSoundEvent("flugel_eye_bind");
@@ -122,15 +126,19 @@ public final class BotaniaSounds {
 	public static final SoundEvent way = makeSoundEvent("way");
 
 	private static SoundEvent makeSoundEvent(String name) {
-		SoundEvent event = SoundEvent.createVariableRangeEvent(botaniaRL(name));
-		EVENTS.add(event);
-		return event;
+		return makeSoundEventHolder(name).value();
 	}
 
-	public static void init(BiConsumer<SoundEvent, ResourceLocation> r) {
-		for (SoundEvent event : EVENTS) {
-			r.accept(event, event.getLocation());
-		}
+	private static Holder<SoundEvent> makeSoundEventHolder(String name) {
+		ResourceLocation id = botaniaRL(name);
+		RegistryHelper.HolderProxy<SoundEvent> proxy = RegistryHelper.holderProxy(Registries.SOUND_EVENT, id,
+				SoundEvent.createVariableRangeEvent(id));
+		EVENTS.add(proxy);
+		return proxy;
+	}
+
+	public static void init(Registry<SoundEvent> registry) {
+		EVENTS.forEach(proxy -> proxy.register(registry));
 	}
 
 	private BotaniaSounds() {}

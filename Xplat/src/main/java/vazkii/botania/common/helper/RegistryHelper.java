@@ -22,6 +22,7 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.Optional;
 import java.util.function.Predicate;
+import java.util.function.Supplier;
 import java.util.stream.Stream;
 
 public class RegistryHelper {
@@ -30,19 +31,31 @@ public class RegistryHelper {
 		return (Registry<T>) BuiltInRegistries.REGISTRY.get(resourceKey.location());
 	}
 
+	public static <T> HolderProxy<T> lazyHolderProxy(ResourceKey<Registry<T>> registryKey, ResourceLocation id, Supplier<T> valueSupplier) {
+		return new HolderProxy<>(ResourceKey.create(registryKey, id), valueSupplier);
+	}
+
 	public static <T> HolderProxy<T> holderProxy(ResourceKey<Registry<T>> registryKey, ResourceLocation id, T value) {
 		return new HolderProxy<>(ResourceKey.create(registryKey, id), value);
 	}
 
 	public static class HolderProxy<T> implements Holder<T> {
 		private final ResourceKey<T> resourceKey;
-		private final T value;
+		private final Supplier<T> value;
+		private final boolean directValue;
 		@Nullable
 		private Reference<T> reference = null;
 
 		public HolderProxy(ResourceKey<T> resourceKey, T value) {
 			this.resourceKey = resourceKey;
-			this.value = value;
+			this.value = () -> value;
+			this.directValue = true;
+		}
+
+		public HolderProxy(ResourceKey<T> resourceKey, Supplier<T> valueSupplier) {
+			this.resourceKey = resourceKey;
+			this.value = valueSupplier;
+			this.directValue = false;
 		}
 
 		public void register(Registry<T> registry) {
@@ -50,12 +63,18 @@ public class RegistryHelper {
 				throw new IllegalArgumentException("Mismatched registry: expected %s, got %s"
 						.formatted(resourceKey.registry(), registry.key().location()));
 			}
-			reference = Registry.registerForHolder(registry, resourceKey, value);
+			reference = Registry.registerForHolder(registry, resourceKey, value.get());
 		}
 
 		@Override
 		public T value() {
-			return value;
+			if (reference == null) {
+				if (!directValue) {
+					throw new IllegalStateException("Attempted to access value of " + resourceKey + " before initialization");
+				}
+				return value.get();
+			}
+			return reference.value();
 		}
 
 		@Override
@@ -111,6 +130,16 @@ public class RegistryHelper {
 		@Override
 		public boolean canSerializeIn(HolderOwner<T> owner) {
 			return reference != null && reference.canSerializeIn(owner);
+		}
+
+		@Override
+		public String toString() {
+			return "HolderProxy{" +
+					"resourceKey=" + resourceKey +
+					",directValue=" + directValue +
+					", value=" + (directValue || reference != null ? value() : "(not initialized)") +
+					", reference=" + reference +
+					'}';
 		}
 	}
 }
