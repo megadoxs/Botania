@@ -82,7 +82,7 @@ public class ManasteelArmorItem extends ArmorItem implements CustomDamageItem, P
 	}
 
 	public ResourceLocation getArmorTextureAfterInk(ItemStack stack, EquipmentSlot slot) {
-		return botaniaRL(ResourcesLib.MODEL_MANASTEEL_NEW);
+		return ResourceLocation.parse(ResourcesLib.MODEL_MANASTEEL_NEW);
 	}
 
 	@Override

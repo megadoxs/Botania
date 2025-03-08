@@ -9,6 +9,7 @@
 package vazkii.botania.common.item.equipment.tool.elementium;
 
 import net.minecraft.core.component.DataComponents;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.EquipmentSlotGroup;
 import net.minecraft.world.item.component.ItemAttributeModifiers;
@@ -24,7 +25,7 @@ public class ElementiumSwordItem extends ManasteelSwordItem {
 	public ElementiumSwordItem(Properties props) {
 		super(BotaniaAPI.instance().getElementiumItemTier(),
 				props.component(DataComponents.ATTRIBUTE_MODIFIERS, ItemAttributeModifiers.builder()
-						.add(PixieHandler.PIXIE_SPAWN_CHANCE,
+						.add(BuiltInRegistries.ATTRIBUTE.getHolderOrThrow(PixieHandler.PIXIE_SPAWN_CHANCE),
 								PixieHandler.makeModifier(botaniaRL("sword_modifier"), 0.05),
 								EquipmentSlotGroup.bySlot(EquipmentSlot.MAINHAND))
 						.build()));

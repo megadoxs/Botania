@@ -324,35 +324,26 @@ public class ItemModelProvider implements DataProvider {
 		singleHandheldSuffixOverride(tornadoRod, "_active", botaniaRL("active"), 1.0, consumer);
 		items.remove(tornadoRod);
 
-		TextureMapping twigWandTextures = TextureMapping.layer0(twigWand)
-				.put(LAYER1, TextureMapping.getItemTexture(twigWand, "_top"))
-				.put(LAYER2, TextureMapping.getItemTexture(twigWand, "_bottom"));
-		ResourceLocation twigWandBind = ModelLocationUtils.getModelLocation(twigWand, "_bind");
-		HANDHELD_3.create(twigWandBind,
-				twigWandTextures.copyAndUpdate(LAYER3, TextureMapping.getItemTexture(twigWand, "_bind")),
-				consumer);
-		HANDHELD_OVERRIDES_2.create(ModelLocationUtils.getModelLocation(twigWand),
-				twigWandTextures,
-				new OverrideHolder()
-						.add(twigWandBind, Pair.of(botaniaRL("bindmode"), 1.0)),
-				consumer);
-		items.remove(twigWand);
-
-		TextureMapping dreamwoodWandTextures = TextureMapping.layer0(dreamwoodWand)
-				.put(LAYER1, TextureMapping.getItemTexture(dreamwoodWand, "_top"))
-				.put(LAYER2, TextureMapping.getItemTexture(dreamwoodWand, "_bottom"));
-		ResourceLocation dreamwoodWandBind = ModelLocationUtils.getModelLocation(dreamwoodWand, "_bind");
-		HANDHELD_3.create(dreamwoodWandBind,
-				dreamwoodWandTextures.copyAndUpdate(LAYER3, TextureMapping.getItemTexture(dreamwoodWand, "_bind")),
-				consumer);
-		HANDHELD_OVERRIDES_2.create(ModelLocationUtils.getModelLocation(dreamwoodWand),
-				dreamwoodWandTextures,
-				new OverrideHolder()
-						.add(dreamwoodWandBind, Pair.of(botaniaRL("bindmode"), 1.0)),
-				consumer);
-		items.remove(dreamwoodWand);
+		registerWandModels(items, consumer, twigWand);
+		registerWandModels(items, consumer, dreamwoodWand);
 	}
 
+	private static void registerWandModels(Set<Item> items, BiConsumer<ResourceLocation, Supplier<JsonElement>> consumer, Item wandType) {
+		TextureMapping twigWandTextures = TextureMapping.layer0(wandType)
+				.put(LAYER1, TextureMapping.getItemTexture(wandType, "_top"))
+				.put(LAYER2, TextureMapping.getItemTexture(wandType, "_bottom"));
+		ResourceLocation twigWandBind = ModelLocationUtils.getModelLocation(wandType, "_bind");
+		HANDHELD_3.create(twigWandBind,
+				twigWandTextures.copyAndUpdate(LAYER3, TextureMapping.getItemTexture(wandType, "_bind")),
+				consumer);
+		HANDHELD_OVERRIDES_2.create(ModelLocationUtils.getModelLocation(wandType),
+				twigWandTextures,
+				new OverrideHolder().add(twigWandBind, Pair.of(botaniaRL("bindmode"), 1.0)),
+				consumer);
+		items.remove(wandType);
+	}
+
+	@SuppressWarnings("SuspiciousMethodCalls")
 	private void registerItemBlocks(Set<BlockItem> itemBlocks, BiConsumer<ResourceLocation, Supplier<JsonElement>> consumer) {
 		// Manually written
 		itemBlocks.remove(BotaniaBlocks.corporeaCrystalCube.asItem());

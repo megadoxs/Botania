@@ -80,6 +80,7 @@ import net.minecraft.world.phys.AABB;
 
 import org.apache.commons.lang3.function.TriFunction;
 import org.jetbrains.annotations.Nullable;
+import org.jetbrains.annotations.UnknownNullability;
 
 import vazkii.botania.api.BotaniaFabricCapabilities;
 import vazkii.botania.api.block.*;
@@ -133,6 +134,7 @@ public class FabricXplatImpl implements XplatAbstractions {
 		return FabricLoader.getInstance().isDevelopmentEnvironment();
 	}
 
+	@SuppressWarnings("UnstableApiUsage")
 	@Override
 	public boolean isDataGen() {
 		return FabricDataGenHelper.ENABLED;
@@ -145,7 +147,7 @@ public class FabricXplatImpl implements XplatAbstractions {
 
 	@Override
 	public String getBotaniaVersion() {
-		return FabricLoader.getInstance().getModContainer(LibMisc.MOD_ID).get()
+		return FabricLoader.getInstance().getModContainer(LibMisc.MOD_ID).orElseThrow()
 				.getMetadata().getVersion().getFriendlyString();
 	}
 
@@ -205,7 +207,7 @@ public class FabricXplatImpl implements XplatAbstractions {
 
 	@Nullable
 	@Override
-	public ManaReceiver findManaReceiver(Level level, BlockPos pos, BlockState state, @Nullable BlockEntity be, Direction direction) {
+	public ManaReceiver findManaReceiver(Level level, BlockPos pos, BlockState state, @Nullable BlockEntity be, @UnknownNullability Direction direction) {
 		return BotaniaFabricCapabilities.MANA_RECEIVER.find(level, pos, state, be, direction);
 	}
 

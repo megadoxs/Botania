@@ -31,8 +31,6 @@ import vazkii.botania.xplat.XplatAbstractions;
 import java.util.List;
 import java.util.function.Supplier;
 
-import static vazkii.botania.api.BotaniaAPI.botaniaRL;
-
 public class ManaweaveArmorItem extends ManasteelArmorItem {
 
 	public ManaweaveArmorItem(Type type, Properties props) {
@@ -41,7 +39,7 @@ public class ManaweaveArmorItem extends ManasteelArmorItem {
 
 	@Override
 	public ResourceLocation getArmorTextureAfterInk(ItemStack stack, EquipmentSlot slot) {
-		return botaniaRL(ClientProxy.jingleTheBells ? ResourcesLib.MODEL_MANAWEAVE_NEW_HOLIDAY : ResourcesLib.MODEL_MANAWEAVE_NEW);
+		return ResourceLocation.parse(ClientProxy.jingleTheBells ? ResourcesLib.MODEL_MANAWEAVE_NEW_HOLIDAY : ResourcesLib.MODEL_MANAWEAVE_NEW);
 	}
 
 	@Override

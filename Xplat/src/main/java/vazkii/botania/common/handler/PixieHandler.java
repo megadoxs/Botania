@@ -8,13 +8,13 @@
  */
 package vazkii.botania.common.handler;
 
-import net.minecraft.Util;
-import net.minecraft.core.Holder;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
-import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.MobSpawnType;
 import net.minecraft.world.entity.ai.attributes.Attribute;
@@ -29,10 +29,7 @@ import vazkii.botania.common.helper.PlayerHelper;
 import vazkii.botania.common.item.BotaniaItems;
 import vazkii.botania.common.item.equipment.armor.elementium.ElementiumHelmItem;
 
-import java.util.EnumMap;
 import java.util.List;
-import java.util.Map;
-import java.util.UUID;
 import java.util.function.BiConsumer;
 import java.util.function.Supplier;
 
@@ -42,15 +39,9 @@ public final class PixieHandler {
 
 	private PixieHandler() {}
 
-	public static final Holder<Attribute> PIXIE_SPAWN_CHANCE = Holder.direct(new RangedAttribute("attribute.name.botania.pixieSpawnChance", 0, 0, 1));
-	private static final Map<EquipmentSlot, UUID> DEFAULT_MODIFIER_UUIDS = Util.make(new EnumMap<>(EquipmentSlot.class), m -> {
-		m.put(EquipmentSlot.HEAD, UUID.fromString("3c1f559c-9ec4-412d-ada0-dbf3e714088e"));
-		m.put(EquipmentSlot.CHEST, UUID.fromString("9631121c-16f0-4ed4-ba0a-0e7a063cb71c"));
-		m.put(EquipmentSlot.LEGS, UUID.fromString("a87117a1-ac15-4b17-9fd5-e98d5fe31ff1"));
-		m.put(EquipmentSlot.FEET, UUID.fromString("ff67d38a-c5be-4a00-90ed-76bb12c45523"));
-		m.put(EquipmentSlot.MAINHAND, UUID.fromString("995829fa-94c0-41bd-b046-0468c509a488"));
-		m.put(EquipmentSlot.OFFHAND, UUID.fromString("34f62de8-f652-4fe7-899f-a8fc938c4940"));
-	});
+	// TODO: the usage of this is kind-of ugly, is there a better way?
+	public static final ResourceKey<Attribute> PIXIE_SPAWN_CHANCE = ResourceKey.create(Registries.ATTRIBUTE, botaniaRL("pixie_spawn_chance"));
+	public static final Attribute PIXIE_SPAWN_CHANCE_ATTRIBUTE = new RangedAttribute("attribute.name.botania.pixieSpawnChance", 0, 0, 1);
 
 	private static final List<Supplier<MobEffectInstance>> effectSuppliers = List.of(
 			() -> new MobEffectInstance(MobEffects.BLINDNESS, 40, 0),
@@ -60,7 +51,7 @@ public final class PixieHandler {
 	);
 
 	public static void registerAttribute(BiConsumer<Attribute, ResourceLocation> r) {
-		r.accept(PIXIE_SPAWN_CHANCE.value(), botaniaRL("pixie_spawn_chance"));
+		r.accept(PIXIE_SPAWN_CHANCE_ATTRIBUTE, PIXIE_SPAWN_CHANCE.location());
 	}
 
 	public static AttributeModifier makeModifier(ResourceLocation slotId, double amount) {
@@ -71,8 +62,9 @@ public final class PixieHandler {
 		if (!player.level().isClientSide && source.getEntity() instanceof LivingEntity livingSource) {
 			// Sometimes the player doesn't have the attribute, not sure why.
 			// Could be badly-written mixins on Fabric.
-			double chance = player.getAttributes().hasAttribute(PIXIE_SPAWN_CHANCE)
-					? player.getAttributeValue(PIXIE_SPAWN_CHANCE) : 0;
+			var holder = BuiltInRegistries.ATTRIBUTE.getHolderOrThrow(PIXIE_SPAWN_CHANCE);
+			double chance = player.getAttributes().hasAttribute(holder)
+					? player.getAttributeValue(holder) : 0;
 			ItemStack sword = PlayerHelper.getFirstHeldItem(player, s -> s.is(BotaniaItems.elementiumSword));
 
 			if (Math.random() < chance) {

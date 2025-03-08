@@ -8,6 +8,7 @@
  */
 package vazkii.botania.fabric.mixin;
 
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.world.Container;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
@@ -55,7 +56,7 @@ public abstract class PlayerFabricMixin extends LivingEntity {
 	 */
 	@Inject(at = @At("RETURN"), method = "createAttributes")
 	private static void addPixieAttribute(CallbackInfoReturnable<AttributeSupplier.Builder> cir) {
-		cir.getReturnValue().add(PixieHandler.PIXIE_SPAWN_CHANCE);
+		cir.getReturnValue().add(BuiltInRegistries.ATTRIBUTE.getHolderOrThrow(PixieHandler.PIXIE_SPAWN_CHANCE));
 	}
 
 	/**

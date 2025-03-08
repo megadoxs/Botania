@@ -132,7 +132,7 @@ public class ForgeXplatImpl implements XplatAbstractions {
 
 	@Override
 	public String getBotaniaVersion() {
-		return ModList.get().getModContainerById(LibMisc.MOD_ID).get()
+		return ModList.get().getModContainerById(LibMisc.MOD_ID).orElseThrow()
 				.getModInfo().getVersion().toString();
 	}
 

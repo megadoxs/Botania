@@ -42,7 +42,7 @@ public class TerrasteelArmorItem extends ManasteelArmorItem {
 
 	@Override
 	public ResourceLocation getArmorTextureAfterInk(ItemStack stack, EquipmentSlot slot) {
-		return botaniaRL(ResourcesLib.MODEL_TERRASTEEL_NEW);
+		return ResourceLocation.parse(ResourcesLib.MODEL_TERRASTEEL_NEW);
 	}
 
 	//TODO Very unsure if this works

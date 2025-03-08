@@ -193,7 +193,7 @@ public class ForgeCommonInitializer {
 
 	@SubscribeEvent
 	private void modifyAttributes(EntityAttributeModificationEvent e) {
-		e.add(EntityType.PLAYER, PixieHandler.PIXIE_SPAWN_CHANCE);
+		e.add(EntityType.PLAYER, BuiltInRegistries.ATTRIBUTE.getHolderOrThrow(PixieHandler.PIXIE_SPAWN_CHANCE));
 	}
 
 	@SubscribeEvent

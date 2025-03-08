@@ -18,6 +18,7 @@ import net.minecraft.client.renderer.block.model.ItemOverrides;
 import net.minecraft.client.resources.model.*;
 import net.minecraft.core.Direction;
 import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.data.models.model.ModelLocationUtils;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.LivingEntity;
@@ -90,14 +91,13 @@ public class ManaBlasterBakedModel extends DelegatedModel {
 
 		CompositeBakedModel(ModelBaker baker, ItemStack lens, BakedModel gun) {
 			super(gun);
-			ResourceLocation lensId = BuiltInRegistries.ITEM.getKey(lens.getItem());
 			ModelState transform = new ModelState() {
 				@Override
 				public Transformation getRotation() {
 					return new Transformation(new Vector3f(-0.4F, 0.2F, 0.0F), VecHelper.rotateY(90), new Vector3f(0.625F, 0.625F, 0.625F), null);
 				}
 			};
-			this.lensModel = baker.bake(lensId, transform); //todo confirm this is correct
+			this.lensModel = baker.bake(ModelLocationUtils.getModelLocation(lens.getItem()), transform); //todo confirm this is correct
 		}
 
 		@Override
