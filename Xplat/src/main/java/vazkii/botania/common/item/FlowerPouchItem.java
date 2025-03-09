@@ -101,7 +101,7 @@ public class FlowerPouchItem extends Item {
 					SimpleContainer bagInv = getInventory(bag);
 					ItemStack existing = bagInv.getItem(slot);
 					int newCount = Math.min(existing.getCount() + entityStack.getCount(),
-							Math.min(existing.getMaxStackSize(), bagInv.getMaxStackSize()));
+							existing.isEmpty() ? bagInv.getMaxStackSize() : bagInv.getMaxStackSize(existing));
 					int numPickedUp = newCount - existing.getCount();
 
 					if (numPickedUp > 0) {
