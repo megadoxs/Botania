@@ -35,10 +35,9 @@ public class FabricDatagenInitializer implements DataGeneratorEntrypoint {
 
 	private static void configureFabricDatagen(FabricDataGenerator.Pack pack) {
 		pack.addProvider(FabricBlockLootProvider::new);
-		var blockTagProvider = pack.addProvider(FabricBlockTagProvider::new);
-		pack.addProvider((output, registriesFuture) -> new FabricItemTagProvider(output, registriesFuture, blockTagProvider.contentsGetter()));
-		pack.addProvider(FabricRecipeProvider::new);
-		pack.addProvider(FabricBiomeTagProvider::new);
+		BlockTagProvider blockTagProvider = pack.addProvider(FabricBlockTagProvider::new);
+		pack.addProvider((output,
+				registriesFuture) -> new FabricItemTagProvider(output, registriesFuture, blockTagProvider.contentsGetter()));
 	}
 
 	private static void configureXplatDatagen(FabricDataGenerator.Pack pack) {
@@ -47,14 +46,20 @@ public class FabricDatagenInitializer implements DataGeneratorEntrypoint {
 		pack.addProvider(LooniumStructureConfigurationProvider::new);
 		pack.addProvider(LooniumEquipmentLootProvider::new);
 		BlockTagProvider blockTagProvider = pack.addProvider(BlockTagProvider::new);
-		pack.addProvider((output, registriesFuture) -> new ItemTagProvider(output, registriesFuture, blockTagProvider.contentsGetter()));
+		pack.addProvider((output, registriesFuture) -> new ItemTagProvider(
+				output, registriesFuture, blockTagProvider.contentsGetter()));
+		var conventionalBlockTagProvider = pack.addProvider(ConventionalBlockTagProvider::new);
+		pack.addProvider((output, registriesFuture) -> new ConventionalItemTagProvider(
+				output, registriesFuture, conventionalBlockTagProvider.contentsGetter()));
 		pack.addProvider(EntityTagProvider::new);
+		pack.addProvider(ConventionalEntityTypeTagProvider::new);
 		pack.addProvider(BannerPatternProvider::new);
 		pack.addProvider(BannerPatternTagsProvider::new);
-		pack.addProvider(BiomeTagProvider::new);
+		pack.addProvider(ConventionalBiomeTagProvider::new);
 		pack.addProvider(BotaniaDynamicRegistryProvider::new);
 		pack.addProvider(DamageTypeTagProvider::new);
 		pack.addProvider(StonecuttingProvider::new);
+		pack.addProvider(ConventionalTagsRecipeProvider::new);
 		pack.addProvider(CraftingRecipeProvider::new);
 		pack.addProvider(SmeltingProvider::new);
 		pack.addProvider(ElvenTradeProvider::new);

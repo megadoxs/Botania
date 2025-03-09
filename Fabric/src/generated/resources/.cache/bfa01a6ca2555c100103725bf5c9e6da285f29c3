@@ -1,17 +1,1 @@
 // 1.21.1	Botania/Tags for minecraft:block
-804281f2b135bd1cedaebd052fbba79f9aebb4ee data/c/tags/block/glass.json
-804281f2b135bd1cedaebd052fbba79f9aebb4ee data/c/tags/block/glass_blocks.json
-f040b9a06513de92027387c440251e6542f53830 data/c/tags/block/glass_pane.json
-f040b9a06513de92027387c440251e6542f53830 data/c/tags/block/glass_panes.json
-afc25b30437e0d212759f663ee5fd8af07be1c81 data/c/tags/block/lapis_blocks.json
-c8209dfe9c42e67e904666f4675f74d8d6bd5345 data/c/tags/block/mushrooms.json
-f0ee1000e08a169e13aa0d276312ab17a3d05922 data/c/tags/block/ores.json
-c982bf60c82069637f6511b4be4a20b39894c2e9 data/c/tags/block/quartz_blocks.json
-35133e95f1c8fdd7a1c21afcc231fc0bffefb9a8 data/minecraft/tags/block/coal_ores.json
-35133e95f1c8fdd7a1c21afcc231fc0bffefb9a8 data/minecraft/tags/block/copper_ores.json
-35133e95f1c8fdd7a1c21afcc231fc0bffefb9a8 data/minecraft/tags/block/diamond_ores.json
-35133e95f1c8fdd7a1c21afcc231fc0bffefb9a8 data/minecraft/tags/block/emerald_ores.json
-35133e95f1c8fdd7a1c21afcc231fc0bffefb9a8 data/minecraft/tags/block/gold_ores.json
-35133e95f1c8fdd7a1c21afcc231fc0bffefb9a8 data/minecraft/tags/block/iron_ores.json
-35133e95f1c8fdd7a1c21afcc231fc0bffefb9a8 data/minecraft/tags/block/lapis_ores.json
-35133e95f1c8fdd7a1c21afcc231fc0bffefb9a8 data/minecraft/tags/block/redstone_ores.json

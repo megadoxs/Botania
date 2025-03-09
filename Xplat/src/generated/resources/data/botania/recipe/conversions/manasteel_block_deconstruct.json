@@ -3,7 +3,7 @@
   "category": "misc",
   "ingredients": [
     {
-      "tag": "botania:manasteel_blocks"
+      "item": "botania:manasteel_block"
     }
   ],
   "result": {

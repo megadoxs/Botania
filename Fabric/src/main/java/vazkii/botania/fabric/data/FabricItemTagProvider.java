@@ -1,6 +1,5 @@
 package vazkii.botania.fabric.data;
 
-import net.fabricmc.fabric.api.tag.convention.v2.ConventionalItemTags;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.PackOutput;
@@ -9,11 +8,9 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.Block;
 
 import vazkii.botania.common.block.BotaniaBlocks;
-import vazkii.botania.common.helper.ColorHelper;
 import vazkii.botania.common.item.relic.DiceOfFateItem;
 import vazkii.botania.data.ItemTagProvider;
 
@@ -22,13 +19,6 @@ import java.util.concurrent.CompletableFuture;
 import static vazkii.botania.common.item.BotaniaItems.*;
 
 public class FabricItemTagProvider extends ItemTagProvider {
-	public static final TagKey<Item> QUARTZ_BLOCKS = itemTag(ResourceLocation.fromNamespaceAndPath("c", "quartz_blocks"));
-	private static final TagKey<Item> MUSHROOMS = itemTag(ResourceLocation.fromNamespaceAndPath("c", "mushrooms"));
-	private static final TagKey<Item> GLASS = itemTag(ResourceLocation.fromNamespaceAndPath("c", "glass"));
-	private static final TagKey<Item> GLASS_ALT = itemTag(ResourceLocation.fromNamespaceAndPath("c", "glass_blocks"));
-	private static final TagKey<Item> GLASS_PANE = itemTag(ResourceLocation.fromNamespaceAndPath("c", "glass_pane"));
-	private static final TagKey<Item> GLASS_PANE_ALT = itemTag(ResourceLocation.fromNamespaceAndPath("c", "glass_panes"));
-	public static final TagKey<Item> WOODEN_CHESTS = itemTag(ResourceLocation.fromNamespaceAndPath("c", "wooden_chests"));
 
 	private static TagKey<Item> itemTag(ResourceLocation location) {
 		return TagKey.create(Registries.ITEM, location);
@@ -40,24 +30,8 @@ public class FabricItemTagProvider extends ItemTagProvider {
 
 	@Override
 	protected void addTags(HolderLookup.Provider provider) {
-		ColorHelper.supportedColors().forEach(color -> {
-			this.tag(MUSHROOMS).add(BotaniaBlocks.getMushroom(color).asItem());
-		});
-		this.copy(FabricBlockTagProvider.MUSHROOMS, MUSHROOMS);
-		this.copy(FabricBlockTagProvider.QUARTZ_BLOCKS, QUARTZ_BLOCKS);
-		this.copy(FabricBlockTagProvider.GLASS, GLASS);
-		this.copy(FabricBlockTagProvider.GLASS_ALT, GLASS_ALT);
-		this.copy(FabricBlockTagProvider.GLASS_PANE, GLASS_PANE);
-		this.copy(FabricBlockTagProvider.GLASS_PANE_ALT, GLASS_PANE_ALT);
-		this.tag(WOODEN_CHESTS).add(Items.CHEST, Items.TRAPPED_CHEST);
-		generateToolTags();
 		generateAccessoryTags();
 		generateCompatTags();
-	}
-
-	private void generateToolTags() {
-		this.tag(ConventionalItemTags.BOW_TOOLS).add(livingwoodBow, crystalBow);
-		this.tag(ConventionalItemTags.SHEAR_TOOLS).add(manasteelShears, elementiumShears);
 	}
 
 	private void generateAccessoryTags() {

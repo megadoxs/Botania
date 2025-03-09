@@ -60,7 +60,6 @@ public class ItemTagProvider extends ItemTagsProvider {
 		this.copy(BlockTags.STAIRS, ItemTags.STAIRS);
 		this.copy(BlockTags.WOODEN_STAIRS, ItemTags.WOODEN_STAIRS);
 		this.copy(BlockTags.WALLS, ItemTags.WALLS);
-		this.copy(BlockTags.FENCES, ItemTags.FENCES);
 		this.copy(BlockTags.WOODEN_FENCES, ItemTags.WOODEN_FENCES);
 
 		this.copy(BotaniaTags.Blocks.MUNDANE_FLOATING_FLOWERS, BotaniaTags.Items.MUNDANE_FLOATING_FLOWERS);
@@ -111,10 +110,6 @@ public class ItemTagProvider extends ItemTagsProvider {
 		this.tag(BotaniaTags.Items.NUGGETS_ELEMENTIUM).add(elementiumNugget);
 		this.tag(BotaniaTags.Items.NUGGETS_MANASTEEL).add(manasteelNugget);
 		this.tag(BotaniaTags.Items.NUGGETS_TERRASTEEL).add(terrasteelNugget);
-
-		this.copy(BotaniaTags.Blocks.BLOCKS_ELEMENTIUM, BotaniaTags.Items.BLOCKS_ELEMENTIUM);
-		this.copy(BotaniaTags.Blocks.BLOCKS_MANASTEEL, BotaniaTags.Items.BLOCKS_MANASTEEL);
-		this.copy(BotaniaTags.Blocks.BLOCKS_TERRASTEEL, BotaniaTags.Items.BLOCKS_TERRASTEEL);
 
 		this.copy(BlockTags.LOGS_THAT_BURN, ItemTags.LOGS_THAT_BURN);
 		this.copy(BotaniaTags.Blocks.LIVINGWOOD_LOGS, BotaniaTags.Items.LIVINGWOOD_LOGS);

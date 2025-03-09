@@ -3,7 +3,7 @@
   "category": "misc",
   "ingredients": [
     {
-      "tag": "botania:elementium_blocks"
+      "item": "botania:elementium_block"
     }
   ],
   "result": {

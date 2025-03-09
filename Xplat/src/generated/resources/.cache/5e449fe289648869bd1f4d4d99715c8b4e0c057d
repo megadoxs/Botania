@@ -5,7 +5,6 @@ c78b8d439e4a26f1bfdd692b63cdce3c70b7fa0c data/botania/tags/item/disposable.json
 d7d4fa19fbc2cba6bcd55c98c298047c193cb0af data/botania/tags/item/double_mystical_flowers.json
 dac0610f30857965bf170f6620f6f521ef29db4d data/botania/tags/item/dragonstone_gems.json
 870b465005dcaf5732efc8a592eeb6837de27a3a data/botania/tags/item/dreamwood_logs.json
-0c10f93f102c025d31f7fecef9a10aed6b1310d6 data/botania/tags/item/elementium_blocks.json
 e84673de5e99b6e1a9b6b474b30c755a5815a4ef data/botania/tags/item/elementium_ingots.json
 0ac015617f54372dbb36d7c82c1a22557a8ff3d0 data/botania/tags/item/elementium_nuggets.json
 c3cb51c6ce1dbe8639e8d7a826faeb5c6f4a6c54 data/botania/tags/item/floating_flowers.json
@@ -22,7 +21,6 @@ feaf72e7fc3c3e8ecf48a44f487aa8ad764191d7 data/botania/tags/item/livingwood_logs.
 ee0b3503c8673a0ca35b4a2057b5b40eea2e9757 data/botania/tags/item/mana_diamond_gems.json
 3b82ebfea27abfd970b1e746c92de795a2627931 data/botania/tags/item/mana_dusts.json
 ecb948821908fac51e6017d655638fd20f7a26c7 data/botania/tags/item/mana_using_items.json
-86ffec38fa71dd28ba440719f7ca9d9ad186b05f data/botania/tags/item/manasteel_blocks.json
 5a11c97bcbfa5c7974f4a2feb4b9ec4389d084f2 data/botania/tags/item/manasteel_ingots.json
 71f2eaa6d15bbd439afda07d2a30c9439b926645 data/botania/tags/item/manasteel_nuggets.json
 9a4ebe9c9db467b9ab60b8be5eedcce82f2277ed data/botania/tags/item/mini_flowers.json
@@ -54,7 +52,6 @@ dd1e587761f42b287b76aff2eb9c8d8adead4853 data/botania/tags/item/shimmering_mushr
 ee84abd7f036b1dae32bbc7eac3ffca7b5cf7f42 data/botania/tags/item/special_floating_flowers.json
 f9cbec686df06a01e62d90f653c978deb25369f9 data/botania/tags/item/special_flowers.json
 f6be9ce2a782960385e562badfbc9a0e3760c891 data/botania/tags/item/terra_pick_blacklist.json
-15ce809b95f059b30de6478da2785dd82a6257fb data/botania/tags/item/terrasteel_blocks.json
 7a11bd85a16d2a2d2df94cc9f27d6f1c4e108b03 data/botania/tags/item/terrasteel_ingots.json
 65c8ecb9d4af26abf5b4dae913dd7a26703b0b15 data/botania/tags/item/terrasteel_nuggets.json
 35133e95f1c8fdd7a1c21afcc231fc0bffefb9a8 data/minecraft/tags/item/arrows.json
@@ -62,7 +59,6 @@ f6be9ce2a782960385e562badfbc9a0e3760c891 data/botania/tags/item/terra_pick_black
 85878dc98076b7f58e746da580cdd6d27c0c1e82 data/minecraft/tags/item/bookshelf_books.json
 66ead4b1b5ae40b90cf731cb209e4c7a8280f943 data/minecraft/tags/item/chest_armor.json
 db17fc2533475e8c4f17ebbe21ec3cf98f2bf4ea data/minecraft/tags/item/cluster_max_harvestables.json
-c949f38c97b56ea057fe936f646be3298a2b8592 data/minecraft/tags/item/fences.json
 a1cc6f7061a825b4d500aa250d6d6ec1c46fbb81 data/minecraft/tags/item/foot_armor.json
 3e6cf94b6e0293310b7521ad0cc7858561699b1b data/minecraft/tags/item/freeze_immune_wearables.json
 c9b0a9bd8676707e50b53de627069bd04c99b781 data/minecraft/tags/item/head_armor.json

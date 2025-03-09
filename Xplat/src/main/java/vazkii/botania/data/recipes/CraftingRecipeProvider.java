@@ -374,7 +374,7 @@ public class CraftingRecipeProvider extends BotaniaRecipeProvider {
 				.define('B', Items.BLAZE_ROD)
 				.define('S', BotaniaTags.Items.INGOTS_ELEMENTIUM)
 				.define('E', BotaniaItems.enderAirBottle)
-				.define('M', BotaniaTags.Items.BLOCKS_MANASTEEL)
+				.define('M', BotaniaBlocks.manasteelBlock)
 				.pattern("BSB")
 				.pattern("PMP")
 				.pattern("PEP")
@@ -412,7 +412,7 @@ public class CraftingRecipeProvider extends BotaniaRecipeProvider {
 				.define('A', BotaniaItems.runeMana)
 				.define('R', BotaniaBlocks.livingrock)
 				.define('S', Items.BREWING_STAND)
-				.define('M', BotaniaTags.Items.BLOCKS_MANASTEEL)
+				.define('M', BotaniaBlocks.manasteelBlock)
 				.pattern("RSR")
 				.pattern("RAR")
 				.pattern("RMR")
@@ -426,7 +426,7 @@ public class CraftingRecipeProvider extends BotaniaRecipeProvider {
 				.define('3', BotaniaItems.runeAir)
 				.define('8', BotaniaItems.runeMana)
 				.define('L', Blocks.LAPIS_BLOCK)
-				.define('M', BotaniaTags.Items.BLOCKS_MANASTEEL)
+				.define('M', BotaniaBlocks.manasteelBlock)
 				.pattern("LLL")
 				.pattern("0M1")
 				.pattern("283")
@@ -2069,10 +2069,10 @@ public class CraftingRecipeProvider extends BotaniaRecipeProvider {
 																															output -> deconstruct(output, Items.BLAZE_POWDER, BotaniaBlocks.blazeBlock, "blazeblock_deconstruct")
 																															)*/;
 
-		deconstruct(recipeOutput, BotaniaItems.manaSteel, BotaniaTags.Items.BLOCKS_MANASTEEL, "manasteel_block_deconstruct");
+		deconstruct(recipeOutput, BotaniaItems.manaSteel, BotaniaBlocks.manasteelBlock, "manasteel_block_deconstruct");
 		deconstruct(recipeOutput, BotaniaItems.manaDiamond, BotaniaBlocks.manaDiamondBlock, "manadiamond_block_deconstruct");
-		deconstruct(recipeOutput, BotaniaItems.terrasteel, BotaniaTags.Items.BLOCKS_TERRASTEEL, "terrasteel_block_deconstruct");
-		deconstruct(recipeOutput, BotaniaItems.elementium, BotaniaTags.Items.BLOCKS_ELEMENTIUM, "elementium_block_deconstruct");
+		deconstruct(recipeOutput, BotaniaItems.terrasteel, BotaniaBlocks.terrasteelBlock, "terrasteel_block_deconstruct");
+		deconstruct(recipeOutput, BotaniaItems.elementium, BotaniaBlocks.elementiumBlock, "elementium_block_deconstruct");
 		deconstruct(recipeOutput, BotaniaItems.dragonstone, BotaniaBlocks.dragonstoneBlock, "dragonstone_block_deconstruct");
 		deconstruct(recipeOutput, BotaniaItems.manasteelNugget, BotaniaTags.Items.INGOTS_MANASTEEL, "manasteel_to_nuggets");
 		deconstruct(recipeOutput, BotaniaItems.terrasteelNugget, BotaniaTags.Items.INGOTS_TERRASTEEL, "terrasteel_to_nugget");

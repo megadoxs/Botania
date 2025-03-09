@@ -22,22 +22,30 @@ import static vazkii.botania.api.BotaniaAPI.botaniaRL;
 
 public class BotaniaTags {
 	public static class Items {
+		// TODO: affected recipes need to be switched to conventional tags (this may require more complex refactoring)
+		@Deprecated(forRemoval = true)
 		public static final TagKey<Item> DUSTS_MANA = tag("mana_dusts");
 
+		@Deprecated(forRemoval = true)
 		public static final TagKey<Item> GEMS_DRAGONSTONE = tag("dragonstone_gems");
+		@Deprecated(forRemoval = true)
 		public static final TagKey<Item> GEMS_MANA_DIAMOND = tag("mana_diamond_gems");
 
+		@Deprecated(forRemoval = true)
 		public static final TagKey<Item> INGOTS_ELEMENTIUM = tag("elementium_ingots");
+		@Deprecated(forRemoval = true)
 		public static final TagKey<Item> INGOTS_MANASTEEL = tag("manasteel_ingots");
+		@Deprecated(forRemoval = true)
 		public static final TagKey<Item> INGOTS_TERRASTEEL = tag("terrasteel_ingots");
 
+		@Deprecated(forRemoval = true)
 		public static final TagKey<Item> NUGGETS_ELEMENTIUM = tag("elementium_nuggets");
+		@Deprecated(forRemoval = true)
 		public static final TagKey<Item> NUGGETS_MANASTEEL = tag("manasteel_nuggets");
+		@Deprecated(forRemoval = true)
 		public static final TagKey<Item> NUGGETS_TERRASTEEL = tag("terrasteel_nuggets");
 
-		public static final TagKey<Item> BLOCKS_ELEMENTIUM = tag("elementium_blocks");
-		public static final TagKey<Item> BLOCKS_MANASTEEL = tag("manasteel_blocks");
-		public static final TagKey<Item> BLOCKS_TERRASTEEL = tag("terrasteel_blocks");
+		public static final TagKey<Item> BLOCKS_QUARTZ = tag("quartz_blocks");
 
 		public static final TagKey<Item> MYSTICAL_FLOWERS = tag("mystical_flowers");
 		public static final TagKey<Item> DOUBLE_MYSTICAL_FLOWERS = tag("double_mystical_flowers");
@@ -176,11 +184,7 @@ public class BotaniaTags {
 		public static final TagKey<Block> LIVINGWOOD_LOGS_GLIMMERING = tag("glimmering_livingwood_logs");
 		public static final TagKey<Block> DREAMWOOD_LOGS_GLIMMERING = tag("glimmering_dreamwood_logs");
 
-		public static final TagKey<Block> BLOCKS_ELEMENTIUM = tag("elementium_blocks");
-		public static final TagKey<Block> BLOCKS_MANASTEEL = tag("manasteel_blocks");
-		public static final TagKey<Block> BLOCKS_TERRASTEEL = tag("terrasteel_blocks");
-		public static final TagKey<Block> BLOCKS_MANA_DIAMOND = tag("mana_diamond_blocks");
-		public static final TagKey<Block> BLOCKS_DRAGONSTONE = tag("dragonstone_blocks");
+		public static final TagKey<Block> BLOCKS_QUARTZ = tag("quartz_blocks");
 
 		/**
 		 * Blocks in this tag are exempt from the Gaia Guardian's block smash attack

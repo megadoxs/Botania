@@ -15,9 +15,9 @@ import net.minecraft.data.PackOutput;
 import net.minecraft.data.tags.IntrinsicHolderTagsProvider;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.BlockTags;
+import net.minecraft.tags.TagKey;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.FenceBlock;
 import net.minecraft.world.level.block.FenceGateBlock;
 import net.minecraft.world.level.block.SlabBlock;
 import net.minecraft.world.level.block.StairBlock;
@@ -33,6 +33,7 @@ import vazkii.botania.common.helper.ColorHelper;
 import vazkii.botania.common.lib.BotaniaTags;
 import vazkii.botania.common.lib.LibBlockNames;
 import vazkii.botania.common.lib.LibMisc;
+import vazkii.botania.data.util.DummyTagLookup;
 
 import java.util.Comparator;
 import java.util.Set;
@@ -44,9 +45,14 @@ import static vazkii.botania.common.block.BotaniaFlowerBlocks.*;
 
 public class BlockTagProvider extends IntrinsicHolderTagsProvider<Block> {
 	public static final Predicate<Block> BOTANIA_BLOCK = b -> LibMisc.MOD_ID.equals(BuiltInRegistries.BLOCK.getKey(b).getNamespace());
+	private static final Set<TagKey<Block>> REQUIRED_TAGS = Set.of(
+			BlockTags.SAND,
+			BlockTags.LEAVES,
+			BlockTags.FIRE
+	);
 
 	public BlockTagProvider(PackOutput packOutput, CompletableFuture<HolderLookup.Provider> lookupProvider) {
-		super(packOutput, Registries.BLOCK, lookupProvider, (block) -> block.builtInRegistryHolder().key());
+		super(packOutput, Registries.BLOCK, lookupProvider, DummyTagLookup.completedFuture(REQUIRED_TAGS), (block) -> block.builtInRegistryHolder().key());
 	}
 
 	@Override
@@ -63,7 +69,6 @@ public class BlockTagProvider extends IntrinsicHolderTagsProvider<Block> {
 				BotaniaBlocks.dreamwoodStairs, BotaniaBlocks.dreamwoodStrippedStairs, BotaniaBlocks.dreamwoodPlankStairs,
 				BotaniaBlocks.shimmerwoodPlankStairs);
 		tag(BlockTags.WALLS).add(getModBlocks(b -> b instanceof WallBlock));
-		tag(BlockTags.FENCES).add(getModBlocks(b -> b instanceof FenceBlock));
 		tag(BlockTags.WOODEN_FENCES).add(BotaniaBlocks.livingwoodFence, BotaniaBlocks.dreamwoodFence);
 		tag(BlockTags.FENCE_GATES).add(getModBlocks(b -> b instanceof FenceGateBlock));
 		tag(BlockTags.DRAGON_IMMUNE).add(BotaniaBlocks.infrangiblePlatform);
@@ -153,16 +158,15 @@ public class BlockTagProvider extends IntrinsicHolderTagsProvider<Block> {
 		Block[] grassBlockVariants = getModBlocks(b -> b instanceof BotaniaGrassBlock);
 		tag(BlockTags.DIRT).add(grassBlockVariants);
 		tag(BlockTags.SNIFFER_DIGGABLE_BLOCK).add(grassBlockVariants);
-		tag(BotaniaTags.Blocks.BLOCKS_ELEMENTIUM).add(BotaniaBlocks.elementiumBlock);
-		tag(BotaniaTags.Blocks.BLOCKS_MANASTEEL).add(BotaniaBlocks.manasteelBlock);
-		tag(BotaniaTags.Blocks.BLOCKS_TERRASTEEL).add(BotaniaBlocks.terrasteelBlock);
+		tag(BotaniaTags.Blocks.BLOCKS_QUARTZ).add(
+				Blocks.QUARTZ_BLOCK, BotaniaBlocks.blazeQuartz, BotaniaBlocks.darkQuartz, BotaniaBlocks.elfQuartz,
+				BotaniaBlocks.lavenderQuartz, BotaniaBlocks.manaQuartz, BotaniaBlocks.redQuartz, BotaniaBlocks.sunnyQuartz);
 
 		tag(BotaniaTags.Blocks.CORPOREA_SPARK_OVERRIDE).add(
 				BotaniaBlocks.corporeaBlock, BotaniaBlocks.corporeaBrick, BotaniaBlocks.corporeaBrickSlab, BotaniaBlocks.corporeaBrickStairs,
 				BotaniaBlocks.corporeaBrickWall, BotaniaBlocks.corporeaCrystalCube, BotaniaBlocks.corporeaFunnel, BotaniaBlocks.corporeaIndex,
 				BotaniaBlocks.corporeaInterceptor, BotaniaBlocks.corporeaSlab, BotaniaBlocks.corporeaStairs);
 
-		tag(BlockTags.SAND); // We aren't calling vanilla's generation, so need to add a dummy so that using this below doesn't error out.
 		tag(BotaniaTags.Blocks.TERRAFORMABLE)
 				.add(Blocks.ANDESITE, Blocks.DIORITE, Blocks.GRANITE, Blocks.INFESTED_STONE, Blocks.STONE, Blocks.POLISHED_ANDESITE, Blocks.POLISHED_DIORITE, Blocks.POLISHED_GRANITE)
 				.add(Blocks.DIRT, Blocks.GRASS_BLOCK, Blocks.COARSE_DIRT, Blocks.PODZOL, Blocks.MYCELIUM)
@@ -208,13 +212,9 @@ public class BlockTagProvider extends IntrinsicHolderTagsProvider<Block> {
 				BotaniaBlocks.biomeChiseledBrickFungal, fungalAltar);
 
 		tag(BotaniaTags.Blocks.HORN_OF_THE_WILD_BREAKABLE).add(Blocks.MOSS_CARPET);
-
-		tag(BlockTags.LEAVES);
 		tag(BotaniaTags.Blocks.HORN_OF_THE_CANOPY_BREAKABLE).addTag(BlockTags.LEAVES);
-
 		tag(BotaniaTags.Blocks.HORN_OF_THE_COVERING_BREAKABLE).add(Blocks.SNOW);
 
-		tag(BlockTags.FIRE);
 		tag(BotaniaTags.Blocks.UNWANDABLE).addTag(BlockTags.FIRE)
 				.add(Blocks.CHORUS_PLANT, Blocks.SCULK_VEIN, Blocks.VINE, Blocks.REDSTONE_WIRE, Blocks.NETHER_PORTAL, BotaniaBlocks.solidVines);
 

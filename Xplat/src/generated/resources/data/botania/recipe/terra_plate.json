@@ -21,7 +21,7 @@
       "item": "minecraft:lapis_block"
     },
     "M": {
-      "tag": "botania:manasteel_blocks"
+      "item": "botania:manasteel_block"
     }
   },
   "pattern": [
