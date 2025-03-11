@@ -32,7 +32,7 @@
       "item": "botania:rune_air"
     },
     {
-      "item": "botania:pixie_dust"
+      "tag": "c:dusts/pixie"
     }
   ],
   "output": {

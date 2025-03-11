@@ -1,21 +1,21 @@
 {
   "parent": "minecraft:recipes/root",
   "criteria": {
-    "has_alt_item": {
+    "has_chest": {
       "conditions": {
         "items": [
           {
-            "items": "minecraft:ender_eye"
+            "items": "minecraft:ender_chest"
           }
         ]
       },
       "trigger": "minecraft:inventory_changed"
     },
-    "has_item": {
+    "has_eye": {
       "conditions": {
         "items": [
           {
-            "items": "minecraft:ender_chest"
+            "items": "minecraft:ender_eye"
           }
         ]
       },
@@ -31,8 +31,8 @@
   "requirements": [
     [
       "has_the_recipe",
-      "has_item",
-      "has_alt_item"
+      "has_chest",
+      "has_eye"
     ]
   ],
   "rewards": {

@@ -1,7 +1,7 @@
 {
   "type": "botania:mana_infusion",
   "input": {
-    "item": "minecraft:diamond"
+    "tag": "c:gems/diamond"
   },
   "mana": 10000,
   "output": {

@@ -3,7 +3,7 @@
   "category": "equipment",
   "key": {
     "R": {
-      "item": "minecraft:redstone"
+      "tag": "c:dusts/redstone"
     },
     "S": {
       "item": "botania:life_essence"

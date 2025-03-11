@@ -3,16 +3,16 @@
   "catalysts": [],
   "ingredients": [
     {
-      "tag": "botania:mana_dusts"
+      "tag": "c:dusts/mana"
     },
     {
-      "tag": "botania:manasteel_ingots"
+      "tag": "c:ingots/manasteel"
     },
     {
       "item": "minecraft:stone"
     },
     {
-      "item": "minecraft:coal_block"
+      "tag": "c:storage_blocks/coal"
     },
     [
       {

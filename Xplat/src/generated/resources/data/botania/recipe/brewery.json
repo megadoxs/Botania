@@ -6,7 +6,7 @@
       "item": "botania:rune_mana"
     },
     "M": {
-      "item": "botania:manasteel_block"
+      "tag": "c:storage_blocks/manasteel"
     },
     "R": {
       "item": "botania:livingrock"

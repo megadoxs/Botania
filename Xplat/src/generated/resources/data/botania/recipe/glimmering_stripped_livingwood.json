@@ -7,7 +7,7 @@
       "item": "botania:stripped_livingwood"
     },
     {
-      "item": "minecraft:glowstone_dust"
+      "tag": "c:dusts/glowstone"
     }
   ],
   "result": {

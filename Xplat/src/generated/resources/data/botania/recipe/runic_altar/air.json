@@ -3,10 +3,10 @@
   "catalysts": [],
   "ingredients": [
     {
-      "tag": "botania:mana_dusts"
+      "tag": "c:dusts/mana"
     },
     {
-      "tag": "botania:manasteel_ingots"
+      "tag": "c:ingots/manasteel"
     },
     {
       "tag": "minecraft:wool_carpets"

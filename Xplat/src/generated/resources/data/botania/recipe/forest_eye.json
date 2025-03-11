@@ -6,7 +6,7 @@
       "item": "minecraft:ender_eye"
     },
     "M": {
-      "tag": "botania:manasteel_ingots"
+      "tag": "c:ingots/manasteel"
     },
     "S": {
       "item": "botania:livingrock"

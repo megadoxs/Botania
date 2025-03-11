@@ -6,13 +6,13 @@
       "item": "botania:red_string"
     },
     {
-      "tag": "botania:dragonstone_gems"
+      "tag": "c:gems/dragonstone"
     },
     {
-      "item": "minecraft:glowstone_dust"
+      "tag": "c:dusts/glowstone"
     },
     {
-      "item": "minecraft:glowstone_dust"
+      "tag": "c:dusts/glowstone"
     }
   ],
   "result": {

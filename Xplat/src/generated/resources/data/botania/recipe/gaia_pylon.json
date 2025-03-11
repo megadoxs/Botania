@@ -3,10 +3,10 @@
   "category": "misc",
   "key": {
     "D": {
-      "item": "botania:pixie_dust"
+      "tag": "c:dusts/pixie"
     },
     "E": {
-      "tag": "botania:elementium_ingots"
+      "tag": "c:ingots/elementium"
     },
     "P": {
       "item": "botania:mana_pylon"

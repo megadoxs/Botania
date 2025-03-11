@@ -1,11 +1,11 @@
 {
   "parent": "minecraft:recipes/root",
   "criteria": {
-    "has_azulejo": {
+    "has_item": {
       "conditions": {
         "items": [
           {
-            "items": "botania:azulejo_0"
+            "items": "#botania:quartz_blocks"
           }
         ]
       },
@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "botania:azulejo_0_alt"
+        "recipe": "botania:azulejo"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
@@ -21,12 +21,12 @@
   "requirements": [
     [
       "has_the_recipe",
-      "has_azulejo"
+      "has_item"
     ]
   ],
   "rewards": {
     "recipes": [
-      "botania:azulejo_0_alt"
+      "botania:azulejo"
     ]
   }
 }

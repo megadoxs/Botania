@@ -3,7 +3,7 @@
   "category": "misc",
   "key": {
     "E": {
-      "tag": "botania:elementium_ingots"
+      "tag": "c:ingots/elementium"
     },
     "L": {
       "item": "minecraft:leather"

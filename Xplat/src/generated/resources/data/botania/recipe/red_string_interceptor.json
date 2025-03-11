@@ -2,9 +2,14 @@
   "type": "minecraft:crafting_shaped",
   "category": "redstone",
   "key": {
-    "M": {
-      "item": "minecraft:stone_button"
-    },
+    "M": [
+      {
+        "item": "minecraft:stone_button"
+      },
+      {
+        "item": "minecraft:polished_blackstone_button"
+      }
+    ],
     "R": {
       "item": "botania:livingrock"
     },

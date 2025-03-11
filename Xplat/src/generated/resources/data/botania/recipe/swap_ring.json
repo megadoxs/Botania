@@ -6,7 +6,7 @@
       "item": "minecraft:clay"
     },
     "M": {
-      "tag": "botania:manasteel_ingots"
+      "tag": "c:ingots/manasteel"
     }
   },
   "pattern": [

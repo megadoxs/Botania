@@ -12,7 +12,7 @@
       "item": "minecraft:obsidian"
     },
     "P": {
-      "item": "botania:mana_pearl"
+      "tag": "c:gems/mana_pearl"
     }
   },
   "pattern": [

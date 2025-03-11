@@ -6,7 +6,7 @@
       "item": "botania:lens_normal"
     },
     {
-      "item": "botania:pixie_dust"
+      "tag": "c:dusts/pixie"
     }
   ],
   "result": {

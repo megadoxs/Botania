@@ -4,7 +4,7 @@
   "group": "botania:spreader",
   "key": {
     "E": {
-      "tag": "botania:elementium_ingots"
+      "tag": "c:ingots/elementium"
     },
     "P": {
       "tag": "botania:petals"

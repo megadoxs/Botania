@@ -1,7 +1,7 @@
 {
   "parent": "minecraft:recipes/root",
   "criteria": {
-    "has_base_block": {
+    "has_item": {
       "conditions": {
         "items": [
           {
@@ -11,7 +11,17 @@
       },
       "trigger": "minecraft:inventory_changed"
     },
-    "has_item": {
+    "has_item_alt": {
+      "conditions": {
+        "items": [
+          {
+            "items": "minecraft:polished_blackstone_button"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_redstring": {
       "conditions": {
         "items": [
           {
@@ -31,8 +41,9 @@
   "requirements": [
     [
       "has_the_recipe",
+      "has_redstring",
       "has_item",
-      "has_base_block"
+      "has_item_alt"
     ]
   ],
   "rewards": {

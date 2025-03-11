@@ -3,7 +3,7 @@
   "category": "equipment",
   "key": {
     "I": {
-      "item": "botania:manasteel_ingot"
+      "tag": "c:ingots/manasteel"
     },
     "T": {
       "item": "botania:mana_tablet"

@@ -3,7 +3,7 @@
   "category": "building",
   "key": {
     "I": {
-      "tag": "botania:terrasteel_ingots"
+      "tag": "c:ingots/terrasteel"
     }
   },
   "pattern": [

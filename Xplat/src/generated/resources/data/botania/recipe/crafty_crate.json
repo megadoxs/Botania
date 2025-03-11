@@ -3,7 +3,7 @@
   "category": "redstone",
   "key": {
     "C": {
-      "item": "minecraft:crafting_table"
+      "tag": "c:player_workstations/crafting_tables"
     },
     "W": {
       "item": "botania:dreamwood_planks"

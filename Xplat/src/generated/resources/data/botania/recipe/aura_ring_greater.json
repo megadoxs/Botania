@@ -3,7 +3,7 @@
   "category": "equipment",
   "ingredients": [
     {
-      "tag": "botania:terrasteel_ingots"
+      "tag": "c:ingots/terrasteel"
     },
     {
       "item": "botania:aura_ring"

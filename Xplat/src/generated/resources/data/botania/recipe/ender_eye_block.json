@@ -9,7 +9,7 @@
       "item": "minecraft:obsidian"
     },
     "R": {
-      "item": "minecraft:redstone"
+      "tag": "c:dusts/redstone"
     }
   },
   "pattern": [

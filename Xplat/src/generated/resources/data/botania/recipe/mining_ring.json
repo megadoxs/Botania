@@ -6,7 +6,7 @@
       "item": "botania:rune_earth"
     },
     "M": {
-      "tag": "botania:manasteel_ingots"
+      "tag": "c:ingots/manasteel"
     },
     "P": {
       "item": "minecraft:golden_pickaxe"

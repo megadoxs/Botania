@@ -9,7 +9,7 @@
       "item": "botania:thorn_chakram"
     },
     "P": {
-      "item": "botania:pixie_dust"
+      "tag": "c:dusts/pixie"
     }
   },
   "pattern": [

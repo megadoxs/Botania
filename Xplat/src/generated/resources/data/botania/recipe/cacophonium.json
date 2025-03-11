@@ -3,7 +3,7 @@
   "category": "equipment",
   "key": {
     "G": {
-      "item": "minecraft:copper_ingot"
+      "tag": "c:ingots/copper"
     },
     "N": {
       "item": "minecraft:note_block"

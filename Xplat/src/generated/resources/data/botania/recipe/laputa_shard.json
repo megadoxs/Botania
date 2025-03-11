@@ -6,7 +6,7 @@
       "item": "botania:rune_air"
     },
     "D": {
-      "tag": "botania:dragonstone_gems"
+      "tag": "c:gems/dragonstone"
     },
     "E": {
       "item": "botania:rune_earth"
@@ -15,7 +15,7 @@
       "tag": "botania:mundane_floating_flowers"
     },
     "P": {
-      "item": "minecraft:prismarine_crystals"
+      "tag": "c:gems/prismarine"
     },
     "S": {
       "item": "botania:life_essence"

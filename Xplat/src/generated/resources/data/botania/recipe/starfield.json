@@ -3,13 +3,13 @@
   "category": "misc",
   "key": {
     "E": {
-      "tag": "botania:elementium_ingots"
+      "tag": "c:ingots/elementium"
     },
     "O": {
       "item": "minecraft:obsidian"
     },
     "P": {
-      "item": "botania:pixie_dust"
+      "tag": "c:dusts/pixie"
     }
   },
   "pattern": [

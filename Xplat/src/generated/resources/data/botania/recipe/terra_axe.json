@@ -9,7 +9,7 @@
       "item": "botania:livingwood_twig"
     },
     "T": {
-      "tag": "botania:terrasteel_ingots"
+      "tag": "c:ingots/terrasteel"
     }
   },
   "pattern": [

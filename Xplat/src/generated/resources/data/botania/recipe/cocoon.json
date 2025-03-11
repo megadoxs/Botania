@@ -6,7 +6,7 @@
       "item": "botania:manaweave_cloth"
     },
     "D": {
-      "item": "botania:pixie_dust"
+      "tag": "c:dusts/pixie"
     },
     "P": {
       "item": "botania:fel_pumpkin"

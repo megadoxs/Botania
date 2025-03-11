@@ -3,10 +3,10 @@
   "category": "misc",
   "key": {
     "G": {
-      "item": "minecraft:glass"
+      "tag": "c:glass_blocks/colorless"
     },
     "P": {
-      "item": "minecraft:prismarine_crystals"
+      "tag": "c:gems/prismarine"
     },
     "S": {
       "item": "botania:spectral_platform"

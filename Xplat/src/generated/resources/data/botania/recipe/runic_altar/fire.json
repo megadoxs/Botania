@@ -3,13 +3,13 @@
   "catalysts": [],
   "ingredients": [
     {
-      "tag": "botania:mana_dusts"
+      "tag": "c:dusts/mana"
     },
     {
-      "tag": "botania:manasteel_ingots"
+      "tag": "c:ingots/manasteel"
     },
     {
-      "item": "minecraft:nether_brick"
+      "tag": "c:bricks/nether"
     },
     {
       "item": "minecraft:gunpowder"

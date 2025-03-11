@@ -18,7 +18,7 @@
       "item": "botania:rune_spring"
     },
     "T": {
-      "tag": "botania:terrasteel_ingots"
+      "tag": "c:ingots/terrasteel"
     },
     "W": {
       "item": "botania:rune_winter"

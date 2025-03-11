@@ -3,7 +3,7 @@
   "category": "misc",
   "key": {
     "T": {
-      "tag": "botania:terrasteel_nuggets"
+      "tag": "c:nuggets/terrasteel"
     },
     "W": {
       "tag": "botania:livingwood_logs"

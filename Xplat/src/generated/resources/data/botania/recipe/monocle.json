@@ -6,10 +6,10 @@
       "item": "botania:mana_glass"
     },
     "I": {
-      "tag": "botania:manasteel_ingots"
+      "tag": "c:ingots/manasteel"
     },
     "N": {
-      "item": "minecraft:gold_nugget"
+      "tag": "c:nuggets/gold"
     }
   },
   "pattern": [

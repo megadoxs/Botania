@@ -1,11 +1,11 @@
 {
   "parent": "minecraft:recipes/root",
   "criteria": {
-    "has_item": {
+    "has_azulejo": {
       "conditions": {
         "items": [
           {
-            "items": "#botania:quartz_blocks"
+            "items": "botania:azulejo_0"
           }
         ]
       },
@@ -21,7 +21,7 @@
   "requirements": [
     [
       "has_the_recipe",
-      "has_item"
+      "has_azulejo"
     ]
   ],
   "rewards": {

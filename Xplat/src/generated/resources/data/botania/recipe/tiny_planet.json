@@ -6,7 +6,7 @@
       "item": "botania:livingrock"
     },
     "P": {
-      "item": "botania:mana_pearl"
+      "tag": "c:gems/mana_pearl"
     },
     "S": {
       "item": "minecraft:stone"

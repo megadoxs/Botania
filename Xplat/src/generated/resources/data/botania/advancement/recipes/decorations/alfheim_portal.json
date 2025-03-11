@@ -1,11 +1,21 @@
 {
   "parent": "minecraft:recipes/root",
   "criteria": {
-    "has_item": {
+    "has_ingot": {
       "conditions": {
         "items": [
           {
-            "items": "#botania:terrasteel_ingots"
+            "items": "#c:ingots/terrasteel"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_nugget": {
+      "conditions": {
+        "items": [
+          {
+            "items": "#c:nuggets/terrasteel"
           }
         ]
       },
@@ -21,7 +31,8 @@
   "requirements": [
     [
       "has_the_recipe",
-      "has_item"
+      "has_ingot",
+      "has_nugget"
     ]
   ],
   "rewards": {

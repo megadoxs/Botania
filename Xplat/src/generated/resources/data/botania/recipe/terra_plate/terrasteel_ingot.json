@@ -2,13 +2,13 @@
   "type": "botania:terra_plate",
   "ingredients": [
     {
-      "item": "botania:manasteel_ingot"
+      "tag": "c:ingots/manasteel"
     },
     {
-      "item": "botania:mana_pearl"
+      "tag": "c:gems/mana_pearl"
     },
     {
-      "item": "botania:mana_diamond"
+      "tag": "c:gems/mana_diamond"
     }
   ],
   "mana": 500000,

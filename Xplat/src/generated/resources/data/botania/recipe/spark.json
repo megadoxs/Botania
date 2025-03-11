@@ -6,7 +6,7 @@
       "item": "minecraft:blaze_powder"
     },
     "N": {
-      "item": "minecraft:gold_nugget"
+      "tag": "c:nuggets/gold"
     },
     "P": {
       "tag": "botania:petals"

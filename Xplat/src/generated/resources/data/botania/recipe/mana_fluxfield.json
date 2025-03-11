@@ -3,10 +3,10 @@
   "category": "misc",
   "key": {
     "M": {
-      "tag": "botania:manasteel_ingots"
+      "tag": "c:ingots/manasteel"
     },
     "R": {
-      "item": "minecraft:redstone_block"
+      "tag": "c:storage_blocks/redstone"
     },
     "S": {
       "item": "botania:livingrock"

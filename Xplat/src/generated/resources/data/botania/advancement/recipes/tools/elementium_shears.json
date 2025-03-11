@@ -5,7 +5,7 @@
       "conditions": {
         "items": [
           {
-            "items": "#botania:elementium_ingots"
+            "items": "#c:ingots/elementium"
           }
         ]
       },

@@ -3,13 +3,13 @@
   "category": "equipment",
   "key": {
     "C": {
-      "item": "minecraft:crafting_table"
+      "tag": "c:player_workstations/crafting_tables"
     },
     "I": {
-      "tag": "botania:manasteel_ingots"
+      "tag": "c:ingots/manasteel"
     },
     "P": {
-      "item": "botania:mana_pearl"
+      "tag": "c:gems/mana_pearl"
     }
   },
   "pattern": [

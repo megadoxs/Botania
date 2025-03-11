@@ -4,10 +4,10 @@
   "group": "botania:spark_upgrade",
   "ingredients": [
     {
-      "item": "botania:pixie_dust"
+      "tag": "c:dusts/pixie"
     },
     {
-      "tag": "botania:manasteel_ingots"
+      "tag": "c:ingots/manasteel"
     },
     {
       "item": "botania:rune_fire"

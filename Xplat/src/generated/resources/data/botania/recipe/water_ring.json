@@ -9,7 +9,7 @@
       "item": "minecraft:heart_of_the_sea"
     },
     "M": {
-      "tag": "botania:manasteel_ingots"
+      "tag": "c:ingots/manasteel"
     },
     "P": {
       "item": "minecraft:pufferfish"

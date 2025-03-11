@@ -3,7 +3,7 @@
   "category": "misc",
   "key": {
     "I": {
-      "tag": "botania:terrasteel_ingots"
+      "tag": "c:ingots/terrasteel"
     },
     "S": {
       "item": "botania:life_essence"

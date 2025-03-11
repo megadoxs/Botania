@@ -3,7 +3,7 @@
   "category": "equipment",
   "key": {
     "D": {
-      "tag": "botania:manasteel_ingots"
+      "tag": "c:ingots/manasteel"
     },
     "F": {
       "item": "botania:rune_air"

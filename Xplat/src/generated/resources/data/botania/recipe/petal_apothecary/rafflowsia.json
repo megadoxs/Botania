@@ -23,7 +23,7 @@
       "item": "botania:rune_pride"
     },
     {
-      "item": "botania:pixie_dust"
+      "tag": "c:dusts/pixie"
     }
   ],
   "output": {

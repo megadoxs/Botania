@@ -3,7 +3,7 @@
   "category": "misc",
   "key": {
     "A": {
-      "item": "minecraft:lapis_lazuli"
+      "tag": "c:storage_blocks/lapis"
     },
     "L": {
       "item": "botania:lens_normal"
@@ -12,7 +12,7 @@
       "item": "minecraft:piston"
     },
     "R": {
-      "item": "minecraft:redstone"
+      "tag": "c:dusts/redstone"
     }
   },
   "pattern": [

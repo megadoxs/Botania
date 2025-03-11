@@ -7,7 +7,7 @@
       "item": "botania:mana_spreader"
     },
     {
-      "item": "minecraft:redstone"
+      "tag": "c:dusts/redstone"
     }
   ],
   "result": {

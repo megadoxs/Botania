@@ -9,7 +9,7 @@
       "item": "botania:life_essence"
     },
     "N": {
-      "item": "minecraft:nether_brick"
+      "tag": "c:bricks/nether"
     },
     "P": {
       "item": "botania:lava_pendant"

@@ -9,7 +9,7 @@
       "item": "minecraft:feather"
     },
     "I": {
-      "tag": "botania:elementium_ingots"
+      "tag": "c:ingots/elementium"
     },
     "L": {
       "item": "botania:life_essence"

@@ -4,10 +4,10 @@
   "group": "botania:shiny_flower",
   "ingredients": [
     {
-      "item": "minecraft:glowstone_dust"
+      "tag": "c:dusts/glowstone"
     },
     {
-      "item": "minecraft:glowstone_dust"
+      "tag": "c:dusts/glowstone"
     },
     {
       "item": "botania:pink_mystical_flower"

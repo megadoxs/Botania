@@ -5,7 +5,7 @@
       "conditions": {
         "items": [
           {
-            "items": "#botania:elementium_nuggets"
+            "items": "#c:nuggets/elementium"
           }
         ]
       },

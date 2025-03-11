@@ -3,13 +3,13 @@
   "category": "equipment",
   "key": {
     "D": {
-      "tag": "botania:dragonstone_gems"
+      "tag": "c:gems/dragonstone"
     },
     "E": {
-      "tag": "botania:elementium_ingots"
+      "tag": "c:ingots/elementium"
     },
     "P": {
-      "item": "botania:pixie_dust"
+      "tag": "c:dusts/pixie"
     }
   },
   "pattern": [

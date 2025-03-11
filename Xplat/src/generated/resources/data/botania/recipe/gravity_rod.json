@@ -3,7 +3,7 @@
   "category": "equipment",
   "key": {
     "D": {
-      "tag": "botania:dragonstone_gems"
+      "tag": "c:gems/dragonstone"
     },
     "T": {
       "item": "botania:dreamwood_twig"

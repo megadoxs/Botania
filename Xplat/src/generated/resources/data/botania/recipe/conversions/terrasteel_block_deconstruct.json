@@ -3,7 +3,7 @@
   "category": "misc",
   "ingredients": [
     {
-      "item": "botania:terrasteel_block"
+      "tag": "c:storage_blocks/terrasteel"
     }
   ],
   "result": {

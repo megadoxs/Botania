@@ -6,7 +6,7 @@
       "item": "botania:manaweave_cloth"
     },
     "P": {
-      "item": "botania:mana_pearl"
+      "tag": "c:gems/mana_pearl"
     }
   },
   "pattern": [

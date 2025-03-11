@@ -3,10 +3,10 @@
   "category": "equipment",
   "key": {
     "E": {
-      "item": "minecraft:emerald"
+      "tag": "c:gems/emerald"
     },
     "M": {
-      "tag": "botania:manasteel_ingots"
+      "tag": "c:ingots/manasteel"
     },
     "R": {
       "item": "botania:rune_air"

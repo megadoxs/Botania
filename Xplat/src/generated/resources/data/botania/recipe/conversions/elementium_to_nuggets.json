@@ -3,7 +3,7 @@
   "category": "misc",
   "ingredients": [
     {
-      "tag": "botania:elementium_ingots"
+      "tag": "c:ingots/elementium"
     }
   ],
   "result": {

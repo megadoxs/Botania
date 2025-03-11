@@ -5,7 +5,7 @@
       "conditions": {
         "items": [
           {
-            "items": "#botania:terrasteel_nuggets"
+            "items": "#c:nuggets/terrasteel"
           }
         ]
       },

@@ -1,21 +1,21 @@
 {
   "parent": "minecraft:recipes/root",
   "criteria": {
-    "has_alt_item": {
+    "has_pixie_dust": {
       "conditions": {
         "items": [
           {
-            "items": "botania:spark"
+            "items": "#c:dusts/pixie"
           }
         ]
       },
       "trigger": "minecraft:inventory_changed"
     },
-    "has_item": {
+    "has_spark": {
       "conditions": {
         "items": [
           {
-            "items": "botania:pixie_dust"
+            "items": "botania:spark"
           }
         ]
       },
@@ -31,8 +31,8 @@
   "requirements": [
     [
       "has_the_recipe",
-      "has_item",
-      "has_alt_item"
+      "has_pixie_dust",
+      "has_spark"
     ]
   ],
   "rewards": {

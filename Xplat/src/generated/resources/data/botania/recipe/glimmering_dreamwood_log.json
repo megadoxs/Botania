@@ -7,7 +7,7 @@
       "item": "botania:dreamwood_log"
     },
     {
-      "item": "minecraft:glowstone_dust"
+      "tag": "c:dusts/glowstone"
     }
   ],
   "result": {

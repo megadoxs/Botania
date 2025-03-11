@@ -1,7 +1,7 @@
 {
   "type": "botania:mana_infusion",
   "input": {
-    "item": "minecraft:iron_block"
+    "tag": "c:storage_blocks/iron"
   },
   "mana": 27000,
   "output": {

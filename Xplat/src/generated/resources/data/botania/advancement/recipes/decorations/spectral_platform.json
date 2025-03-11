@@ -5,7 +5,7 @@
       "conditions": {
         "items": [
           {
-            "items": "botania:pixie_dust"
+            "items": "#c:dusts/pixie"
           }
         ]
       },

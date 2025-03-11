@@ -6,7 +6,7 @@
       "item": "botania:dirt_rod"
     },
     {
-      "item": "botania:pixie_dust"
+      "tag": "c:dusts/pixie"
     },
     {
       "item": "botania:rune_air"

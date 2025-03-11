@@ -1,9 +1,0 @@
-// 1.21.1	Botania/Botania recipes (using conventional tags)
-8a3815be9c4a929ddaf0bc131c665300455572e2 data/botania/advancement/recipes/building_blocks/azulejo_0.json
-33137495fc0e0a51a6666d3865e684a78cc0144c data/botania/advancement/recipes/redstone/corporea_retainer.json
-00acab564bff51b5775a517726b397ae0c0da327 data/botania/advancement/recipes/redstone/red_string_container.json
-ae33037d9cfe22e5cd244d621ca57109e5c5ba66 data/botania/advancement/recipes/tools/bauble_box.json
-9b458efb876ca30ea0c36279538888adc73513c1 data/botania/recipe/azulejo_0.json
-a603b27f1624df8e56f4a956c7dfdebd47e6c91b data/botania/recipe/bauble_box.json
-d3ac839778f391e3dfebf6046cd511dfb240bafa data/botania/recipe/corporea_retainer.json
-fafec0994984526951e46bd7070c92894ec51b56 data/botania/recipe/red_string_container.json

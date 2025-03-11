@@ -6,7 +6,7 @@
       "item": "botania:lens_magnet"
     },
     "M": {
-      "tag": "botania:manasteel_ingots"
+      "tag": "c:ingots/manasteel"
     }
   },
   "pattern": [

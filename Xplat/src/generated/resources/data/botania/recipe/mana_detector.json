@@ -3,7 +3,7 @@
   "category": "redstone",
   "key": {
     "R": {
-      "item": "minecraft:redstone"
+      "tag": "c:dusts/redstone"
     },
     "S": {
       "item": "botania:livingrock"

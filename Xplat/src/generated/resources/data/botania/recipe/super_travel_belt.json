@@ -3,7 +3,7 @@
   "category": "equipment",
   "key": {
     "E": {
-      "tag": "botania:elementium_ingots"
+      "tag": "c:ingots/elementium"
     },
     "L": {
       "item": "botania:life_essence"

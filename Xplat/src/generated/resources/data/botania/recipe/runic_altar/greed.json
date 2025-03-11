@@ -10,10 +10,10 @@
   ],
   "ingredients": [
     {
-      "tag": "botania:mana_diamond_gems"
+      "tag": "c:gems/mana_diamond"
     },
     {
-      "tag": "botania:mana_diamond_gems"
+      "tag": "c:gems/mana_diamond"
     }
   ],
   "mana": 12000,

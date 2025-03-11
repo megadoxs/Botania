@@ -6,7 +6,7 @@
       "item": "botania:livingrock"
     },
     "S": {
-      "tag": "botania:manasteel_ingots"
+      "tag": "c:ingots/manasteel"
     }
   },
   "pattern": [

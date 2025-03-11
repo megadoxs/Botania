@@ -7,10 +7,10 @@
       "item": "minecraft:string"
     },
     {
-      "item": "minecraft:redstone_block"
+      "tag": "c:storage_blocks/redstone"
     },
     {
-      "item": "botania:pixie_dust"
+      "tag": "c:dusts/pixie"
     },
     {
       "item": "botania:ender_air_bottle"

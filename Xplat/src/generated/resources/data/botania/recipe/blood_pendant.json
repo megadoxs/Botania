@@ -3,13 +3,13 @@
   "category": "equipment",
   "key": {
     "D": {
-      "tag": "botania:mana_diamond_gems"
+      "tag": "c:gems/mana_diamond"
     },
     "G": {
       "item": "minecraft:ghast_tear"
     },
     "P": {
-      "item": "minecraft:prismarine_crystals"
+      "tag": "c:gems/prismarine"
     }
   },
   "pattern": [

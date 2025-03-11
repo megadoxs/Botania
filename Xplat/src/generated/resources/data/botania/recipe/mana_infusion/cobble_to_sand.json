@@ -5,7 +5,7 @@
     "block": "botania:alchemy_catalyst"
   },
   "input": {
-    "item": "minecraft:cobblestone"
+    "tag": "c:cobblestones"
   },
   "mana": 50,
   "output": {

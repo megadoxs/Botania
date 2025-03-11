@@ -3,10 +3,10 @@
   "category": "equipment",
   "key": {
     "E": {
-      "item": "minecraft:emerald"
+      "tag": "c:gems/emerald"
     },
     "I": {
-      "item": "minecraft:iron_ingot"
+      "tag": "c:ingots/iron"
     },
     "Y": {
       "item": "minecraft:ender_eye"

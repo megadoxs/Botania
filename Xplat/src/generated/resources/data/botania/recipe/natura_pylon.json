@@ -9,7 +9,7 @@
       "item": "botania:mana_pylon"
     },
     "T": {
-      "tag": "botania:terrasteel_nuggets"
+      "tag": "c:nuggets/terrasteel"
     }
   },
   "pattern": [

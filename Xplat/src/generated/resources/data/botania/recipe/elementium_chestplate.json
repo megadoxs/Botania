@@ -3,7 +3,7 @@
   "category": "equipment",
   "key": {
     "S": {
-      "tag": "botania:elementium_ingots"
+      "tag": "c:ingots/elementium"
     }
   },
   "pattern": [

@@ -3,7 +3,7 @@
   "category": "equipment",
   "key": {
     "T": {
-      "tag": "botania:terrasteel_ingots"
+      "tag": "c:ingots/terrasteel"
     },
     "V": {
       "item": "minecraft:vine"

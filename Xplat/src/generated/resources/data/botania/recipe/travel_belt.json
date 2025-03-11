@@ -12,7 +12,7 @@
       "item": "minecraft:leather"
     },
     "S": {
-      "tag": "botania:manasteel_ingots"
+      "tag": "c:ingots/manasteel"
     }
   },
   "pattern": [

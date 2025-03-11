@@ -3,7 +3,7 @@
   "category": "building",
   "key": {
     "I": {
-      "tag": "botania:elementium_ingots"
+      "tag": "c:ingots/elementium"
     }
   },
   "pattern": [

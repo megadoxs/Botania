@@ -12,7 +12,7 @@
       "item": "botania:pattern_framed_dreamwood"
     },
     "D": {
-      "item": "botania:pixie_dust"
+      "tag": "c:dusts/pixie"
     }
   },
   "pattern": [

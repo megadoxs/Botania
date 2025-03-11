@@ -3,7 +3,7 @@
   "category": "equipment",
   "key": {
     "D": {
-      "tag": "botania:dragonstone_gems"
+      "tag": "c:gems/dragonstone"
     },
     "S": {
       "item": "botania:mana_string"

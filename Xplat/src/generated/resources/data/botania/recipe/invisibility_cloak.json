@@ -3,13 +3,13 @@
   "category": "equipment",
   "key": {
     "C": {
-      "item": "minecraft:prismarine_crystals"
+      "tag": "c:gems/prismarine"
     },
     "G": {
       "item": "botania:mana_glass"
     },
     "P": {
-      "item": "botania:mana_pearl"
+      "tag": "c:gems/mana_pearl"
     },
     "W": {
       "item": "minecraft:white_wool"

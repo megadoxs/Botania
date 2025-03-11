@@ -3,7 +3,7 @@
   "category": "building",
   "key": {
     "I": {
-      "tag": "botania:dragonstone_gems"
+      "tag": "c:gems/dragonstone"
     }
   },
   "pattern": [

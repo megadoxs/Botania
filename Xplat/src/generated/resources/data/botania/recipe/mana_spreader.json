@@ -4,7 +4,7 @@
   "group": "botania:spreader",
   "key": {
     "C": {
-      "item": "minecraft:copper_ingot"
+      "tag": "c:ingots/copper"
     },
     "P": {
       "tag": "botania:petals"
