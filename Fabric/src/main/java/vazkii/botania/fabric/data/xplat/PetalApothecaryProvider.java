@@ -5,8 +5,9 @@
  *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
+ *
  */
-package vazkii.botania.data.recipes;
+package vazkii.botania.fabric.data.xplat;
 
 import com.mojang.authlib.properties.PropertyMap;
 
@@ -29,6 +30,7 @@ import vazkii.botania.common.block.BotaniaFlowerBlocks;
 import vazkii.botania.common.crafting.PetalApothecaryRecipe;
 import vazkii.botania.common.item.BotaniaItems;
 import vazkii.botania.common.lib.BotaniaTags;
+import vazkii.botania.data.recipes.BotaniaRecipeProvider;
 
 import java.util.Arrays;
 import java.util.Optional;
@@ -84,7 +86,7 @@ public class PetalApothecaryProvider extends BotaniaRecipeProvider {
 		Ingredient runePride = Ingredient.of(BotaniaItems.runePride);
 
 		Ingredient redstoneRoot = Ingredient.of(BotaniaItems.redstoneRoot);
-		Ingredient pixieDust = Ingredient.of(BotaniaItems.pixieDust);
+		Ingredient pixieDust = Ingredient.of(ConventionalBotaniaTags.Items.PIXIE_DUSTS);
 		Ingredient gaiaSpirit = Ingredient.of(BotaniaItems.lifeEssence);
 
 		make(consumer, BotaniaFlowerBlocks.pureDaisy, white, white, white, white);

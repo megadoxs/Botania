@@ -5,8 +5,9 @@
  *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
+ *
  */
-package vazkii.botania.data.recipes;
+package vazkii.botania.fabric.data.xplat;
 
 import net.minecraft.commands.CacheableFunction;
 import net.minecraft.core.HolderLookup;
@@ -24,6 +25,7 @@ import vazkii.botania.api.recipe.StateIngredient;
 import vazkii.botania.common.block.BotaniaBlocks;
 import vazkii.botania.common.crafting.PureDaisyRecipe;
 import vazkii.botania.common.crafting.StateIngredients;
+import vazkii.botania.data.recipes.BotaniaRecipeProvider;
 
 import java.util.concurrent.CompletableFuture;
 

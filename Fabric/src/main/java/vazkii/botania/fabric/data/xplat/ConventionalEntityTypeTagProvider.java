@@ -8,7 +8,7 @@
  *
  */
 
-package vazkii.botania.fabric.data;
+package vazkii.botania.fabric.data.xplat;
 
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagProvider;

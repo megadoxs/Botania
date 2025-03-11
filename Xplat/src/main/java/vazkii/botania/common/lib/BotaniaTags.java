@@ -22,29 +22,6 @@ import static vazkii.botania.api.BotaniaAPI.botaniaRL;
 
 public class BotaniaTags {
 	public static class Items {
-		// TODO: affected recipes need to be switched to conventional tags (this may require more complex refactoring)
-		@Deprecated(forRemoval = true)
-		public static final TagKey<Item> DUSTS_MANA = tag("mana_dusts");
-
-		@Deprecated(forRemoval = true)
-		public static final TagKey<Item> GEMS_DRAGONSTONE = tag("dragonstone_gems");
-		@Deprecated(forRemoval = true)
-		public static final TagKey<Item> GEMS_MANA_DIAMOND = tag("mana_diamond_gems");
-
-		@Deprecated(forRemoval = true)
-		public static final TagKey<Item> INGOTS_ELEMENTIUM = tag("elementium_ingots");
-		@Deprecated(forRemoval = true)
-		public static final TagKey<Item> INGOTS_MANASTEEL = tag("manasteel_ingots");
-		@Deprecated(forRemoval = true)
-		public static final TagKey<Item> INGOTS_TERRASTEEL = tag("terrasteel_ingots");
-
-		@Deprecated(forRemoval = true)
-		public static final TagKey<Item> NUGGETS_ELEMENTIUM = tag("elementium_nuggets");
-		@Deprecated(forRemoval = true)
-		public static final TagKey<Item> NUGGETS_MANASTEEL = tag("manasteel_nuggets");
-		@Deprecated(forRemoval = true)
-		public static final TagKey<Item> NUGGETS_TERRASTEEL = tag("terrasteel_nuggets");
-
 		public static final TagKey<Item> BLOCKS_QUARTZ = tag("quartz_blocks");
 
 		public static final TagKey<Item> MYSTICAL_FLOWERS = tag("mystical_flowers");
@@ -121,10 +98,6 @@ public class BotaniaTags {
 		 * Items in this tag allow wearing players to see bursts through walls and flower radii
 		 */
 		public static final TagKey<Item> BURST_VIEWERS = tag("burst_viewers");
-		/**
-		 * Items in this tag cannot give mana to the terra pick
-		 */
-		public static final TagKey<Item> TERRA_PICK_BLACKLIST = tag("terra_pick_blacklist");
 		public static final TagKey<Item> RODS = tag("rods");
 		/**
 		 * Items in this tag may consume mana

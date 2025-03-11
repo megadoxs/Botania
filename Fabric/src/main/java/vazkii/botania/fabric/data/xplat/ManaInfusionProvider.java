@@ -5,15 +5,18 @@
  *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
+ *
  */
-package vazkii.botania.data.recipes;
+package vazkii.botania.fabric.data.xplat;
 
+import net.fabricmc.fabric.api.tag.convention.v2.ConventionalItemTags;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.recipes.RecipeOutput;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.ItemTags;
+import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.DyeItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -31,6 +34,7 @@ import vazkii.botania.common.crafting.ManaInfusionRecipe;
 import vazkii.botania.common.crafting.StateIngredients;
 import vazkii.botania.common.helper.ColorHelper;
 import vazkii.botania.common.item.BotaniaItems;
+import vazkii.botania.data.recipes.BotaniaRecipeProvider;
 
 import java.util.concurrent.CompletableFuture;
 
@@ -48,13 +52,13 @@ public class ManaInfusionProvider extends BotaniaRecipeProvider {
 
 	@Override
 	public void buildRecipes(RecipeOutput consumer) {
-		normal(consumer, id("manasteel"), new ItemStack(BotaniaItems.manaSteel), ingr(Items.IRON_INGOT), 3000);
-		normal(consumer, id("manasteel_block"), new ItemStack(BotaniaBlocks.manasteelBlock), ingr(Blocks.IRON_BLOCK), 27000);
+		normal(consumer, id("manasteel"), new ItemStack(BotaniaItems.manaSteel), ingr(ConventionalItemTags.IRON_INGOTS), 3000);
+		normal(consumer, id("manasteel_block"), new ItemStack(BotaniaBlocks.manasteelBlock), ingr(ConventionalItemTags.STORAGE_BLOCKS_IRON), 27000);
 
 		normal(consumer, id("mana_pearl"), new ItemStack(BotaniaItems.manaPearl), ingr(Items.ENDER_PEARL), 6000);
 
-		normal(consumer, id("mana_diamond"), new ItemStack(BotaniaItems.manaDiamond), Ingredient.of(Items.DIAMOND), 10000);
-		normal(consumer, id("mana_diamond_block"), new ItemStack(BotaniaBlocks.manaDiamondBlock), ingr(Blocks.DIAMOND_BLOCK), 90000);
+		normal(consumer, id("mana_diamond"), new ItemStack(BotaniaItems.manaDiamond), Ingredient.of(ConventionalItemTags.DIAMOND_GEMS), 10000);
+		normal(consumer, id("mana_diamond_block"), new ItemStack(BotaniaBlocks.manaDiamondBlock), ingr(ConventionalItemTags.STORAGE_BLOCKS_DIAMOND), 90000);
 
 		// TODO: make this a tag
 		// I think the tag exists, so EMI picks it up, but it might as well be in the recipe
@@ -69,12 +73,12 @@ public class ManaInfusionProvider extends BotaniaRecipeProvider {
 		normal(consumer, id("grass_seeds"), new ItemStack(BotaniaItems.grassSeeds), ingr(Blocks.SHORT_GRASS), 2500);
 		normal(consumer, id("podzol_seeds"), new ItemStack(BotaniaItems.podzolSeeds), ingr(Blocks.DEAD_BUSH), 2500);
 
-		normal(consumer, id("mycel_seeds"), new ItemStack(BotaniaItems.mycelSeeds), Ingredient.of(Blocks.RED_MUSHROOM, Blocks.BROWN_MUSHROOM), 6500);
+		normal(consumer, id("mycel_seeds"), new ItemStack(BotaniaItems.mycelSeeds), ingr(ConventionalItemTags.MUSHROOMS), 6500);
 
 		normal(consumer, id("mana_quartz"), new ItemStack(BotaniaItems.manaQuartz), ingr(Items.QUARTZ), 250);
 		normal(consumer, id("tiny_potato"), new ItemStack(BotaniaBlocks.tinyPotato), ingr(Items.POTATO), 1337);
 
-		normal(consumer, id("mana_glass"), new ItemStack(BotaniaBlocks.manaGlass), ingr(Blocks.GLASS), 150);
+		normal(consumer, id("mana_glass"), new ItemStack(BotaniaBlocks.manaGlass), ingr(ConventionalItemTags.GLASS_BLOCKS_COLORLESS), 150);
 		normal(consumer, id("mana_string"), new ItemStack(BotaniaItems.manaString), ingr(Items.STRING), 1250);
 
 		normal(consumer, id("mana_bottle"), new ItemStack(BotaniaItems.manaBottle), ingr(Items.GLASS_BOTTLE), 5000);
@@ -113,7 +117,7 @@ public class ManaInfusionProvider extends BotaniaRecipeProvider {
 
 		alchemy(consumer, id("book_to_name_tag"), new ItemStack(Items.NAME_TAG), ingr(Items.WRITABLE_BOOK), 6000);
 
-		alchemy(consumer, id("wool_deconstruct"), new ItemStack(Items.STRING, 3), Ingredient.of(ItemTags.WOOL), 100);
+		alchemy(consumer, id("wool_deconstruct"), new ItemStack(Items.STRING, 3), ingr(ItemTags.WOOL), 100);
 
 		final String cactusSlimeGroup = "botania:cactus_and_slime_cycle";
 		alchemy(consumer, id("cactus_to_slime"), new ItemStack(Items.SLIME_BALL), ingr(Blocks.CACTUS), 1200, cactusSlimeGroup);
@@ -123,7 +127,7 @@ public class ManaInfusionProvider extends BotaniaRecipeProvider {
 
 		cycle(consumer, 300, "botania:glowstone_and_redstone_cycle", Items.GLOWSTONE_DUST, Items.REDSTONE);
 
-		alchemy(consumer, id("cobble_to_sand"), new ItemStack(Blocks.SAND), ingr(Blocks.COBBLESTONE), 50);
+		alchemy(consumer, id("cobble_to_sand"), new ItemStack(Blocks.SAND), ingr(ConventionalItemTags.COBBLESTONES), 50);
 		alchemy(consumer, id("terracotta_to_red_sand"), new ItemStack(Blocks.RED_SAND), ingr(Blocks.TERRACOTTA), 50);
 
 		deconstruct(consumer, id("clay_deconstruct"), Items.CLAY_BALL, Blocks.CLAY);
@@ -134,7 +138,7 @@ public class ManaInfusionProvider extends BotaniaRecipeProvider {
 
 		alchemy(consumer, id("stone_to_andesite"), new ItemStack(Blocks.ANDESITE), ingr(Blocks.STONE), 200);
 		cycle(consumer, 200, "botania:stone_cycle", Blocks.DIORITE, Blocks.GRANITE, Blocks.ANDESITE);
-
+		// TODO: move tuff and calcite to stone cycle
 		cycle(consumer, 200, "botania:117_stone_cycle", Blocks.TUFF, Blocks.CALCITE, Blocks.DEEPSLATE);
 
 		cycle(consumer, 500, "botania:shrub_cycle", Blocks.FERN, Blocks.DEAD_BUSH, Blocks.SHORT_GRASS);
@@ -226,6 +230,10 @@ public class ManaInfusionProvider extends BotaniaRecipeProvider {
 	}
 
 	protected static Ingredient ingr(ItemLike i) {
+		return Ingredient.of(i);
+	}
+
+	protected static Ingredient ingr(TagKey<Item> i) {
 		return Ingredient.of(i);
 	}
 }

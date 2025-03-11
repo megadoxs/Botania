@@ -8,7 +8,7 @@
  *
  */
 
-package vazkii.botania.fabric.data;
+package vazkii.botania.fabric.data.xplat;
 
 import net.fabricmc.fabric.api.tag.convention.v2.ConventionalBlockTags;
 import net.fabricmc.fabric.api.tag.convention.v2.ConventionalItemTags;

@@ -5,9 +5,11 @@
  *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
+ *
  */
-package vazkii.botania.data.recipes;
+package vazkii.botania.fabric.data.xplat;
 
+import net.fabricmc.fabric.api.tag.convention.v2.ConventionalItemTags;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.recipes.RecipeOutput;
@@ -22,7 +24,7 @@ import vazkii.botania.common.block.BotaniaBlocks;
 import vazkii.botania.common.crafting.RunicAltarRecipe;
 import vazkii.botania.common.crafting.recipe.HeadRecipe;
 import vazkii.botania.common.item.BotaniaItems;
-import vazkii.botania.common.lib.BotaniaTags;
+import vazkii.botania.data.recipes.BotaniaRecipeProvider;
 
 import java.util.concurrent.CompletableFuture;
 
@@ -44,16 +46,16 @@ public class RunicAltarProvider extends BotaniaRecipeProvider {
 		final int costTier2 = 8000;
 		final int costTier3 = 12000;
 
-		Ingredient manaSteel = Ingredient.of(BotaniaTags.Items.INGOTS_MANASTEEL);
-		Ingredient manaDiamond = Ingredient.of(BotaniaTags.Items.GEMS_MANA_DIAMOND);
-		Ingredient manaPowder = Ingredient.of(BotaniaTags.Items.DUSTS_MANA);
+		Ingredient manaSteel = Ingredient.of(ConventionalBotaniaTags.Items.MANASTEEL_INGOTS);
+		Ingredient manaDiamond = Ingredient.of(ConventionalBotaniaTags.Items.MANA_DIAMOND_GEMS);
+		Ingredient manaPowder = Ingredient.of(ConventionalBotaniaTags.Items.MANA_DUSTS);
 
 		Ingredient stone = Ingredient.of(Blocks.STONE);
-		Ingredient coalBlock = Ingredient.of(Blocks.COAL_BLOCK);
+		Ingredient coalBlock = Ingredient.of(ConventionalItemTags.STORAGE_BLOCKS_COAL);
 		defaultReagent(consumer, idFor("water"), new ItemStack(BotaniaItems.runeWater, 2), costTier1,
-				manaPowder, manaSteel, Ingredient.of(Items.BONE_MEAL), Ingredient.of(Blocks.SUGAR_CANE), Ingredient.of(Items.FISHING_ROD));
+				manaPowder, manaSteel, Ingredient.of(Items.BONE_MEAL), Ingredient.of(Blocks.SUGAR_CANE), Ingredient.of(ConventionalItemTags.FISHING_ROD_TOOLS));
 		defaultReagent(consumer, idFor("fire"), new ItemStack(BotaniaItems.runeFire, 2), costTier1,
-				manaPowder, manaSteel, Ingredient.of(Items.NETHER_BRICK), Ingredient.of(Items.GUNPOWDER), Ingredient.of(Items.NETHER_WART));
+				manaPowder, manaSteel, Ingredient.of(ConventionalItemTags.NETHER_BRICKS), Ingredient.of(Items.GUNPOWDER), Ingredient.of(Items.NETHER_WART));
 		defaultReagent(consumer, idFor("earth"), new ItemStack(BotaniaItems.runeEarth, 2), costTier1,
 				manaPowder, manaSteel, stone, coalBlock, Ingredient.of(Blocks.BROWN_MUSHROOM, Blocks.RED_MUSHROOM));
 		defaultReagent(consumer, idFor("air"), new ItemStack(BotaniaItems.runeAir, 2), costTier1,
@@ -85,7 +87,7 @@ public class RunicAltarProvider extends BotaniaRecipeProvider {
 		Ingredient winter = Ingredient.of(BotaniaItems.runeWinter);
 
 		defaultReagent(consumer, idFor("mana"), new ItemStack(BotaniaItems.runeMana), costTier2,
-				manaSteel, manaSteel, manaSteel, manaSteel, manaSteel, Ingredient.of(BotaniaItems.manaPearl));
+				manaSteel, manaSteel, manaSteel, manaSteel, manaSteel, Ingredient.of(ConventionalBotaniaTags.Items.MANA_PEARL_GEMS));
 
 		defaultReagent(consumer, idFor("lust"), new ItemStack(BotaniaItems.runeLust), costTier3,
 				new Ingredient[] { manaDiamond, manaDiamond }, summer, air);
@@ -103,8 +105,8 @@ public class RunicAltarProvider extends BotaniaRecipeProvider {
 				new Ingredient[] { manaDiamond, manaDiamond }, summer, fire);
 
 		consumer.accept(idFor("head"), new HeadRecipe(new ItemStack(Items.PLAYER_HEAD), DEFAULT_REAGENT, 22500,
-				Ingredient.of(Items.SKELETON_SKULL), Ingredient.of(BotaniaItems.pixieDust),
-				Ingredient.of(Items.PRISMARINE_CRYSTALS), Ingredient.of(Items.NAME_TAG), Ingredient.of(Items.GOLDEN_APPLE)), null);
+				Ingredient.of(Items.SKELETON_SKULL), Ingredient.of(ConventionalBotaniaTags.Items.PIXIE_DUSTS),
+				Ingredient.of(ConventionalItemTags.PRISMARINE_GEMS), Ingredient.of(Items.NAME_TAG), Ingredient.of(Items.GOLDEN_APPLE)), null);
 	}
 
 	private static ResourceLocation idFor(String s) {

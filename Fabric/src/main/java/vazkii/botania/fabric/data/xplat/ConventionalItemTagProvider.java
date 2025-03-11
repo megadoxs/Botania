@@ -1,10 +1,22 @@
-package vazkii.botania.fabric.data;
+/*
+ * This class is distributed as part of the Botania Mod.
+ * Get the Source Code in github:
+ * https://github.com/Vazkii/Botania
+ *
+ * Botania is Open Source and distributed under the
+ * Botania License: http://botaniamod.net/license.php
+ *
+ */
+
+package vazkii.botania.fabric.data.xplat;
 
 import net.fabricmc.fabric.api.tag.convention.v2.ConventionalBlockTags;
 import net.fabricmc.fabric.api.tag.convention.v2.ConventionalItemTags;
 import net.minecraft.core.HolderLookup;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.tags.ItemTagsProvider;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
@@ -172,6 +184,9 @@ public class ConventionalItemTagProvider extends ItemTagsProvider {
 		tag(ConventionalItemTags.SHEAR_TOOLS).add(
 				BotaniaItems.manasteelShears, BotaniaItems.elementiumShears
 		);
+		// this is a NeoForge tag, but appears to be missing on Fabric
+		tag(TagKey.create(Registries.ITEM, ResourceLocation.fromNamespaceAndPath("c", "tools/wrench")))
+				.add(BotaniaItems.twigWand, BotaniaItems.dreamwoodWand);
 
 		// Miscellaneous
 		tag(ConventionalItemTags.MUSHROOMS).addTag(BotaniaTags.Items.SHIMMERING_MUSHROOMS);

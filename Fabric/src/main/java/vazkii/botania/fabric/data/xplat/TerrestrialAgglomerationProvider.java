@@ -5,8 +5,9 @@
  *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
+ *
  */
-package vazkii.botania.data.recipes;
+package vazkii.botania.fabric.data.xplat;
 
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;
@@ -18,6 +19,7 @@ import net.minecraft.world.item.crafting.Ingredient;
 import vazkii.botania.common.block.block_entity.mana.ManaPoolBlockEntity;
 import vazkii.botania.common.crafting.TerrestrialAgglomerationRecipe;
 import vazkii.botania.common.item.BotaniaItems;
+import vazkii.botania.data.recipes.BotaniaRecipeProvider;
 
 import java.util.concurrent.CompletableFuture;
 
@@ -37,8 +39,10 @@ public class TerrestrialAgglomerationProvider extends BotaniaRecipeProvider {
 	public void buildRecipes(RecipeOutput consumer) {
 		consumer.accept(idFor("terrasteel_ingot"), new TerrestrialAgglomerationRecipe(
 				ManaPoolBlockEntity.MAX_MANA / 2,
-				new ItemStack(BotaniaItems.terrasteel), Ingredient.of(BotaniaItems.manaSteel),
-				Ingredient.of(BotaniaItems.manaPearl), Ingredient.of(BotaniaItems.manaDiamond)
+				new ItemStack(BotaniaItems.terrasteel),
+				Ingredient.of(ConventionalBotaniaTags.Items.MANASTEEL_INGOTS),
+				Ingredient.of(ConventionalBotaniaTags.Items.MANA_PEARL_GEMS),
+				Ingredient.of(ConventionalBotaniaTags.Items.MANA_DIAMOND_GEMS)
 		), null);
 	}
 

@@ -19,6 +19,7 @@ import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.ItemTags;
+import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.Block;
@@ -28,16 +29,23 @@ import vazkii.botania.common.helper.ColorHelper;
 import vazkii.botania.common.item.lens.LensItem;
 import vazkii.botania.common.lib.BotaniaTags;
 import vazkii.botania.common.lib.LibMisc;
+import vazkii.botania.data.util.DummyTagLookup;
 
 import java.util.Comparator;
+import java.util.Set;
 import java.util.concurrent.CompletableFuture;
 import java.util.function.Predicate;
 
 import static vazkii.botania.common.item.BotaniaItems.*;
 
 public class ItemTagProvider extends ItemTagsProvider {
+	private static final Set<TagKey<Item>> REQUIRED_TAGS = Set.of(
+			ItemTags.SAND,
+			ItemTags.ARROWS
+	);
+
 	public ItemTagProvider(PackOutput packOutput, CompletableFuture<HolderLookup.Provider> lookupProvider, CompletableFuture<TagsProvider.TagLookup<Block>> blockTagProvider) {
-		super(packOutput, lookupProvider, blockTagProvider);
+		super(packOutput, lookupProvider, DummyTagLookup.completedFuture(REQUIRED_TAGS), blockTagProvider);
 	}
 
 	@Override
@@ -83,7 +91,6 @@ public class ItemTagProvider extends ItemTagsProvider {
 				.add(BotaniaBlocks.motifDaybloom.asItem(), BotaniaBlocks.motifNightshade.asItem(), BotaniaBlocks.motifHydroangeas.asItem());
 
 		this.tag(BotaniaTags.Items.BURST_VIEWERS).add(monocle);
-		this.tag(BotaniaTags.Items.TERRA_PICK_BLACKLIST).add(auraRing, auraRingGreater, terrasteelHelm, spark);
 		TagsProvider.TagAppender<Item> builder = this.tag(BotaniaTags.Items.LENS);
 		BuiltInRegistries.ITEM.stream().filter(i -> i instanceof LensItem && BuiltInRegistries.ITEM.getKey(i).getNamespace().equals(LibMisc.MOD_ID))
 				.map(BuiltInRegistries.ITEM::getKey)
@@ -97,19 +104,7 @@ public class ItemTagProvider extends ItemTagsProvider {
 		this.tag(ItemTags.CLUSTER_MAX_HARVESTABLES).add(manasteelPick, elementiumPick, terraPick, glassPick);
 		this.tag(ItemTags.LECTERN_BOOKS).add(lexicon);
 		this.tag(ItemTags.BOOKSHELF_BOOKS).add(lexicon);
-
-		this.tag(BotaniaTags.Items.DUSTS_MANA).add(manaPowder);
-
-		this.tag(BotaniaTags.Items.GEMS_DRAGONSTONE).add(dragonstone);
-		this.tag(BotaniaTags.Items.GEMS_MANA_DIAMOND).add(manaDiamond);
-
-		this.tag(BotaniaTags.Items.INGOTS_ELEMENTIUM).add(elementium);
-		this.tag(BotaniaTags.Items.INGOTS_MANASTEEL).add(manaSteel);
-		this.tag(BotaniaTags.Items.INGOTS_TERRASTEEL).add(terrasteel);
-
-		this.tag(BotaniaTags.Items.NUGGETS_ELEMENTIUM).add(elementiumNugget);
-		this.tag(BotaniaTags.Items.NUGGETS_MANASTEEL).add(manasteelNugget);
-		this.tag(BotaniaTags.Items.NUGGETS_TERRASTEEL).add(terrasteelNugget);
+		this.tag(ItemTags.BEACON_PAYMENT_ITEMS).add(manaSteel, terrasteel, elementium, manaDiamond, dragonstone);
 
 		this.copy(BlockTags.LOGS_THAT_BURN, ItemTags.LOGS_THAT_BURN);
 		this.copy(BotaniaTags.Blocks.LIVINGWOOD_LOGS, BotaniaTags.Items.LIVINGWOOD_LOGS);
@@ -117,7 +112,6 @@ public class ItemTagProvider extends ItemTagsProvider {
 		this.copy(BotaniaTags.Blocks.DREAMWOOD_LOGS, BotaniaTags.Items.DREAMWOOD_LOGS);
 		this.copy(BotaniaTags.Blocks.DREAMWOOD_LOGS_GLIMMERING, BotaniaTags.Items.DREAMWOOD_LOGS_GLIMMERING);
 
-		this.tag(ItemTags.SAND);
 		this.tag(BotaniaTags.Items.DISPOSABLE).add(Items.DIRT, Items.GRAVEL, Items.COBBLESTONE,
 				Items.NETHERRACK, Items.COBBLED_DEEPSLATE, Items.END_STONE)
 				.addTag(ItemTags.SAND);
@@ -148,7 +142,6 @@ public class ItemTagProvider extends ItemTagsProvider {
 		this.tag(BotaniaTags.Items.LOONIUM_BLACKLIST)
 				.add(lexicon, overgrowthSeed, blackLotus, blackerLotus)
 				.add(getItems(jukeboxPlayablePredicate));
-		this.tag(ItemTags.ARROWS);
 		this.tag(BotaniaTags.Items.LOONIUM_OFFHAND_EQUIPMENT)
 				.add(Items.FIREWORK_ROCKET, Items.TOTEM_OF_UNDYING)
 				.addTag(ItemTags.ARROWS);

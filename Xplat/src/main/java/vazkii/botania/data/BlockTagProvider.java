@@ -40,7 +40,6 @@ import java.util.Set;
 import java.util.concurrent.CompletableFuture;
 import java.util.function.Predicate;
 
-import static vazkii.botania.common.block.BotaniaBlocks.*;
 import static vazkii.botania.common.block.BotaniaFlowerBlocks.*;
 
 public class BlockTagProvider extends IntrinsicHolderTagsProvider<Block> {
@@ -182,21 +181,31 @@ public class BlockTagProvider extends IntrinsicHolderTagsProvider<Block> {
 
 		tag(BlockTags.CLIMBABLE).add(BotaniaBlocks.solidVines);
 
-		tag(BlockTags.PLANKS).add(livingwoodPlanks, livingwoodPlanksMossy, livingwoodFramed, livingwoodPatternFramed,
-				dreamwoodPlanks, dreamwoodPlanksMossy, dreamwoodFramed, dreamwoodPatternFramed, shimmerwoodPlanks);
+		tag(BlockTags.PLANKS).add(
+				BotaniaBlocks.livingwoodPlanks, BotaniaBlocks.livingwoodPlanksMossy,
+				BotaniaBlocks.livingwoodFramed, BotaniaBlocks.livingwoodPatternFramed,
+				BotaniaBlocks.dreamwoodPlanks, BotaniaBlocks.dreamwoodPlanksMossy,
+				BotaniaBlocks.dreamwoodFramed, BotaniaBlocks.dreamwoodPatternFramed,
+				BotaniaBlocks.shimmerwoodPlanks);
 
-		tag(BotaniaTags.Blocks.LIVINGWOOD_LOGS_GLIMMERING).add(livingwoodGlimmering, livingwoodLogGlimmering,
-				livingwoodStrippedGlimmering, livingwoodLogStrippedGlimmering);
-		tag(BotaniaTags.Blocks.DREAMWOOD_LOGS_GLIMMERING).add(dreamwoodGlimmering, dreamwoodLogGlimmering,
-				dreamwoodStrippedGlimmering, dreamwoodLogStrippedGlimmering);
+		tag(BotaniaTags.Blocks.LIVINGWOOD_LOGS_GLIMMERING).add(
+				BotaniaBlocks.livingwoodGlimmering, BotaniaBlocks.livingwoodLogGlimmering,
+				BotaniaBlocks.livingwoodStrippedGlimmering, BotaniaBlocks.livingwoodLogStrippedGlimmering);
+		tag(BotaniaTags.Blocks.DREAMWOOD_LOGS_GLIMMERING).add(
+				BotaniaBlocks.dreamwoodGlimmering, BotaniaBlocks.dreamwoodLogGlimmering,
+				BotaniaBlocks.dreamwoodStrippedGlimmering, BotaniaBlocks.dreamwoodLogStrippedGlimmering);
 
 		tag(BotaniaTags.Blocks.LIVINGWOOD_LOGS)
-				.add(livingwoodLog, livingwood, livingwoodLogStripped, livingwoodStripped)
+				.add(BotaniaBlocks.livingwoodLog, BotaniaBlocks.livingwood,
+						BotaniaBlocks.livingwoodLogStripped, BotaniaBlocks.livingwoodStripped)
 				.addTag(BotaniaTags.Blocks.LIVINGWOOD_LOGS_GLIMMERING);
 		tag(BotaniaTags.Blocks.DREAMWOOD_LOGS)
-				.add(dreamwoodLog, dreamwood, dreamwoodLogStripped, dreamwoodStripped)
+				.add(BotaniaBlocks.dreamwoodLog, BotaniaBlocks.dreamwood,
+						BotaniaBlocks.dreamwoodLogStripped, BotaniaBlocks.dreamwoodStripped)
 				.addTag(BotaniaTags.Blocks.DREAMWOOD_LOGS_GLIMMERING);
-		tag(BlockTags.LOGS_THAT_BURN).addTag(BotaniaTags.Blocks.LIVINGWOOD_LOGS).addTag(BotaniaTags.Blocks.DREAMWOOD_LOGS);
+		tag(BlockTags.LOGS_THAT_BURN)
+				.addTag(BotaniaTags.Blocks.LIVINGWOOD_LOGS)
+				.addTag(BotaniaTags.Blocks.DREAMWOOD_LOGS);
 
 		tag(BotaniaTags.Blocks.GHOST_RAIL_BARRIER).addTag(BotaniaTags.Blocks.DREAMWOOD_LOGS);
 
@@ -209,7 +218,7 @@ public class BlockTagProvider extends IntrinsicHolderTagsProvider<Block> {
 				BotaniaBlocks.biomeStoneFungal, BotaniaBlocks.biomeStoneFungalSlab, BotaniaBlocks.biomeStoneFungalStairs, BotaniaBlocks.biomeStoneFungalWall,
 				BotaniaBlocks.biomeBrickFungal, BotaniaBlocks.biomeBrickFungalSlab, BotaniaBlocks.biomeBrickFungalStairs, BotaniaBlocks.biomeBrickFungalWall,
 				BotaniaBlocks.biomeCobblestoneFungal, BotaniaBlocks.biomeCobblestoneFungalSlab, BotaniaBlocks.biomeCobblestoneFungalStairs, BotaniaBlocks.biomeCobblestoneFungalWall,
-				BotaniaBlocks.biomeChiseledBrickFungal, fungalAltar);
+				BotaniaBlocks.biomeChiseledBrickFungal, BotaniaBlocks.fungalAltar);
 
 		tag(BotaniaTags.Blocks.HORN_OF_THE_WILD_BREAKABLE).add(Blocks.MOSS_CARPET);
 		tag(BotaniaTags.Blocks.HORN_OF_THE_CANOPY_BREAKABLE).addTag(BlockTags.LEAVES);
@@ -263,23 +272,26 @@ public class BlockTagProvider extends IntrinsicHolderTagsProvider<Block> {
 
 	private void registerMiningTags() {
 		tag(BlockTags.MINEABLE_WITH_HOE).add(
-				getModBlocks(b -> b == cellBlock
+				getModBlocks(b -> b == BotaniaBlocks.cellBlock
 						|| BuiltInRegistries.BLOCK.getKey(b).getPath().contains(LibBlockNames.PETAL_BLOCK_SUFFIX)
 				)
 		);
 		tag(BlockTags.MINEABLE_WITH_SHOVEL).add(
-				getModBlocks(b -> b == enchantedSoil
+				getModBlocks(b -> b == BotaniaBlocks.enchantedSoil
 						|| b instanceof FloatingFlowerBlock || b instanceof BotaniaGrassBlock)
 		);
 		var pickaxe = Set.of(
-				alchemyCatalyst, conjurationCatalyst,
-				manasteelBlock, elementiumBlock, terrasteelBlock, manaDiamondBlock, dragonstoneBlock,
-				manaGlass, elfGlass, bifrostPerm,
+				BotaniaBlocks.alchemyCatalyst, BotaniaBlocks.conjurationCatalyst,
+				BotaniaBlocks.manasteelBlock, BotaniaBlocks.elementiumBlock, BotaniaBlocks.terrasteelBlock,
+				BotaniaBlocks.manaDiamondBlock, BotaniaBlocks.dragonstoneBlock,
+				BotaniaBlocks.manaGlass, BotaniaBlocks.elfGlass, BotaniaBlocks.bifrostPerm,
 				BotaniaBlocks.managlassPane, BotaniaBlocks.alfglassPane, BotaniaBlocks.bifrostPane,
-				runeAltar, brewery, terraPlate, distributor, manaVoid, manaDetector,
-				pistonRelay, tinyPlanet, spawnerClaw,
-				rfGenerator, prism, pump, sparkChanger, forestEye, enderEye,
-				hourglass, starfield, blazeBlock
+				BotaniaBlocks.runeAltar, BotaniaBlocks.brewery, BotaniaBlocks.terraPlate,
+				BotaniaBlocks.distributor, BotaniaBlocks.manaVoid, BotaniaBlocks.manaDetector,
+				BotaniaBlocks.pistonRelay, BotaniaBlocks.tinyPlanet, BotaniaBlocks.spawnerClaw,
+				BotaniaBlocks.rfGenerator, BotaniaBlocks.prism, BotaniaBlocks.pump,
+				BotaniaBlocks.sparkChanger, BotaniaBlocks.forestEye, BotaniaBlocks.enderEye,
+				BotaniaBlocks.hourglass, BotaniaBlocks.starfield, BotaniaBlocks.blazeBlock
 		);
 		tag(BlockTags.MINEABLE_WITH_PICKAXE).add(
 				getModBlocks(b -> pickaxe.contains(b)
@@ -299,8 +311,9 @@ public class BlockTagProvider extends IntrinsicHolderTagsProvider<Block> {
 				)
 		);
 		var axe = Set.of(
-				alfPortal, turntable, manaBomb, bellows, incensePlate,
-				cacophonium, avatar, root, felPumpkin
+				BotaniaBlocks.alfPortal, BotaniaBlocks.turntable, BotaniaBlocks.manaBomb,
+				BotaniaBlocks.bellows, BotaniaBlocks.incensePlate, BotaniaBlocks.cacophonium,
+				BotaniaBlocks.avatar, BotaniaBlocks.root, BotaniaBlocks.felPumpkin
 		);
 		tag(BlockTags.MINEABLE_WITH_AXE).add(
 				getModBlocks(b -> axe.contains(b)
