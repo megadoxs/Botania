@@ -15,21 +15,31 @@ import net.minecraft.core.registries.Registries;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.world.damagesource.DamageType;
+import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
 
 import vazkii.botania.common.block.BotaniaBannerPatterns;
 import vazkii.botania.data.*;
 import vazkii.botania.data.loot.BotaniaBlockLoot;
+import vazkii.botania.data.loot.BotaniaEquipmentLoot;
+import vazkii.botania.data.loot.BotaniaLooniumStructureLoot;
 import vazkii.botania.fabric.data.fabric.FabricBlockLootProvider;
 import vazkii.botania.fabric.data.fabric.FabricBlockTagProvider;
 import vazkii.botania.fabric.data.fabric.FabricItemTagProvider;
+import vazkii.botania.fabric.data.xplat.BrewProvider;
 import vazkii.botania.fabric.data.xplat.ConventionalBiomeTagProvider;
 import vazkii.botania.fabric.data.xplat.ConventionalBlockTagProvider;
 import vazkii.botania.fabric.data.xplat.ConventionalEntityTypeTagProvider;
 import vazkii.botania.fabric.data.xplat.ConventionalItemTagProvider;
+import vazkii.botania.fabric.data.xplat.CraftingRecipeProvider;
 import vazkii.botania.fabric.data.xplat.ElvenTradeProvider;
 import vazkii.botania.fabric.data.xplat.ManaInfusionProvider;
+import vazkii.botania.fabric.data.xplat.OrechidProvider;
+import vazkii.botania.fabric.data.xplat.PetalApothecaryProvider;
+import vazkii.botania.fabric.data.xplat.PureDaisyProvider;
+import vazkii.botania.fabric.data.xplat.RunicAltarProvider;
 import vazkii.botania.fabric.data.xplat.SmeltingProvider;
 import vazkii.botania.fabric.data.xplat.StonecuttingProvider;
+import vazkii.botania.fabric.data.xplat.TerrestrialAgglomerationProvider;
 
 import static vazkii.botania.common.BotaniaDamageTypes.*;
 
@@ -52,9 +62,9 @@ public class FabricDatagenInitializer implements DataGeneratorEntrypoint {
 
 	private static void configureXplatDatagen(FabricDataGenerator.Pack pack) {
 		pack.addProvider(BotaniaBlockLootWrapper.wrap(BotaniaBlockLoot::new));
-		pack.addProvider(LooniumStructureLootProvider::new);
 		pack.addProvider(LooniumStructureConfigurationProvider::new);
-		pack.addProvider(LooniumEquipmentLootProvider::new);
+		pack.addProvider(BotaniaSimpleLootWrapper.wrap(BotaniaLooniumStructureLoot::new, LootContextParamSets.ALL_PARAMS));
+		pack.addProvider(BotaniaSimpleLootWrapper.wrap(BotaniaEquipmentLoot::new, LootContextParamSets.EQUIPMENT));
 		BlockTagProvider blockTagProvider = pack.addProvider(BlockTagProvider::new);
 		pack.addProvider((output, registriesFuture) -> new ItemTagProvider(
 				output, registriesFuture, blockTagProvider.contentsGetter()));
@@ -69,16 +79,16 @@ public class FabricDatagenInitializer implements DataGeneratorEntrypoint {
 		pack.addProvider(BotaniaDynamicRegistryProvider::new);
 		pack.addProvider(DamageTypeTagProvider::new);
 		pack.addProvider(StonecuttingProvider::new);
-		pack.addProvider(vazkii.botania.fabric.data.xplat.CraftingRecipeProvider::new);
+		pack.addProvider(CraftingRecipeProvider::new);
 		pack.addProvider(SmeltingProvider::new);
 		pack.addProvider(ElvenTradeProvider::new);
 		pack.addProvider(ManaInfusionProvider::new);
-		pack.addProvider(vazkii.botania.fabric.data.xplat.PureDaisyProvider::new);
-		pack.addProvider(vazkii.botania.fabric.data.xplat.BrewProvider::new);
-		pack.addProvider(vazkii.botania.fabric.data.xplat.PetalApothecaryProvider::new);
-		pack.addProvider(vazkii.botania.fabric.data.xplat.RunicAltarProvider::new);
-		pack.addProvider(vazkii.botania.fabric.data.xplat.TerrestrialAgglomerationProvider::new);
-		pack.addProvider(vazkii.botania.fabric.data.xplat.OrechidProvider::new);
+		pack.addProvider(PureDaisyProvider::new);
+		pack.addProvider(BrewProvider::new);
+		pack.addProvider(PetalApothecaryProvider::new);
+		pack.addProvider(RunicAltarProvider::new);
+		pack.addProvider(TerrestrialAgglomerationProvider::new);
+		pack.addProvider(OrechidProvider::new);
 		pack.addProvider((PackOutput output) -> new BlockstateProvider(output));
 		pack.addProvider((PackOutput output) -> new FloatingFlowerModelProvider(output));
 		pack.addProvider((PackOutput output) -> new ItemModelProvider(output));

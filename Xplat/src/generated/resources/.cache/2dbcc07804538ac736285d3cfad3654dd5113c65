@@ -1,4 +1,4 @@
-// 1.21.1	Botania/Structure-specific loot tables for the Loonium
+// 1.21.1	Botania/minecraft:generic Loot Table
 6fb0fe77431044cbf1a3eddeff1adb17a14e46c9 data/botania/loot_table/loonium/default.json
 c3fe52c9b9643f8200919a0c79e26df1b401168f data/botania/loot_table/loonium/minecraft/ancient_city.json
 96657b7db136d6b1004c9f5d41f8516baf8fc39d data/botania/loot_table/loonium/minecraft/bastion_remnant.json

@@ -1,4 +1,4 @@
-// 1.21.1	Botania/Equipment tables for Loonium-spawned mobs
+// 1.21.1	Botania/minecraft:equipment Loot Table
 635e19b900a311708b8e92e3acc2a6b655ca30da data/botania/loot_table/equipment/loonium/armor_ancient_city.json
 1dfcc4ae2076219f0c5392e2225ea2851f66869f data/botania/loot_table/equipment/loonium/armor_bastion_remnant.json
 802fa3a2cc28e66fce2771f865eb4af818992fb4 data/botania/loot_table/equipment/loonium/armor_desert_pyramid.json

@@ -1,10 +1,17 @@
-package vazkii.botania.data;
+/*
+ * This class is distributed as part of the Botania Mod.
+ * Get the Source Code in github:
+ * https://github.com/Vazkii/Botania
+ *
+ * Botania is Open Source and distributed under the
+ * Botania License: http://botaniamod.net/license.php
+ *
+ */
 
-import net.minecraft.core.HolderLookup;
+package vazkii.botania.data.loot;
+
 import net.minecraft.core.registries.Registries;
-import net.minecraft.data.CachedOutput;
-import net.minecraft.data.DataProvider;
-import net.minecraft.data.PackOutput;
+import net.minecraft.data.loot.LootTableSubProvider;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.EntityType;
@@ -16,15 +23,16 @@ import net.minecraft.world.level.storage.loot.LootPool;
 import net.minecraft.world.level.storage.loot.LootTable;
 import net.minecraft.world.level.storage.loot.entries.LootItem;
 import net.minecraft.world.level.storage.loot.entries.NestedLootTable;
-import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
 
-import java.nio.file.Path;
-import java.util.*;
-import java.util.concurrent.CompletableFuture;
+import vazkii.botania.common.loot.BotaniaLootTables;
+
+import java.util.EnumSet;
+import java.util.Set;
+import java.util.function.BiConsumer;
 
 import static vazkii.botania.api.BotaniaAPI.botaniaRL;
 
-public class LooniumStructureLootProvider implements DataProvider {
+public class BotaniaLooniumStructureLoot implements LootTableSubProvider {
 	// loot collections based on which village type hoses can actually have chests
 	public static final EnumSet<VillageLoot> PLAINS_VILLAGE_LOOT = EnumSet
 			.of(VillageLoot.CARTOGRAPHER, VillageLoot.FISHER, VillageLoot.TANNERY, VillageLoot.WEAPONSMITH);
@@ -37,45 +45,20 @@ public class LooniumStructureLootProvider implements DataProvider {
 	public static final EnumSet<VillageLoot> TAIGA_VILLAGE_LOOT = EnumSet
 			.of(VillageLoot.CARTOGRAPHER, VillageLoot.FLETCHER, VillageLoot.TANNERY, VillageLoot.TOOLSMITH, VillageLoot.WEAPONSMITH);
 
-	private final PackOutput.PathProvider pathProvider;
-	private final CompletableFuture<HolderLookup.Provider> registryLookupFuture;
-
-	public LooniumStructureLootProvider(PackOutput packOutput, CompletableFuture<HolderLookup.Provider> registryLookupFuture) {
-		this.pathProvider = packOutput.createPathProvider(PackOutput.Target.DATA_PACK, "loot_table/loonium");
-		this.registryLookupFuture = registryLookupFuture;
-	}
-
 	public static ResourceKey<LootTable> getStructureId(ResourceKey<Structure> structureKey) {
 		return getStructureId(structureKey.location());
 	}
 
 	public static ResourceKey<LootTable> getStructureId(ResourceLocation structureId) {
-		return ResourceKey.create(Registries.LOOT_TABLE, botaniaRL("%s/%s".formatted(structureId.getNamespace(), structureId.getPath())));
+		return ResourceKey.create(
+				Registries.LOOT_TABLE, botaniaRL("loonium/%s/%s".formatted(structureId.getNamespace(), structureId.getPath())));
 	}
 
 	@Override
-	public CompletableFuture<?> run(CachedOutput cache) {
-		return registryLookupFuture.thenCompose(registryLookup -> this.run(cache, registryLookup));
-	}
-
-	private CompletableFuture<?> run(CachedOutput cache, HolderLookup.Provider registries) {
-		Map<ResourceKey<LootTable>, LootTable.Builder> tables = new HashMap<>();
-		addLootTables(tables);
-
-		var output = new ArrayList<CompletableFuture<?>>(tables.size());
-		for (Map.Entry<ResourceKey<LootTable>, LootTable.Builder> e : tables.entrySet()) {
-			Path path = pathProvider.json(e.getKey().location());
-			LootTable.Builder builder = e.getValue();
-			LootTable lootTable = builder.setParamSet(LootContextParamSets.ALL_PARAMS).build();
-			output.add(DataProvider.saveStable(cache, registries, LootTable.DIRECT_CODEC, lootTable, path));
-		}
-		return CompletableFuture.allOf(output.toArray(CompletableFuture<?>[]::new));
-	}
-
-	private void addLootTables(Map<ResourceKey<LootTable>, LootTable.Builder> tables) {
+	public void generate(BiConsumer<ResourceKey<LootTable>, LootTable.Builder> output) {
 		// Note: As far as world generating is concerned, dungeons are "features" (i.e. like trees or geodes),
 		// not "structures" (like everything else the Loonium might care about).
-		tables.put(ResourceKey.create(Registries.LOOT_TABLE, botaniaRL("default")),
+		output.accept(BotaniaLootTables.LOONIUM_DEFAULT_LOOT,
 				buildDelegateLootTable(BuiltInLootTables.SIMPLE_DUNGEON));
 
 		/*
@@ -86,13 +69,13 @@ public class LooniumStructureLootProvider implements DataProvider {
 		Also, archaeology loot tables need to be handled carefully, due to their limited loot pool options.
 		*/
 
-		tables.put(getStructureId(BuiltinStructures.ANCIENT_CITY),
+		output.accept(getStructureId(BuiltinStructures.ANCIENT_CITY),
 				LootTable.lootTable().withPool(LootPool.lootPool()
 						.add(NestedLootTable.lootTableReference(BuiltInLootTables.ANCIENT_CITY).setWeight(9))
 						.add(NestedLootTable.lootTableReference(BuiltInLootTables.ANCIENT_CITY_ICE_BOX).setWeight(1))
 				)
 		);
-		tables.put(getStructureId(BuiltinStructures.BASTION_REMNANT),
+		output.accept(getStructureId(BuiltinStructures.BASTION_REMNANT),
 				LootTable.lootTable().withPool(LootPool.lootPool()
 						.add(NestedLootTable.lootTableReference(BuiltInLootTables.BASTION_BRIDGE).setWeight(1))
 						.add(NestedLootTable.lootTableReference(BuiltInLootTables.BASTION_HOGLIN_STABLE).setWeight(1))
@@ -100,8 +83,8 @@ public class LooniumStructureLootProvider implements DataProvider {
 						.add(NestedLootTable.lootTableReference(BuiltInLootTables.BASTION_OTHER).setWeight(7))
 				)
 		);
-		tables.put(getStructureId(BuiltinStructures.BURIED_TREASURE), buildDelegateLootTable(BuiltInLootTables.BURIED_TREASURE));
-		tables.put(getStructureId(BuiltinStructures.DESERT_PYRAMID),
+		output.accept(getStructureId(BuiltinStructures.BURIED_TREASURE), buildDelegateLootTable(BuiltInLootTables.BURIED_TREASURE));
+		output.accept(getStructureId(BuiltinStructures.DESERT_PYRAMID),
 				LootTable.lootTable().withPool(LootPool.lootPool()
 						.add(NestedLootTable.lootTableReference(BuiltInLootTables.DESERT_PYRAMID).setWeight(37))
 						.add(NestedLootTable.lootTableReference(BuiltInLootTables.DESERT_PYRAMID_ARCHAEOLOGY).setWeight(2))
@@ -109,23 +92,23 @@ public class LooniumStructureLootProvider implements DataProvider {
 						.add(NestedLootTable.lootTableReference(BuiltInLootTables.DESERT_WELL_ARCHAEOLOGY))
 				)
 		);
-		tables.put(getStructureId(BuiltinStructures.END_CITY),
+		output.accept(getStructureId(BuiltinStructures.END_CITY),
 				LootTable.lootTable().withPool(LootPool.lootPool()
 						.add(NestedLootTable.lootTableReference(BuiltInLootTables.END_CITY_TREASURE).setWeight(49))
 						.add(LootItem.lootTableItem(Items.ELYTRA))
 				)
 		);
-		tables.put(getStructureId(BuiltinStructures.FORTRESS), buildDelegateLootTable(BuiltInLootTables.NETHER_BRIDGE));
+		output.accept(getStructureId(BuiltinStructures.FORTRESS), buildDelegateLootTable(BuiltInLootTables.NETHER_BRIDGE));
 		// skipping igloo, because the laboratory piece, which is the only part that has loot, can't be detected reliably
-		tables.put(getStructureId(BuiltinStructures.JUNGLE_TEMPLE),
+		output.accept(getStructureId(BuiltinStructures.JUNGLE_TEMPLE),
 				LootTable.lootTable().withPool(LootPool.lootPool()
 						.add(NestedLootTable.lootTableReference(BuiltInLootTables.JUNGLE_TEMPLE).setWeight(9))
 						.add(NestedLootTable.lootTableReference(BuiltInLootTables.JUNGLE_TEMPLE_DISPENSER))
 				)
 		);
-		tables.put(getStructureId(BuiltinStructures.MINESHAFT), buildDelegateLootTable(BuiltInLootTables.ABANDONED_MINESHAFT));
-		tables.put(getStructureId(BuiltinStructures.MINESHAFT_MESA), buildDelegateLootTable(BuiltInLootTables.ABANDONED_MINESHAFT));
-		tables.put(getStructureId(BuiltinStructures.OCEAN_MONUMENT),
+		output.accept(getStructureId(BuiltinStructures.MINESHAFT), buildDelegateLootTable(BuiltInLootTables.ABANDONED_MINESHAFT));
+		output.accept(getStructureId(BuiltinStructures.MINESHAFT_MESA), buildDelegateLootTable(BuiltInLootTables.ABANDONED_MINESHAFT));
+		output.accept(getStructureId(BuiltinStructures.OCEAN_MONUMENT),
 				LootTable.lootTable().withPool(LootPool.lootPool()
 						.add(NestedLootTable.lootTableReference(EntityType.ELDER_GUARDIAN.getDefaultLootTable()).setWeight(5))
 						// sponge is a player-kill drop and won't be rolled for the elder guardian table by the Loonium
@@ -133,23 +116,23 @@ public class LooniumStructureLootProvider implements DataProvider {
 
 				)
 		);
-		tables.put(getStructureId(BuiltinStructures.OCEAN_RUIN_COLD),
+		output.accept(getStructureId(BuiltinStructures.OCEAN_RUIN_COLD),
 				buildOceanRuinLootTable(BuiltInLootTables.OCEAN_RUIN_COLD_ARCHAEOLOGY)
 		);
-		tables.put(getStructureId(BuiltinStructures.OCEAN_RUIN_WARM),
+		output.accept(getStructureId(BuiltinStructures.OCEAN_RUIN_WARM),
 				buildOceanRuinLootTable(BuiltInLootTables.OCEAN_RUIN_WARM_ARCHAEOLOGY)
 		);
-		tables.put(getStructureId(BuiltinStructures.PILLAGER_OUTPOST), buildDelegateLootTable(BuiltInLootTables.PILLAGER_OUTPOST));
-		tables.put(getStructureId(BuiltinStructures.RUINED_PORTAL_DESERT), buildDelegateLootTable(BuiltInLootTables.RUINED_PORTAL));
-		tables.put(getStructureId(BuiltinStructures.RUINED_PORTAL_JUNGLE), buildDelegateLootTable(BuiltInLootTables.RUINED_PORTAL));
-		tables.put(getStructureId(BuiltinStructures.RUINED_PORTAL_MOUNTAIN), buildDelegateLootTable(BuiltInLootTables.RUINED_PORTAL));
-		tables.put(getStructureId(BuiltinStructures.RUINED_PORTAL_NETHER), buildDelegateLootTable(BuiltInLootTables.RUINED_PORTAL));
-		tables.put(getStructureId(BuiltinStructures.RUINED_PORTAL_OCEAN), buildDelegateLootTable(BuiltInLootTables.RUINED_PORTAL));
-		tables.put(getStructureId(BuiltinStructures.RUINED_PORTAL_STANDARD), buildDelegateLootTable(BuiltInLootTables.RUINED_PORTAL));
-		tables.put(getStructureId(BuiltinStructures.RUINED_PORTAL_SWAMP), buildDelegateLootTable(BuiltInLootTables.RUINED_PORTAL));
-		tables.put(getStructureId(BuiltinStructures.SHIPWRECK), buildShipwreckLootTable());
-		tables.put(getStructureId(BuiltinStructures.SHIPWRECK_BEACHED), buildShipwreckLootTable());
-		tables.put(getStructureId(BuiltinStructures.STRONGHOLD),
+		output.accept(getStructureId(BuiltinStructures.PILLAGER_OUTPOST), buildDelegateLootTable(BuiltInLootTables.PILLAGER_OUTPOST));
+		output.accept(getStructureId(BuiltinStructures.RUINED_PORTAL_DESERT), buildDelegateLootTable(BuiltInLootTables.RUINED_PORTAL));
+		output.accept(getStructureId(BuiltinStructures.RUINED_PORTAL_JUNGLE), buildDelegateLootTable(BuiltInLootTables.RUINED_PORTAL));
+		output.accept(getStructureId(BuiltinStructures.RUINED_PORTAL_MOUNTAIN), buildDelegateLootTable(BuiltInLootTables.RUINED_PORTAL));
+		output.accept(getStructureId(BuiltinStructures.RUINED_PORTAL_NETHER), buildDelegateLootTable(BuiltInLootTables.RUINED_PORTAL));
+		output.accept(getStructureId(BuiltinStructures.RUINED_PORTAL_OCEAN), buildDelegateLootTable(BuiltInLootTables.RUINED_PORTAL));
+		output.accept(getStructureId(BuiltinStructures.RUINED_PORTAL_STANDARD), buildDelegateLootTable(BuiltInLootTables.RUINED_PORTAL));
+		output.accept(getStructureId(BuiltinStructures.RUINED_PORTAL_SWAMP), buildDelegateLootTable(BuiltInLootTables.RUINED_PORTAL));
+		output.accept(getStructureId(BuiltinStructures.SHIPWRECK), buildShipwreckLootTable());
+		output.accept(getStructureId(BuiltinStructures.SHIPWRECK_BEACHED), buildShipwreckLootTable());
+		output.accept(getStructureId(BuiltinStructures.STRONGHOLD),
 				// Strongholds generate up to 4 corridor chests, up to 6 crossings, and up to 2 libraries with 1 or 2 chests
 				LootTable.lootTable().withPool(LootPool.lootPool()
 						.add(NestedLootTable.lootTableReference(BuiltInLootTables.STRONGHOLD_CORRIDOR).setWeight(4))
@@ -158,7 +141,7 @@ public class LooniumStructureLootProvider implements DataProvider {
 				)
 		);
 		// skipping swamp hut, because it doesn't contain unique loot (could merge witch/cat tables, I guess)
-		tables.put(getStructureId(BuiltinStructures.TRAIL_RUINS),
+		output.accept(getStructureId(BuiltinStructures.TRAIL_RUINS),
 				// Trail ruins have 2 common suspicious gravel for the tower top and each road section,
 				// and 6 common plus 3 rare suspicious gravel per building and for the tower bottom.
 				LootTable.lootTable().withPool(LootPool.lootPool()
@@ -166,22 +149,22 @@ public class LooniumStructureLootProvider implements DataProvider {
 						.add(NestedLootTable.lootTableReference(BuiltInLootTables.TRAIL_RUINS_ARCHAEOLOGY_RARE))
 				)
 		);
-		tables.put(getStructureId(BuiltinStructures.VILLAGE_PLAINS),
+		output.accept(getStructureId(BuiltinStructures.VILLAGE_PLAINS),
 				buildVillageLootTable(BuiltInLootTables.VILLAGE_PLAINS_HOUSE, PLAINS_VILLAGE_LOOT)
 		);
-		tables.put(getStructureId(BuiltinStructures.VILLAGE_DESERT),
+		output.accept(getStructureId(BuiltinStructures.VILLAGE_DESERT),
 				buildVillageLootTable(BuiltInLootTables.VILLAGE_DESERT_HOUSE, DESERT_VILLAGE_LOOT)
 		);
-		tables.put(getStructureId(BuiltinStructures.VILLAGE_SAVANNA),
+		output.accept(getStructureId(BuiltinStructures.VILLAGE_SAVANNA),
 				buildVillageLootTable(BuiltInLootTables.VILLAGE_SAVANNA_HOUSE, SAVANNA_VILLAGE_LOOT)
 		);
-		tables.put(getStructureId(BuiltinStructures.VILLAGE_SNOWY),
+		output.accept(getStructureId(BuiltinStructures.VILLAGE_SNOWY),
 				buildVillageLootTable(BuiltInLootTables.VILLAGE_SNOWY_HOUSE, SNOWY_VILLAGE_LOOT)
 		);
-		tables.put(getStructureId(BuiltinStructures.VILLAGE_TAIGA),
+		output.accept(getStructureId(BuiltinStructures.VILLAGE_TAIGA),
 				buildVillageLootTable(BuiltInLootTables.VILLAGE_TAIGA_HOUSE, TAIGA_VILLAGE_LOOT)
 		);
-		tables.put(getStructureId(BuiltinStructures.WOODLAND_MANSION),
+		output.accept(getStructureId(BuiltinStructures.WOODLAND_MANSION),
 				LootTable.lootTable().withPool(LootPool.lootPool()
 						.add(NestedLootTable.lootTableReference(BuiltInLootTables.WOODLAND_MANSION).setWeight(99))
 						.add(LootItem.lootTableItem(Items.TOTEM_OF_UNDYING).setWeight(1))
@@ -220,11 +203,6 @@ public class LooniumStructureLootProvider implements DataProvider {
 				.add(NestedLootTable.lootTableReference(BuiltInLootTables.UNDERWATER_RUIN_SMALL).setWeight(8))
 				.add(NestedLootTable.lootTableReference(archaeology))
 		);
-	}
-
-	@Override
-	public String getName() {
-		return "Structure-specific loot tables for the Loonium";
 	}
 
 	public enum VillageLoot {
