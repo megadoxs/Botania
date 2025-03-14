@@ -140,7 +140,7 @@ public class ItemTagProvider extends ItemTagsProvider {
 
 		Predicate<Item> jukeboxPlayablePredicate = item -> item.components().has(DataComponents.JUKEBOX_PLAYABLE);
 		this.tag(BotaniaTags.Items.LOONIUM_BLACKLIST)
-				.add(lexicon, overgrowthSeed, blackLotus, blackerLotus)
+				.add(lexicon, overgrowthSeed, blackLotus, blackerLotus, Items.TRIAL_KEY, Items.OMINOUS_TRIAL_KEY)
 				.add(getItems(jukeboxPlayablePredicate));
 		this.tag(BotaniaTags.Items.LOONIUM_OFFHAND_EQUIPMENT)
 				.add(Items.FIREWORK_ROCKET, Items.TOTEM_OF_UNDYING)

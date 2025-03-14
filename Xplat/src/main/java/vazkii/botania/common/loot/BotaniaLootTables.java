@@ -36,6 +36,7 @@ public class BotaniaLootTables {
 	public static final ResourceKey<LootTable> LOONIUM_ARMOR_SHIPWRECK = register("equipment/loonium/armor_shipwreck");
 	public static final ResourceKey<LootTable> LOONIUM_ARMOR_STRONGHOLD = register("equipment/loonium/armor_stronghold");
 	public static final ResourceKey<LootTable> LOONIUM_ARMOR_TRAIL_RUINS = register("equipment/loonium/armor_trail_ruins");
+	public static final ResourceKey<LootTable> LOONIUM_ARMOR_TRIAL_CHAMBER = register("equipment/loonium/armor_trial_chamber");
 
 	public static final ResourceKey<LootTable> LOONIUM_DROWNED_DEFAULT = register("equipment/loonium/drowned");
 	public static final ResourceKey<LootTable> LOONIUM_DROWNED_ANCIENT_CITY = register("equipment/loonium/drowned_ancient_city");
@@ -45,6 +46,7 @@ public class BotaniaLootTables {
 	public static final ResourceKey<LootTable> LOONIUM_DROWNED_SHIPWRECK = register("equipment/loonium/drowned_shipwreck");
 	public static final ResourceKey<LootTable> LOONIUM_DROWNED_STRONGHOLD = register("equipment/loonium/drowned_stronghold");
 	public static final ResourceKey<LootTable> LOONIUM_DROWNED_TRAIL_RUINS = register("equipment/loonium/drowned_trail_ruins");
+	public static final ResourceKey<LootTable> LOONIUM_DROWNED_TRIAL_CHAMBER = register("equipment/loonium/drowned_trial_chamber");
 
 	public static final ResourceKey<LootTable> LOONIUM_PIGLIN_BRUTE_DEFAULT = register("equipment/loonium/piglin_brute");
 	public static final ResourceKey<LootTable> LOONIUM_PIGLIN_BASTION_REMNANT = register("equipment/loonium/piglin_bastion_remnant");
@@ -64,6 +66,7 @@ public class BotaniaLootTables {
 	public static final ResourceKey<LootTable> LOONIUM_SKELETON_SHIPWRECK = register("equipment/loonium/skeleton_shipwreck");
 	public static final ResourceKey<LootTable> LOONIUM_SKELETON_STRONGHOLD = register("equipment/loonium/skeleton_stronghold");
 	public static final ResourceKey<LootTable> LOONIUM_SKELETON_TRAIL_RUINS = register("equipment/loonium/skeleton_trail_ruins");
+	public static final ResourceKey<LootTable> LOONIUM_SKELETON_TRIAL_CHAMBER = register("equipment/loonium/skeleton_trial_chamber");
 
 	public static final ResourceKey<LootTable> LOONIUM_VINDICATOR_DEFAULT = register("equipment/loonium/vindicator");
 
@@ -79,6 +82,7 @@ public class BotaniaLootTables {
 	public static final ResourceKey<LootTable> LOONIUM_ZOMBIE_SHIPWRECK = register("equipment/loonium/zombie_shipwreck");
 	public static final ResourceKey<LootTable> LOONIUM_ZOMBIE_STRONGHOLD = register("equipment/loonium/zombie_stronghold");
 	public static final ResourceKey<LootTable> LOONIUM_ZOMBIE_TRAIL_RUINS = register("equipment/loonium/zombie_trail_ruins");
+	public static final ResourceKey<LootTable> LOONIUM_ZOMBIE_TRIAL_CHAMBER = register("equipment/loonium/zombie_trial_chamber");
 
 	public static final ResourceKey<LootTable> LOONIUM_ZOMBIE_VILLAGER = register("equipment/loonium/zombie_villager");
 

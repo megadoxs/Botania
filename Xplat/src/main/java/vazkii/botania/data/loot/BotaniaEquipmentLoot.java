@@ -106,7 +106,7 @@ public class BotaniaEquipmentLoot implements LootTableSubProvider {
 		defineShipwreckEquipmentTables(output);
 		defineStrongholdEquipmentTables(output);
 		defineTrailRuinsEquipmentTables(output);
-		// TODO add trial chamber equipment
+		defineTrialChamberEquipmentTables(output);
 		defineWoodlandMansionEquipmentTables(output);
 	}
 
@@ -655,6 +655,40 @@ public class BotaniaEquipmentLoot implements LootTableSubProvider {
 				LootTable.lootTable()
 						.withPool(LootPool.lootPool().add(buildWeaponSword()))
 						.withPool(LootPool.lootPool().add(NestedLootTable.lootTableReference(BotaniaLootTables.LOONIUM_ARMOR_TRAIL_RUINS)))
+		);
+	}
+
+	private void defineTrialChamberEquipmentTables(BiConsumer<ResourceKey<LootTable>, LootTable.Builder> output) {
+
+		ArmorTrim trimBoltCopper = getTrim(TrimPatterns.BOLT, TrimMaterials.COPPER);
+		ArmorTrim trimFlowDiamond = getTrim(TrimPatterns.FLOW, TrimMaterials.DIAMOND);
+
+		output.accept(BotaniaLootTables.LOONIUM_ARMOR_TRIAL_CHAMBER,
+				LootTable.lootTable().withPool(LootPool.lootPool()
+						.add(NestedLootTable.inlineLootTable(createRandomizedArmorSet(trimBoltCopper,
+								armorItems.get(ArmorMaterials.CHAIN)).build()).setWeight(4))
+						.add(NestedLootTable.inlineLootTable(createRandomizedArmorSet(trimFlowDiamond,
+								armorItems.get(ArmorMaterials.IRON)).build()).setWeight(4))
+						.add(NestedLootTable.inlineLootTable(createRandomizedArmorSet(trimBoltCopper,
+								armorItems.get(ArmorMaterials.IRON)).build()).setWeight(1))
+						.add(NestedLootTable.inlineLootTable(createRandomizedArmorSet(trimFlowDiamond,
+								armorItems.get(ArmorMaterials.DIAMOND)).build()).setWeight(1))
+				)
+		);
+		output.accept(BotaniaLootTables.LOONIUM_DROWNED_TRIAL_CHAMBER,
+				LootTable.lootTable()
+						.withPool(LootPool.lootPool().add(buildWeaponTrident()))
+						.withPool(LootPool.lootPool().add(NestedLootTable.lootTableReference(BotaniaLootTables.LOONIUM_ARMOR_TRIAL_CHAMBER)))
+		);
+		output.accept(BotaniaLootTables.LOONIUM_SKELETON_TRIAL_CHAMBER,
+				LootTable.lootTable()
+						.withPool(LootPool.lootPool().add(buildWeaponBow()))
+						.withPool(LootPool.lootPool().add(NestedLootTable.lootTableReference(BotaniaLootTables.LOONIUM_ARMOR_TRIAL_CHAMBER)))
+		);
+		output.accept(BotaniaLootTables.LOONIUM_ZOMBIE_TRIAL_CHAMBER,
+				LootTable.lootTable()
+						.withPool(LootPool.lootPool().add(buildWeaponSword()))
+						.withPool(LootPool.lootPool().add(NestedLootTable.lootTableReference(BotaniaLootTables.LOONIUM_ARMOR_TRIAL_CHAMBER)))
 		);
 	}
 

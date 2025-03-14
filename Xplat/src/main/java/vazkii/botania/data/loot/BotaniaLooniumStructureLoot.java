@@ -149,6 +149,19 @@ public class BotaniaLooniumStructureLoot implements LootTableSubProvider {
 						.add(NestedLootTable.lootTableReference(BuiltInLootTables.TRAIL_RUINS_ARCHAEOLOGY_RARE))
 				)
 		);
+		output.accept(getStructureId(BuiltinStructures.TRIAL_CHAMBERS),
+				// TODO: figure out appropriate weights (rewards are probably drowned out by other choices)
+				LootTable.lootTable().withPool(LootPool.lootPool()
+						.add(NestedLootTable.lootTableReference(BuiltInLootTables.TRIAL_CHAMBERS_CORRIDOR))
+						.add(NestedLootTable.lootTableReference(BuiltInLootTables.TRIAL_CHAMBERS_CORRIDOR_POT))
+						.add(NestedLootTable.lootTableReference(BuiltInLootTables.TRIAL_CHAMBERS_ENTRANCE))
+						.add(NestedLootTable.lootTableReference(BuiltInLootTables.TRIAL_CHAMBERS_INTERSECTION))
+						.add(NestedLootTable.lootTableReference(BuiltInLootTables.TRIAL_CHAMBERS_INTERSECTION_BARREL))
+						.add(NestedLootTable.lootTableReference(BuiltInLootTables.TRIAL_CHAMBERS_REWARD).setWeight(2))
+						.add(NestedLootTable.lootTableReference(BuiltInLootTables.TRIAL_CHAMBERS_REWARD_OMINOUS))
+						.add(NestedLootTable.lootTableReference(BuiltInLootTables.TRIAL_CHAMBERS_SUPPLY))
+				)
+		);
 		output.accept(getStructureId(BuiltinStructures.VILLAGE_PLAINS),
 				buildVillageLootTable(BuiltInLootTables.VILLAGE_PLAINS_HOUSE, PLAINS_VILLAGE_LOOT)
 		);

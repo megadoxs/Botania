@@ -108,6 +108,7 @@ public class LooniumStructureConfigurationProvider implements DataProvider {
 
 		configs.put(BuiltinStructures.STRONGHOLD.location(), getConfigStronghold(defaultConfigId));
 		configs.put(BuiltinStructures.TRAIL_RUINS.location(), getConfigTrailRuins(defaultConfigId));
+		configs.put(BuiltinStructures.TRIAL_CHAMBERS.location(), getConfigTrialChamber(defaultConfigId));
 
 		ResourceLocation villageId = botaniaRL("village");
 		configs.put(villageId, LooniumStructureConfiguration.forParent(defaultConfigId)
@@ -574,6 +575,29 @@ public class LooniumStructureConfigurationProvider implements DataProvider {
 						.equipmentTable(BotaniaLootTables.LOONIUM_SKELETON_TRAIL_RUINS).build(),
 				LooniumMobSpawnData.entityWeight(EntityType.CAVE_SPIDER, 59).build(),
 				LooniumMobSpawnData.entityWeight(EntityType.SPIDER, 529).build()
+		).build();
+	}
+
+	public static LooniumStructureConfiguration getConfigTrialChamber(ResourceLocation parentId) {
+		return LooniumStructureConfiguration.forParent(parentId).spawnedMobs(
+				LooniumMobSpawnData.entityWeight(EntityType.ENDERMAN, 40).build(),
+				getCreeperSpawnData(195, false, getCreeperEffects(false)),
+				getCreeperSpawnData(1, true, getCreeperEffects(false)),
+				LooniumMobSpawnData.entityWeight(EntityType.HUSK, 106)
+						.equipmentTable(BotaniaLootTables.LOONIUM_ZOMBIE_TRIAL_CHAMBER).build(),
+				LooniumMobSpawnData.entityWeight(EntityType.DROWNED, 59)
+						.equipmentTable(BotaniaLootTables.LOONIUM_DROWNED_TRIAL_CHAMBER).build(),
+				LooniumMobSpawnData.entityWeight(EntityType.ZOMBIE, 423)
+						.equipmentTable(BotaniaLootTables.LOONIUM_ZOMBIE_TRIAL_CHAMBER).build(),
+				LooniumMobSpawnData.entityWeight(EntityType.STRAY, 49)
+						.equipmentTable(BotaniaLootTables.LOONIUM_SKELETON_TRIAL_CHAMBER).build(),
+				LooniumMobSpawnData.entityWeight(EntityType.BOGGED, 49)
+						.equipmentTable(BotaniaLootTables.LOONIUM_SKELETON_TRIAL_CHAMBER).build(),
+				LooniumMobSpawnData.entityWeight(EntityType.SKELETON, 509)
+						.equipmentTable(BotaniaLootTables.LOONIUM_SKELETON_TRIAL_CHAMBER).build(),
+				LooniumMobSpawnData.entityWeight(EntityType.CAVE_SPIDER, 59).build(),
+				LooniumMobSpawnData.entityWeight(EntityType.SPIDER, 529).build(),
+				LooniumMobSpawnData.entityWeight(EntityType.BREEZE, 200).build()
 		).build();
 	}
 
