@@ -44,6 +44,7 @@ import net.minecraft.world.level.storage.loot.LootContext;
 import net.minecraft.world.level.storage.loot.LootPool;
 import net.minecraft.world.level.storage.loot.LootTable;
 import net.minecraft.world.level.storage.loot.entries.LootItem;
+import net.minecraft.world.level.storage.loot.entries.LootPoolEntryContainer;
 import net.minecraft.world.level.storage.loot.entries.LootPoolSingletonContainer;
 import net.minecraft.world.level.storage.loot.entries.NestedLootTable;
 import net.minecraft.world.level.storage.loot.functions.EnchantRandomlyFunction;
@@ -55,14 +56,12 @@ import net.minecraft.world.level.storage.loot.predicates.LootItemRandomChanceCon
 import net.minecraft.world.level.storage.loot.providers.number.ConstantValue;
 import net.minecraft.world.level.storage.loot.providers.number.UniformGenerator;
 
-import org.apache.commons.lang3.function.TriFunction;
-
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.common.loot.BotaniaLootTables;
 
+import java.util.List;
 import java.util.Map;
 import java.util.function.BiConsumer;
-import java.util.function.BiFunction;
 import java.util.function.UnaryOperator;
 
 public class BotaniaEquipmentLoot implements LootTableSubProvider {
@@ -75,118 +74,121 @@ public class BotaniaEquipmentLoot implements LootTableSubProvider {
 	public static final int COLOR_ILLUSIONER_COAT = 0x3b7bc2; // (blue + light blue)
 
 	private final HolderLookup.Provider registries;
+	private final HolderLookup.RegistryLookup<TrimPattern> patternRegistry;
+	private final HolderLookup.RegistryLookup<TrimMaterial> materialRegistry;
+	private final Map<Holder<ArmorMaterial>, List<Item>> armorItems = Map.of(
+			ArmorMaterials.LEATHER, List.of(Items.LEATHER_HELMET, Items.LEATHER_CHESTPLATE, Items.LEATHER_LEGGINGS, Items.LEATHER_BOOTS),
+			ArmorMaterials.CHAIN, List.of(Items.CHAINMAIL_HELMET, Items.CHAINMAIL_CHESTPLATE, Items.CHAINMAIL_LEGGINGS, Items.CHAINMAIL_BOOTS),
+			ArmorMaterials.IRON, List.of(Items.IRON_HELMET, Items.IRON_CHESTPLATE, Items.IRON_LEGGINGS, Items.IRON_BOOTS),
+			ArmorMaterials.GOLD, List.of(Items.GOLDEN_HELMET, Items.GOLDEN_CHESTPLATE, Items.GOLDEN_LEGGINGS, Items.GOLDEN_BOOTS),
+			ArmorMaterials.DIAMOND, List.of(Items.DIAMOND_HELMET, Items.DIAMOND_CHESTPLATE, Items.DIAMOND_LEGGINGS, Items.DIAMOND_BOOTS),
+			ArmorMaterials.NETHERITE, List.of(Items.NETHERITE_HELMET, Items.NETHERITE_CHESTPLATE, Items.NETHERITE_LEGGINGS, Items.NETHERITE_BOOTS)
+	);
 
 	public BotaniaEquipmentLoot(HolderLookup.Provider registries) {
 		this.registries = registries;
+		this.patternRegistry = registries.lookupOrThrow(Registries.TRIM_PATTERN);
+		this.materialRegistry = registries.lookupOrThrow(Registries.TRIM_MATERIAL);
 	}
 
 	@Override
 	public void generate(BiConsumer<ResourceKey<LootTable>, LootTable.Builder> output) {
-		HolderLookup.RegistryLookup<TrimPattern> patternRegistry = registries.lookupOrThrow(Registries.TRIM_PATTERN);
-		HolderLookup.RegistryLookup<TrimMaterial> materialRegistry = registries.lookupOrThrow(Registries.TRIM_MATERIAL);
-		BiFunction<ResourceKey<TrimPattern>, ResourceKey<TrimMaterial>, ArmorTrim> trimFactory =
-				(pattern, material) -> getTrim(patternRegistry, materialRegistry, pattern, material);
-		BiFunction<ArmorTrim, Item[], LootTable.Builder> randomizedSetFactory =
-				(trim, armorItems) -> createArmorSet(addTrim(trim), true, armorItems);
-		TriFunction<ArmorTrim, Integer, Item[], LootTable.Builder> randomizedDyedSetFactory =
-				(trim, color, armorItems) -> createArmorSet(addTrimAndDye(trim, color), true, armorItems);
-		TriFunction<ArmorTrim, Integer, Item[], LootTable.Builder> fixedDyedSetFactory =
-				(trim, color, armorItems) -> createArmorSet(addTrimAndDye(trim, color), false, armorItems);
-
-		Map<Holder<ArmorMaterial>, Item[]> armorItems = Map.of(
-				ArmorMaterials.LEATHER, new Item[] {
-						Items.LEATHER_HELMET, Items.LEATHER_CHESTPLATE, Items.LEATHER_LEGGINGS, Items.LEATHER_BOOTS
-				},
-				ArmorMaterials.CHAIN, new Item[] {
-						Items.CHAINMAIL_HELMET, Items.CHAINMAIL_CHESTPLATE, Items.CHAINMAIL_LEGGINGS, Items.CHAINMAIL_BOOTS
-				},
-				ArmorMaterials.IRON, new Item[] {
-						Items.IRON_HELMET, Items.IRON_CHESTPLATE, Items.IRON_LEGGINGS, Items.IRON_BOOTS
-				},
-				ArmorMaterials.GOLD, new Item[] {
-						Items.GOLDEN_HELMET, Items.GOLDEN_CHESTPLATE, Items.GOLDEN_LEGGINGS, Items.GOLDEN_BOOTS
-				},
-				ArmorMaterials.DIAMOND, new Item[] {
-						Items.DIAMOND_HELMET, Items.DIAMOND_CHESTPLATE, Items.DIAMOND_LEGGINGS, Items.DIAMOND_BOOTS
-				},
-				ArmorMaterials.NETHERITE, new Item[] {
-						Items.NETHERITE_HELMET, Items.NETHERITE_CHESTPLATE, Items.NETHERITE_LEGGINGS, Items.NETHERITE_BOOTS
-				}
-		);
-
-		// TODO: weapon and armor tables should probably be embedded now instead of being separate references
-		defineWeaponEquipmentTables(output);
-		defineAncientCityEquipmentTables(output, armorItems, trimFactory, randomizedSetFactory);
-		defineBastionRemnantEquipmentTables(output, armorItems, trimFactory, randomizedSetFactory);
-		defineDesertPyramidEquipmentTables(output, armorItems, trimFactory, randomizedSetFactory);
-		defineEndCityEquipmentTables(output, armorItems, trimFactory, randomizedSetFactory);
-		defineJungleTempleEquipmentTables(output, armorItems, trimFactory, randomizedSetFactory);
-		defineFortressEquipmentTables(output, armorItems, trimFactory, randomizedSetFactory);
-		defineOceanMonumentEquipmentTables(output, armorItems, trimFactory, randomizedSetFactory, randomizedDyedSetFactory);
-		definePillagerOutpostEquipmentTables(output, armorItems, trimFactory, randomizedSetFactory);
+		defineDefaultEquipmentTables(output);
+		defineAncientCityEquipmentTables(output);
+		defineBastionRemnantEquipmentTables(output);
+		defineDesertPyramidEquipmentTables(output);
+		defineEndCityEquipmentTables(output);
+		defineJungleTempleEquipmentTables(output);
+		defineFortressEquipmentTables(output);
+		defineOceanMonumentEquipmentTables(output);
+		definePillagerOutpostEquipmentTables(output);
 		defineRuinedPortalEquipmentTables(output);
-		defineShipwreckEquipmentTables(output, armorItems, trimFactory, randomizedSetFactory);
-		defineStrongholdEquipmentTables(output, armorItems, trimFactory, randomizedSetFactory);
-		defineTrailRuinsEquipmentTables(output, armorItems, trimFactory, randomizedSetFactory);
+		defineShipwreckEquipmentTables(output);
+		defineStrongholdEquipmentTables(output);
+		defineTrailRuinsEquipmentTables(output);
 		// TODO add trial chamber equipment
-		defineWoodlandMansionEquipmentTables(output, trimFactory, fixedDyedSetFactory);
+		defineWoodlandMansionEquipmentTables(output);
 	}
 
-	private void defineWeaponEquipmentTables(BiConsumer<ResourceKey<LootTable>, LootTable.Builder> output) {
-		output.accept(BotaniaLootTables.LOONIUM_WEAPON_AXE,
-				LootTable.lootTable().withPool(LootPool.lootPool()
-						.apply(EnchantRandomlyFunction.randomApplicableEnchantment(registries)
-								.when(LootItemRandomChanceCondition.randomChance(0.3f)))
-						.add(LootItem.lootTableItem(Items.IRON_AXE))
-				// no need to add diamond axe, it's the same base damage, but actually less enchantable
+	private LootPoolEntryContainer.Builder<?> buildWeaponAxe() {
+		return NestedLootTable.inlineLootTable(LootTable.lootTable().withPool(LootPool.lootPool()
+				.apply(EnchantRandomlyFunction.randomApplicableEnchantment(registries)
+						.when(LootItemRandomChanceCondition.randomChance(0.3f)))
+				.add(LootItem.lootTableItem(Items.IRON_AXE).setWeight(4))
+				.add(LootItem.lootTableItem(Items.DIAMOND_AXE))
+		).build());
+	}
+
+	private LootPoolEntryContainer.Builder<?> buildWeaponAxeGold() {
+		return LootItem.lootTableItem(Items.GOLDEN_AXE)
+				.apply(EnchantRandomlyFunction.randomApplicableEnchantment(registries)
+						.when(LootItemRandomChanceCondition.randomChance(0.3f)));
+	}
+
+	private LootPoolEntryContainer.Builder<?> buildWeaponAxeIron() {
+		return LootItem.lootTableItem(Items.IRON_AXE)
+				.apply(EnchantRandomlyFunction.randomApplicableEnchantment(registries)
+						.when(LootItemRandomChanceCondition.randomChance(0.3f)));
+	}
+
+	private LootPoolEntryContainer.Builder<?> buildWeaponBow() {
+		return LootItem.lootTableItem(Items.BOW)
+				.apply(EnchantRandomlyFunction.randomApplicableEnchantment(registries)
+						.when(LootItemRandomChanceCondition.randomChance(0.3f)));
+	}
+
+	private LootPoolEntryContainer.Builder<?> buildWeaponCrossbow() {
+		return LootItem.lootTableItem(Items.CROSSBOW)
+				.apply(EnchantRandomlyFunction.randomApplicableEnchantment(registries));
+	}
+
+	private LootPoolEntryContainer.Builder<?> buildWeaponSword() {
+		return NestedLootTable.inlineLootTable(LootTable.lootTable().withPool(LootPool.lootPool()
+				.apply(EnchantRandomlyFunction.randomApplicableEnchantment(registries)
+						.when(LootItemRandomChanceCondition.randomChance(0.3f)))
+				.add(LootItem.lootTableItem(Items.IRON_SWORD).setWeight(4))
+				.add(LootItem.lootTableItem(Items.DIAMOND_SWORD))
+		).build());
+	}
+
+	private LootPoolEntryContainer.Builder<?> buildWeaponSwordGold() {
+		return LootItem.lootTableItem(Items.GOLDEN_SWORD)
+				.apply(EnchantRandomlyFunction.randomApplicableEnchantment(registries)
+						.when(LootItemRandomChanceCondition.randomChance(0.3f)));
+	}
+
+	private LootPoolEntryContainer.Builder<?> buildWeaponTrident() {
+		// no useful enchantments for mob usage
+		return LootItem.lootTableItem(Items.TRIDENT);
+	}
+
+	private LootPoolEntryContainer.Builder<?> buildZombieVillagerEquipmentByProfession() {
+		return NestedLootTable.inlineLootTable(LootTable.lootTable()
+				.withPool(LootPool.lootPool()
+						.add(NestedLootTable.inlineLootTable(
+								createArmorSet(UnaryOperator.identity(), true, armorItems.get(ArmorMaterials.CHAIN)).build()
+						).setWeight(4))
+						.add(NestedLootTable.inlineLootTable(
+								createArmorSet(UnaryOperator.identity(), true, armorItems.get(ArmorMaterials.IRON)).build()
+						).setWeight(10))
+						.add(NestedLootTable.inlineLootTable(
+								createArmorSet(UnaryOperator.identity(), true, armorItems.get(ArmorMaterials.DIAMOND)).build()
+						).setWeight(1))
+						.when(LootItemEntityPropertyCondition.hasProperties(LootContext.EntityTarget.THIS,
+								EntityPredicate.Builder.entity().nbt(
+										new NbtPredicate(getProfessionNbt(VillagerProfession.ARMORER)))))
 				)
-		);
-		output.accept(BotaniaLootTables.LOONIUM_WEAPON_AXE_GOLD,
-				LootTable.lootTable().withPool(LootPool.lootPool()
-						.apply(EnchantRandomlyFunction.randomApplicableEnchantment(registries)
-								.when(LootItemRandomChanceCondition.randomChance(0.3f)))
-						.add(LootItem.lootTableItem(Items.GOLDEN_AXE))
+				.withPool(LootPool.lootPool()
+						.add(NestedLootTable.inlineLootTable(
+								// TODO: is there any good way to randomly dye the armor items?
+								createArmorSet(UnaryOperator.identity(), true, armorItems.get(ArmorMaterials.LEATHER)).build()
+						))
+						.when(LootItemEntityPropertyCondition.hasProperties(LootContext.EntityTarget.THIS,
+								EntityPredicate.Builder.entity().nbt(
+										new NbtPredicate(getProfessionNbt(VillagerProfession.LEATHERWORKER)))))
 				)
-		);
-		output.accept(BotaniaLootTables.LOONIUM_WEAPON_BOW,
-				LootTable.lootTable().withPool(LootPool.lootPool()
-						.apply(EnchantRandomlyFunction.randomApplicableEnchantment(registries)
-								.when(LootItemRandomChanceCondition.randomChance(0.3f)))
-						.add(LootItem.lootTableItem(Items.BOW))
-				)
-		);
-		output.accept(BotaniaLootTables.LOONIUM_WEAPON_CROSSBOW,
-				LootTable.lootTable().withPool(LootPool.lootPool()
-						.apply(EnchantRandomlyFunction.randomApplicableEnchantment(registries))
-						.add(LootItem.lootTableItem(Items.CROSSBOW))
-				)
-		);
-		output.accept(BotaniaLootTables.LOONIUM_WEAPON_SWORD,
-				LootTable.lootTable().withPool(LootPool.lootPool()
-						.apply(EnchantRandomlyFunction.randomApplicableEnchantment(registries)
-								.when(LootItemRandomChanceCondition.randomChance(0.3f)))
-						.add(LootItem.lootTableItem(Items.IRON_SWORD).setWeight(4))
-						.add(LootItem.lootTableItem(Items.DIAMOND_SWORD))
-				)
-		);
-		output.accept(BotaniaLootTables.LOONIUM_WEAPON_SWORD_GOLD,
-				LootTable.lootTable().withPool(LootPool.lootPool()
-						.apply(EnchantRandomlyFunction.randomApplicableEnchantment(registries)
-								.when(LootItemRandomChanceCondition.randomChance(0.3f)))
-						.add(LootItem.lootTableItem(Items.GOLDEN_SWORD))
-				)
-		);
-		output.accept(BotaniaLootTables.LOONIUM_WEAPON_TRIDENT,
-				LootTable.lootTable().withPool(LootPool.lootPool()
-						// no useful enchantments for mob usage
-						.add(LootItem.lootTableItem(Items.TRIDENT))
-				)
-		);
-		output.accept(BotaniaLootTables.LOONIUM_WEAPON_BY_PROFESSION,
-				LootTable.lootTable().withPool(LootPool.lootPool()
-						.add(NestedLootTable.lootTableReference(BotaniaLootTables.LOONIUM_WEAPON_AXE)
-								.apply(EnchantRandomlyFunction.randomApplicableEnchantment(registries)
-										.when(LootItemRandomChanceCondition.randomChance(0.3f)))
+				.withPool(LootPool.lootPool()
+						.add(buildWeaponAxe()
 								.when(LootItemEntityPropertyCondition.hasProperties(LootContext.EntityTarget.THIS,
 										EntityPredicate.Builder.entity().nbt(
 												new NbtPredicate(getProfessionNbt(VillagerProfession.BUTCHER))))))
@@ -194,6 +196,10 @@ public class BotaniaEquipmentLoot implements LootTableSubProvider {
 								.when(LootItemEntityPropertyCondition.hasProperties(LootContext.EntityTarget.THIS,
 										EntityPredicate.Builder.entity().nbt(
 												new NbtPredicate(getProfessionNbt(VillagerProfession.FARMER))))))
+						.add(LootItem.lootTableItem(Items.BOW)
+								.when(LootItemEntityPropertyCondition.hasProperties(LootContext.EntityTarget.THIS,
+										EntityPredicate.Builder.entity().nbt(
+												new NbtPredicate(getProfessionNbt(VillagerProfession.FLETCHER))))))
 						.add(LootItem.lootTableItem(Items.FISHING_ROD)
 								.when(LootItemEntityPropertyCondition.hasProperties(LootContext.EntityTarget.THIS,
 										EntityPredicate.Builder.entity().nbt(
@@ -202,31 +208,31 @@ public class BotaniaEquipmentLoot implements LootTableSubProvider {
 								.when(LootItemEntityPropertyCondition.hasProperties(LootContext.EntityTarget.THIS,
 										EntityPredicate.Builder.entity().nbt(
 												new NbtPredicate(getProfessionNbt(VillagerProfession.TOOLSMITH))))))
-						.add(NestedLootTable.lootTableReference(BotaniaLootTables.LOONIUM_WEAPON_SWORD)
-								.apply(EnchantRandomlyFunction.randomApplicableEnchantment(registries)
-										.when(LootItemRandomChanceCondition.randomChance(0.3f)))
+						.add(buildWeaponSword()
 								.when(LootItemEntityPropertyCondition.hasProperties(LootContext.EntityTarget.THIS,
 										EntityPredicate.Builder.entity().nbt(
 												new NbtPredicate(getProfessionNbt(VillagerProfession.WEAPONSMITH))))))
-				)
-		);
-		output.accept(BotaniaLootTables.LOONIUM_WEAPON_FOR_PIGLIN,
-				LootTable.lootTable().withPool(LootPool.lootPool()
-						.apply(EnchantRandomlyFunction.randomApplicableEnchantment(registries)
-								.when(LootItemRandomChanceCondition.randomChance(0.3f)))
-						.add(NestedLootTable.lootTableReference(BotaniaLootTables.LOONIUM_WEAPON_SWORD_GOLD))
-						.add(NestedLootTable.lootTableReference(BotaniaLootTables.LOONIUM_WEAPON_CROSSBOW))
-				)
-		);
-		output.accept(BotaniaLootTables.LOONIUM_WEAPON_FOR_WITHER_SKELETON,
-				LootTable.lootTable().withPool(LootPool.lootPool().setRolls(UniformGenerator.between(-1, 1))
-						.apply(EnchantRandomlyFunction.randomApplicableEnchantment(registries))
-						.add(LootItem.lootTableItem(Items.STONE_SWORD))
-						.add(LootItem.lootTableItem(Items.BOW))
-				)
-		);
+				).build());
 	}
 
+	private LootPoolEntryContainer.Builder<?> buildWeaponForPiglin() {
+		return NestedLootTable.inlineLootTable(LootTable.lootTable().withPool(LootPool.lootPool()
+				.apply(EnchantRandomlyFunction.randomApplicableEnchantment(registries)
+						.when(LootItemRandomChanceCondition.randomChance(0.3f)))
+				.add(LootItem.lootTableItem(Items.GOLDEN_SWORD))
+				.add(LootItem.lootTableItem(Items.CROSSBOW))
+		).build());
+	}
+
+	private LootPoolEntryContainer.Builder<?> buildWeaponForWitherSkeleton() {
+		return NestedLootTable.inlineLootTable(LootTable.lootTable().withPool(LootPool.lootPool().setRolls(UniformGenerator.between(-1, 1))
+				.apply(EnchantRandomlyFunction.randomApplicableEnchantment(registries))
+				.add(LootItem.lootTableItem(Items.STONE_SWORD))
+				.add(LootItem.lootTableItem(Items.BOW))
+		).build());
+	}
+
+	// [VanillaCopy] Tag names are synchronized with ZombieVillager::addAdditionalSaveData and VillagerData::CODEC
 	private CompoundTag getProfessionNbt(VillagerProfession profession) {
 		var villagerDataTag = new CompoundTag();
 		BuiltInRegistries.VILLAGER_PROFESSION.byNameCodec().encodeStart(NbtOps.INSTANCE, profession).resultOrPartial(
@@ -236,28 +242,38 @@ public class BotaniaEquipmentLoot implements LootTableSubProvider {
 		return tag;
 	}
 
-	private void defineAncientCityEquipmentTables(BiConsumer<ResourceKey<LootTable>, LootTable.Builder> output,
-			Map<Holder<ArmorMaterial>, Item[]> armorItems,
-			BiFunction<ResourceKey<TrimPattern>, ResourceKey<TrimMaterial>, ArmorTrim> trimFactory,
-			BiFunction<ArmorTrim, Item[], LootTable.Builder> randomizedSetFactory) {
+	private void defineDefaultEquipmentTables(BiConsumer<ResourceKey<LootTable>, LootTable.Builder> output) {
+		output.accept(BotaniaLootTables.LOONIUM_DROWNED_DEFAULT,
+				LootTable.lootTable().withPool(LootPool.lootPool().add(buildWeaponTrident())));
+		output.accept(BotaniaLootTables.LOONIUM_PIGLIN_BRUTE_DEFAULT,
+				LootTable.lootTable().withPool(LootPool.lootPool().add(buildWeaponAxeGold())));
+		output.accept(BotaniaLootTables.LOONIUM_PILLAGER_DEFAULT,
+				LootTable.lootTable().withPool(LootPool.lootPool().add(buildWeaponCrossbow())));
+		output.accept(BotaniaLootTables.LOONIUM_SKELETON_DEFAULT,
+				LootTable.lootTable().withPool(LootPool.lootPool().add(buildWeaponBow())));
+		output.accept(BotaniaLootTables.LOONIUM_VINDICATOR_DEFAULT,
+				LootTable.lootTable().withPool(LootPool.lootPool().add(buildWeaponAxeIron())));
+		output.accept(BotaniaLootTables.LOONIUM_ZOMBIE_DEFAULT,
+				LootTable.lootTable().withPool(LootPool.lootPool().add(buildWeaponSword())));
+		output.accept(BotaniaLootTables.LOONIUM_ZOMBIE_VILLAGER,
+				LootTable.lootTable().withPool(LootPool.lootPool().add(buildZombieVillagerEquipmentByProfession())));
+	}
 
-		ArmorTrim trimWardQuartz = trimFactory.apply(TrimPatterns.WARD, TrimMaterials.QUARTZ);
-		ArmorTrim trimSilenceCopper = trimFactory.apply(TrimPatterns.SILENCE, TrimMaterials.COPPER);
-		output.accept(BotaniaLootTables.LOONIUM_ARMORSET_WARD_IRON,
-				randomizedSetFactory.apply(trimWardQuartz, armorItems.get(ArmorMaterials.IRON)));
-		output.accept(BotaniaLootTables.LOONIUM_ARMORSET_WARD_DIAMOND,
-				randomizedSetFactory.apply(trimWardQuartz, armorItems.get(ArmorMaterials.DIAMOND)));
-		output.accept(BotaniaLootTables.LOONIUM_ARMORSET_SILENCE_GOLD,
-				randomizedSetFactory.apply(trimSilenceCopper, armorItems.get(ArmorMaterials.GOLD)));
-		output.accept(BotaniaLootTables.LOONIUM_ARMORSET_SILENCE_DIAMOND,
-				randomizedSetFactory.apply(trimSilenceCopper, armorItems.get(ArmorMaterials.DIAMOND)));
+	private void defineAncientCityEquipmentTables(BiConsumer<ResourceKey<LootTable>, LootTable.Builder> output) {
+
+		ArmorTrim trimWardQuartz = getTrim(TrimPatterns.WARD, TrimMaterials.QUARTZ);
+		ArmorTrim trimSilenceCopper = getTrim(TrimPatterns.SILENCE, TrimMaterials.COPPER);
 
 		output.accept(BotaniaLootTables.LOONIUM_ARMOR_ANCIENT_CITY,
 				LootTable.lootTable().withPool(LootPool.lootPool()
-						.add(NestedLootTable.lootTableReference(BotaniaLootTables.LOONIUM_ARMORSET_WARD_IRON).setWeight(11))
-						.add(NestedLootTable.lootTableReference(BotaniaLootTables.LOONIUM_ARMORSET_WARD_DIAMOND).setWeight(5))
-						.add(NestedLootTable.lootTableReference(BotaniaLootTables.LOONIUM_ARMORSET_SILENCE_GOLD).setWeight(3))
-						.add(NestedLootTable.lootTableReference(BotaniaLootTables.LOONIUM_ARMORSET_SILENCE_DIAMOND).setWeight(1))
+						.add(NestedLootTable.inlineLootTable(createRandomizedArmorSet(trimWardQuartz,
+								armorItems.get(ArmorMaterials.IRON)).build()).setWeight(11))
+						.add(NestedLootTable.inlineLootTable(createRandomizedArmorSet(trimWardQuartz,
+								armorItems.get(ArmorMaterials.DIAMOND)).build()).setWeight(5))
+						.add(NestedLootTable.inlineLootTable(createRandomizedArmorSet(trimSilenceCopper,
+								armorItems.get(ArmorMaterials.GOLD)).build()).setWeight(3))
+						.add(NestedLootTable.inlineLootTable(createRandomizedArmorSet(trimSilenceCopper,
+								armorItems.get(ArmorMaterials.DIAMOND)).build()).setWeight(1))
 				).withPool(LootPool.lootPool()
 						// Note: Slowness from Strays stacks with tipped arrow effects, so just checking for bow here
 						.when(LootItemEntityPropertyCondition.hasProperties(LootContext.EntityTarget.THIS,
@@ -271,98 +287,81 @@ public class BotaniaEquipmentLoot implements LootTableSubProvider {
 		);
 		output.accept(BotaniaLootTables.LOONIUM_DROWNED_ANCIENT_CITY,
 				LootTable.lootTable()
-						.withPool(LootPool.lootPool().add(NestedLootTable.lootTableReference(BotaniaLootTables.LOONIUM_WEAPON_TRIDENT)))
+						.withPool(LootPool.lootPool().add(buildWeaponTrident()))
 						.withPool(LootPool.lootPool().add(NestedLootTable.lootTableReference(BotaniaLootTables.LOONIUM_ARMOR_ANCIENT_CITY)))
 		);
 		output.accept(BotaniaLootTables.LOONIUM_SKELETON_ANCIENT_CITY,
 				LootTable.lootTable()
-						.withPool(LootPool.lootPool().add(NestedLootTable.lootTableReference(BotaniaLootTables.LOONIUM_WEAPON_BOW)))
+						.withPool(LootPool.lootPool().add(buildWeaponBow()))
 						.withPool(LootPool.lootPool().add(NestedLootTable.lootTableReference(BotaniaLootTables.LOONIUM_ARMOR_ANCIENT_CITY)))
 		);
 		output.accept(BotaniaLootTables.LOONIUM_ZOMBIE_ANCIENT_CITY,
 				LootTable.lootTable()
-						.withPool(LootPool.lootPool().add(NestedLootTable.lootTableReference(BotaniaLootTables.LOONIUM_WEAPON_SWORD)))
+						.withPool(LootPool.lootPool().add(buildWeaponSword()))
 						.withPool(LootPool.lootPool().add(NestedLootTable.lootTableReference(BotaniaLootTables.LOONIUM_ARMOR_ANCIENT_CITY)))
 		);
 	}
 
-	private void defineBastionRemnantEquipmentTables(BiConsumer<ResourceKey<LootTable>, LootTable.Builder> output,
-			Map<Holder<ArmorMaterial>, Item[]> armorItems,
-			BiFunction<ResourceKey<TrimPattern>, ResourceKey<TrimMaterial>, ArmorTrim> trimFactory,
-			BiFunction<ArmorTrim, Item[], LootTable.Builder> randomizedSetFactory) {
+	private void defineBastionRemnantEquipmentTables(BiConsumer<ResourceKey<LootTable>, LootTable.Builder> output) {
 
-		ArmorTrim trimSnoutGold = trimFactory.apply(TrimPatterns.SNOUT, TrimMaterials.GOLD);
-		ArmorTrim trimSnoutNetherite = trimFactory.apply(TrimPatterns.SNOUT, TrimMaterials.NETHERITE);
-		output.accept(BotaniaLootTables.LOONIUM_ARMORSET_SNOUT_GOLD,
-				randomizedSetFactory.apply(trimSnoutNetherite, armorItems.get(ArmorMaterials.GOLD)));
-		output.accept(BotaniaLootTables.LOONIUM_ARMORSET_SNOUT_NETHERITE,
-				randomizedSetFactory.apply(trimSnoutGold, armorItems.get(ArmorMaterials.NETHERITE)));
+		ArmorTrim trimSnoutGold = getTrim(TrimPatterns.SNOUT, TrimMaterials.GOLD);
+		ArmorTrim trimSnoutNetherite = getTrim(TrimPatterns.SNOUT, TrimMaterials.NETHERITE);
 
 		output.accept(BotaniaLootTables.LOONIUM_ARMOR_BASTION_REMNANT,
 				LootTable.lootTable().withPool(LootPool.lootPool()
-						.add(NestedLootTable.lootTableReference(BotaniaLootTables.LOONIUM_ARMORSET_SNOUT_GOLD).setWeight(4))
-						.add(NestedLootTable.lootTableReference(BotaniaLootTables.LOONIUM_ARMORSET_SNOUT_NETHERITE).setWeight(1))
+						.add(NestedLootTable.inlineLootTable(createRandomizedArmorSet(trimSnoutNetherite,
+								armorItems.get(ArmorMaterials.GOLD)).build()).setWeight(4))
+						.add(NestedLootTable.inlineLootTable(createRandomizedArmorSet(trimSnoutGold,
+								armorItems.get(ArmorMaterials.NETHERITE)).build()).setWeight(1))
 				)
 		);
 		output.accept(BotaniaLootTables.LOONIUM_PIGLIN_BASTION_REMNANT,
 				LootTable.lootTable()
-						.withPool(LootPool.lootPool().add(NestedLootTable.lootTableReference(BotaniaLootTables.LOONIUM_WEAPON_FOR_PIGLIN)))
+						.withPool(LootPool.lootPool().add(buildWeaponForPiglin()))
 						.withPool(LootPool.lootPool().add(NestedLootTable.lootTableReference(BotaniaLootTables.LOONIUM_ARMOR_BASTION_REMNANT)))
 		);
 	}
 
-	private void defineDesertPyramidEquipmentTables(BiConsumer<ResourceKey<LootTable>, LootTable.Builder> output,
-			Map<Holder<ArmorMaterial>, Item[]> armorItems,
-			BiFunction<ResourceKey<TrimPattern>, ResourceKey<TrimMaterial>, ArmorTrim> trimFactory,
-			BiFunction<ArmorTrim, Item[], LootTable.Builder> randomizedSetFactory) {
+	private void defineDesertPyramidEquipmentTables(BiConsumer<ResourceKey<LootTable>, LootTable.Builder> output) {
 
-		ArmorTrim trimDuneRedstone = trimFactory.apply(TrimPatterns.DUNE, TrimMaterials.REDSTONE);
-		output.accept(BotaniaLootTables.LOONIUM_ARMORSET_DUNE_IRON,
-				randomizedSetFactory.apply(trimDuneRedstone, armorItems.get(ArmorMaterials.IRON)));
-		output.accept(BotaniaLootTables.LOONIUM_ARMORSET_DUNE_GOLD,
-				randomizedSetFactory.apply(trimDuneRedstone, armorItems.get(ArmorMaterials.GOLD)));
-		output.accept(BotaniaLootTables.LOONIUM_ARMORSET_DUNE_DIAMOND,
-				randomizedSetFactory.apply(trimDuneRedstone, armorItems.get(ArmorMaterials.DIAMOND)));
+		ArmorTrim trimDuneRedstone = getTrim(TrimPatterns.DUNE, TrimMaterials.REDSTONE);
 
 		output.accept(BotaniaLootTables.LOONIUM_ARMOR_DESERT_PYRAMID,
 				LootTable.lootTable().withPool(LootPool.lootPool()
-						.add(NestedLootTable.lootTableReference(BotaniaLootTables.LOONIUM_ARMORSET_DUNE_IRON).setWeight(5))
-						.add(NestedLootTable.lootTableReference(BotaniaLootTables.LOONIUM_ARMORSET_DUNE_GOLD).setWeight(2))
-						.add(NestedLootTable.lootTableReference(BotaniaLootTables.LOONIUM_ARMORSET_DUNE_DIAMOND).setWeight(1))
+						.add(NestedLootTable.inlineLootTable(createRandomizedArmorSet(trimDuneRedstone,
+								armorItems.get(ArmorMaterials.IRON)).build()).setWeight(5))
+						.add(NestedLootTable.inlineLootTable(createRandomizedArmorSet(trimDuneRedstone,
+								armorItems.get(ArmorMaterials.GOLD)).build()).setWeight(2))
+						.add(NestedLootTable.inlineLootTable(createRandomizedArmorSet(trimDuneRedstone,
+								armorItems.get(ArmorMaterials.DIAMOND)).build()).setWeight(1))
 				)
 		);
 		output.accept(BotaniaLootTables.LOONIUM_SKELETON_DESERT_PYRAMID,
 				LootTable.lootTable()
-						.withPool(LootPool.lootPool().add(NestedLootTable.lootTableReference(BotaniaLootTables.LOONIUM_WEAPON_BOW)))
+						.withPool(LootPool.lootPool().add(buildWeaponBow()))
 						.withPool(LootPool.lootPool().add(NestedLootTable.lootTableReference(BotaniaLootTables.LOONIUM_ARMOR_DESERT_PYRAMID)))
 		);
 		output.accept(BotaniaLootTables.LOONIUM_ZOMBIE_DESERT_PYRAMID,
 				LootTable.lootTable()
-						.withPool(LootPool.lootPool().add(NestedLootTable.lootTableReference(BotaniaLootTables.LOONIUM_WEAPON_SWORD)))
+						.withPool(LootPool.lootPool().add(buildWeaponSword()))
 						.withPool(LootPool.lootPool().add(NestedLootTable.lootTableReference(BotaniaLootTables.LOONIUM_ARMOR_DESERT_PYRAMID)))
 		);
 	}
 
-	private void defineEndCityEquipmentTables(BiConsumer<ResourceKey<LootTable>, LootTable.Builder> output,
-			Map<Holder<ArmorMaterial>, Item[]> armorItems,
-			BiFunction<ResourceKey<TrimPattern>, ResourceKey<TrimMaterial>, ArmorTrim> trimFactory,
-			BiFunction<ArmorTrim, Item[], LootTable.Builder> randomizedSetFactory) {
+	private void defineEndCityEquipmentTables(BiConsumer<ResourceKey<LootTable>, LootTable.Builder> output) {
 
-		ArmorTrim trimSpireAmethyst = trimFactory.apply(TrimPatterns.SPIRE, TrimMaterials.AMETHYST);
-		output.accept(BotaniaLootTables.LOONIUM_ARMORSET_SPIRE_IRON,
-				randomizedSetFactory.apply(trimSpireAmethyst, armorItems.get(ArmorMaterials.IRON)));
-		output.accept(BotaniaLootTables.LOONIUM_ARMORSET_SPIRE_GOLD,
-				randomizedSetFactory.apply(trimSpireAmethyst, armorItems.get(ArmorMaterials.GOLD)));
-		output.accept(BotaniaLootTables.LOONIUM_ARMORSET_SPIRE_DIAMOND,
-				randomizedSetFactory.apply(trimSpireAmethyst, armorItems.get(ArmorMaterials.DIAMOND)));
+		ArmorTrim trimSpireAmethyst = getTrim(TrimPatterns.SPIRE, TrimMaterials.AMETHYST);
 
 		output.accept(BotaniaLootTables.LOONIUM_ARMOR_END_CITY,
 				LootTable.lootTable().withPool(LootPool.lootPool()
 						.apply(EnchantRandomlyFunction.randomApplicableEnchantment(registries)
 								.when(LootItemRandomChanceCondition.randomChance(0.3f)))
-						.add(NestedLootTable.lootTableReference(BotaniaLootTables.LOONIUM_ARMORSET_SPIRE_IRON).setWeight(3))
-						.add(NestedLootTable.lootTableReference(BotaniaLootTables.LOONIUM_ARMORSET_SPIRE_GOLD).setWeight(2))
-						.add(NestedLootTable.lootTableReference(BotaniaLootTables.LOONIUM_ARMORSET_SPIRE_DIAMOND).setWeight(2))
+						.add(NestedLootTable.inlineLootTable(createRandomizedArmorSet(trimSpireAmethyst,
+								armorItems.get(ArmorMaterials.IRON)).build()).setWeight(3))
+						.add(NestedLootTable.inlineLootTable(createRandomizedArmorSet(trimSpireAmethyst,
+								armorItems.get(ArmorMaterials.GOLD)).build()).setWeight(2))
+						.add(NestedLootTable.inlineLootTable(createRandomizedArmorSet(trimSpireAmethyst,
+								armorItems.get(ArmorMaterials.DIAMOND)).build()).setWeight(2))
 				).withPool(LootPool.lootPool()
 						.when(LootItemEntityPropertyCondition.hasProperties(LootContext.EntityTarget.THIS,
 								EntityPredicate.Builder.entity()
@@ -375,150 +374,127 @@ public class BotaniaEquipmentLoot implements LootTableSubProvider {
 		);
 		output.accept(BotaniaLootTables.LOONIUM_SKELETON_END_CITY,
 				LootTable.lootTable()
-						.withPool(LootPool.lootPool().add(NestedLootTable.lootTableReference(BotaniaLootTables.LOONIUM_WEAPON_BOW)))
+						.withPool(LootPool.lootPool().add(buildWeaponBow()))
 						.withPool(LootPool.lootPool().add(NestedLootTable.lootTableReference(BotaniaLootTables.LOONIUM_ARMOR_END_CITY)))
 		);
 		output.accept(BotaniaLootTables.LOONIUM_ZOMBIE_END_CITY,
 				LootTable.lootTable()
-						.withPool(LootPool.lootPool().add(NestedLootTable.lootTableReference(BotaniaLootTables.LOONIUM_WEAPON_SWORD)))
+						.withPool(LootPool.lootPool().add(buildWeaponSword()))
 						.withPool(LootPool.lootPool().add(NestedLootTable.lootTableReference(BotaniaLootTables.LOONIUM_ARMOR_END_CITY)))
 		);
 	}
 
-	private void defineFortressEquipmentTables(BiConsumer<ResourceKey<LootTable>, LootTable.Builder> output,
-			Map<Holder<ArmorMaterial>, Item[]> armorItems,
-			BiFunction<ResourceKey<TrimPattern>, ResourceKey<TrimMaterial>, ArmorTrim> trimFactory,
-			BiFunction<ArmorTrim, Item[], LootTable.Builder> randomizedSetFactory) {
+	private void defineFortressEquipmentTables(BiConsumer<ResourceKey<LootTable>, LootTable.Builder> output) {
 
-		ArmorTrim trimRibIron = trimFactory.apply(TrimPatterns.RIB, TrimMaterials.IRON);
-		output.accept(BotaniaLootTables.LOONIUM_ARMORSET_RIB_IRON,
-				randomizedSetFactory.apply(trimRibIron, armorItems.get(ArmorMaterials.IRON)));
-		output.accept(BotaniaLootTables.LOONIUM_ARMORSET_RIB_GOLD,
-				randomizedSetFactory.apply(trimRibIron, armorItems.get(ArmorMaterials.GOLD)));
-		output.accept(BotaniaLootTables.LOONIUM_ARMORSET_RIB_DIAMOND,
-				randomizedSetFactory.apply(trimRibIron, armorItems.get(ArmorMaterials.DIAMOND)));
+		ArmorTrim trimRibIron = getTrim(TrimPatterns.RIB, TrimMaterials.IRON);
 
 		output.accept(BotaniaLootTables.LOONIUM_ARMOR_FORTRESS,
 				LootTable.lootTable().withPool(LootPool.lootPool()
-						.add(NestedLootTable.lootTableReference(BotaniaLootTables.LOONIUM_ARMORSET_RIB_IRON).setWeight(7))
-						.add(NestedLootTable.lootTableReference(BotaniaLootTables.LOONIUM_ARMORSET_RIB_GOLD).setWeight(3))
-						.add(NestedLootTable.lootTableReference(BotaniaLootTables.LOONIUM_ARMORSET_RIB_DIAMOND).setWeight(2))
+						.add(NestedLootTable.inlineLootTable(createRandomizedArmorSet(trimRibIron,
+								armorItems.get(ArmorMaterials.IRON)).build()).setWeight(7))
+						.add(NestedLootTable.inlineLootTable(createRandomizedArmorSet(trimRibIron,
+								armorItems.get(ArmorMaterials.GOLD)).build()).setWeight(3))
+						.add(NestedLootTable.inlineLootTable(createRandomizedArmorSet(trimRibIron,
+								armorItems.get(ArmorMaterials.DIAMOND)).build()).setWeight(2))
 				)
 		);
 		output.accept(BotaniaLootTables.LOONIUM_SKELETON_FORTRESS,
 				LootTable.lootTable()
-						.withPool(LootPool.lootPool().add(NestedLootTable.lootTableReference(BotaniaLootTables.LOONIUM_WEAPON_FOR_WITHER_SKELETON)))
+						.withPool(LootPool.lootPool().add(buildWeaponForWitherSkeleton()))
 						.withPool(LootPool.lootPool().add(NestedLootTable.lootTableReference(BotaniaLootTables.LOONIUM_ARMOR_FORTRESS)))
 		);
 		output.accept(BotaniaLootTables.LOONIUM_ZOMBIE_FORTRESS,
 				LootTable.lootTable()
-						.withPool(LootPool.lootPool().add(NestedLootTable.lootTableReference(BotaniaLootTables.LOONIUM_WEAPON_SWORD_GOLD)))
+						.withPool(LootPool.lootPool().add(buildWeaponSwordGold()))
 						.withPool(LootPool.lootPool().add(NestedLootTable.lootTableReference(BotaniaLootTables.LOONIUM_ARMOR_FORTRESS)))
 		);
 	}
 
-	private void defineJungleTempleEquipmentTables(BiConsumer<ResourceKey<LootTable>, LootTable.Builder> output,
-			Map<Holder<ArmorMaterial>, Item[]> armorItems,
-			BiFunction<ResourceKey<TrimPattern>, ResourceKey<TrimMaterial>, ArmorTrim> trimFactory,
-			BiFunction<ArmorTrim, Item[], LootTable.Builder> randomizedSetFactory) {
+	private void defineJungleTempleEquipmentTables(BiConsumer<ResourceKey<LootTable>, LootTable.Builder> output) {
 
-		ArmorTrim trimWildEmerald = trimFactory.apply(TrimPatterns.WILD, TrimMaterials.EMERALD);
-		output.accept(BotaniaLootTables.LOONIUM_ARMORSET_WILD_CHAIN,
-				randomizedSetFactory.apply(trimWildEmerald, armorItems.get(ArmorMaterials.CHAIN)));
-		output.accept(BotaniaLootTables.LOONIUM_ARMORSET_WILD_GOLD,
-				randomizedSetFactory.apply(trimWildEmerald, armorItems.get(ArmorMaterials.GOLD)));
-		output.accept(BotaniaLootTables.LOONIUM_ARMORSET_WILD_DIAMOND,
-				randomizedSetFactory.apply(trimWildEmerald, armorItems.get(ArmorMaterials.DIAMOND)));
+		ArmorTrim trimWildEmerald = getTrim(TrimPatterns.WILD, TrimMaterials.EMERALD);
 
 		output.accept(BotaniaLootTables.LOONIUM_ARMOR_JUNGLE_TEMPLE,
 				LootTable.lootTable().withPool(LootPool.lootPool()
-						.add(NestedLootTable.lootTableReference(BotaniaLootTables.LOONIUM_ARMORSET_WILD_CHAIN).setWeight(4))
-						.add(NestedLootTable.lootTableReference(BotaniaLootTables.LOONIUM_ARMORSET_WILD_GOLD).setWeight(2))
-						.add(NestedLootTable.lootTableReference(BotaniaLootTables.LOONIUM_ARMORSET_WILD_DIAMOND).setWeight(1))
+						.add(NestedLootTable.inlineLootTable(createRandomizedArmorSet(trimWildEmerald,
+								armorItems.get(ArmorMaterials.CHAIN)).build()).setWeight(4))
+						.add(NestedLootTable.inlineLootTable(createRandomizedArmorSet(trimWildEmerald,
+								armorItems.get(ArmorMaterials.GOLD)).build()).setWeight(2))
+						.add(NestedLootTable.inlineLootTable(createRandomizedArmorSet(trimWildEmerald,
+								armorItems.get(ArmorMaterials.DIAMOND)).build()).setWeight(1))
 				)
 		);
 		output.accept(BotaniaLootTables.LOONIUM_DROWNED_JUNGLE_TEMPLE,
 				LootTable.lootTable()
-						.withPool(LootPool.lootPool().add(NestedLootTable.lootTableReference(BotaniaLootTables.LOONIUM_WEAPON_TRIDENT)))
+						.withPool(LootPool.lootPool().add(buildWeaponTrident()))
 						.withPool(LootPool.lootPool().add(NestedLootTable.lootTableReference(BotaniaLootTables.LOONIUM_ARMOR_JUNGLE_TEMPLE)))
 		);
 		output.accept(BotaniaLootTables.LOONIUM_SKELETON_JUNGLE_TEMPLE,
 				LootTable.lootTable()
-						.withPool(LootPool.lootPool().add(NestedLootTable.lootTableReference(BotaniaLootTables.LOONIUM_WEAPON_BOW)))
+						.withPool(LootPool.lootPool().add(buildWeaponBow()))
 						.withPool(LootPool.lootPool().add(NestedLootTable.lootTableReference(BotaniaLootTables.LOONIUM_ARMOR_JUNGLE_TEMPLE)))
 		);
 		output.accept(BotaniaLootTables.LOONIUM_ZOMBIE_JUNGLE_TEMPLE,
 				LootTable.lootTable()
-						.withPool(LootPool.lootPool().add(NestedLootTable.lootTableReference(BotaniaLootTables.LOONIUM_WEAPON_SWORD)))
+						.withPool(LootPool.lootPool().add(buildWeaponSword()))
 						.withPool(LootPool.lootPool().add(NestedLootTable.lootTableReference(BotaniaLootTables.LOONIUM_ARMOR_JUNGLE_TEMPLE)))
 		);
 	}
 
-	private void defineOceanMonumentEquipmentTables(BiConsumer<ResourceKey<LootTable>, LootTable.Builder> output,
-			Map<Holder<ArmorMaterial>, Item[]> armorItems,
-			BiFunction<ResourceKey<TrimPattern>, ResourceKey<TrimMaterial>, ArmorTrim> trimFactory,
-			BiFunction<ArmorTrim, Item[], LootTable.Builder> randomizedSetFactory,
-			TriFunction<ArmorTrim, Integer, Item[], LootTable.Builder> randomizedDyedSetFactory) {
-
-		output.accept(BotaniaLootTables.LOONIUM_ARMORSET_TIDE_LEATHER, randomizedDyedSetFactory.apply(
-				trimFactory.apply(TrimPatterns.TIDE, TrimMaterials.COPPER), COLOR_TIDE_LEATHER, armorItems.get(ArmorMaterials.LEATHER)));
-		output.accept(BotaniaLootTables.LOONIUM_ARMORSET_TIDE_GOLD, randomizedSetFactory.apply(
-				trimFactory.apply(TrimPatterns.TIDE, TrimMaterials.DIAMOND), armorItems.get(ArmorMaterials.GOLD)));
-		output.accept(BotaniaLootTables.LOONIUM_ARMORSET_TIDE_DIAMOND, randomizedSetFactory.apply(
-				trimFactory.apply(TrimPatterns.TIDE, TrimMaterials.GOLD), armorItems.get(ArmorMaterials.DIAMOND)));
+	private void defineOceanMonumentEquipmentTables(BiConsumer<ResourceKey<LootTable>, LootTable.Builder> output) {
 
 		output.accept(BotaniaLootTables.LOONIUM_ARMOR_MONUMENT,
 				LootTable.lootTable().withPool(LootPool.lootPool()
-						.add(NestedLootTable.lootTableReference(BotaniaLootTables.LOONIUM_ARMORSET_TIDE_LEATHER).setWeight(2))
-						.add(NestedLootTable.lootTableReference(BotaniaLootTables.LOONIUM_ARMORSET_TIDE_GOLD).setWeight(3))
-						.add(NestedLootTable.lootTableReference(BotaniaLootTables.LOONIUM_ARMORSET_TIDE_DIAMOND).setWeight(1))
+						.add(NestedLootTable.inlineLootTable(createRandomizedDyedArmorSet(
+								getTrim(TrimPatterns.TIDE, TrimMaterials.COPPER), COLOR_TIDE_LEATHER,
+								armorItems.get(ArmorMaterials.LEATHER)).build()).setWeight(2))
+						.add(NestedLootTable.inlineLootTable(createRandomizedArmorSet(
+								getTrim(TrimPatterns.TIDE, TrimMaterials.DIAMOND),
+								armorItems.get(ArmorMaterials.GOLD)).build()).setWeight(3))
+						.add(NestedLootTable.inlineLootTable(createRandomizedArmorSet(
+								getTrim(TrimPatterns.TIDE, TrimMaterials.GOLD),
+								armorItems.get(ArmorMaterials.DIAMOND)).build()).setWeight(1))
 				)
 		);
 		output.accept(BotaniaLootTables.LOONIUM_DROWNED_MONUMENT,
 				LootTable.lootTable()
-						.withPool(LootPool.lootPool().add(NestedLootTable.lootTableReference(BotaniaLootTables.LOONIUM_WEAPON_TRIDENT)))
+						.withPool(LootPool.lootPool().add(buildWeaponTrident()))
 						.withPool(LootPool.lootPool().add(NestedLootTable.lootTableReference(BotaniaLootTables.LOONIUM_ARMOR_MONUMENT)))
 		);
 		output.accept(BotaniaLootTables.LOONIUM_SKELETON_MONUMENT,
 				LootTable.lootTable()
-						.withPool(LootPool.lootPool().add(NestedLootTable.lootTableReference(BotaniaLootTables.LOONIUM_WEAPON_BOW)))
+						.withPool(LootPool.lootPool().add(buildWeaponBow()))
 						.withPool(LootPool.lootPool().add(NestedLootTable.lootTableReference(BotaniaLootTables.LOONIUM_ARMOR_MONUMENT)))
 		);
 		output.accept(BotaniaLootTables.LOONIUM_ZOMBIE_MONUMENT,
 				LootTable.lootTable()
-						.withPool(LootPool.lootPool().add(NestedLootTable.lootTableReference(BotaniaLootTables.LOONIUM_WEAPON_SWORD)))
+						.withPool(LootPool.lootPool().add(buildWeaponSword()))
 						.withPool(LootPool.lootPool().add(NestedLootTable.lootTableReference(BotaniaLootTables.LOONIUM_ARMOR_MONUMENT)))
 		);
 	}
 
-	private void definePillagerOutpostEquipmentTables(BiConsumer<ResourceKey<LootTable>, LootTable.Builder> output,
-			Map<Holder<ArmorMaterial>, Item[]> armorItems,
-			BiFunction<ResourceKey<TrimPattern>, ResourceKey<TrimMaterial>, ArmorTrim> trimFactory,
-			BiFunction<ArmorTrim, Item[], LootTable.Builder> randomizedSetFactory) {
+	private void definePillagerOutpostEquipmentTables(BiConsumer<ResourceKey<LootTable>, LootTable.Builder> output) {
 
-		ArmorTrim trimSentryEmerald = trimFactory.apply(TrimPatterns.SENTRY, TrimMaterials.EMERALD);
-		output.accept(BotaniaLootTables.LOONIUM_ARMORSET_SENTRY_CHAIN,
-				randomizedSetFactory.apply(trimSentryEmerald, armorItems.get(ArmorMaterials.CHAIN)));
-		output.accept(BotaniaLootTables.LOONIUM_ARMORSET_SENTRY_IRON,
-				randomizedSetFactory.apply(trimSentryEmerald, armorItems.get(ArmorMaterials.IRON)));
-		output.accept(BotaniaLootTables.LOONIUM_ARMORSET_SENTRY_DIAMOND,
-				randomizedSetFactory.apply(trimSentryEmerald, armorItems.get(ArmorMaterials.DIAMOND)));
+		ArmorTrim trimSentryEmerald = getTrim(TrimPatterns.SENTRY, TrimMaterials.EMERALD);
 
 		output.accept(BotaniaLootTables.LOONIUM_ARMOR_OUTPOST,
 				LootTable.lootTable().withPool(LootPool.lootPool()
-						.add(NestedLootTable.lootTableReference(BotaniaLootTables.LOONIUM_ARMORSET_SENTRY_CHAIN).setWeight(5))
-						.add(NestedLootTable.lootTableReference(BotaniaLootTables.LOONIUM_ARMORSET_SENTRY_IRON).setWeight(3))
-						.add(NestedLootTable.lootTableReference(BotaniaLootTables.LOONIUM_ARMORSET_SENTRY_DIAMOND).setWeight(1))
+						.add(NestedLootTable.inlineLootTable(createRandomizedArmorSet(trimSentryEmerald,
+								armorItems.get(ArmorMaterials.CHAIN)).build()).setWeight(5))
+						.add(NestedLootTable.inlineLootTable(createRandomizedArmorSet(trimSentryEmerald,
+								armorItems.get(ArmorMaterials.IRON)).build()).setWeight(3))
+						.add(NestedLootTable.inlineLootTable(createRandomizedArmorSet(trimSentryEmerald,
+								armorItems.get(ArmorMaterials.DIAMOND)).build()).setWeight(1))
 				)
 		);
 		output.accept(BotaniaLootTables.LOONIUM_SKELETON_OUTPOST,
 				LootTable.lootTable()
-						.withPool(LootPool.lootPool().add(NestedLootTable.lootTableReference(BotaniaLootTables.LOONIUM_WEAPON_BOW)))
+						.withPool(LootPool.lootPool().add(buildWeaponBow()))
 						.withPool(LootPool.lootPool().add(NestedLootTable.lootTableReference(BotaniaLootTables.LOONIUM_ARMOR_OUTPOST)))
 		);
 		output.accept(BotaniaLootTables.LOONIUM_ZOMBIE_OUTPOST,
 				LootTable.lootTable()
-						.withPool(LootPool.lootPool().add(NestedLootTable.lootTableReference(BotaniaLootTables.LOONIUM_WEAPON_SWORD)))
+						.withPool(LootPool.lootPool().add(buildWeaponSword()))
 						.withPool(LootPool.lootPool().add(NestedLootTable.lootTableReference(BotaniaLootTables.LOONIUM_ARMOR_OUTPOST)))
 		);
 	}
@@ -541,267 +517,230 @@ public class BotaniaEquipmentLoot implements LootTableSubProvider {
 				LootTable.lootTable()
 						.withPool(LootPool.lootPool().add(
 								NestedLootTable.lootTableReference(BotaniaLootTables.LOONIUM_ARMOR_PORTAL)))
-						.withPool(LootPool.lootPool().add(
-								NestedLootTable.lootTableReference(BotaniaLootTables.LOONIUM_WEAPON_TRIDENT)))
+						.withPool(LootPool.lootPool().add(buildWeaponTrident()))
 		);
 		output.accept(BotaniaLootTables.LOONIUM_PIGLIN_PORTAL,
 				LootTable.lootTable()
 						.withPool(LootPool.lootPool().add(
 								NestedLootTable.lootTableReference(BotaniaLootTables.LOONIUM_ARMOR_PORTAL)))
-						.withPool(LootPool.lootPool().add(
-								NestedLootTable.lootTableReference(BotaniaLootTables.LOONIUM_WEAPON_FOR_PIGLIN)))
+						.withPool(LootPool.lootPool().add(buildWeaponForPiglin()))
 		);
 		output.accept(BotaniaLootTables.LOONIUM_SKELETON_PORTAL,
 				LootTable.lootTable()
 						.withPool(LootPool.lootPool().add(
 								NestedLootTable.lootTableReference(BotaniaLootTables.LOONIUM_ARMOR_PORTAL)))
-						.withPool(LootPool.lootPool().add(
-								NestedLootTable.lootTableReference(BotaniaLootTables.LOONIUM_WEAPON_BOW)))
+						.withPool(LootPool.lootPool().add(buildWeaponBow()))
 		);
 		output.accept(BotaniaLootTables.LOONIUM_ZOMBIE_PORTAL,
 				LootTable.lootTable()
 						.withPool(LootPool.lootPool().add(
 								NestedLootTable.lootTableReference(BotaniaLootTables.LOONIUM_ARMOR_PORTAL)))
-						.withPool(LootPool.lootPool().add(
-								NestedLootTable.lootTableReference(BotaniaLootTables.LOONIUM_WEAPON_SWORD_GOLD)))
+						.withPool(LootPool.lootPool().add(buildWeaponSwordGold()))
 		);
 	}
 
-	private void defineShipwreckEquipmentTables(BiConsumer<ResourceKey<LootTable>, LootTable.Builder> output,
-			Map<Holder<ArmorMaterial>, Item[]> armorItems,
-			BiFunction<ResourceKey<TrimPattern>, ResourceKey<TrimMaterial>, ArmorTrim> trimFactory,
-			BiFunction<ArmorTrim, Item[], LootTable.Builder> randomizedSetFactory) {
+	private void defineShipwreckEquipmentTables(BiConsumer<ResourceKey<LootTable>, LootTable.Builder> output) {
 
-		ArmorTrim trimCoastEmerald = trimFactory.apply(TrimPatterns.COAST, TrimMaterials.EMERALD);
-		output.accept(BotaniaLootTables.LOONIUM_ARMORSET_COAST_CHAIN,
-				randomizedSetFactory.apply(trimCoastEmerald, armorItems.get(ArmorMaterials.CHAIN)));
-		output.accept(BotaniaLootTables.LOONIUM_ARMORSET_COAST_IRON,
-				randomizedSetFactory.apply(trimCoastEmerald, armorItems.get(ArmorMaterials.IRON)));
-		output.accept(BotaniaLootTables.LOONIUM_ARMORSET_COAST_DIAMOND,
-				randomizedSetFactory.apply(trimCoastEmerald, armorItems.get(ArmorMaterials.DIAMOND)));
+		ArmorTrim trimCoastEmerald = getTrim(TrimPatterns.COAST, TrimMaterials.EMERALD);
 
 		output.accept(BotaniaLootTables.LOONIUM_ARMOR_SHIPWRECK,
 				LootTable.lootTable().withPool(LootPool.lootPool()
-						.add(NestedLootTable.lootTableReference(BotaniaLootTables.LOONIUM_ARMORSET_COAST_CHAIN).setWeight(4))
-						.add(NestedLootTable.lootTableReference(BotaniaLootTables.LOONIUM_ARMORSET_COAST_IRON).setWeight(4))
-						.add(NestedLootTable.lootTableReference(BotaniaLootTables.LOONIUM_ARMORSET_COAST_DIAMOND).setWeight(1))
+						.add(NestedLootTable.inlineLootTable(createRandomizedArmorSet(trimCoastEmerald,
+								armorItems.get(ArmorMaterials.CHAIN)).build()).setWeight(4))
+						.add(NestedLootTable.inlineLootTable(createRandomizedArmorSet(trimCoastEmerald,
+								armorItems.get(ArmorMaterials.IRON)).build()).setWeight(4))
+						.add(NestedLootTable.inlineLootTable(createRandomizedArmorSet(trimCoastEmerald,
+								armorItems.get(ArmorMaterials.DIAMOND)).build()).setWeight(1))
 				)
 		);
 		output.accept(BotaniaLootTables.LOONIUM_DROWNED_SHIPWRECK,
 				LootTable.lootTable()
-						.withPool(LootPool.lootPool().add(NestedLootTable.lootTableReference(BotaniaLootTables.LOONIUM_WEAPON_TRIDENT)))
+						.withPool(LootPool.lootPool().add(buildWeaponTrident()))
 						.withPool(LootPool.lootPool().add(NestedLootTable.lootTableReference(BotaniaLootTables.LOONIUM_ARMOR_SHIPWRECK)))
 		);
 		output.accept(BotaniaLootTables.LOONIUM_SKELETON_SHIPWRECK,
 				LootTable.lootTable()
-						.withPool(LootPool.lootPool().add(NestedLootTable.lootTableReference(BotaniaLootTables.LOONIUM_WEAPON_BOW)))
+						.withPool(LootPool.lootPool().add(buildWeaponBow()))
 						.withPool(LootPool.lootPool().add(NestedLootTable.lootTableReference(BotaniaLootTables.LOONIUM_ARMOR_SHIPWRECK)))
 		);
 		output.accept(BotaniaLootTables.LOONIUM_ZOMBIE_SHIPWRECK,
 				LootTable.lootTable()
-						.withPool(LootPool.lootPool().add(NestedLootTable.lootTableReference(BotaniaLootTables.LOONIUM_WEAPON_SWORD)))
+						.withPool(LootPool.lootPool().add(buildWeaponSword()))
 						.withPool(LootPool.lootPool().add(NestedLootTable.lootTableReference(BotaniaLootTables.LOONIUM_ARMOR_SHIPWRECK)))
 		);
 	}
 
-	private void defineStrongholdEquipmentTables(BiConsumer<ResourceKey<LootTable>, LootTable.Builder> output,
-			Map<Holder<ArmorMaterial>, Item[]> armorItems,
-			BiFunction<ResourceKey<TrimPattern>, ResourceKey<TrimMaterial>, ArmorTrim> trimFactory,
-			BiFunction<ArmorTrim, Item[], LootTable.Builder> randomizedSetFactory) {
+	private void defineStrongholdEquipmentTables(BiConsumer<ResourceKey<LootTable>, LootTable.Builder> output) {
 
-		ArmorTrim trimEyeRedstone = trimFactory.apply(TrimPatterns.EYE, TrimMaterials.REDSTONE);
-		ArmorTrim trimEyeLapis = trimFactory.apply(TrimPatterns.EYE, TrimMaterials.LAPIS);
-		output.accept(BotaniaLootTables.LOONIUM_ARMORSET_EYE_IRON,
-				randomizedSetFactory.apply(trimEyeLapis, armorItems.get(ArmorMaterials.IRON)));
-		output.accept(BotaniaLootTables.LOONIUM_ARMORSET_EYE_GOLD,
-				randomizedSetFactory.apply(trimEyeRedstone, armorItems.get(ArmorMaterials.GOLD)));
-		output.accept(BotaniaLootTables.LOONIUM_ARMORSET_EYE_DIAMOND,
-				randomizedSetFactory.apply(trimEyeLapis, armorItems.get(ArmorMaterials.DIAMOND)));
-
-		// Enderman cosplay
-		ArmorTrim trimEyeAmethyst = trimFactory.apply(TrimPatterns.EYE, TrimMaterials.AMETHYST);
-		output.accept(BotaniaLootTables.LOONIUM_ARMORSET_COSTUME_ENDERMAN, LootTable.lootTable()
-				.withPool(LootPool.lootPool().add(LootItem.lootTableItem(Items.LEATHER_HELMET)
-						.apply(setTrim(trimEyeAmethyst)).apply(setDyedColor(COLOR_ENDERMAN_BODY))))
-				.withPool(LootPool.lootPool().add(LootItem.lootTableItem(Items.LEATHER_CHESTPLATE)
-						.apply(setDyedColor(COLOR_ENDERMAN_BODY))))
-				.withPool(LootPool.lootPool().add(LootItem.lootTableItem(Items.LEATHER_LEGGINGS)
-						.apply(setDyedColor(COLOR_ENDERMAN_BODY))))
-				.withPool(LootPool.lootPool().add(LootItem.lootTableItem(Items.LEATHER_BOOTS)
-						.apply(setDyedColor(COLOR_ENDERMAN_BODY))))
-		);
+		ArmorTrim trimEyeRedstone = getTrim(TrimPatterns.EYE, TrimMaterials.REDSTONE);
+		ArmorTrim trimEyeLapis = getTrim(TrimPatterns.EYE, TrimMaterials.LAPIS);
 
 		output.accept(BotaniaLootTables.LOONIUM_ARMOR_STRONGHOLD,
 				LootTable.lootTable().withPool(LootPool.lootPool()
-						.add(NestedLootTable.lootTableReference(BotaniaLootTables.LOONIUM_ARMORSET_EYE_IRON).setWeight(5))
-						.add(NestedLootTable.lootTableReference(BotaniaLootTables.LOONIUM_ARMORSET_EYE_GOLD).setWeight(3))
-						.add(NestedLootTable.lootTableReference(BotaniaLootTables.LOONIUM_ARMORSET_EYE_DIAMOND).setWeight(2))
-						.add(NestedLootTable.lootTableReference(BotaniaLootTables.LOONIUM_ARMORSET_COSTUME_ENDERMAN).setWeight(1))
+						.add(NestedLootTable.inlineLootTable(createRandomizedArmorSet(trimEyeLapis,
+								armorItems.get(ArmorMaterials.IRON)).build()).setWeight(5))
+						.add(NestedLootTable.inlineLootTable(createRandomizedArmorSet(trimEyeRedstone,
+								armorItems.get(ArmorMaterials.GOLD)).build()).setWeight(3))
+						.add(NestedLootTable.inlineLootTable(createRandomizedArmorSet(trimEyeLapis,
+								armorItems.get(ArmorMaterials.DIAMOND)).build()).setWeight(2))
+						// Enderman cosplay
+						.add(NestedLootTable.inlineLootTable(LootTable.lootTable()
+								.withPool(LootPool.lootPool().add(LootItem.lootTableItem(Items.LEATHER_HELMET)
+										.apply(setTrim(getTrim(TrimPatterns.EYE, TrimMaterials.AMETHYST)))
+										.apply(setDyedColor(COLOR_ENDERMAN_BODY))))
+								.withPool(LootPool.lootPool().add(LootItem.lootTableItem(Items.LEATHER_CHESTPLATE)
+										.apply(setDyedColor(COLOR_ENDERMAN_BODY))))
+								.withPool(LootPool.lootPool().add(LootItem.lootTableItem(Items.LEATHER_LEGGINGS)
+										.apply(setDyedColor(COLOR_ENDERMAN_BODY))))
+								.withPool(LootPool.lootPool().add(LootItem.lootTableItem(Items.LEATHER_BOOTS)
+										.apply(setDyedColor(COLOR_ENDERMAN_BODY))))
+								.build()).setWeight(1))
 				)
 		);
 		output.accept(BotaniaLootTables.LOONIUM_DROWNED_STRONGHOLD,
 				LootTable.lootTable()
-						.withPool(LootPool.lootPool().add(NestedLootTable.lootTableReference(BotaniaLootTables.LOONIUM_WEAPON_TRIDENT)))
+						.withPool(LootPool.lootPool().add(buildWeaponTrident()))
 						.withPool(LootPool.lootPool().add(NestedLootTable.lootTableReference(BotaniaLootTables.LOONIUM_ARMOR_STRONGHOLD)))
 		);
 		output.accept(BotaniaLootTables.LOONIUM_SKELETON_STRONGHOLD,
 				LootTable.lootTable()
-						.withPool(LootPool.lootPool().add(NestedLootTable.lootTableReference(BotaniaLootTables.LOONIUM_WEAPON_BOW)))
+						.withPool(LootPool.lootPool().add(buildWeaponBow()))
 						.withPool(LootPool.lootPool().add(NestedLootTable.lootTableReference(BotaniaLootTables.LOONIUM_ARMOR_STRONGHOLD)))
 		);
 		output.accept(BotaniaLootTables.LOONIUM_ZOMBIE_STRONGHOLD,
 				LootTable.lootTable()
-						.withPool(LootPool.lootPool().add(NestedLootTable.lootTableReference(BotaniaLootTables.LOONIUM_WEAPON_SWORD)))
+						.withPool(LootPool.lootPool().add(buildWeaponSword()))
 						.withPool(LootPool.lootPool().add(NestedLootTable.lootTableReference(BotaniaLootTables.LOONIUM_ARMOR_STRONGHOLD)))
 		);
 	}
 
-	private void defineTrailRuinsEquipmentTables(BiConsumer<ResourceKey<LootTable>, LootTable.Builder> output,
-			Map<Holder<ArmorMaterial>, Item[]> armorItems,
-			BiFunction<ResourceKey<TrimPattern>, ResourceKey<TrimMaterial>, ArmorTrim> trimFactory,
-			BiFunction<ArmorTrim, Item[], LootTable.Builder> randomizedSetFactory) {
+	private void defineTrailRuinsEquipmentTables(BiConsumer<ResourceKey<LootTable>, LootTable.Builder> output) {
 
-		ArmorTrim trimHostEmerald = trimFactory.apply(TrimPatterns.HOST, TrimMaterials.EMERALD);
-		output.accept(BotaniaLootTables.LOONIUM_ARMORSET_HOST_CHAIN,
-				randomizedSetFactory.apply(trimHostEmerald, armorItems.get(ArmorMaterials.CHAIN)));
-		output.accept(BotaniaLootTables.LOONIUM_ARMORSET_HOST_IRON,
-				randomizedSetFactory.apply(trimHostEmerald, armorItems.get(ArmorMaterials.IRON)));
-
-		ArmorTrim trimRaiserAmethyst = trimFactory.apply(TrimPatterns.RAISER, TrimMaterials.AMETHYST);
-		output.accept(BotaniaLootTables.LOONIUM_ARMORSET_RAISER_IRON,
-				randomizedSetFactory.apply(trimRaiserAmethyst, armorItems.get(ArmorMaterials.IRON)));
-		output.accept(BotaniaLootTables.LOONIUM_ARMORSET_RAISER_GOLD,
-				randomizedSetFactory.apply(trimRaiserAmethyst, armorItems.get(ArmorMaterials.GOLD)));
-
-		ArmorTrim trimShaperLapis = trimFactory.apply(TrimPatterns.SHAPER, TrimMaterials.LAPIS);
-		output.accept(BotaniaLootTables.LOONIUM_ARMORSET_SHAPER_GOLD,
-				randomizedSetFactory.apply(trimShaperLapis, armorItems.get(ArmorMaterials.GOLD)));
-		output.accept(BotaniaLootTables.LOONIUM_ARMORSET_SHAPER_DIAMOND,
-				randomizedSetFactory.apply(trimShaperLapis, armorItems.get(ArmorMaterials.DIAMOND)));
-
-		ArmorTrim trimWayfinderRedstone = trimFactory.apply(TrimPatterns.WAYFINDER, TrimMaterials.REDSTONE);
-		output.accept(BotaniaLootTables.LOONIUM_ARMORSET_WAYFINDER_CHAIN,
-				randomizedSetFactory.apply(trimWayfinderRedstone, armorItems.get(ArmorMaterials.CHAIN)));
-		output.accept(BotaniaLootTables.LOONIUM_ARMORSET_WAYFINDER_DIAMOND,
-				randomizedSetFactory.apply(trimWayfinderRedstone, armorItems.get(ArmorMaterials.DIAMOND)));
+		ArmorTrim trimHostEmerald = getTrim(TrimPatterns.HOST, TrimMaterials.EMERALD);
+		ArmorTrim trimRaiserAmethyst = getTrim(TrimPatterns.RAISER, TrimMaterials.AMETHYST);
+		ArmorTrim trimShaperLapis = getTrim(TrimPatterns.SHAPER, TrimMaterials.LAPIS);
+		ArmorTrim trimWayfinderRedstone = getTrim(TrimPatterns.WAYFINDER, TrimMaterials.REDSTONE);
 
 		output.accept(BotaniaLootTables.LOONIUM_ARMOR_TRAIL_RUINS,
 				LootTable.lootTable().withPool(LootPool.lootPool()
-						.add(NestedLootTable.lootTableReference(BotaniaLootTables.LOONIUM_ARMORSET_HOST_CHAIN).setWeight(7))
-						.add(NestedLootTable.lootTableReference(BotaniaLootTables.LOONIUM_ARMORSET_WAYFINDER_CHAIN).setWeight(7))
-						.add(NestedLootTable.lootTableReference(BotaniaLootTables.LOONIUM_ARMORSET_RAISER_IRON).setWeight(8))
-						.add(NestedLootTable.lootTableReference(BotaniaLootTables.LOONIUM_ARMORSET_HOST_IRON).setWeight(8))
-						.add(NestedLootTable.lootTableReference(BotaniaLootTables.LOONIUM_ARMORSET_RAISER_GOLD).setWeight(3))
-						.add(NestedLootTable.lootTableReference(BotaniaLootTables.LOONIUM_ARMORSET_SHAPER_GOLD).setWeight(3))
-						.add(NestedLootTable.lootTableReference(BotaniaLootTables.LOONIUM_ARMORSET_SHAPER_DIAMOND).setWeight(2))
-						.add(NestedLootTable.lootTableReference(BotaniaLootTables.LOONIUM_ARMORSET_WAYFINDER_DIAMOND).setWeight(2))
+						.add(NestedLootTable.inlineLootTable(createRandomizedArmorSet(trimHostEmerald,
+								armorItems.get(ArmorMaterials.CHAIN)).build()).setWeight(7))
+						.add(NestedLootTable.inlineLootTable(createRandomizedArmorSet(trimWayfinderRedstone,
+								armorItems.get(ArmorMaterials.CHAIN)).build()).setWeight(7))
+						.add(NestedLootTable.inlineLootTable(createRandomizedArmorSet(trimRaiserAmethyst,
+								armorItems.get(ArmorMaterials.IRON)).build()).setWeight(8))
+						.add(NestedLootTable.inlineLootTable(createRandomizedArmorSet(trimHostEmerald,
+								armorItems.get(ArmorMaterials.IRON)).build()).setWeight(8))
+						.add(NestedLootTable.inlineLootTable(createRandomizedArmorSet(trimRaiserAmethyst,
+								armorItems.get(ArmorMaterials.GOLD)).build()).setWeight(3))
+						.add(NestedLootTable.inlineLootTable(createRandomizedArmorSet(trimShaperLapis,
+								armorItems.get(ArmorMaterials.GOLD)).build()).setWeight(3))
+						.add(NestedLootTable.inlineLootTable(createRandomizedArmorSet(trimShaperLapis,
+								armorItems.get(ArmorMaterials.DIAMOND)).build()).setWeight(2))
+						.add(NestedLootTable.inlineLootTable(createRandomizedArmorSet(trimWayfinderRedstone,
+								armorItems.get(ArmorMaterials.DIAMOND)).build()).setWeight(2))
 				)
 		);
 		output.accept(BotaniaLootTables.LOONIUM_DROWNED_TRAIL_RUINS,
 				LootTable.lootTable()
-						.withPool(LootPool.lootPool().add(NestedLootTable.lootTableReference(BotaniaLootTables.LOONIUM_WEAPON_TRIDENT)))
+						.withPool(LootPool.lootPool().add(buildWeaponTrident()))
 						.withPool(LootPool.lootPool().add(NestedLootTable.lootTableReference(BotaniaLootTables.LOONIUM_ARMOR_TRAIL_RUINS)))
 		);
 		output.accept(BotaniaLootTables.LOONIUM_SKELETON_TRAIL_RUINS,
 				LootTable.lootTable()
-						.withPool(LootPool.lootPool().add(NestedLootTable.lootTableReference(BotaniaLootTables.LOONIUM_WEAPON_BOW)))
+						.withPool(LootPool.lootPool().add(buildWeaponBow()))
 						.withPool(LootPool.lootPool().add(NestedLootTable.lootTableReference(BotaniaLootTables.LOONIUM_ARMOR_TRAIL_RUINS)))
 		);
 		output.accept(BotaniaLootTables.LOONIUM_ZOMBIE_TRAIL_RUINS,
 				LootTable.lootTable()
-						.withPool(LootPool.lootPool().add(NestedLootTable.lootTableReference(BotaniaLootTables.LOONIUM_WEAPON_SWORD)))
+						.withPool(LootPool.lootPool().add(buildWeaponSword()))
 						.withPool(LootPool.lootPool().add(NestedLootTable.lootTableReference(BotaniaLootTables.LOONIUM_ARMOR_TRAIL_RUINS)))
 		);
 	}
 
-	private void defineWoodlandMansionEquipmentTables(BiConsumer<ResourceKey<LootTable>, LootTable.Builder> output,
-			BiFunction<ResourceKey<TrimPattern>, ResourceKey<TrimMaterial>, ArmorTrim> trimFactory,
-			TriFunction<ArmorTrim, Integer, Item[], LootTable.Builder> fixedDyedSetFactory) {
+	private void defineWoodlandMansionEquipmentTables(BiConsumer<ResourceKey<LootTable>, LootTable.Builder> output) {
 
-		// Evoker cosplay, with higher likelihood of holding a totem
-		output.accept(BotaniaLootTables.LOONIUM_ARMORSET_COSTUME_EVOKER, fixedDyedSetFactory.apply(
-				trimFactory.apply(TrimPatterns.VEX, TrimMaterials.GOLD), COLOR_EVOKER_COAT,
-				new Item[] { Items.LEATHER_CHESTPLATE, Items.LEATHER_LEGGINGS })
-				.withPool(LootPool.lootPool()
-						.when(LootItemRandomChanceCondition.randomChance(0.2f))
-						.add(LootItem.lootTableItem(Items.TOTEM_OF_UNDYING))
+		// it's cosplays all the way down
+		output.accept(BotaniaLootTables.LOONIUM_ARMOR_MANSION, LootTable.lootTable().withPool(LootPool.lootPool()
+				// Evoker cosplay, with higher likelihood of holding a totem
+				.add(NestedLootTable.inlineLootTable(createDyedArmorSet(
+						getTrim(TrimPatterns.VEX, TrimMaterials.GOLD), COLOR_EVOKER_COAT,
+						List.of(Items.LEATHER_CHESTPLATE, Items.LEATHER_LEGGINGS))
+						.withPool(LootPool.lootPool()
+								.when(LootItemRandomChanceCondition.randomChance(0.2f))
+								.add(LootItem.lootTableItem(Items.TOTEM_OF_UNDYING)))
+						.build())
+						.setWeight(2)
 				)
-		);
-
-		// Vindicator cosplay, usually including axe (even for ranged mobs)
-		ArmorTrim trimVexNetherite = trimFactory.apply(TrimPatterns.VEX, TrimMaterials.NETHERITE);
-		output.accept(BotaniaLootTables.LOONIUM_ARMORSET_COSTUME_VINDICATOR, LootTable.lootTable()
-				.withPool(LootPool.lootPool().add(LootItem.lootTableItem(Items.LEATHER_CHESTPLATE)
-						.apply(setTrim(trimVexNetherite)).apply(setDyedColor(COLOR_VINDICATOR_JACKET))))
-				.withPool(LootPool.lootPool().add(LootItem.lootTableItem(Items.LEATHER_LEGGINGS)
-						.apply(setDyedColor(COLOR_VINDICATOR_LEGWEAR))))
-				.withPool(LootPool.lootPool().add(LootItem.lootTableItem(Items.LEATHER_BOOTS)
-						.apply(setDyedColor(COLOR_VINDICATOR_BOOTS))))
-				.withPool(LootPool.lootPool()
-						.when(LootItemRandomChanceCondition.randomChance(0.9f))
-						.add(LootItem.lootTableItem(Items.IRON_AXE)
-								.apply(EnchantRandomlyFunction.randomApplicableEnchantment(registries)
-										.when(LootItemRandomChanceCondition.randomChance(0.3f)))))
-		);
-
-		// Illusioner cosplay, including bow and blindness arrows, even for mobs that don't know how to use bows
-		output.accept(BotaniaLootTables.LOONIUM_ARMORSET_COSTUME_ILLUSIONER, fixedDyedSetFactory.apply(
-				trimFactory.apply(TrimPatterns.VEX, TrimMaterials.LAPIS), COLOR_ILLUSIONER_COAT,
-				new Item[] { Items.LEATHER_HELMET, Items.LEATHER_CHESTPLATE, Items.LEATHER_LEGGINGS })
-				.withPool(LootPool.lootPool()
-						.when(LootItemRandomChanceCondition.randomChance(0.9f))
-						.add(LootItem.lootTableItem(Items.BOW)
-								.apply(EnchantRandomlyFunction.randomApplicableEnchantment(registries)
-										.when(LootItemRandomChanceCondition.randomChance(0.3f))))
-				).withPool(LootPool.lootPool()
-						.when(LootItemEntityPropertyCondition.hasProperties(LootContext.EntityTarget.THIS,
-								EntityPredicate.Builder.entity()
-										.entityType(EntityTypePredicate.of(EntityType.SKELETON))))
-						.when(LootItemRandomChanceCondition.randomChance(0.9f))
-						.add(LootItem.lootTableItem(Items.TIPPED_ARROW).apply(
-								SetComponentsFunction.setComponent(DataComponents.POTION_CONTENTS,
-										PotionContents.EMPTY.withEffectAdded(new MobEffectInstance(MobEffects.BLINDNESS, 100)))))
+				// Vindicator cosplay, usually including axe (even for ranged mobs)
+				.add(NestedLootTable.inlineLootTable(LootTable.lootTable()
+						.withPool(LootPool.lootPool().add(LootItem.lootTableItem(Items.LEATHER_CHESTPLATE)
+								.apply(setTrim(getTrim(TrimPatterns.VEX, TrimMaterials.NETHERITE)))
+								.apply(setDyedColor(COLOR_VINDICATOR_JACKET))))
+						.withPool(LootPool.lootPool().add(LootItem.lootTableItem(Items.LEATHER_LEGGINGS)
+								.apply(setDyedColor(COLOR_VINDICATOR_LEGWEAR))))
+						.withPool(LootPool.lootPool().add(LootItem.lootTableItem(Items.LEATHER_BOOTS)
+								.apply(setDyedColor(COLOR_VINDICATOR_BOOTS))))
+						.withPool(LootPool.lootPool()
+								.when(LootItemRandomChanceCondition.randomChance(0.9f))
+								.add(LootItem.lootTableItem(Items.IRON_AXE)
+										.apply(EnchantRandomlyFunction.randomApplicableEnchantment(registries)
+												.when(LootItemRandomChanceCondition.randomChance(0.3f)))))
+						.build()).setWeight(2)
 				)
-		);
-
-		// Vex cosplay, including sword (even for ranged mobs)
-		ArmorTrim trimVexAmethyst = trimFactory.apply(TrimPatterns.VEX, TrimMaterials.AMETHYST);
-		output.accept(BotaniaLootTables.LOONIUM_ARMORSET_COSTUME_VEX, LootTable.lootTable()
-				.withPool(LootPool.lootPool().add(LootItem.lootTableItem(Items.DIAMOND_HELMET)
-						.apply(setTrim(trimVexAmethyst))))
-				.withPool(LootPool.lootPool().add(LootItem.lootTableItem(Items.DIAMOND_CHESTPLATE)))
-				.withPool(LootPool.lootPool().add(LootItem.lootTableItem(Items.DIAMOND_LEGGINGS)))
-				.withPool(LootPool.lootPool()
-						.when(LootItemRandomChanceCondition.randomChance(0.9f))
-						.add(LootItem.lootTableItem(Items.IRON_SWORD)
-								.apply(EnchantRandomlyFunction.randomApplicableEnchantment(registries)
-										.when(LootItemRandomChanceCondition.randomChance(0.3f)))))
-		);
-
-		output.accept(BotaniaLootTables.LOONIUM_ARMOR_MANSION,
-				LootTable.lootTable().withPool(LootPool.lootPool()
-						// it's cosplays all the way down
-						.add(NestedLootTable.lootTableReference(BotaniaLootTables.LOONIUM_ARMORSET_COSTUME_EVOKER).setWeight(2))
-						.add(NestedLootTable.lootTableReference(BotaniaLootTables.LOONIUM_ARMORSET_COSTUME_VINDICATOR).setWeight(2))
-						.add(NestedLootTable.lootTableReference(BotaniaLootTables.LOONIUM_ARMORSET_COSTUME_ILLUSIONER).setWeight(1))
-						.add(NestedLootTable.lootTableReference(BotaniaLootTables.LOONIUM_ARMORSET_COSTUME_VEX).setWeight(45)
-								.when(AnyOfCondition.anyOf(
-										// focus Vex cosplay on baby mobs, reduce chance for everyone else
-										LootItemRandomChanceCondition.randomChance(0.005f),
-										LootItemEntityPropertyCondition.hasProperties(LootContext.EntityTarget.THIS,
+				// Illusioner cosplay, including bow and blindness arrows, even for mobs that don't know how to use bows
+				.add(NestedLootTable.inlineLootTable(
+						createDyedArmorSet(
+								getTrim(TrimPatterns.VEX, TrimMaterials.LAPIS), COLOR_ILLUSIONER_COAT,
+								List.of(Items.LEATHER_HELMET, Items.LEATHER_CHESTPLATE, Items.LEATHER_LEGGINGS))
+								.withPool(LootPool.lootPool()
+										.when(LootItemRandomChanceCondition.randomChance(0.9f))
+										.add(LootItem.lootTableItem(Items.BOW)
+												.apply(EnchantRandomlyFunction.randomApplicableEnchantment(registries)
+														.when(LootItemRandomChanceCondition.randomChance(0.3f)))))
+								.withPool(LootPool.lootPool()
+										.when(LootItemEntityPropertyCondition.hasProperties(LootContext.EntityTarget.THIS,
 												EntityPredicate.Builder.entity()
-														.flags(EntityFlagsPredicate.Builder.flags().setIsBaby(true)))
-								)))
-				).withPool(LootPool.lootPool()
+														.entityType(EntityTypePredicate.of(EntityType.SKELETON))))
+										.when(LootItemRandomChanceCondition.randomChance(0.9f))
+										.add(LootItem.lootTableItem(Items.TIPPED_ARROW).apply(
+												SetComponentsFunction.setComponent(DataComponents.POTION_CONTENTS,
+														PotionContents.EMPTY.withEffectAdded(new MobEffectInstance(MobEffects.BLINDNESS, 100)))))
+								)
+								.build())
+						.setWeight(1)
+				)
+				// Vex cosplay, including sword (even for ranged mobs)
+				.add(NestedLootTable.inlineLootTable(
+						LootTable.lootTable()
+								.withPool(LootPool.lootPool().add(LootItem.lootTableItem(Items.DIAMOND_HELMET)
+										.apply(setTrim(getTrim(TrimPatterns.VEX, TrimMaterials.AMETHYST)))))
+								.withPool(LootPool.lootPool().add(LootItem.lootTableItem(Items.DIAMOND_CHESTPLATE)))
+								.withPool(LootPool.lootPool().add(LootItem.lootTableItem(Items.DIAMOND_LEGGINGS)))
+								.withPool(LootPool.lootPool()
+										.when(LootItemRandomChanceCondition.randomChance(0.9f))
+										.add(LootItem.lootTableItem(Items.IRON_SWORD)
+												.apply(EnchantRandomlyFunction.randomApplicableEnchantment(registries)
+														.when(LootItemRandomChanceCondition.randomChance(0.3f)))))
+								.build())
+						.setWeight(45)
+						.when(AnyOfCondition.anyOf(
+								// focus Vex cosplay on baby mobs, reduce chance for everyone else
+								LootItemRandomChanceCondition.randomChance(0.005f),
+								LootItemEntityPropertyCondition.hasProperties(LootContext.EntityTarget.THIS,
+										EntityPredicate.Builder.entity()
+												.flags(EntityFlagsPredicate.Builder.flags().setIsBaby(true)))
+						))
+				))
+				// also everyone gets a chance to hold a Totem of Undying
+				.withPool(LootPool.lootPool()
 						.when(LootItemRandomChanceCondition.randomChance(0.05f))
 						.add(LootItem.lootTableItem(Items.TOTEM_OF_UNDYING))
 				)
 		);
 	}
 
-	private static ArmorTrim getTrim(HolderLookup.RegistryLookup<TrimPattern> patternRegistry,
-			HolderLookup.RegistryLookup<TrimMaterial> materialRegistry,
-			ResourceKey<TrimPattern> pattern, ResourceKey<TrimMaterial> material) {
+	private ArmorTrim getTrim(ResourceKey<TrimPattern> pattern, ResourceKey<TrimMaterial> material) {
 		Holder.Reference<TrimPattern> tidePattern = patternRegistry.get(pattern).orElseThrow();
 		Holder.Reference<TrimMaterial> goldMaterial = materialRegistry.get(material).orElseThrow();
 		return new ArmorTrim(goldMaterial, tidePattern);
@@ -823,7 +762,19 @@ public class BotaniaEquipmentLoot implements LootTableSubProvider {
 		return SetComponentsFunction.setComponent(DataComponents.DYED_COLOR, new DyedItemColor(color, true));
 	}
 
-	private LootTable.Builder createArmorSet(UnaryOperator<LootPoolSingletonContainer.Builder<?>> armorModifier, boolean randomized, Item... armorItems) {
+	private LootTable.Builder createRandomizedArmorSet(ArmorTrim trim, List<Item> armorItems) {
+		return createArmorSet(addTrim(trim), true, armorItems);
+	}
+
+	private LootTable.Builder createRandomizedDyedArmorSet(ArmorTrim trim, Integer color, List<Item> armorItems) {
+		return createArmorSet(addTrimAndDye(trim, color), true, armorItems);
+	}
+
+	private LootTable.Builder createDyedArmorSet(ArmorTrim trim, Integer color, List<Item> armorItems) {
+		return createArmorSet(addTrimAndDye(trim, color), false, armorItems);
+	}
+
+	private LootTable.Builder createArmorSet(UnaryOperator<LootPoolSingletonContainer.Builder<?>> armorModifier, boolean randomized, List<Item> armorItems) {
 		LootTable.Builder lootTable = LootTable.lootTable();
 		for (Item armorItem : armorItems) {
 			lootTable.withPool(LootPool.lootPool()
@@ -832,5 +783,4 @@ public class BotaniaEquipmentLoot implements LootTableSubProvider {
 		}
 		return lootTable;
 	}
-
 }

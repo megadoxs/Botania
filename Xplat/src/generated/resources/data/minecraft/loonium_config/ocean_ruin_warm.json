@@ -40,22 +40,22 @@
     },
     {
       "type": "minecraft:drowned",
-      "equipmentTable": "botania:equipment/loonium/weapon_trident",
+      "equipmentTable": "botania:equipment/loonium/drowned",
       "weight": 540
     },
     {
       "type": "minecraft:zombie",
-      "equipmentTable": "botania:equipment/loonium/weapon_sword",
+      "equipmentTable": "botania:equipment/loonium/zombie",
       "weight": 60
     },
     {
       "type": "minecraft:bogged",
-      "equipmentTable": "botania:equipment/loonium/weapon_bow",
+      "equipmentTable": "botania:equipment/loonium/skeleton",
       "weight": 40
     },
     {
       "type": "minecraft:skeleton",
-      "equipmentTable": "botania:equipment/loonium/weapon_bow",
+      "equipmentTable": "botania:equipment/loonium/skeleton",
       "weight": 360
     },
     {

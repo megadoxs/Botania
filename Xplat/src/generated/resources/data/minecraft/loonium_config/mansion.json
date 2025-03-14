@@ -38,12 +38,12 @@
     },
     {
       "type": "minecraft:vindicator",
-      "equipmentTable": "botania:equipment/loonium/weapon_axe",
+      "equipmentTable": "botania:equipment/loonium/vindicator",
       "weight": 600
     },
     {
       "type": "minecraft:pillager",
-      "equipmentTable": "botania:equipment/loonium/weapon_crossbow",
+      "equipmentTable": "botania:equipment/loonium/pillager",
       "weight": 200
     },
     {

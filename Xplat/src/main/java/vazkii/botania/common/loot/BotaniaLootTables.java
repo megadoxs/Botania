@@ -23,77 +23,6 @@ public class BotaniaLootTables {
 	public static final ResourceKey<LootTable> GHAST_LOOT_TABLE = register("ghast_ender_air_crying");
 	public static final ResourceKey<LootTable> LOONIUM_DEFAULT_LOOT = register("loonium/default");
 
-	// TODO 1.21: embed armor set and weapon equipment tables
-	public static final ResourceKey<LootTable> LOONIUM_ARMORSET_COAST_CHAIN = register("equipment/loonium/armorset/coast_chain");
-	public static final ResourceKey<LootTable> LOONIUM_ARMORSET_COAST_IRON = register("equipment/loonium/armorset/coast_iron");
-	public static final ResourceKey<LootTable> LOONIUM_ARMORSET_COAST_DIAMOND = register("equipment/loonium/armorset/coast_diamond");
-
-	public static final ResourceKey<LootTable> LOONIUM_ARMORSET_DUNE_GOLD = register("equipment/loonium/armorset/dune_gold");
-	public static final ResourceKey<LootTable> LOONIUM_ARMORSET_DUNE_IRON = register("equipment/loonium/armorset/dune_iron");
-	public static final ResourceKey<LootTable> LOONIUM_ARMORSET_DUNE_DIAMOND = register("equipment/loonium/armorset/dune_diamond");
-
-	public static final ResourceKey<LootTable> LOONIUM_ARMORSET_EYE_GOLD = register("equipment/loonium/armorset/eye_gold");
-	public static final ResourceKey<LootTable> LOONIUM_ARMORSET_EYE_IRON = register("equipment/loonium/armorset/eye_iron");
-	public static final ResourceKey<LootTable> LOONIUM_ARMORSET_EYE_DIAMOND = register("equipment/loonium/armorset/eye_diamond");
-
-	public static final ResourceKey<LootTable> LOONIUM_ARMORSET_HOST_CHAIN = register("equipment/loonium/armorset/host_chain");
-	public static final ResourceKey<LootTable> LOONIUM_ARMORSET_HOST_IRON = register("equipment/loonium/armorset/host_iron");
-
-	public static final ResourceKey<LootTable> LOONIUM_ARMORSET_RAISER_IRON = register("equipment/loonium/armorset/raiser_iron");
-	public static final ResourceKey<LootTable> LOONIUM_ARMORSET_RAISER_GOLD = register("equipment/loonium/armorset/raiser_gold");
-
-	public static final ResourceKey<LootTable> LOONIUM_ARMORSET_RIB_IRON = register("equipment/loonium/armorset/rib_iron");
-	public static final ResourceKey<LootTable> LOONIUM_ARMORSET_RIB_GOLD = register("equipment/loonium/armorset/rib_gold");
-	public static final ResourceKey<LootTable> LOONIUM_ARMORSET_RIB_DIAMOND = register("equipment/loonium/armorset/rib_diamond");
-
-	public static final ResourceKey<LootTable> LOONIUM_ARMORSET_SENTRY_CHAIN = register("equipment/loonium/armorset/sentry_chain");
-	public static final ResourceKey<LootTable> LOONIUM_ARMORSET_SENTRY_IRON = register("equipment/loonium/armorset/sentry_iron");
-	public static final ResourceKey<LootTable> LOONIUM_ARMORSET_SENTRY_DIAMOND = register("equipment/loonium/armorset/sentry_diamond");
-
-	public static final ResourceKey<LootTable> LOONIUM_ARMORSET_SHAPER_GOLD = register("equipment/loonium/armorset/shaper_gold");
-	public static final ResourceKey<LootTable> LOONIUM_ARMORSET_SHAPER_DIAMOND = register("equipment/loonium/armorset/shaper_diamond");
-
-	public static final ResourceKey<LootTable> LOONIUM_ARMORSET_SILENCE_GOLD = register("equipment/loonium/armorset/silence_gold");
-	public static final ResourceKey<LootTable> LOONIUM_ARMORSET_SILENCE_DIAMOND = register("equipment/loonium/armorset/silence_diamond");
-
-	public static final ResourceKey<LootTable> LOONIUM_ARMORSET_SNOUT_GOLD = register("equipment/loonium/armorset/snout_gold");
-	public static final ResourceKey<LootTable> LOONIUM_ARMORSET_SNOUT_NETHERITE = register("equipment/loonium/armorset/snout_netherite");
-
-	public static final ResourceKey<LootTable> LOONIUM_ARMORSET_SPIRE_IRON = register("equipment/loonium/armorset/spire_iron");
-	public static final ResourceKey<LootTable> LOONIUM_ARMORSET_SPIRE_GOLD = register("equipment/loonium/armorset/spire_gold");
-	public static final ResourceKey<LootTable> LOONIUM_ARMORSET_SPIRE_DIAMOND = register("equipment/loonium/armorset/spire_diamond");
-
-	public static final ResourceKey<LootTable> LOONIUM_ARMORSET_TIDE_LEATHER = register("equipment/loonium/armorset/tide_leather");
-	public static final ResourceKey<LootTable> LOONIUM_ARMORSET_TIDE_GOLD = register("equipment/loonium/armorset/tide_iron");
-	public static final ResourceKey<LootTable> LOONIUM_ARMORSET_TIDE_DIAMOND = register("equipment/loonium/armorset/tide_diamond");
-
-	public static final ResourceKey<LootTable> LOONIUM_ARMORSET_WARD_IRON = register("equipment/loonium/armorset/ward_iron");
-	public static final ResourceKey<LootTable> LOONIUM_ARMORSET_WARD_DIAMOND = register("equipment/loonium/armorset/ward_diamond");
-
-	public static final ResourceKey<LootTable> LOONIUM_ARMORSET_WAYFINDER_CHAIN = register("equipment/loonium/armorset/wayfinder_chain");
-	public static final ResourceKey<LootTable> LOONIUM_ARMORSET_WAYFINDER_DIAMOND = register("equipment/loonium/armorset/wayfinder_diamond");
-
-	public static final ResourceKey<LootTable> LOONIUM_ARMORSET_WILD_CHAIN = register("equipment/loonium/armorset/wild_chain");
-	public static final ResourceKey<LootTable> LOONIUM_ARMORSET_WILD_GOLD = register("equipment/loonium/armorset/wild_gold");
-	public static final ResourceKey<LootTable> LOONIUM_ARMORSET_WILD_DIAMOND = register("equipment/loonium/armorset/wild_diamond");
-
-	public static final ResourceKey<LootTable> LOONIUM_ARMORSET_COSTUME_ENDERMAN = register("equipment/loonium/armorset/costume_enderman");
-	public static final ResourceKey<LootTable> LOONIUM_ARMORSET_COSTUME_EVOKER = register("equipment/loonium/armorset/costume_evoker");
-	public static final ResourceKey<LootTable> LOONIUM_ARMORSET_COSTUME_VINDICATOR = register("equipment/loonium/armorset/costume_vindicator");
-	public static final ResourceKey<LootTable> LOONIUM_ARMORSET_COSTUME_ILLUSIONER = register("equipment/loonium/armorset/costume_illusioner");
-	public static final ResourceKey<LootTable> LOONIUM_ARMORSET_COSTUME_VEX = register("equipment/loonium/armorset/costume_vex");
-
-	public static final ResourceKey<LootTable> LOONIUM_WEAPON_AXE = register("equipment/loonium/weapon_axe");
-	public static final ResourceKey<LootTable> LOONIUM_WEAPON_AXE_GOLD = register("equipment/loonium/weapon_axe_gold");
-	public static final ResourceKey<LootTable> LOONIUM_WEAPON_BOW = register("equipment/loonium/weapon_bow");
-	public static final ResourceKey<LootTable> LOONIUM_WEAPON_CROSSBOW = register("equipment/loonium/weapon_crossbow");
-	public static final ResourceKey<LootTable> LOONIUM_WEAPON_SWORD = register("equipment/loonium/weapon_sword");
-	public static final ResourceKey<LootTable> LOONIUM_WEAPON_SWORD_GOLD = register("equipment/loonium/weapon_sword_gold");
-	public static final ResourceKey<LootTable> LOONIUM_WEAPON_TRIDENT = register("equipment/loonium/weapon_trident");
-	public static final ResourceKey<LootTable> LOONIUM_WEAPON_BY_PROFESSION = register("equipment/loonium/weapon_by_profession");
-	public static final ResourceKey<LootTable> LOONIUM_WEAPON_FOR_PIGLIN = register("equipment/loonium/weapon_for_piglin");
-	public static final ResourceKey<LootTable> LOONIUM_WEAPON_FOR_WITHER_SKELETON = register("equipment/loonium/weapon_for_wither_skeleton");
-
 	public static final ResourceKey<LootTable> LOONIUM_ARMOR_ANCIENT_CITY = register("equipment/loonium/armor_ancient_city");
 	public static final ResourceKey<LootTable> LOONIUM_ARMOR_BASTION_REMNANT = register("equipment/loonium/armor_bastion_remnant");
 	public static final ResourceKey<LootTable> LOONIUM_ARMOR_DESERT_PYRAMID = register("equipment/loonium/armor_desert_pyramid");
@@ -108,6 +37,7 @@ public class BotaniaLootTables {
 	public static final ResourceKey<LootTable> LOONIUM_ARMOR_STRONGHOLD = register("equipment/loonium/armor_stronghold");
 	public static final ResourceKey<LootTable> LOONIUM_ARMOR_TRAIL_RUINS = register("equipment/loonium/armor_trail_ruins");
 
+	public static final ResourceKey<LootTable> LOONIUM_DROWNED_DEFAULT = register("equipment/loonium/drowned");
 	public static final ResourceKey<LootTable> LOONIUM_DROWNED_ANCIENT_CITY = register("equipment/loonium/drowned_ancient_city");
 	public static final ResourceKey<LootTable> LOONIUM_DROWNED_JUNGLE_TEMPLE = register("equipment/loonium/drowned_jungle_temple");
 	public static final ResourceKey<LootTable> LOONIUM_DROWNED_MONUMENT = register("equipment/loonium/drowned_monument");
@@ -116,9 +46,13 @@ public class BotaniaLootTables {
 	public static final ResourceKey<LootTable> LOONIUM_DROWNED_STRONGHOLD = register("equipment/loonium/drowned_stronghold");
 	public static final ResourceKey<LootTable> LOONIUM_DROWNED_TRAIL_RUINS = register("equipment/loonium/drowned_trail_ruins");
 
+	public static final ResourceKey<LootTable> LOONIUM_PIGLIN_BRUTE_DEFAULT = register("equipment/loonium/piglin_brute");
 	public static final ResourceKey<LootTable> LOONIUM_PIGLIN_BASTION_REMNANT = register("equipment/loonium/piglin_bastion_remnant");
 	public static final ResourceKey<LootTable> LOONIUM_PIGLIN_PORTAL = register("equipment/loonium/piglin_ruined_portal");
 
+	public static final ResourceKey<LootTable> LOONIUM_PILLAGER_DEFAULT = register("equipment/loonium/pillager");
+
+	public static final ResourceKey<LootTable> LOONIUM_SKELETON_DEFAULT = register("equipment/loonium/skeleton");
 	public static final ResourceKey<LootTable> LOONIUM_SKELETON_ANCIENT_CITY = register("equipment/loonium/skeleton_ancient_city");
 	public static final ResourceKey<LootTable> LOONIUM_SKELETON_DESERT_PYRAMID = register("equipment/loonium/skeleton_desert_pyramid");
 	public static final ResourceKey<LootTable> LOONIUM_SKELETON_JUNGLE_TEMPLE = register("equipment/loonium/skeleton_jungle_temple");
@@ -131,6 +65,9 @@ public class BotaniaLootTables {
 	public static final ResourceKey<LootTable> LOONIUM_SKELETON_STRONGHOLD = register("equipment/loonium/skeleton_stronghold");
 	public static final ResourceKey<LootTable> LOONIUM_SKELETON_TRAIL_RUINS = register("equipment/loonium/skeleton_trail_ruins");
 
+	public static final ResourceKey<LootTable> LOONIUM_VINDICATOR_DEFAULT = register("equipment/loonium/vindicator");
+
+	public static final ResourceKey<LootTable> LOONIUM_ZOMBIE_DEFAULT = register("equipment/loonium/zombie");
 	public static final ResourceKey<LootTable> LOONIUM_ZOMBIE_ANCIENT_CITY = register("equipment/loonium/zombie_ancient_city");
 	public static final ResourceKey<LootTable> LOONIUM_ZOMBIE_DESERT_PYRAMID = register("equipment/loonium/zombie_desert_pyramid");
 	public static final ResourceKey<LootTable> LOONIUM_ZOMBIE_END_CITY = register("equipment/loonium/zombie_end_city");
@@ -142,6 +79,8 @@ public class BotaniaLootTables {
 	public static final ResourceKey<LootTable> LOONIUM_ZOMBIE_SHIPWRECK = register("equipment/loonium/zombie_shipwreck");
 	public static final ResourceKey<LootTable> LOONIUM_ZOMBIE_STRONGHOLD = register("equipment/loonium/zombie_stronghold");
 	public static final ResourceKey<LootTable> LOONIUM_ZOMBIE_TRAIL_RUINS = register("equipment/loonium/zombie_trail_ruins");
+
+	public static final ResourceKey<LootTable> LOONIUM_ZOMBIE_VILLAGER = register("equipment/loonium/zombie_villager");
 
 	private static ResourceKey<LootTable> register(String path) {
 		return register(ResourceKey.create(Registries.LOOT_TABLE, botaniaRL(path)));

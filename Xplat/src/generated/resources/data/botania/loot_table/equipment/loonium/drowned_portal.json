@@ -15,8 +15,8 @@
       "bonus_rolls": 0.0,
       "entries": [
         {
-          "type": "minecraft:loot_table",
-          "value": "botania:equipment/loonium/weapon_trident"
+          "type": "minecraft:item",
+          "name": "minecraft:trident"
         }
       ],
       "rolls": 1.0

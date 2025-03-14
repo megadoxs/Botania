@@ -6,17 +6,326 @@
       "entries": [
         {
           "type": "minecraft:loot_table",
-          "value": "botania:equipment/loonium/armorset/spire_iron",
+          "value": {
+            "pools": [
+              {
+                "bonus_rolls": 0.0,
+                "entries": [
+                  {
+                    "type": "minecraft:item",
+                    "functions": [
+                      {
+                        "components": {
+                          "minecraft:trim": {
+                            "material": "minecraft:amethyst",
+                            "pattern": "minecraft:spire"
+                          }
+                        },
+                        "function": "minecraft:set_components"
+                      }
+                    ],
+                    "name": "minecraft:iron_helmet"
+                  }
+                ],
+                "rolls": {
+                  "type": "minecraft:uniform",
+                  "max": 1.0,
+                  "min": 0.0
+                }
+              },
+              {
+                "bonus_rolls": 0.0,
+                "entries": [
+                  {
+                    "type": "minecraft:item",
+                    "functions": [
+                      {
+                        "components": {
+                          "minecraft:trim": {
+                            "material": "minecraft:amethyst",
+                            "pattern": "minecraft:spire"
+                          }
+                        },
+                        "function": "minecraft:set_components"
+                      }
+                    ],
+                    "name": "minecraft:iron_chestplate"
+                  }
+                ],
+                "rolls": {
+                  "type": "minecraft:uniform",
+                  "max": 1.0,
+                  "min": 0.0
+                }
+              },
+              {
+                "bonus_rolls": 0.0,
+                "entries": [
+                  {
+                    "type": "minecraft:item",
+                    "functions": [
+                      {
+                        "components": {
+                          "minecraft:trim": {
+                            "material": "minecraft:amethyst",
+                            "pattern": "minecraft:spire"
+                          }
+                        },
+                        "function": "minecraft:set_components"
+                      }
+                    ],
+                    "name": "minecraft:iron_leggings"
+                  }
+                ],
+                "rolls": {
+                  "type": "minecraft:uniform",
+                  "max": 1.0,
+                  "min": 0.0
+                }
+              },
+              {
+                "bonus_rolls": 0.0,
+                "entries": [
+                  {
+                    "type": "minecraft:item",
+                    "functions": [
+                      {
+                        "components": {
+                          "minecraft:trim": {
+                            "material": "minecraft:amethyst",
+                            "pattern": "minecraft:spire"
+                          }
+                        },
+                        "function": "minecraft:set_components"
+                      }
+                    ],
+                    "name": "minecraft:iron_boots"
+                  }
+                ],
+                "rolls": {
+                  "type": "minecraft:uniform",
+                  "max": 1.0,
+                  "min": 0.0
+                }
+              }
+            ]
+          },
           "weight": 3
         },
         {
           "type": "minecraft:loot_table",
-          "value": "botania:equipment/loonium/armorset/spire_gold",
+          "value": {
+            "pools": [
+              {
+                "bonus_rolls": 0.0,
+                "entries": [
+                  {
+                    "type": "minecraft:item",
+                    "functions": [
+                      {
+                        "components": {
+                          "minecraft:trim": {
+                            "material": "minecraft:amethyst",
+                            "pattern": "minecraft:spire"
+                          }
+                        },
+                        "function": "minecraft:set_components"
+                      }
+                    ],
+                    "name": "minecraft:golden_helmet"
+                  }
+                ],
+                "rolls": {
+                  "type": "minecraft:uniform",
+                  "max": 1.0,
+                  "min": 0.0
+                }
+              },
+              {
+                "bonus_rolls": 0.0,
+                "entries": [
+                  {
+                    "type": "minecraft:item",
+                    "functions": [
+                      {
+                        "components": {
+                          "minecraft:trim": {
+                            "material": "minecraft:amethyst",
+                            "pattern": "minecraft:spire"
+                          }
+                        },
+                        "function": "minecraft:set_components"
+                      }
+                    ],
+                    "name": "minecraft:golden_chestplate"
+                  }
+                ],
+                "rolls": {
+                  "type": "minecraft:uniform",
+                  "max": 1.0,
+                  "min": 0.0
+                }
+              },
+              {
+                "bonus_rolls": 0.0,
+                "entries": [
+                  {
+                    "type": "minecraft:item",
+                    "functions": [
+                      {
+                        "components": {
+                          "minecraft:trim": {
+                            "material": "minecraft:amethyst",
+                            "pattern": "minecraft:spire"
+                          }
+                        },
+                        "function": "minecraft:set_components"
+                      }
+                    ],
+                    "name": "minecraft:golden_leggings"
+                  }
+                ],
+                "rolls": {
+                  "type": "minecraft:uniform",
+                  "max": 1.0,
+                  "min": 0.0
+                }
+              },
+              {
+                "bonus_rolls": 0.0,
+                "entries": [
+                  {
+                    "type": "minecraft:item",
+                    "functions": [
+                      {
+                        "components": {
+                          "minecraft:trim": {
+                            "material": "minecraft:amethyst",
+                            "pattern": "minecraft:spire"
+                          }
+                        },
+                        "function": "minecraft:set_components"
+                      }
+                    ],
+                    "name": "minecraft:golden_boots"
+                  }
+                ],
+                "rolls": {
+                  "type": "minecraft:uniform",
+                  "max": 1.0,
+                  "min": 0.0
+                }
+              }
+            ]
+          },
           "weight": 2
         },
         {
           "type": "minecraft:loot_table",
-          "value": "botania:equipment/loonium/armorset/spire_diamond",
+          "value": {
+            "pools": [
+              {
+                "bonus_rolls": 0.0,
+                "entries": [
+                  {
+                    "type": "minecraft:item",
+                    "functions": [
+                      {
+                        "components": {
+                          "minecraft:trim": {
+                            "material": "minecraft:amethyst",
+                            "pattern": "minecraft:spire"
+                          }
+                        },
+                        "function": "minecraft:set_components"
+                      }
+                    ],
+                    "name": "minecraft:diamond_helmet"
+                  }
+                ],
+                "rolls": {
+                  "type": "minecraft:uniform",
+                  "max": 1.0,
+                  "min": 0.0
+                }
+              },
+              {
+                "bonus_rolls": 0.0,
+                "entries": [
+                  {
+                    "type": "minecraft:item",
+                    "functions": [
+                      {
+                        "components": {
+                          "minecraft:trim": {
+                            "material": "minecraft:amethyst",
+                            "pattern": "minecraft:spire"
+                          }
+                        },
+                        "function": "minecraft:set_components"
+                      }
+                    ],
+                    "name": "minecraft:diamond_chestplate"
+                  }
+                ],
+                "rolls": {
+                  "type": "minecraft:uniform",
+                  "max": 1.0,
+                  "min": 0.0
+                }
+              },
+              {
+                "bonus_rolls": 0.0,
+                "entries": [
+                  {
+                    "type": "minecraft:item",
+                    "functions": [
+                      {
+                        "components": {
+                          "minecraft:trim": {
+                            "material": "minecraft:amethyst",
+                            "pattern": "minecraft:spire"
+                          }
+                        },
+                        "function": "minecraft:set_components"
+                      }
+                    ],
+                    "name": "minecraft:diamond_leggings"
+                  }
+                ],
+                "rolls": {
+                  "type": "minecraft:uniform",
+                  "max": 1.0,
+                  "min": 0.0
+                }
+              },
+              {
+                "bonus_rolls": 0.0,
+                "entries": [
+                  {
+                    "type": "minecraft:item",
+                    "functions": [
+                      {
+                        "components": {
+                          "minecraft:trim": {
+                            "material": "minecraft:amethyst",
+                            "pattern": "minecraft:spire"
+                          }
+                        },
+                        "function": "minecraft:set_components"
+                      }
+                    ],
+                    "name": "minecraft:diamond_boots"
+                  }
+                ],
+                "rolls": {
+                  "type": "minecraft:uniform",
+                  "max": 1.0,
+                  "min": 0.0
+                }
+              }
+            ]
+          },
           "weight": 2
         }
       ],
