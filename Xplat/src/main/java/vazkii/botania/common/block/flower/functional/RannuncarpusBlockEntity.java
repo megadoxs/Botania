@@ -98,8 +98,8 @@ public class RannuncarpusBlockEntity extends FunctionalFlowerBlockEntity impleme
 
 				Item stackItem = stack.getItem();
 				ResourceLocation id = BuiltInRegistries.ITEM.getKey(stackItem);
-				if (BotaniaConfig.common().rannuncarpusModBlacklist().contains(id.getNamespace())
-						|| BotaniaConfig.common().rannuncarpusItemBlacklist().contains(id.toString())) {
+				if (BotaniaConfig.common().rannuncarpusExcludedMods().contains(id.getNamespace())
+						|| BotaniaConfig.common().rannuncarpusIgnoredItems().contains(id.toString())) {
 					continue;
 				}
 

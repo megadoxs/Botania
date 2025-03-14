@@ -273,8 +273,8 @@ public final class FiberBotaniaConfig {
 
 		public final PropertyMirror<Boolean> gogSpawnWithLexicon = PropertyMirror.create(BOOLEAN);
 		public final PropertyMirror<Integer> gogIslandScaleMultiplier = PropertyMirror.create(INTEGER);
-		public final PropertyMirror<List<String>> rannuncarpusItemBlacklist = PropertyMirror.create(ConfigTypes.makeList(STRING));
-		public final PropertyMirror<List<String>> rannuncarpusModBlacklist = PropertyMirror.create(ConfigTypes.makeList(STRING));
+		public final PropertyMirror<List<String>> rannuncarpusIgnoredItems = PropertyMirror.create(ConfigTypes.makeList(STRING));
+		public final PropertyMirror<List<String>> rannuncarpusExcludedMods = PropertyMirror.create(ConfigTypes.makeList(STRING));
 
 		public ConfigTree configure(ConfigTreeBuilder builder) {
 			builder.fork("blockBreakingParticles")
@@ -339,14 +339,14 @@ public final class FiberBotaniaConfig {
 						Values below 4 (1024 block spacing) are not recommended due to Nether portal collisions.""")
 					.finishValue(gogIslandScaleMultiplier::mirror)
 
-					.beginValue("rannuncarpusItemBlackList", ConfigTypes.makeList(STRING), Collections.emptyList())
+					.beginValue("rannuncarpusIgnoredItem", ConfigTypes.makeList(STRING), Collections.emptyList())
 					.withComment("List of item registry names that will be ignored by rannuncarpuses when placing blocks.")
-					.finishValue(rannuncarpusItemBlacklist::mirror)
+					.finishValue(rannuncarpusIgnoredItems::mirror)
 
-					.beginValue("rannuncarpusModBlacklist", ConfigTypes.makeList(STRING), Collections.singletonList("storagedrawers"))
+					.beginValue("rannuncarpusExcludedMods", ConfigTypes.makeList(STRING), Collections.singletonList("storagedrawers"))
 					.withComment("List of mod names for rannuncarpuses to ignore.\n" +
 							"Ignores Storage Drawers by default due to crashes with placing drawer blocks without player involvement.")
-					.finishValue(rannuncarpusModBlacklist::mirror);
+					.finishValue(rannuncarpusExcludedMods::mirror);
 
 			return builder.build();
 		}
@@ -417,13 +417,13 @@ public final class FiberBotaniaConfig {
 		}
 
 		@Override
-		public List<String> rannuncarpusItemBlacklist() {
-			return rannuncarpusItemBlacklist.getValue();
+		public List<String> rannuncarpusIgnoredItems() {
+			return rannuncarpusIgnoredItems.getValue();
 		}
 
 		@Override
-		public List<String> rannuncarpusModBlacklist() {
-			return rannuncarpusModBlacklist.getValue();
+		public List<String> rannuncarpusExcludedMods() {
+			return rannuncarpusExcludedMods.getValue();
 		}
 	}
 

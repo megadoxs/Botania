@@ -163,7 +163,7 @@ public class LensItem extends Item implements ControlLensItem, CompositableLensI
 		return true;
 	}
 
-	public static boolean isBlacklisted(ItemStack lens1, ItemStack lens2) {
+	public static boolean isDisallowed(ItemStack lens1, ItemStack lens2) {
 		CompositableLensItem item1 = (CompositableLensItem) lens1.getItem();
 		CompositableLensItem item2 = (CompositableLensItem) lens2.getItem();
 		return (item1.getProps(lens1) & item2.getProps(lens2)) != 0;
@@ -189,7 +189,7 @@ public class LensItem extends Item implements ControlLensItem, CompositableLensI
 			return false;
 		}
 
-		if (isBlacklisted(sourceLens, compositeLens)) {
+		if (isDisallowed(sourceLens, compositeLens)) {
 			return false;
 		}
 

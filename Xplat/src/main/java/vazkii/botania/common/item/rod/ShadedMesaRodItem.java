@@ -10,14 +10,12 @@ package vazkii.botania.common.item.rod;
 
 import net.minecraft.network.protocol.game.ClientboundSetEntityMotionPacket;
 import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.tags.TagKey;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
@@ -46,10 +44,10 @@ import java.util.List;
 import java.util.function.Predicate;
 
 public class ShadedMesaRodItem extends Item {
-	private static final TagKey<EntityType<?>> BLACKLIST = BotaniaTags.Entities.SHADED_MESA_BLACKLIST;
 	private static final float RANGE = 3F;
 	private static final int COST = 2;
-	private static final Predicate<Entity> CAN_TARGET = e -> !e.isSpectator() && e.isAlive() && !e.getType().is(BLACKLIST);
+	private static final Predicate<Entity> CAN_TARGET = e -> !e.isSpectator() && e.isAlive() && !e.getType().is(
+			BotaniaTags.Entities.SHADED_MESA_NO_PICKUP);
 
 	public ShadedMesaRodItem(Properties props) {
 		super(props);
@@ -161,7 +159,7 @@ public class ShadedMesaRodItem extends Item {
 			}
 
 			if (target != null) {
-				if (target.getType().is(BLACKLIST)) {
+				if (target.getType().is(BotaniaTags.Entities.SHADED_MESA_NO_PICKUP)) {
 					return InteractionResultHolder.fail(stack);
 				}
 

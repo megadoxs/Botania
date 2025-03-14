@@ -44,10 +44,11 @@ public class EntityTagProvider extends IntrinsicHolderTagsProvider<EntityType<?>
 		tag(BotaniaTags.Entities.DRUM_MILKABLE).add(EntityType.COW, EntityType.MOOSHROOM, EntityType.GOAT);
 		tag(BotaniaTags.Entities.DRUM_NO_SHEARING).add(EntityType.MOOSHROOM);
 
-		tag(BotaniaTags.Entities.SHADED_MESA_BLACKLIST).add(EntityType.ENDER_DRAGON, EntityType.WITHER,
+		tag(BotaniaTags.Entities.SHADED_MESA_NO_PICKUP).add(EntityType.ENDER_DRAGON, EntityType.WITHER,
 				EntityType.ITEM_FRAME, EntityType.GLOW_ITEM_FRAME, EntityType.END_CRYSTAL, EntityType.PAINTING,
 				EntityType.COMMAND_BLOCK_MINECART, EntityType.MARKER, EntityType.AREA_EFFECT_CLOUD,
-				EntityType.EVOKER_FANGS, EntityType.LEASH_KNOT,
+				EntityType.EVOKER_FANGS, EntityType.LEASH_KNOT, EntityType.BLOCK_DISPLAY, EntityType.ITEM_DISPLAY,
+				EntityType.TEXT_DISPLAY, EntityType.INTERACTION, EntityType.MARKER,
 				BotaniaEntities.CORPOREA_SPARK, BotaniaEntities.DOPPLEGANGER, BotaniaEntities.FLAME_RING, BotaniaEntities.MAGIC_LANDMINE,
 				BotaniaEntities.MAGIC_MISSILE, BotaniaEntities.MANA_BURST, BotaniaEntities.PINK_WITHER, BotaniaEntities.SPARK, BotaniaEntities.PLAYER_MOVER);
 

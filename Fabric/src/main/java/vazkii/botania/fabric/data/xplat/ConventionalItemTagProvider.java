@@ -19,6 +19,7 @@ import net.minecraft.data.tags.ItemTagsProvider;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.Block;
 
 import vazkii.botania.common.block.BotaniaBlocks;
@@ -29,6 +30,11 @@ import vazkii.botania.data.util.DummyTagLookup;
 
 import java.util.Set;
 import java.util.concurrent.CompletableFuture;
+
+import static vazkii.botania.common.item.BotaniaItems.blackLotus;
+import static vazkii.botania.common.item.BotaniaItems.blackerLotus;
+import static vazkii.botania.common.item.BotaniaItems.lexicon;
+import static vazkii.botania.common.item.BotaniaItems.overgrowthSeed;
 
 public class ConventionalItemTagProvider extends ItemTagsProvider {
 	private static final Set<TagKey<Item>> RELEVANT_TAGS = Set.of(
@@ -194,6 +200,9 @@ public class ConventionalItemTagProvider extends ItemTagsProvider {
 		copy(ConventionalBlockTags.STRIPPED_LOGS, ConventionalItemTags.STRIPPED_LOGS);
 		copy(ConventionalBlockTags.STRIPPED_WOODS, ConventionalItemTags.STRIPPED_WOODS);
 
+		this.tag(BotaniaTags.Items.LOONIUM_EXCLUDED)
+				.add(lexicon, overgrowthSeed, blackLotus, blackerLotus, Items.TRIAL_KEY, Items.OMINOUS_TRIAL_KEY)
+				.addTag(ConventionalItemTags.MUSIC_DISCS);
 	}
 
 	@Override

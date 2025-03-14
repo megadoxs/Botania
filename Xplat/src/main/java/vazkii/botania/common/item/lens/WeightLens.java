@@ -56,7 +56,7 @@ public class WeightLens extends Lens {
 	}
 
 	private static boolean canSilkTouch(ServerLevel level, BlockPos pos, BlockState state, int harvestLevel, @Nullable Entity owner) {
-		if (state.is(BotaniaTags.Blocks.WEIGHT_LENS_WHITELIST)) {
+		if (state.is(BotaniaTags.Blocks.WEIGHT_LENS_AFFECTED)) {
 			return true;
 		}
 		ItemStack harvestToolStack = BoreLens.getHarvestToolStack(harvestLevel, state).copy();

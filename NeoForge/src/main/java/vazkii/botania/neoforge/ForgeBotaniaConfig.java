@@ -227,8 +227,8 @@ public final class ForgeBotaniaConfig {
 		public final ModConfigSpec.BooleanValue gogSpawnWithLexicon;
 		public final ModConfigSpec.IntValue gogIslandScaleMultiplier;
 
-		public final ModConfigSpec.ConfigValue<List<? extends String>> rannuncarpusItemBlacklist;
-		public final ModConfigSpec.ConfigValue<List<? extends String>> rannuncarpusModBlacklist;
+		public final ModConfigSpec.ConfigValue<List<? extends String>> rannuncarpusIgnoredItems;
+		public final ModConfigSpec.ConfigValue<List<? extends String>> rannuncarpusExcludedMods;
 
 		public Common(ModConfigSpec.Builder builder) {
 			builder.push("blockBreakingParticles");
@@ -286,13 +286,13 @@ public final class ForgeBotaniaConfig {
 						By default, the scale is 8, putting each island on points separated by 2048 blocks.
 						Values below 4 (1024 block spacing) are not recommended due to Nether portal collisions.""")
 					.defineInRange("gardenOfGlass.islandScaleMultiplier", 8, 1, 512);
-			rannuncarpusItemBlacklist = builder
+			rannuncarpusIgnoredItems = builder
 					.comment("List of item registry names that will be ignored by rannuncarpuses when placing blocks.")
-					.defineList("rannuncarpus.itemBlacklist", Collections.emptyList(), o -> o instanceof String s && ResourceLocation.tryParse(s) != null);
-			rannuncarpusModBlacklist = builder
+					.defineList("rannuncarpus.ignoredItems", Collections.emptyList(), o -> o instanceof String s && ResourceLocation.tryParse(s) != null);
+			rannuncarpusExcludedMods = builder
 					.comment("List of mod names for rannuncarpuses to ignore.\n" +
 							"Ignores Storage Drawers by default due to crashes with placing drawer blocks without player involvement.")
-					.defineList("rannuncarpus.modBlacklist", Collections.singletonList("storagedrawers"), o -> o instanceof String s && ResourceLocation.tryParse(s + ":test") != null);
+					.defineList("rannuncarpus.excludedMods", Collections.singletonList("storagedrawers"), o -> o instanceof String s && ResourceLocation.tryParse(s + ":test") != null);
 		}
 
 		@Override
@@ -362,14 +362,14 @@ public final class ForgeBotaniaConfig {
 
 		@SuppressWarnings("unchecked") // NightConfig's types are weird
 		@Override
-		public List<String> rannuncarpusItemBlacklist() {
-			return (List<String>) rannuncarpusItemBlacklist.get();
+		public List<String> rannuncarpusIgnoredItems() {
+			return (List<String>) rannuncarpusIgnoredItems.get();
 		}
 
 		@SuppressWarnings("unchecked") // NightConfig's types are weird
 		@Override
-		public List<String> rannuncarpusModBlacklist() {
-			return (List<String>) rannuncarpusModBlacklist.get();
+		public List<String> rannuncarpusExcludedMods() {
+			return (List<String>) rannuncarpusExcludedMods.get();
 		}
 	}
 

@@ -49,11 +49,11 @@ public class BotaniaTags {
 		/**
 		 * Items in this tag cannot be pulled by the magnet rings
 		 */
-		public static final TagKey<Item> MAGNET_RING_BLACKLIST = tag("magnet_ring_blacklist");
+		public static final TagKey<Item> MAGNET_RING_IGNORED = tag("magnet_ring_ignored");
 		/**
 		 * Items in this tag cannot be rolled by Looniums
 		 */
-		public static final TagKey<Item> LOONIUM_BLACKLIST = tag("loonium_blacklist");
+		public static final TagKey<Item> LOONIUM_EXCLUDED = tag("loonium_excluded");
 		/**
 		 * Items that should be equipped in the offhand slot if rolled as Loonium mob equipment,
 		 * instead of the default slot for the item.
@@ -162,11 +162,11 @@ public class BotaniaTags {
 		/**
 		 * Blocks in this tag are exempt from the Gaia Guardian's block smash attack
 		 */
-		public static final TagKey<Block> GAIA_BREAK_BLACKLIST = tag("gaia_break_blacklist");
+		public static final TagKey<Block> GAIA_GUARDIAN_IMMUNE = tag("gaia_guardian_immune");
 		/**
 		 * Items resting on blocks in this tag cannot be pulled by magnet rings
 		 */
-		public static final TagKey<Block> MAGNET_RING_BLACKLIST = tag("magnet_ring_blacklist");
+		public static final TagKey<Block> SHIELDS_FROM_MAGNET_RING = tag("shields_from_magnet_ring");
 		/**
 		 * Blocks in this tag cannot be moved by the Laputa Shard
 		 */
@@ -206,7 +206,7 @@ public class BotaniaTags {
 		/**
 		 * Blocks in this tag are affected by the weight lens even if they don't drop themselves with silk touch.
 		 */
-		public static final TagKey<Block> WEIGHT_LENS_WHITELIST = tag("weight_lens_whitelist");
+		public static final TagKey<Block> WEIGHT_LENS_AFFECTED = tag("weight_lens_affected");
 
 		/**
 		 * Blocks in this tag can be broken by the Horn of the Wild,
@@ -264,7 +264,7 @@ public class BotaniaTags {
 		/**
 		 * Entities in this tag cannot be picked up by the Rod of the Shaded Mesa
 		 */
-		public static final TagKey<EntityType<?>> SHADED_MESA_BLACKLIST = tag("shaded_mesa_blacklist");
+		public static final TagKey<EntityType<?>> SHADED_MESA_NO_PICKUP = tag("shaded_mesa_no_pickup");
 
 		public static final TagKey<EntityType<?>> COCOON_COMMON = tag("cocoon/common");
 		public static final TagKey<EntityType<?>> COCOON_RARE = tag("cocoon/rare");

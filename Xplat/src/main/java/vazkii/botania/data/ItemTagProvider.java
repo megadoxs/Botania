@@ -9,7 +9,6 @@
 package vazkii.botania.data;
 
 import net.minecraft.core.HolderLookup;
-import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.PackOutput;
@@ -138,14 +137,10 @@ public class ItemTagProvider extends ItemTagsProvider {
 			allPetals.addTag(petalTag);
 		});
 
-		Predicate<Item> jukeboxPlayablePredicate = item -> item.components().has(DataComponents.JUKEBOX_PLAYABLE);
-		this.tag(BotaniaTags.Items.LOONIUM_BLACKLIST)
-				.add(lexicon, overgrowthSeed, blackLotus, blackerLotus, Items.TRIAL_KEY, Items.OMINOUS_TRIAL_KEY)
-				.add(getItems(jukeboxPlayablePredicate));
 		this.tag(BotaniaTags.Items.LOONIUM_OFFHAND_EQUIPMENT)
 				.add(Items.FIREWORK_ROCKET, Items.TOTEM_OF_UNDYING)
 				.addTag(ItemTags.ARROWS);
-		this.tag(BotaniaTags.Items.MAGNET_RING_BLACKLIST);
+		this.tag(BotaniaTags.Items.MAGNET_RING_IGNORED);
 		this.tag(BotaniaTags.Items.RODS).add(
 				dirtRod,
 				skyDirtRod,

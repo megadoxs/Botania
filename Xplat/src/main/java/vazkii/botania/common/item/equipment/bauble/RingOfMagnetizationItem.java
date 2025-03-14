@@ -105,17 +105,17 @@ public class RingOfMagnetizationItem extends BaubleItem {
 		if (stack.isEmpty()
 				|| XplatAbstractions.INSTANCE.findManaItem(stack) != null
 				|| XplatAbstractions.INSTANCE.findRelic(stack) != null
-				|| stack.is(BotaniaTags.Items.MAGNET_RING_BLACKLIST)) {
+				|| stack.is(BotaniaTags.Items.MAGNET_RING_IGNORED)) {
 			return false;
 		}
 
 		BlockPos pos = item.blockPosition();
 
-		if (item.level().getBlockState(pos).is(BotaniaTags.Blocks.MAGNET_RING_BLACKLIST)) {
+		if (item.level().getBlockState(pos).is(BotaniaTags.Blocks.SHIELDS_FROM_MAGNET_RING)) {
 			return false;
 		}
 
-		if (item.level().getBlockState(pos.below()).is(BotaniaTags.Blocks.MAGNET_RING_BLACKLIST)) {
+		if (item.level().getBlockState(pos.below()).is(BotaniaTags.Blocks.SHIELDS_FROM_MAGNET_RING)) {
 			return false;
 		}
 

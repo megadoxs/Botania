@@ -38,7 +38,6 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.tags.BlockTags;
-import net.minecraft.tags.TagKey;
 import net.minecraft.util.*;
 import net.minecraft.world.BossEvent;
 import net.minecraft.world.Difficulty;
@@ -164,7 +163,6 @@ public class GaiaGuardianEntity extends Mob {
 	private static final String TAG_MOB_SPAWN_TICKS = "mobSpawnTicks";
 	private static final String TAG_HARD_MODE = "hardMode";
 	private static final String TAG_PLAYER_COUNT = "playerCount";
-	private static final TagKey<Block> BLACKLIST = BotaniaTags.Blocks.GAIA_BREAK_BLACKLIST;
 
 	private static final EntityDataAccessor<Integer> INVUL_TIME = SynchedEntityData.defineId(GaiaGuardianEntity.class, EntityDataSerializers.INT);
 
@@ -335,7 +333,7 @@ public class GaiaGuardianEntity extends Mob {
 						trippedPositions.add(pos.below());
 					}
 
-					if (!allowBlockHere && isBlockHere && !state.is(BLACKLIST)) //ceiling is obstructed in this column
+					if (!allowBlockHere && isBlockHere && !state.is(BotaniaTags.Blocks.GAIA_GUARDIAN_IMMUNE)) //ceiling is obstructed in this column
 					{
 						trippedPositions.add(pos);
 					}
@@ -644,8 +642,8 @@ public class GaiaGuardianEntity extends Mob {
 					if (CHEATY_BLOCKS.contains(BuiltInRegistries.BLOCK.getKey(block))) {
 						level().destroyBlock(pos, true);
 					} else {
-						//don't break blacklisted blocks
-						if (state.is(BLACKLIST)) {
+						//don't break immune blocks
+						if (state.is(BotaniaTags.Blocks.GAIA_GUARDIAN_IMMUNE)) {
 							continue;
 						}
 						//don't break the floor

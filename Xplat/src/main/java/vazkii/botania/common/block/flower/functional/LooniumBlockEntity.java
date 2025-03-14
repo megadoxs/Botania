@@ -366,7 +366,7 @@ public class LooniumBlockEntity extends FunctionalFlowerBlockEntity {
 	private static ItemStack pickRandomLootItem(ServerLevel world, LootTable pickedLootTable) {
 		LootParams params = new LootParams.Builder(world).create(LootContextParamSets.EMPTY);
 		List<ItemStack> stacks = pickedLootTable.getRandomItems(params, world.random.nextLong());
-		stacks.removeIf(s -> s.isEmpty() || s.is(BotaniaTags.Items.LOONIUM_BLACKLIST));
+		stacks.removeIf(s -> s.isEmpty() || s.is(BotaniaTags.Items.LOONIUM_EXCLUDED));
 		if (stacks.isEmpty()) {
 			return ItemStack.EMPTY;
 		} else {

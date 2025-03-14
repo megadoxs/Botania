@@ -171,8 +171,8 @@ public class BlockTagProvider extends IntrinsicHolderTagsProvider<Block> {
 				.add(Blocks.DIRT, Blocks.GRASS_BLOCK, Blocks.COARSE_DIRT, Blocks.PODZOL, Blocks.MYCELIUM)
 				.add(Blocks.GRASS_BLOCK, Blocks.GRAVEL, Blocks.SNOW)
 				.addTag(BlockTags.SAND);
-		tag(BotaniaTags.Blocks.GAIA_BREAK_BLACKLIST).add(Blocks.BEACON, BotaniaBlocks.manaPylon, BotaniaBlocks.naturaPylon, BotaniaBlocks.gaiaPylon);
-		tag(BotaniaTags.Blocks.MAGNET_RING_BLACKLIST).add(BotaniaBlocks.manaPool, BotaniaBlocks.creativePool, BotaniaBlocks.dilutedPool,
+		tag(BotaniaTags.Blocks.GAIA_GUARDIAN_IMMUNE).add(Blocks.BEACON, BotaniaBlocks.manaPylon, BotaniaBlocks.naturaPylon, BotaniaBlocks.gaiaPylon);
+		tag(BotaniaTags.Blocks.SHIELDS_FROM_MAGNET_RING).add(BotaniaBlocks.manaPool, BotaniaBlocks.creativePool, BotaniaBlocks.dilutedPool,
 				BotaniaBlocks.fabulousPool, BotaniaBlocks.terraPlate, BotaniaBlocks.runeAltar);
 		tag(BotaniaTags.Blocks.LAPUTA_IMMOBILE);
 		tag(BotaniaTags.Blocks.LAPUTA_NO_DOUBLE_BLOCK);
@@ -212,7 +212,7 @@ public class BlockTagProvider extends IntrinsicHolderTagsProvider<Block> {
 		tag(BotaniaTags.Blocks.ENDER_AIR_CONVERTABLE).add(Blocks.STONE, Blocks.DEEPSLATE, Blocks.GRANITE, Blocks.DIORITE, Blocks.ANDESITE);
 		tag(BotaniaTags.Blocks.MARIMORPHOSIS_CONVERTABLE).add(Blocks.STONE, Blocks.DEEPSLATE, Blocks.GRANITE, Blocks.DIORITE, Blocks.ANDESITE, Blocks.TUFF);
 
-		tag(BotaniaTags.Blocks.WEIGHT_LENS_WHITELIST);
+		tag(BotaniaTags.Blocks.WEIGHT_LENS_AFFECTED);
 
 		tag(BlockTags.MUSHROOM_GROW_BLOCK).add(
 				BotaniaBlocks.biomeStoneFungal, BotaniaBlocks.biomeStoneFungalSlab, BotaniaBlocks.biomeStoneFungalStairs, BotaniaBlocks.biomeStoneFungalWall,

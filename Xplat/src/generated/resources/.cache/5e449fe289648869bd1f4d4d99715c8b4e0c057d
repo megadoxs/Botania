@@ -12,9 +12,8 @@ d8c0b82b62c4f8e76f7d0be581205211b90a8f0f data/botania/tags/item/generating_speci
 2fee618b5e30ac2e40be8ef0c0f218d72fbbbb88 data/botania/tags/item/lens.json
 7031861956185905c0b33100ef95db464a21453f data/botania/tags/item/lens_glue.json
 feaf72e7fc3c3e8ecf48a44f487aa8ad764191d7 data/botania/tags/item/livingwood_logs.json
-16c246ba34c5e903cfa77491599e8a2917d9d7ec data/botania/tags/item/loonium_blacklist.json
 8cff8d18bc2a884d4d9bee2d69b6245c9f07930c data/botania/tags/item/loonium_offhand_equipment.json
-35133e95f1c8fdd7a1c21afcc231fc0bffefb9a8 data/botania/tags/item/magnet_ring_blacklist.json
+35133e95f1c8fdd7a1c21afcc231fc0bffefb9a8 data/botania/tags/item/magnet_ring_ignored.json
 ecb948821908fac51e6017d655638fd20f7a26c7 data/botania/tags/item/mana_using_items.json
 9a4ebe9c9db467b9ab60b8be5eedcce82f2277ed data/botania/tags/item/mini_flowers.json
 08e5fb1ab74b0805a8a0b50ebab2a05f29851b2a data/botania/tags/item/misc_special_flowers.json

@@ -91,7 +91,7 @@ public class FallingStarEntity extends ThrowableCopyEntity {
 	protected void onHitEntity(EntityHitResult hit) {
 		super.onHitEntity(hit);
 		Entity e = hit.getEntity();
-		// Blacklisting villagers since trading with them counts as a "swing" and will summon a star.
+		// Avoiding villagers since trading with them counts as a "swing" and will summon a star.
 		if (e instanceof Villager) {
 			return;
 		}
