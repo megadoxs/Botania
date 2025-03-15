@@ -124,6 +124,8 @@ public class ItemTagProvider extends ItemTagsProvider {
 				.addOptional(ResourceLocation.fromNamespaceAndPath("quark", "marble"))
 				.addOptional(ResourceLocation.fromNamespaceAndPath("quark", "slate"));
 
+		this.copy(BotaniaTags.Blocks.BLOCKS_QUARTZ, BotaniaTags.Items.BLOCKS_QUARTZ);
+
 		this.tag(BotaniaTags.Items.RUNES).add(
 				runeWater, runeFire, runeEarth, runeAir,
 				runeSpring, runeSummer, runeAutumn, runeWinter,
