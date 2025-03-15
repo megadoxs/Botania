@@ -31,4 +31,17 @@ public class EnableRelics implements LootItemCondition {
 	public LootItemConditionType getType() {
 		return BotaniaLootModifiers.ENABLE_RELICS;
 	}
+
+	public static LootItemCondition.Builder builder() {
+		return Builder.INSTANCE;
+	}
+
+	private static class Builder implements LootItemCondition.Builder {
+		public static final Builder INSTANCE = new Builder();
+
+		@Override
+		public LootItemCondition build() {
+			return EnableRelics.INSTANCE;
+		}
+	}
 }

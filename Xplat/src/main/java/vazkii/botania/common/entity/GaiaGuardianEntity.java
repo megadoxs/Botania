@@ -20,7 +20,6 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.core.registries.Registries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.protocol.Packet;
@@ -81,7 +80,9 @@ import vazkii.botania.common.helper.PlayerHelper;
 import vazkii.botania.common.helper.VecHelper;
 import vazkii.botania.common.item.BotaniaItems;
 import vazkii.botania.common.lib.BotaniaTags;
+import vazkii.botania.common.loot.BotaniaLootTables;
 import vazkii.botania.common.proxy.Proxy;
+import vazkii.botania.mixin.MobAccessor;
 import vazkii.botania.network.EffectType;
 import vazkii.botania.network.clientbound.BotaniaEffectPacket;
 import vazkii.botania.network.clientbound.SpawnGaiaGuardianPacket;
@@ -92,7 +93,6 @@ import vazkii.patchouli.api.PatchouliAPI;
 import java.util.*;
 import java.util.function.Supplier;
 
-import static vazkii.botania.api.BotaniaAPI.botaniaRL;
 import static vazkii.botania.common.helper.PlayerHelper.isTruePlayer;
 
 public class GaiaGuardianEntity extends Mob {
@@ -523,7 +523,7 @@ public class GaiaGuardianEntity extends Mob {
 		if (mobSpawnTicks > 0) {
 			return BuiltInLootTables.EMPTY;
 		}
-		return ResourceKey.create(Registries.LOOT_TABLE, botaniaRL(hardMode ? "gaia_guardian_2" : "gaia_guardian"));
+		return super.getLootTable();
 	}
 
 	@Override
@@ -532,6 +532,9 @@ public class GaiaGuardianEntity extends Mob {
 		if (wasRecentlyHit && isTruePlayer(source.getEntity())) {
 			trueKiller = (Player) source.getEntity();
 		}
+
+		// potential head drop
+		super.dropFromLootTable(source, wasRecentlyHit);
 
 		// Generate loot table for every single attacking player
 		for (UUID u : playersWhoAttacked) {
@@ -546,6 +549,9 @@ public class GaiaGuardianEntity extends Mob {
 			lastHurtByPlayer = player; // Fake attacking player as the killer
 			// Spoof pos so drops spawn at the player
 			setPos(player.getX(), player.getY(), player.getZ());
+			((MobAccessor) this).setLootTable(hardMode
+					? BotaniaLootTables.GAIA_GUARDIAN_REWARD_HARD
+					: BotaniaLootTables.GAIA_GUARDIAN_REWARD);
 			super.dropFromLootTable(player.damageSources().playerAttack(player), wasRecentlyHit);
 			setPos(savePos.x(), savePos.y(), savePos.z());
 			lastHurtByPlayer = saveLastAttacker;

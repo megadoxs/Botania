@@ -20,8 +20,11 @@ import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
 import vazkii.botania.common.block.BotaniaBannerPatterns;
 import vazkii.botania.data.*;
 import vazkii.botania.data.loot.BotaniaBlockLoot;
+import vazkii.botania.data.loot.BotaniaChestLoot;
+import vazkii.botania.data.loot.BotaniaEntityLoot;
 import vazkii.botania.data.loot.BotaniaEquipmentLoot;
-import vazkii.botania.data.loot.BotaniaLooniumStructureLoot;
+import vazkii.botania.data.loot.BotaniaGenericLoot;
+import vazkii.botania.data.loot.BotaniaGiftLoot;
 import vazkii.botania.fabric.data.fabric.FabricBlockLootProvider;
 import vazkii.botania.fabric.data.fabric.FabricBlockTagProvider;
 import vazkii.botania.fabric.data.fabric.FabricItemTagProvider;
@@ -63,8 +66,11 @@ public class FabricDatagenInitializer implements DataGeneratorEntrypoint {
 	private static void configureXplatDatagen(FabricDataGenerator.Pack pack) {
 		pack.addProvider(BotaniaBlockLootWrapper.wrap(BotaniaBlockLoot::new));
 		pack.addProvider(LooniumStructureConfigurationProvider::new);
-		pack.addProvider(BotaniaSimpleLootWrapper.wrap(BotaniaLooniumStructureLoot::new, LootContextParamSets.ALL_PARAMS));
+		pack.addProvider(BotaniaSimpleLootWrapper.wrap(BotaniaGenericLoot::new, LootContextParamSets.ALL_PARAMS));
 		pack.addProvider(BotaniaSimpleLootWrapper.wrap(BotaniaEquipmentLoot::new, LootContextParamSets.EQUIPMENT));
+		pack.addProvider(BotaniaSimpleLootWrapper.wrap(BotaniaEntityLoot::new, LootContextParamSets.ENTITY));
+		pack.addProvider(BotaniaSimpleLootWrapper.wrap(BotaniaGiftLoot::new, LootContextParamSets.GIFT));
+		pack.addProvider(BotaniaSimpleLootWrapper.wrap(BotaniaChestLoot::new, LootContextParamSets.CHEST));
 		BlockTagProvider blockTagProvider = pack.addProvider(BlockTagProvider::new);
 		pack.addProvider((output, registriesFuture) -> new ItemTagProvider(
 				output, registriesFuture, blockTagProvider.contentsGetter()));

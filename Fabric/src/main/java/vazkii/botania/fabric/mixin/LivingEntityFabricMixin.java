@@ -8,7 +8,6 @@
  */
 package vazkii.botania.fabric.mixin;
 
-import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
@@ -30,7 +29,6 @@ import vazkii.botania.common.brew.effect.SoulCrossMobEffect;
 import vazkii.botania.common.item.AssemblyHaloItem;
 import vazkii.botania.common.item.equipment.bauble.CharmOfTheDivaItem;
 import vazkii.botania.common.item.equipment.bauble.SojournersSashItem;
-import vazkii.botania.common.item.equipment.tool.elementium.ElementiumAxeItem;
 import vazkii.botania.common.item.rod.ShadedMesaRodItem;
 
 @Mixin(LivingEntity.class)
@@ -45,12 +43,6 @@ public abstract class LivingEntityFabricMixin extends Entity {
 
 	@Shadow
 	protected int lastHurtByPlayerTime;
-
-	@Inject(method = "dropAllDeathLoot", at = @At(shift = At.Shift.AFTER, value = "INVOKE", target = "Lnet/minecraft/world/entity/LivingEntity;dropFromLootTable(Lnet/minecraft/world/damagesource/DamageSource;Z)V"))
-	private void dropEnd(ServerLevel level, DamageSource damageSource, CallbackInfo ci) {
-		var self = (LivingEntity) (Object) this;
-		ElementiumAxeItem.onEntityDrops(lastHurtByPlayerTime > 0, damageSource, self, self::spawnAtLocation);
-	}
 
 	@Inject(at = @At("HEAD"), cancellable = true, method = "dropFromLootTable")
 	private void dropLoonium(DamageSource source, boolean causedByPlayer, CallbackInfo ci) {

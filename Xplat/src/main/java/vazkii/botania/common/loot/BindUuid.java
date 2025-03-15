@@ -15,6 +15,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.storage.loot.LootContext;
 import net.minecraft.world.level.storage.loot.functions.LootItemConditionalFunction;
+import net.minecraft.world.level.storage.loot.functions.LootItemFunction;
 import net.minecraft.world.level.storage.loot.functions.LootItemFunctionType;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
 import net.minecraft.world.level.storage.loot.predicates.LootItemCondition;
@@ -45,5 +46,22 @@ public class BindUuid extends LootItemConditionalFunction {
 	@Override
 	public LootItemFunctionType<? extends BindUuid> getType() {
 		return BotaniaLootModifiers.BIND_UUID;
+	}
+
+	public static LootItemConditionalFunction.Builder<?> builder() {
+		return new Builder();
+	}
+
+	private static class Builder extends LootItemConditionalFunction.Builder<Builder> {
+
+		@Override
+		protected Builder getThis() {
+			return this;
+		}
+
+		@Override
+		public LootItemFunction build() {
+			return new BindUuid(getConditions());
+		}
 	}
 }

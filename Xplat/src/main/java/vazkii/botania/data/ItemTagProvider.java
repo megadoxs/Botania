@@ -25,6 +25,7 @@ import net.minecraft.world.level.block.Block;
 
 import vazkii.botania.common.block.BotaniaBlocks;
 import vazkii.botania.common.helper.ColorHelper;
+import vazkii.botania.common.item.AncientWillItem;
 import vazkii.botania.common.item.lens.LensItem;
 import vazkii.botania.common.lib.BotaniaTags;
 import vazkii.botania.common.lib.LibMisc;
@@ -90,11 +91,11 @@ public class ItemTagProvider extends ItemTagsProvider {
 				.add(BotaniaBlocks.motifDaybloom.asItem(), BotaniaBlocks.motifNightshade.asItem(), BotaniaBlocks.motifHydroangeas.asItem());
 
 		this.tag(BotaniaTags.Items.BURST_VIEWERS).add(monocle);
-		TagsProvider.TagAppender<Item> builder = this.tag(BotaniaTags.Items.LENS);
+		TagsProvider.TagAppender<Item> lensTag = this.tag(BotaniaTags.Items.LENS);
 		BuiltInRegistries.ITEM.stream().filter(i -> i instanceof LensItem && BuiltInRegistries.ITEM.getKey(i).getNamespace().equals(LibMisc.MOD_ID))
 				.map(BuiltInRegistries.ITEM::getKey)
 				.sorted()
-				.forEach(item -> builder.add(ResourceKey.create(Registries.ITEM, item)));
+				.forEach(item -> lensTag.add(ResourceKey.create(Registries.ITEM, item)));
 
 		this.tag(BotaniaTags.Items.LENS_GLUE).add(Items.SLIME_BALL).add(Items.HONEY_BOTTLE);
 
@@ -129,6 +130,12 @@ public class ItemTagProvider extends ItemTagsProvider {
 				runeMana, runeLust, runeGluttony, runeGreed,
 				runeSloth, runeWrath, runeEnvy, runePride
 		);
+
+		TagsProvider.TagAppender<Item> willsTag = this.tag(BotaniaTags.Items.ANCIENT_WILLS);
+		BuiltInRegistries.ITEM.stream().filter(i -> i instanceof AncientWillItem && BuiltInRegistries.ITEM.getKey(i).getNamespace().equals(LibMisc.MOD_ID))
+				.map(BuiltInRegistries.ITEM::getKey)
+				.sorted()
+				.forEach(item -> willsTag.add(ResourceKey.create(Registries.ITEM, item)));
 
 		TagAppender<Item> allPetals = this.tag(BotaniaTags.Items.PETALS);
 		ColorHelper.supportedColors().forEach(color -> {

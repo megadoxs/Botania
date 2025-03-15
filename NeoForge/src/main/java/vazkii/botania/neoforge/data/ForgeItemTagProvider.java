@@ -1,6 +1,7 @@
 package vazkii.botania.neoforge.data;
 
 import net.minecraft.core.HolderLookup;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.tags.ItemTagsProvider;
 import net.minecraft.data.tags.TagsProvider;
@@ -68,6 +69,14 @@ public class ForgeItemTagProvider extends ItemTagsProvider {
 				tinyPotatoMask, questgiverMark,
 				thinkingHand
 		);
+
+		tag(TagKey.create(Registries.ITEM,
+				ResourceLocation.fromNamespaceAndPath("quark", "big_harvesting_hoes")))
+				.add(elementiumHoe);
+
+		tag(TagKey.create(Registries.ITEM,
+				ResourceLocation.fromNamespaceAndPath("quark", "reacharound_able")))
+				.add(dirtRod, skyDirtRod, cobbleRod, blackHoleTalisman);
 	}
 
 	private static TagKey<Item> accessory(String name) {

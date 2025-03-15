@@ -255,7 +255,11 @@ public class FabricCommonInitializer implements ModInitializer {
 		CommandRegistrationCallback.EVENT.register(this::registerCommands);
 		EntitySleepEvents.ALLOW_SLEEPING.register(SleepingHandler::trySleep);
 		EntityTrackingEvents.START_TRACKING.register(DaffomillBlockEntity::onItemTrack);
-		LootTableEvents.MODIFY.register((key, tableBuilder, source, registries) -> LootHandler.lootLoad(key.location(), tableBuilder::withPool)); //todo confirm location is correct
+		LootTableEvents.MODIFY.register((key, tableBuilder, source, registries) -> {
+			if (source.isBuiltin()) {
+				LootHandler.lootLoad(key.location(), tableBuilder::withPool);
+			}
+		});
 		ManaNetworkCallback.EVENT.register(ManaNetworkHandler.instance::onNetworkEvent);
 		ServerEntityEvents.ENTITY_LOAD.register(TigerseyeBlockEntity::pacifyAfterLoad);
 		ServerLifecycleEvents.SERVER_STARTED.register(this::serverAboutToStart);

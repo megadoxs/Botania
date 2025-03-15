@@ -20,5 +20,7 @@ public class ForgeDatagenInitializer {
 		generator.addProvider(evt.includeServer(), blockTagProvider);
 		generator.addProvider(evt.includeServer(), new ForgeItemTagProvider(output, evt.getLookupProvider(),
 				blockTagProvider.contentsGetter(), disabledHelper));
+		// TODO: https://github.com/neoforged/NeoForge/issues/1828 prevents enabling this permanently
+		//generator.addProvider(evt.includeServer(), new BotaniaGlobalLootModifierProvider(output, evt.getLookupProvider()));
 	}
 }

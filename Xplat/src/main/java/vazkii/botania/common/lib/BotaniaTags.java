@@ -88,6 +88,7 @@ public class BotaniaTags {
 		public static final TagKey<Item> PETALS_YELLOW = tag("petals/yellow");
 
 		public static final TagKey<Item> RUNES = tag("runes");
+		public static final TagKey<Item> ANCIENT_WILLS = tag("ancient_wills");
 
 		public static final TagKey<Item> LIVINGWOOD_LOGS = tag("livingwood_logs");
 		public static final TagKey<Item> DREAMWOOD_LOGS = tag("dreamwood_logs");

@@ -4,23 +4,70 @@ import com.google.common.collect.Sets;
 
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceKey;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.level.storage.loot.BuiltInLootTables;
 import net.minecraft.world.level.storage.loot.LootTable;
+
+import org.jetbrains.annotations.Nullable;
 
 import java.util.Collections;
 import java.util.List;
 import java.util.Set;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import java.util.stream.IntStream;
+import java.util.stream.Stream;
 
+import static vazkii.botania.api.BotaniaAPI.MODID;
 import static vazkii.botania.api.BotaniaAPI.botaniaRL;
 
 public class BotaniaLootTables {
-	private static final Set<ResourceKey<LootTable>> LOCATIONS = Sets.newHashSet();
+	private static final Set<ResourceKey<LootTable>> LOCATIONS = Sets.newLinkedHashSet();
 	private static final Set<ResourceKey<LootTable>> IMMUTABLE_LOCATIONS = Collections.unmodifiableSet(LOCATIONS);
+	private static final Pattern INJECTED_LOOT_TABLE_PATTERN = Pattern.compile("injected/(?<namespace>[a-z0-9_.-]+)/(?<path>[a-z0-9/._-]+)");
 
-	public static final ResourceKey<LootTable> BEHEADING_LOOT_TABLE = register("elementium_axe_beheading");
+	static {
+		// register entity types for injected elementium axe beheading loot tables
+		Stream.of(
+				EntityType.WITHER_SKELETON, EntityType.SKELETON, EntityType.STRAY, EntityType.BOGGED,
+				EntityType.ZOMBIE, EntityType.ZOMBIE_VILLAGER, EntityType.HUSK, EntityType.DROWNED,
+				EntityType.PIGLIN, EntityType.PIGLIN_BRUTE, EntityType.CREEPER, EntityType.PLAYER
+		).map(BotaniaLootTables::getInjectedLootTable).forEach(LOCATIONS::add);
+	}
+
+	public static final ResourceKey<LootTable> INJECTED_CHEST_ABANDONED_MINESHAFT = register(
+			getInjectedLootTable(BuiltInLootTables.ABANDONED_MINESHAFT));
+	public static final ResourceKey<LootTable> INJECTED_CHEST_DESERT_PYRAMID = register(
+			getInjectedLootTable(BuiltInLootTables.DESERT_PYRAMID));
+	public static final ResourceKey<LootTable> INJECTED_CHEST_JUNGLE_TEMPLE = register(
+			getInjectedLootTable(BuiltInLootTables.JUNGLE_TEMPLE));
+	public static final ResourceKey<LootTable> INJECTED_CHEST_SIMPLE_DUNGEON = register(
+			getInjectedLootTable(BuiltInLootTables.SIMPLE_DUNGEON));
+	public static final ResourceKey<LootTable> INJECTED_CHEST_SPAWN_BONUS_CHEST = register(
+			getInjectedLootTable(BuiltInLootTables.SPAWN_BONUS_CHEST));
+	public static final ResourceKey<LootTable> INJECTED_CHEST_STRONGHOLD_CORRIDOR = register(
+			getInjectedLootTable(BuiltInLootTables.STRONGHOLD_CORRIDOR));
+	public static final ResourceKey<LootTable> INJECTED_CHEST_VILLAGE_TEMPLE = register(
+			getInjectedLootTable(BuiltInLootTables.VILLAGE_TEMPLE));
+	public static final ResourceKey<LootTable> INJECTED_CHEST_VILLAGE_TOOLSMITH = register(
+			getInjectedLootTable(BuiltInLootTables.VILLAGE_TOOLSMITH));
+	public static final ResourceKey<LootTable> INJECTED_CHEST_VILLAGE_WEAPONSMITH = register(
+			getInjectedLootTable(BuiltInLootTables.VILLAGE_WEAPONSMITH));
+
 	public static final List<ResourceKey<LootTable>> DICE_ROLL_LOOT_TABLES = IntStream.rangeClosed(1, 6)
 			.mapToObj(i -> register("dice/roll_" + i)).toList();
-	public static final ResourceKey<LootTable> GHAST_LOOT_TABLE = register("ghast_ender_air_crying");
+	public static final ResourceKey<LootTable> GHAST_LOOT_TABLE = register("gameplay/ghast_ender_air_crying");
+
+	public static final ResourceKey<LootTable> FEL_BLAZE = register("entities/fel_blaze");
+
+	public static final ResourceKey<LootTable> GAIA_GUARDIAN_REWARD = register("gaia_guardian/reward");
+	public static final ResourceKey<LootTable> GAIA_GUARDIAN_REWARD_HARD = register("gaia_guardian/reward_hard");
+
+	public static final ResourceKey<LootTable> GAIA_GUARDIAN_LOTUSES = register("gaia_guardian/lotuses");
+	public static final ResourceKey<LootTable> GAIA_GUARDIAN_MATERIALS = register("gaia_guardian/materials");
+	public static final ResourceKey<LootTable> GAIA_GUARDIAN_RUNES = register("gaia_guardian/runes");
+
 	public static final ResourceKey<LootTable> LOONIUM_DEFAULT_LOOT = register("loonium/default");
 
 	public static final ResourceKey<LootTable> LOONIUM_ARMOR_ANCIENT_CITY = register("equipment/loonium/armor_ancient_city");
@@ -110,5 +157,41 @@ public class BotaniaLootTables {
 	 */
 	public static ResourceKey<LootTable> getDiceRollTable(int roll) {
 		return DICE_ROLL_LOOT_TABLES.get(roll - 1);
+	}
+
+	/**
+	 * Gets the resource key of the loot table to inject into the specified entity type's default loot table.
+	 */
+	public static ResourceKey<LootTable> getInjectedLootTable(EntityType<?> entityType) {
+		return getInjectedLootTable(entityType.getDefaultLootTable());
+	}
+
+	/**
+	 * Gets the resource key of the loot table to inject into the specified table.
+	 */
+	public static ResourceKey<LootTable> getInjectedLootTable(ResourceKey<LootTable> baseLootTable) {
+		return getInjectedLootTable(baseLootTable.location());
+	}
+
+	/**
+	 * Gets the resource key of the loot table to inject into the specified table.
+	 */
+	public static ResourceKey<LootTable> getInjectedLootTable(ResourceLocation baseId) {
+		return ResourceKey.create(Registries.LOOT_TABLE,
+				botaniaRL("injected/%s/%s".formatted(baseId.getNamespace(), baseId.getPath())));
+	}
+
+	/**
+	 * Gets the resource key of the loot table the specified table is supposed to be injected to.
+	 */
+	@Nullable
+	public static ResourceKey<LootTable> getInjectionTargetLootTable(ResourceKey<LootTable> injectedLootTable) {
+		Matcher matcher = INJECTED_LOOT_TABLE_PATTERN.matcher(injectedLootTable.location().getPath());
+		if (!injectedLootTable.location().getNamespace().equals(MODID) || !matcher.matches()) {
+			return null;
+		}
+
+		return ResourceKey.create(injectedLootTable.registryKey(),
+				ResourceLocation.fromNamespaceAndPath(matcher.group("namespace"), matcher.group("path")));
 	}
 }

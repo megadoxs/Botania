@@ -35,4 +35,17 @@ public class TrueGuardianKiller implements LootItemCondition {
 	public LootItemConditionType getType() {
 		return BotaniaLootModifiers.TRUE_GUARDIAN_KILLER;
 	}
+
+	public static LootItemCondition.Builder builder() {
+		return Builder.INSTANCE;
+	}
+
+	private static class Builder implements LootItemCondition.Builder {
+		public static final Builder INSTANCE = new Builder();
+
+		@Override
+		public LootItemCondition build() {
+			return TrueGuardianKiller.INSTANCE;
+		}
+	}
 }
