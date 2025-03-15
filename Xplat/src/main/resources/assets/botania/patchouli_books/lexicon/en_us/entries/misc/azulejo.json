@@ -20,13 +20,13 @@
     {
       "type": "crafting",
       "text": "botania.page.azulejo2",
-      "recipe": "botania:azulejo_0"
+      "recipe": "botania:azulejo"
     },
     {
       "type": "botania:crafting_multi",
       "text": "botania.page.azulejo3",
       "recipes": [
-        "botania:azulejo_0_alt",
+        "botania:azulejo_0",
         "botania:azulejo_1",
         "botania:azulejo_2",
         "botania:azulejo_3",
