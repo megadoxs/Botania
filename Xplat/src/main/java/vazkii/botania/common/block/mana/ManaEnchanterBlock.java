@@ -57,38 +57,6 @@ public class ManaEnchanterBlock extends BotaniaBlock implements EntityBlock {
 		return createTickerHelper(type, BotaniaBlockEntities.ENCHANTER, ManaEnchanterBlockEntity::commonTick);
 	}
 
-	/*OLD
-	@Override
-	public InteractionResult use(BlockState state, Level world, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
-		ManaEnchanterBlockEntity enchanter = (ManaEnchanterBlockEntity) world.getBlockEntity(pos);
-		ItemStack stack = player.getItemInHand(hand);
-		if (!stack.isEmpty() && stack.getItem() instanceof WandOfTheForestItem) {
-			return InteractionResult.PASS;
-		}
-	
-		boolean stackEnchantable = !stack.isEmpty()
-				&& !stack.is(Items.BOOK)
-				&& stack.isEnchantable()
-				&& stack.getCount() == 1;
-	
-		if (enchanter.itemToEnchant.isEmpty()) {
-			if (stackEnchantable) {
-				enchanter.itemToEnchant = stack.copy();
-				player.setItemInHand(hand, ItemStack.EMPTY);
-				enchanter.sync();
-			} else {
-				return InteractionResult.PASS;
-			}
-		} else if (enchanter.stage == ManaEnchanterBlockEntity.State.IDLE) {
-			player.getInventory().placeItemBackInInventory(enchanter.itemToEnchant.copy());
-			enchanter.itemToEnchant = ItemStack.EMPTY;
-			enchanter.sync();
-		}
-	
-		return InteractionResult.sidedSuccess(world.isClientSide());
-	}
-	 */
-
 	@Override
 	protected ItemInteractionResult useItemOn(ItemStack stack, BlockState state, Level world, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hitResult) {
 		ManaEnchanterBlockEntity enchanter = (ManaEnchanterBlockEntity) world.getBlockEntity(pos);
