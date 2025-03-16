@@ -1,5 +1,7 @@
 {
-  "entities": ["minecraft:player"],
+  "entities": [
+    "minecraft:player"
+  ],
   "slots": [
     "belt",
     "body",
