@@ -9,53 +9,54 @@
 package vazkii.botania.common.item;
 
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.component.DataComponents;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.world.InteractionResult;
-import net.minecraft.world.entity.vehicle.AbstractMinecart;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.BaseRailBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.RailShape;
+import net.minecraft.world.level.gameevent.GameEvent;
 
 import vazkii.botania.common.entity.ManaPoolMinecartEntity;
+import vazkii.botania.xplat.XplatAbstractions;
 
+// [VanillaCopy] of MinecartItem, because that is needlessly locked down through the AbstractMinecart.Type enum
 public class ManaPoolMinecartItem extends Item {
+	// see ManaPoolMinecartBehavior for the corresponding dispenser behavior implementation
 
 	public ManaPoolMinecartItem(Properties builder) {
 		super(builder);
 	}
 
-	// [VanillaCopy] MinecartItem
 	@Override
 	public InteractionResult useOn(UseOnContext context) {
-		Level world = context.getLevel();
+		Level level = context.getLevel();
 		BlockPos blockPos = context.getClickedPos();
-		BlockState blockState = world.getBlockState(blockPos);
+		BlockState blockState = level.getBlockState(blockPos);
 		if (!blockState.is(BlockTags.RAILS)) {
 			return InteractionResult.FAIL;
 		} else {
 			ItemStack itemStack = context.getItemInHand();
-			if (!world.isClientSide) {
-				RailShape railShape = blockState.getBlock() instanceof BaseRailBlock ? blockState.getValue(((BaseRailBlock) blockState.getBlock()).getShapeProperty()) : RailShape.NORTH_SOUTH;
-				double d = 0.0D;
+			if (level instanceof ServerLevel serverlevel) {
+				RailShape railShape = XplatAbstractions.INSTANCE.getRailDirection(blockState, level, blockPos, null);
+				double yOffset = 0.0;
 				if (railShape.isAscending()) {
-					d = 0.5D;
+					yOffset = 0.5;
 				}
 
-				AbstractMinecart abstractMinecartEntity = new ManaPoolMinecartEntity(world, (double) blockPos.getX() + 0.5D, (double) blockPos.getY() + 0.0625D + d, (double) blockPos.getZ() + 0.5D);
-				if (itemStack.has(DataComponents.CUSTOM_NAME)) {
-					abstractMinecartEntity.setCustomName(itemStack.getHoverName());
-				}
-
-				world.addFreshEntity(abstractMinecartEntity);
+				ManaPoolMinecartEntity minecartEntity = ManaPoolMinecartEntity.createMinecart(serverlevel,
+						blockPos.getX() + 0.5, blockPos.getY() + 0.0625 + yOffset, blockPos.getZ() + 0.5,
+						itemStack, context.getPlayer());
+				serverlevel.addFreshEntity(minecartEntity);
+				serverlevel.gameEvent(GameEvent.ENTITY_PLACE, blockPos,
+						GameEvent.Context.of(context.getPlayer(), serverlevel.getBlockState(blockPos.below())));
 			}
 
 			itemStack.shrink(1);
-			return InteractionResult.sidedSuccess(world.isClientSide);
+			return InteractionResult.sidedSuccess(level.isClientSide);
 		}
 	}
 

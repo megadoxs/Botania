@@ -10,38 +10,35 @@ package vazkii.botania.common.block.dispenser;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.dispenser.BlockSource;
 import net.minecraft.core.dispenser.DefaultDispenseItemBehavior;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.tags.BlockTags;
-import net.minecraft.world.entity.vehicle.AbstractMinecart;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.BaseRailBlock;
 import net.minecraft.world.level.block.DispenserBlock;
 import net.minecraft.world.level.block.LevelEvent;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.RailShape;
+import net.minecraft.world.phys.Vec3;
 
 import vazkii.botania.common.entity.ManaPoolMinecartEntity;
+import vazkii.botania.xplat.XplatAbstractions;
 
-// TODO maybe update copy
-// [VanillaCopy] MinecartItem
+// [VanillaCopy] MinecartItem.DISPENSE_ITEM_BEHAVIOR
 public class ManaPoolMinecartBehavior extends DefaultDispenseItemBehavior {
 	private final DefaultDispenseItemBehavior behaviourDefaultDispenseItem = new DefaultDispenseItemBehavior();
 
 	@Override
 	public ItemStack execute(BlockSource source, ItemStack stack) {
 		Direction direction = source.state().getValue(DispenserBlock.FACING);
-		Level world = source.level();
-		double x = source.center().x() + (double) direction.getStepX() * 1.125;
-		double y = Math.floor(source.center().y()) + (double) direction.getStepY();
-		double z = source.center().z() + (double) direction.getStepZ() * 1.125;
-		BlockPos blockpos = source.pos().relative(direction);
-		BlockState blockState = world.getBlockState(blockpos);
-		RailShape railShape = blockState.getBlock() instanceof BaseRailBlock
-				? blockState.getValue(((BaseRailBlock) blockState.getBlock()).getShapeProperty())
-				: RailShape.NORTH_SOUTH;
+		ServerLevel level = source.level();
+		Vec3 center = source.center();
+		double x = center.x() + (double) direction.getStepX() * 1.125;
+		double y = Math.floor(center.y()) + (double) direction.getStepY();
+		double z = center.z() + (double) direction.getStepZ() * 1.125;
+		BlockPos blockPos = source.pos().relative(direction);
+		BlockState blockState = level.getBlockState(blockPos);
+		RailShape railShape = XplatAbstractions.INSTANCE.getRailDirection(blockState, level, blockPos, null);
 		double yOffset;
 		if (blockState.is(BlockTags.RAILS)) {
 			if (railShape.isAscending()) {
@@ -50,14 +47,12 @@ public class ManaPoolMinecartBehavior extends DefaultDispenseItemBehavior {
 				yOffset = 0.1;
 			}
 		} else {
-			if (!blockState.isAir() || !world.getBlockState(blockpos.below()).is(BlockTags.RAILS)) {
+			if (!blockState.isAir() || !level.getBlockState(blockPos.below()).is(BlockTags.RAILS)) {
 				return this.behaviourDefaultDispenseItem.dispense(source, stack);
 			}
 
-			BlockState blockStateBelow = world.getBlockState(blockpos.below());
-			RailShape railShapeBelow = blockStateBelow.getBlock() instanceof BaseRailBlock
-					? blockStateBelow.getValue(((BaseRailBlock) blockStateBelow.getBlock()).getShapeProperty())
-					: RailShape.NORTH_SOUTH;
+			BlockState blockStateBelow = level.getBlockState(blockPos.below());
+			RailShape railShapeBelow = XplatAbstractions.INSTANCE.getRailDirection(blockStateBelow, level, blockPos, null);
 			if (direction != Direction.DOWN && railShapeBelow.isAscending()) {
 				yOffset = -0.4;
 			} else {
@@ -65,13 +60,10 @@ public class ManaPoolMinecartBehavior extends DefaultDispenseItemBehavior {
 			}
 		}
 
-		// changed from vanilla, because it uses AbstractMinecart.Type enum to resolve the entity type
-		AbstractMinecart minecart = new ManaPoolMinecartEntity(world, x, y + yOffset, z);
-		if (stack.has(DataComponents.CUSTOM_NAME)) {
-			minecart.setCustomName(stack.getHoverName());
-		}
-
-		world.addFreshEntity(minecart);
+		ManaPoolMinecartEntity minecartEntity = ManaPoolMinecartEntity.createMinecart(
+				level, x, y + yOffset, z, stack, null
+		);
+		level.addFreshEntity(minecartEntity);
 		stack.shrink(1);
 		return stack;
 	}

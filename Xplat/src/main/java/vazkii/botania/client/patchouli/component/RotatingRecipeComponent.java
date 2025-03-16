@@ -13,13 +13,15 @@ import com.google.gson.annotations.SerializedName;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.HolderLookup;
+import net.minecraft.core.NonNullList;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.crafting.Ingredient;
-import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.Level;
 
 import vazkii.botania.common.crafting.BotaniaRecipeTypes;
 import vazkii.patchouli.api.IVariable;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.function.UnaryOperator;
 
@@ -36,23 +38,22 @@ public class RotatingRecipeComponent extends RotatingItemListComponentBase {
 	@Override
 	protected List<Ingredient> makeIngredients() {
 		Level world = Minecraft.getInstance().level;
-		RecipeType<?> type;
 		if ("runic_altar".equals(recipeType)) {
-			type = BotaniaRecipeTypes.RUNE_TYPE;
+			var recipe = BotaniaRecipeTypes.getRecipe(world,
+					ResourceLocation.parse(recipeName), BotaniaRecipeTypes.RUNE_TYPE);
+			if (recipe.isEmpty()) {
+				return ImmutableList.of();
+			}
+			var ingredients = new ArrayList<>(recipe.get().value().getIngredients());
+			ingredients.addAll(recipe.get().value().getCatalysts());
+			return NonNullList.of(Ingredient.EMPTY, ingredients.toArray(Ingredient[]::new));
 		} else if ("petal_apothecary".equals(recipeType)) {
-			type = BotaniaRecipeTypes.PETAL_TYPE;
+			var recipe = BotaniaRecipeTypes.getRecipe(world,
+					ResourceLocation.parse(recipeName), BotaniaRecipeTypes.PETAL_TYPE);
+			return recipe.isPresent() ? recipe.get().value().getIngredients() : ImmutableList.of();
 		} else {
 			throw new IllegalArgumentException("Type must be 'runic_altar' or 'petal_apothecary'!");
 		}
-		/*todo idk why this throws error
-		Optional<? extends RecipeHolder<?>> recipe = BotaniaRecipeTypes.getRecipe(world, ResourceLocation.parse(recipeName), type);
-		if (recipe.isEmpty()) {
-			return ImmutableList.of();
-		}
-		return recipe.get().value().getIngredients();
-		
-		 */
-		return ImmutableList.of();
 	}
 
 	@Override

@@ -14,15 +14,19 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.vehicle.AbstractMinecart;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+
+import org.jetbrains.annotations.Nullable;
 
 import vazkii.botania.api.mana.ManaPool;
 import vazkii.botania.client.fx.WispParticleData;
@@ -44,6 +48,19 @@ public class ManaPoolMinecartEntity extends AbstractMinecart {
 
 	public ManaPoolMinecartEntity(Level world, double x, double y, double z) {
 		super(BotaniaEntities.POOL_MINECART, world, x, y, z);
+	}
+
+	// [VanillaCopy] AbstractMinecart.createMinecart without type switch
+	public static ManaPoolMinecartEntity createMinecart(
+			ServerLevel level,
+			double x,
+			double y,
+			double z,
+			ItemStack stack,
+			@Nullable Player player) {
+		ManaPoolMinecartEntity minecartEntity = new ManaPoolMinecartEntity(level, x, y, z);
+		EntityType.createDefaultStackConfig(level, stack, player).accept(minecartEntity);
+		return minecartEntity;
 	}
 
 	@Override
