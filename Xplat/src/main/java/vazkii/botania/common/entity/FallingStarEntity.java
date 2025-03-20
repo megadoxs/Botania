@@ -16,6 +16,7 @@ import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.npc.Villager;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.entity.projectile.ThrowableProjectile;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
@@ -28,7 +29,7 @@ import vazkii.botania.xplat.BotaniaConfig;
 
 import java.util.List;
 
-public class FallingStarEntity extends ThrowableCopyEntity {
+public class FallingStarEntity extends ThrowableProjectile {
 
 	private static final String TAG_HAS_BEEN_IN_AIR = "hasBeenInAir";
 	/*

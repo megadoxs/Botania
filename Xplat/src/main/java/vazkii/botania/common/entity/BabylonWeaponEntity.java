@@ -21,6 +21,7 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.entity.projectile.ThrowableProjectile;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Explosion;
 import net.minecraft.world.level.Level;
@@ -41,7 +42,7 @@ import vazkii.botania.common.item.relic.KeyOfTheKingsLawItem;
 
 import java.util.List;
 
-public class BabylonWeaponEntity extends ThrowableCopyEntity {
+public class BabylonWeaponEntity extends ThrowableProjectile {
 	private static final String TAG_CHARGING = "charging";
 	private static final String TAG_VARIETY = "variety";
 	private static final String TAG_CHARGE_TICKS = "chargeTicks";
