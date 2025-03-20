@@ -13,12 +13,17 @@ import com.mojang.serialization.DataResult;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 
+import it.unimi.dsi.fastutil.ints.IntOpenHashSet;
+import it.unimi.dsi.fastutil.ints.IntSet;
+import it.unimi.dsi.fastutil.objects.ReferenceOpenHashSet;
+
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.NonNullList;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.util.ExtraCodecs;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.RecipeInput;
@@ -28,8 +33,8 @@ import net.minecraft.world.level.Level;
 import vazkii.botania.common.block.BotaniaBlocks;
 import vazkii.botania.common.crafting.recipe.RecipeUtils;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Stream;
 
 public class RunicAltarRecipe implements vazkii.botania.api.recipe.RunicAltarRecipe {
 	public static final RecipeSerializer<RunicAltarRecipe> SERIALIZER = new Serializer();
@@ -37,7 +42,6 @@ public class RunicAltarRecipe implements vazkii.botania.api.recipe.RunicAltarRec
 	private final Ingredient reagent;
 	private final NonNullList<Ingredient> ingredients;
 	private final NonNullList<Ingredient> catalysts;
-	private final NonNullList<Ingredient> allInputs;
 	private final int mana;
 
 	public RunicAltarRecipe(ItemStack output, Ingredient reagent, int mana, Ingredient[] ingredients, Ingredient[] catalysts) {
@@ -45,18 +49,29 @@ public class RunicAltarRecipe implements vazkii.botania.api.recipe.RunicAltarRec
 		int numCatalysts = catalysts.length;
 		Preconditions.checkArgument(numIngredients + numCatalysts > 0, "Must have at least one ingredient or catalyst");
 		Preconditions.checkArgument(numIngredients + numCatalysts <= 16, "Cannot have more than 16 ingredients and/or catalysts");
+		validateNoCatalystsInIngredients(ingredients, catalysts);
 		this.output = output;
 		this.reagent = reagent;
 		this.ingredients = NonNullList.of(Ingredient.EMPTY, ingredients);
 		this.catalysts = NonNullList.of(Ingredient.EMPTY, catalysts);
 		this.mana = mana;
+	}
 
-		this.allInputs = NonNullList.withSize(numIngredients + numCatalysts, Ingredient.EMPTY);
-		for (int i = 0; i < numIngredients; i++) {
-			allInputs.set(i, ingredients[i]);
+	private void validateNoCatalystsInIngredients(Ingredient[] ingredients, Ingredient[] catalysts) {
+		if (ingredients.length == 0 || catalysts.length == 0) {
+			return;
 		}
-		for (int i = 0; i < numCatalysts; i++) {
-			allInputs.set(i + numIngredients, catalysts[i]);
+
+		var ingredientItems = new ReferenceOpenHashSet<Item>(ingredients.length);
+		var catalystItems = new ReferenceOpenHashSet<Item>(catalysts.length);
+		Stream.of(ingredients).flatMap(ingredient -> Stream.of(ingredient.getItems()))
+				.map(ItemStack::getItem).forEach(ingredientItems::add);
+		Stream.of(catalysts).flatMap(catalyst -> Stream.of(catalyst.getItems()))
+				.map(ItemStack::getItem).forEach(catalystItems::add);
+
+		catalystItems.retainAll(ingredientItems);
+		if (!catalystItems.isEmpty()) {
+			throw new IllegalArgumentException("The following item types can match both as ingredient and as catalyst: " + catalystItems);
 		}
 	}
 
@@ -66,37 +81,17 @@ public class RunicAltarRecipe implements vazkii.botania.api.recipe.RunicAltarRec
 
 	@Override
 	public boolean matches(RecipeInput container, Level world) {
-		return RecipeUtils.matches(allInputs, container, null);
+		return RecipeUtils.matches(ingredients, catalysts, container, null, null);
 	}
 
 	@Override
 	public NonNullList<ItemStack> getRemainingItems(RecipeInput container) {
-		List<Ingredient> ingredientsMissing = new ArrayList<>(ingredients);
-		List<Ingredient> catalystsMissing = new ArrayList<>(catalysts);
-		NonNullList<ItemStack> foundCatalysts = NonNullList.of(ItemStack.EMPTY);
+		IntSet matchedCatalystSlots = new IntOpenHashSet(catalysts.size());
+		RecipeUtils.matches(ingredients, catalysts, container, null, matchedCatalystSlots);
+		NonNullList<ItemStack> foundCatalysts = NonNullList.createWithCapacity(matchedCatalystSlots.size());
 
-		containerLoop: for (int i = 0; i < container.size(); i++) {
-			ItemStack input = container.getItem(i);
-			if (input.isEmpty()) {
-				break;
-			}
-
-			for (int j = 0; j < ingredientsMissing.size(); j++) {
-				Ingredient ingr = ingredientsMissing.get(j);
-				if (ingr.test(input)) {
-					ingredientsMissing.remove(j);
-					continue containerLoop;
-				}
-			}
-
-			for (int j = 0; j < catalystsMissing.size(); j++) {
-				Ingredient ingr = catalystsMissing.get(j);
-				if (ingr.test(input)) {
-					catalystsMissing.remove(j);
-					foundCatalysts.add(input);
-					continue containerLoop;
-				}
-			}
+		for (int slot : matchedCatalystSlots) {
+			foundCatalysts.add(container.getItem(slot));
 		}
 
 		return foundCatalysts;

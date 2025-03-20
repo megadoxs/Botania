@@ -11,14 +11,9 @@ package vazkii.botania.common.crafting.recipe;
 import it.unimi.dsi.fastutil.ints.IntSet;
 
 import net.minecraft.core.NonNullList;
-import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.network.RegistryFriendlyByteBuf;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
-import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.RecipeInput;
-import net.minecraft.world.item.crafting.RecipeSerializer;
 
 import org.jetbrains.annotations.Nullable;
 
@@ -29,11 +24,19 @@ import java.util.function.Function;
 
 public class RecipeUtils {
 	/**
-	 * Check if every ingredient in {@code inputs} is satisfied by {@code inv}.
-	 * Optionally, the slots from the inventory used to fulfill the inputs are placed into {@code usedSlots}.
+	 * Check if every ingredient in {@code inputs} and optionally {@code catalysts} is satisfied by {@code inv}.
+	 * Optionally, the slots from the inventory used to fulfill the inputs are placed into {@code matchedInputSlots}.
+	 * Similarly, the slots from the inventory used to fulfill the catalysts are placed into
+	 * {@code matchedCatalystSlots}.
 	 */
-	public static boolean matches(List<Ingredient> inputs, RecipeInput inv, @Nullable IntSet usedSlots) {
+	public static boolean matches(List<Ingredient> inputs, @Nullable List<Ingredient> catalysts, RecipeInput inv,
+			@Nullable IntSet matchedInputSlots, @Nullable IntSet matchedCatalystSlots) {
+		// TODO: Can we reuse the ShapelessRecipe matching logic here? It seems to be optimized in some way.
 		List<Ingredient> ingredientsMissing = new ArrayList<>(inputs);
+		int catalystsStart = ingredientsMissing.size();
+		if (catalysts != null) {
+			ingredientsMissing.addAll(catalysts);
+		}
 
 		for (int i = 0; i < inv.size(); i++) {
 			ItemStack input = inv.getItem(i);
@@ -47,8 +50,9 @@ public class RecipeUtils {
 				Ingredient ingr = ingredientsMissing.get(j);
 				if (ingr.test(input)) {
 					stackIndex = j;
-					if (usedSlots != null) {
-						usedSlots.add(i);
+					IntSet slotsTracker = stackIndex < catalystsStart ? matchedCatalystSlots : matchedInputSlots;
+					if (slotsTracker != null) {
+						slotsTracker.add(i);
 					}
 					break;
 				}
@@ -56,6 +60,9 @@ public class RecipeUtils {
 
 			if (stackIndex != -1) {
 				ingredientsMissing.remove(stackIndex);
+				if (stackIndex >= catalystsStart) {
+					catalystsStart--;
+				}
 			} else {
 				return false;
 			}
@@ -82,21 +89,5 @@ public class RecipeUtils {
 		}
 
 		return ret;
-	}
-
-	public static Recipe<?> recipeFromNetwork(RegistryFriendlyByteBuf buffer) {
-		ResourceLocation serializerId = buffer.readResourceLocation();
-		return BuiltInRegistries.RECIPE_SERIALIZER.getOptional(serializerId)
-				.orElseThrow(() -> new IllegalArgumentException("Unknown recipe serializer: " + serializerId))
-				.streamCodec().decode(buffer);
-	}
-
-	public static void recipeToNetwork(RegistryFriendlyByteBuf buffer, Recipe<?> recipe) {
-		@SuppressWarnings("unchecked")
-		RecipeSerializer<Recipe<?>> recipeSerializer = (RecipeSerializer<Recipe<?>>) recipe.getSerializer();
-		buffer.writeResourceLocation(BuiltInRegistries.RECIPE_SERIALIZER.getResourceKey(recipeSerializer)
-				.orElseThrow(() -> new IllegalArgumentException("Unregistered recipe serializer: " + recipeSerializer))
-				.location());
-		recipeSerializer.streamCodec().encode(buffer, recipe);
 	}
 }

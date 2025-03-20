@@ -67,7 +67,7 @@ public class TerrestrialAgglomerationRecipe implements vazkii.botania.api.recipe
 		}
 
 		IntOpenHashSet usedSlots = new IntOpenHashSet(inv.size());
-		return RecipeUtils.matches(ingredients, inv, usedSlots) && usedSlots.size() == nonEmptySlots;
+		return RecipeUtils.matches(ingredients, null, inv, usedSlots, null) && usedSlots.size() == nonEmptySlots;
 	}
 
 	@Override

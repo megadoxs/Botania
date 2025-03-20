@@ -23,8 +23,8 @@ import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.level.Level;
 
 import vazkii.botania.common.block.BotaniaBlocks;
+import vazkii.botania.common.crafting.recipe.RecipeUtils;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class PetalApothecaryRecipe implements vazkii.botania.api.recipe.PetalApothecaryRecipe {
@@ -45,32 +45,7 @@ public class PetalApothecaryRecipe implements vazkii.botania.api.recipe.PetalApo
 
 	@Override
 	public boolean matches(RecipeInput inv, Level world) {
-		List<Ingredient> ingredientsMissing = new ArrayList<>(ingredients);
-
-		for (int i = 0; i < inv.size(); i++) {
-			ItemStack input = inv.getItem(i);
-			if (input.isEmpty()) {
-				break;
-			}
-
-			int stackIndex = -1;
-
-			for (int j = 0; j < ingredientsMissing.size(); j++) {
-				Ingredient ingr = ingredientsMissing.get(j);
-				if (ingr.test(input)) {
-					stackIndex = j;
-					break;
-				}
-			}
-
-			if (stackIndex != -1) {
-				ingredientsMissing.remove(stackIndex);
-			} else {
-				return false;
-			}
-		}
-
-		return ingredientsMissing.isEmpty();
+		return RecipeUtils.matches(ingredients, null, inv, null, null);
 	}
 
 	@Override
