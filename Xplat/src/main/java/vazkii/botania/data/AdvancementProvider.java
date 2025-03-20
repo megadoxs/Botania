@@ -11,6 +11,7 @@ package vazkii.botania.data;
 import net.minecraft.advancements.*;
 import net.minecraft.advancements.critereon.*;
 import net.minecraft.core.HolderLookup;
+import net.minecraft.core.component.DataComponentPredicate;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.advancements.AdvancementSubProvider;
@@ -18,6 +19,7 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
+import net.minecraft.util.Unit;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -33,6 +35,7 @@ import vazkii.botania.common.block.flower.functional.LooniumBlockEntity;
 import vazkii.botania.common.component.BotaniaDataComponents;
 import vazkii.botania.common.entity.BotaniaEntities;
 import vazkii.botania.common.item.BotaniaItems;
+import vazkii.botania.common.item.LaputaShardItem;
 import vazkii.botania.common.item.equipment.bauble.FlugelTiaraItem;
 import vazkii.botania.common.lib.BotaniaTags;
 
@@ -53,14 +56,11 @@ public class AdvancementProvider {
 
 		@Override
 		public void generate(HolderLookup.Provider lookup, Consumer<AdvancementHolder> consumer) {
-			/*todo
-			var elvenLexiconUnlock = new CompoundTag();
-			elvenLexiconUnlock.putBoolean(LexicaBotaniaItem.TAG_ELVEN_UNLOCK, true);
-			
-			 */
-			// TODO: probably need new ItemSubPredicate to test for ELVEN_UNLOCK component
 			Criterion<InventoryChangeTrigger.TriggerInstance> elvenLexicon = InventoryChangeTrigger.TriggerInstance.hasItems(
-					ItemPredicate.Builder.item().of(BotaniaItems.lexicon)/*todo .hasNbt(elvenLexiconUnlock)*/.build()
+					ItemPredicate.Builder.item().of(BotaniaItems.lexicon)
+							.hasComponents(DataComponentPredicate.builder()
+									.expect(BotaniaDataComponents.ELVEN_UNLOCK, Unit.INSTANCE).build())
+							.build()
 			);
 
 			// Main progression line
@@ -236,13 +236,10 @@ public class AdvancementProvider {
 			DisplayInfo tiaraWings = simple(BotaniaItems.flightTiara, "tiaraWings", AdvancementType.TASK);
 			tiaraWings.getIcon().set(BotaniaDataComponents.TIARA_VARIANT, 1);
 			Criterion<?>[] variants = IntStream.range(1, FlugelTiaraItem.WING_TYPES)
-					.mapToObj(i -> {
-						// TODO: probably need a new ItemSubPredicate to test for TIARA_VARIANT component
-						CompoundTag tag = new CompoundTag();
-						tag.putInt("variant", i);
-						return tag;
-					})
-					.map(nbt -> ItemPredicate.Builder.item().of(BotaniaItems.flightTiara)/*todo .hasNbt(nbt)*/.build())
+					.mapToObj(i -> ItemPredicate.Builder.item().of(BotaniaItems.flightTiara)
+							.hasComponents(DataComponentPredicate.builder()
+									.expect(BotaniaDataComponents.TIARA_VARIANT, i).build())
+							.build())
 					.map(InventoryChangeTrigger.TriggerInstance::hasItems)
 					.toArray(Criterion<?>[]::new);
 			var builder = Advancement.Builder.advancement()
@@ -426,8 +423,10 @@ public class AdvancementProvider {
 					.parent(root)
 					.rewards(AdvancementRewards.Builder.experience(65))
 					.addCriterion("use_l20_shard", InventoryChangeTrigger.TriggerInstance.hasItems(
-							// TODO: probably need a new ItemSubPredicate to test for SHARD_LEVEL component
-							ItemPredicate.Builder.item().of(BotaniaItems.laputaShard)/*todo .hasNbt(level20Shard)*/.build()))
+							ItemPredicate.Builder.item().of(BotaniaItems.laputaShard).hasComponents(
+									DataComponentPredicate.builder()
+											.expect(BotaniaDataComponents.SHARD_LEVEL, LaputaShardItem.MAX_LEVEL).build())
+									.build()))
 					.save(consumer, challengeId("l20_shard_use"));
 			Advancement.Builder.advancement()
 					.display(hidden(Items.BREAD, "alfPortalBread", AdvancementType.CHALLENGE))

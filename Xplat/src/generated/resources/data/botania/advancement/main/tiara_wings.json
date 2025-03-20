@@ -5,6 +5,9 @@
       "conditions": {
         "items": [
           {
+            "components": {
+              "botania:tiara_variant": 1
+            },
             "items": "botania:flight_tiara"
           }
         ]
@@ -15,6 +18,9 @@
       "conditions": {
         "items": [
           {
+            "components": {
+              "botania:tiara_variant": 2
+            },
             "items": "botania:flight_tiara"
           }
         ]
@@ -25,6 +31,9 @@
       "conditions": {
         "items": [
           {
+            "components": {
+              "botania:tiara_variant": 3
+            },
             "items": "botania:flight_tiara"
           }
         ]
@@ -35,6 +44,9 @@
       "conditions": {
         "items": [
           {
+            "components": {
+              "botania:tiara_variant": 4
+            },
             "items": "botania:flight_tiara"
           }
         ]
@@ -45,6 +57,9 @@
       "conditions": {
         "items": [
           {
+            "components": {
+              "botania:tiara_variant": 5
+            },
             "items": "botania:flight_tiara"
           }
         ]
@@ -55,6 +70,9 @@
       "conditions": {
         "items": [
           {
+            "components": {
+              "botania:tiara_variant": 6
+            },
             "items": "botania:flight_tiara"
           }
         ]
@@ -65,6 +83,9 @@
       "conditions": {
         "items": [
           {
+            "components": {
+              "botania:tiara_variant": 7
+            },
             "items": "botania:flight_tiara"
           }
         ]
@@ -75,6 +96,9 @@
       "conditions": {
         "items": [
           {
+            "components": {
+              "botania:tiara_variant": 8
+            },
             "items": "botania:flight_tiara"
           }
         ]

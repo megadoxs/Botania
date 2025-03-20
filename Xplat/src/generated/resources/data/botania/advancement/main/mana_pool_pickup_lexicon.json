@@ -5,6 +5,9 @@
       "conditions": {
         "items": [
           {
+            "components": {
+              "botania:elven_unlock": {}
+            },
             "items": "botania:lexicon"
           }
         ]

@@ -38,7 +38,7 @@ public class KeptItemsComponent extends SerializableComponent {
 		stacks.clear();
 		ListTag list = tag.getList("stacks", Tag.TAG_COMPOUND);
 		for (Tag t : list) {
-			stacks.add(/*ItemStack.of((CompoundTag) t)*/ ItemStack.EMPTY);
+			stacks.add(ItemStack.parseOptional(registryLookup, (CompoundTag) t));
 		}
 	}
 
@@ -46,7 +46,7 @@ public class KeptItemsComponent extends SerializableComponent {
 	public void writeToNbt(CompoundTag tag, HolderLookup.Provider registryLookup) {
 		ListTag list = new ListTag();
 		for (ItemStack stack : stacks) {
-			//todo list.add(stack.save(new CompoundTag()));
+			list.add(stack.save(registryLookup));
 		}
 		tag.put("stacks", list);
 	}

@@ -5,6 +5,9 @@
       "conditions": {
         "items": [
           {
+            "components": {
+              "botania:shard_level": 19
+            },
             "items": "botania:laputa_shard"
           }
         ]

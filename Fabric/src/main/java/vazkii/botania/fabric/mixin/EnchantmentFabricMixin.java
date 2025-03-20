@@ -13,7 +13,8 @@ public class EnchantmentFabricMixin {
 	@Inject(method = "canEnchant", cancellable = true, at = @At("HEAD"))
 	public void onEnchant(ItemStack stack, CallbackInfoReturnable<Boolean> cir) {
 		Enchantment self = (Enchantment) (Object) this;
-		/*todo
+		/* TODO: figure out how to allow additional item types for enchantments on Fabric
+			(looting applies to the swords tag by default)
 		if (self == Enchantments.LOOTING && stack.is(BotaniaItems.elementiumAxe)) {
 			cir.setReturnValue(true);
 		}
