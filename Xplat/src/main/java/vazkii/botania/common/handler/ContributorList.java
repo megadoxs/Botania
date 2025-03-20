@@ -12,6 +12,7 @@ import com.google.common.collect.ImmutableMap;
 
 import net.minecraft.DefaultUncaughtExceptionHandler;
 import net.minecraft.core.Holder;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.item.Item;
@@ -98,26 +99,11 @@ public class ContributorList {
 
 	private static ItemStack configureStack(Item item) {
 		ItemStack stack = new ItemStack(item);
-		/* FIXME: need registry access here
-		//Minecraft mc = Minecraft.getInstance();
-		List<Holder<Enchantment>> ench = new ArrayList<>();
-		//Todo I hope this works
-		HolderLookup<Enchantment> enchantmentLookup = mc.level.holderLookup(Registries.ENCHANTMENT);
-		
-		ench.add(enchantmentLookup.getOrThrow(Enchantments.UNBREAKING));
-		enchantmentLookup.get(ResourceKey.create(Registries.ENCHANTMENT, ResourceLocation.fromNamespaceAndPath("charm", "tinted"))).ifPresent(ref -> ench.add(ref));
-		
-		ItemEnchantments.Mutable mutable = new ItemEnchantments.Mutable(ItemEnchantments.EMPTY);
-		for (Holder<Enchantment> enchantment : ench) {
-			mutable.set(enchantment, 1);
-		}
-		
-		EnchantmentHelper.setEnchantments(stack, mutable.toImmutable());
-		
-		/*todo
+		stack.set(DataComponents.ENCHANTMENT_GLINT_OVERRIDE, true);
+
+		/*todo what is this used for?
 		stack.getTag().putBoolean(TAG_HEADFLOWER, true);
 		stack.getTag().putString("charm_glint", DyeColor.YELLOW.getSerializedName());
-		
 		 */
 		return stack;
 	}
