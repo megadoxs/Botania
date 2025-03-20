@@ -2,6 +2,7 @@ package vazkii.botania.test.block;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.gametest.framework.GameTest;
 import net.minecraft.gametest.framework.GameTestHelper;
 import net.minecraft.world.effect.MobEffects;
@@ -22,6 +23,7 @@ import vazkii.botania.mixin.MushroomCowAccessor;
 import vazkii.botania.test.TestingUtil;
 
 import java.util.List;
+import java.util.Objects;
 
 public class DrumBlockTest {
 	private static final String TEMPLATE = "botania:block/drum_gathering";
@@ -83,18 +85,14 @@ public class DrumBlockTest {
 				.thenExecute(() -> helper.pressButton(POSITION_BUTTON))
 				.thenWaitUntil(() -> helper.assertItemEntityPresent(Items.SUSPICIOUS_STEW, POSITION_MOB, 1.0))
 				.thenExecute(() -> {
-					/* TODO
 					final var item = helper.getEntities(EntityType.ITEM, POSITION_MOB, 1.0).stream().findFirst();
 					helper.assertTrue(item.isPresent() && item.get().getItem().is(Items.SUSPICIOUS_STEW), "Item not found or not suspicious stew");
-					final var nbt = item.orElseThrow().getItem().getTag();
-					helper.assertTrue(nbt != null && nbt.contains(SuspiciousStewItem.EFFECTS_TAG, Tag.TAG_LIST), "Missing effects list tag");
-					final var effects = nbt.getList(SuspiciousStewItem.EFFECTS_TAG, Tag.TAG_COMPOUND);
-					final var parsedEffects = SuspiciousEffectHolder.EffectEntry.LIST_CODEC.parse(NbtOps.INSTANCE, effects).result();
-					helper.assertTrue(parsedEffects.isPresent() && parsedEffects.get().size() == 1, "Exactly one effect expected");
-					final var effectEntry = parsedEffects.orElseThrow().get(0);
+					final var effects = item.orElseThrow().getItem().get(DataComponents.SUSPICIOUS_STEW_EFFECTS);
+					helper.assertTrue(effects != null, "Missing effects component");
+					final var parsedEffects = Objects.requireNonNull(effects).effects();
+					helper.assertTrue(parsedEffects.size() == 1, "Exactly one effect expected");
+					final var effectEntry = parsedEffects.getFirst();
 					helper.assertTrue(effectEntry.effect() == MobEffects.BLINDNESS && effectEntry.duration() == 15, "Unexpected effect type or duration");
-					
-					 */
 				})
 				.thenSucceed();
 	}

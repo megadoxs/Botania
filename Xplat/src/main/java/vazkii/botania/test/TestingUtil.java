@@ -82,7 +82,6 @@ public class TestingUtil {
 	public static <T extends BlockEntity> T assertBlockEntity(GameTestHelper helper, BlockPos relativePos, BlockEntityType<T> type) {
 		BlockEntity be = helper.getBlockEntity(relativePos);
 
-		assertAt(helper, relativePos, be != null, () -> "Expected BlockEntity of type " + BuiltInRegistries.BLOCK_ENTITY_TYPE.getKey(type) + " but found no BlockEntity");
 		assertAt(helper, relativePos, be.getType() == type, () -> "Expected BlockEntity of type " + BuiltInRegistries.BLOCK_ENTITY_TYPE.getKey(type) + " but found " + BuiltInRegistries.BLOCK_ENTITY_TYPE.getKey(be.getType()));
 
 		return (T) be;
@@ -91,16 +90,9 @@ public class TestingUtil {
 	public static <T extends BlockEntity> T assertBlockEntity(GameTestHelper helper, BlockPos relativePos, Class<T> classs) {
 		BlockEntity be = helper.getBlockEntity(relativePos);
 
-		assertAt(helper, relativePos, be != null, () -> "Expected BlockEntity of class " + classs.getSimpleName() + " but found no BlockEntity");
 		assertAt(helper, relativePos, classs.isAssignableFrom(be.getClass()), () -> "Expected BlockEntity to be an instance of " + classs.getSimpleName() + " but found " + be.getClass().getSimpleName());
 
 		return classs.cast(be);
-	}
-
-	public static BlockEntity assertAnyBlockEntity(GameTestHelper helper, BlockPos relativePos) {
-		BlockEntity be = helper.getBlockEntity(relativePos);
-		assertAt(helper, relativePos, be != null, () -> "Expected any BlockEntity but found nothing");
-		return be;
 	}
 
 	public static void useItemOn(GameTestHelper helper, Player player, InteractionHand hand, BlockPos pos) {

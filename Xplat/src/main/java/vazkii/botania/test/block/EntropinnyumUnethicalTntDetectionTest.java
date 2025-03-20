@@ -11,7 +11,6 @@ import net.minecraft.world.level.GameType;
 import net.minecraft.world.level.block.Blocks;
 
 import vazkii.botania.common.block.BotaniaBlocks;
-import vazkii.botania.common.block.ForceRelayBlock;
 import vazkii.botania.common.block.block_entity.BotaniaBlockEntities;
 import vazkii.botania.common.block.flower.generating.EntropinnyumBlockEntity;
 import vazkii.botania.common.item.BotaniaItems;
@@ -79,9 +78,8 @@ public class EntropinnyumUnethicalTntDetectionTest {
 					if (helper.getBlockState(POSITION_FORCE_RELAY).getBlock() != BotaniaBlocks.pistonRelay) {
 						throw new GameTestAssertException("Missing force relay at: " + POSITION_FORCE_RELAY);
 					}
-					var data = ForceRelayBlock.WorldData.get(helper.getLevel());
-					data.mapping.put(helper.absolutePos(POSITION_FORCE_RELAY), helper.absolutePos(
-							POSITION_FORCE_RELAY_PUSHED_SLIME_BLOCK));
+					TestingUtil.bindForceRelayTarget(helper, POSITION_FORCE_RELAY,
+							POSITION_FORCE_RELAY_PUSHED_SLIME_BLOCK);
 
 					if (helper.getBlockState(POSITION_FORCE_RELAY_DETECTOR_RAIL).getBlock() != Blocks.DETECTOR_RAIL) {
 						throw new GameTestAssertException("Missing detector rail at: " +

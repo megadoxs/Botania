@@ -151,6 +151,6 @@ public class RannuncarpusTest {
 		var bounds = new AABB(helper.absolutePos(FLOWER_POS));
 		var list = helper.getLevel().getEntitiesOfClass(ItemFrame.class, bounds);
 		TestingUtil.assertThat(list.size() == 1, () -> "Number of item frames wasn't 1");
-		return list.get(0);
+		return list.getFirst();
 	}
 }
