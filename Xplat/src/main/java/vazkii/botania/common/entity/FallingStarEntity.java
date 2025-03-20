@@ -28,7 +28,7 @@ import vazkii.botania.xplat.BotaniaConfig;
 
 import java.util.List;
 
-public class FallingStarEntity extends ThrowableCopyEntity {
+public class FallingStarEntity extends LegallyDistinctThrowableProjectile {
 
 	private static final String TAG_HAS_BEEN_IN_AIR = "hasBeenInAir";
 	/*

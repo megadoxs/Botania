@@ -41,7 +41,7 @@ import vazkii.botania.common.item.relic.KeyOfTheKingsLawItem;
 
 import java.util.List;
 
-public class BabylonWeaponEntity extends ThrowableCopyEntity {
+public class BabylonWeaponEntity extends LegallyDistinctThrowableProjectile {
 	private static final String TAG_CHARGING = "charging";
 	private static final String TAG_VARIETY = "variety";
 	private static final String TAG_CHARGE_TICKS = "chargeTicks";
