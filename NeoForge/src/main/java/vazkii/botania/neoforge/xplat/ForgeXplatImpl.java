@@ -93,6 +93,7 @@ import vazkii.botania.api.recipe.ElvenPortalUpdateEvent;
 import vazkii.botania.common.block.block_entity.red_string.RedStringContainerBlockEntity;
 import vazkii.botania.common.handler.EquipmentHandler;
 import vazkii.botania.common.internal_caps.*;
+import vazkii.botania.common.lib.BotaniaTags;
 import vazkii.botania.common.lib.LibMisc;
 import vazkii.botania.neoforge.integration.curios.CurioIntegration;
 import vazkii.botania.neoforge.internal_caps.ForgeInternalEntityCapabilities;
@@ -297,8 +298,23 @@ public class ForgeXplatImpl implements XplatAbstractions {
 
 	@Override
 	public ItemStack insertToInventory(Level level, BlockPos pos, Direction sideOfPos, ItemStack toInsert, boolean simulate) {
-		IItemHandler itemHandler = level.getCapability(Capabilities.ItemHandler.BLOCK, pos, sideOfPos);
-		return itemHandler != null ? ItemHandlerHelper.insertItemStacked(itemHandler, toInsert, simulate) : toInsert;
+		BlockState state = level.getBlockState(pos);
+		IItemHandler itemHandler = level.getCapability(Capabilities.ItemHandler.BLOCK, pos, state, null, sideOfPos);
+
+		// can't do incremental simulations
+		if (simulate || !state.is(BotaniaTags.Blocks.SINGLE_ITEM_INSERT)) {
+			return ItemHandlerHelper.insertItemStacked(itemHandler, toInsert, simulate);
+		}
+
+		int maxInserts = toInsert.getCount();
+		for (int i = 0; i < maxInserts; i++) {
+			ItemStack single = toInsert.copyWithCount(1);
+			if (!ItemHandlerHelper.insertItemStacked(itemHandler, single, false).isEmpty()) {
+				break;
+			}
+			toInsert.setCount(toInsert.getCount() - 1);
+		}
+		return toInsert;
 	}
 
 	@Override

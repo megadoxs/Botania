@@ -231,6 +231,8 @@ public class BlockTagProvider extends IntrinsicHolderTagsProvider<Block> {
 
 		tag(BotaniaTags.Blocks.UNETHICAL_TNT_CHECK).addOptional(ResourceLocation.fromNamespaceAndPath("ae2", "tiny_tnt"));
 
+		tag(BotaniaTags.Blocks.SINGLE_ITEM_INSERT).add(Blocks.CRAFTER);
+
 		tag(BlockTags.FLOWER_POTS)
 				.add(ColorHelper.supportedColors()
 						.map(BotaniaBlocks::getPottedFlower)
