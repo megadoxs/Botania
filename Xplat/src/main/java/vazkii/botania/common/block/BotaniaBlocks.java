@@ -253,36 +253,69 @@ public final class BotaniaBlocks {
 
 	public static final Block livingrock = new BotaniaBlock(BlockBehaviour.Properties.of().strength(2, 10).sound(SoundType.STONE)
 			.instrument(NoteBlockInstrument.BASEDRUM).mapColor(MapColor.TERRACOTTA_WHITE).requiresCorrectToolForDrops());
+	public static final Block livingrockStairs = new BotaniaStairBlock(livingrock.defaultBlockState(), BlockBehaviour.Properties.ofFullCopy(livingrock));
+	public static final Block livingrockSlab = new SlabBlock(BlockBehaviour.Properties.ofFullCopy(livingrock));
+	public static final Block livingrockWall = new WallBlock(BlockBehaviour.Properties.ofFullCopy(livingrock));
 	public static final Block livingrockPolished = new BotaniaBlock(BlockBehaviour.Properties.ofFullCopy(livingrock));
+	public static final Block livingrockPolishedStairs = new BotaniaStairBlock(livingrock.defaultBlockState(), BlockBehaviour.Properties.ofFullCopy(livingrockPolished));
+	public static final Block livingrockPolishedSlab = new SlabBlock(BlockBehaviour.Properties.ofFullCopy(livingrockPolished));
+	public static final Block livingrockPolishedWall = new WallBlock(BlockBehaviour.Properties.ofFullCopy(livingrockPolished));
 	public static final Block livingrockSlate = new BotaniaBlock(BlockBehaviour.Properties.ofFullCopy(livingrock));
 	public static final Block livingrockBrick = new BotaniaBlock(BlockBehaviour.Properties.ofFullCopy(livingrock));
-	public static final Block livingrockBrickChiseled = new BotaniaBlock(BlockBehaviour.Properties.ofFullCopy(livingrock));
-	public static final Block livingrockBrickCracked = new BotaniaBlock(BlockBehaviour.Properties.ofFullCopy(livingrock));
+	public static final Block livingrockBrickStairs = new BotaniaStairBlock(livingrockBrick.defaultBlockState(), BlockBehaviour.Properties.ofFullCopy(livingrockBrick));
+	public static final Block livingrockBrickSlab = new SlabBlock(BlockBehaviour.Properties.ofFullCopy(livingrockBrick));
+	public static final Block livingrockBrickWall = new WallBlock(BlockBehaviour.Properties.ofFullCopy(livingrockBrick));
 	public static final Block livingrockBrickMossy = new BotaniaBlock(BlockBehaviour.Properties.ofFullCopy(livingrock));
+	public static final Block livingrockBrickMossyStairs = new BotaniaStairBlock(livingrockBrickMossy.defaultBlockState(), BlockBehaviour.Properties.ofFullCopy(livingrockBrickMossy));
+	public static final Block livingrockBrickMossySlab = new SlabBlock(BlockBehaviour.Properties.ofFullCopy(livingrockBrickMossy));
+	public static final Block livingrockBrickMossyWall = new WallBlock(BlockBehaviour.Properties.ofFullCopy(livingrockBrickMossy));
+	public static final Block livingrockBrickCracked = new BotaniaBlock(BlockBehaviour.Properties.ofFullCopy(livingrock));
+	public static final Block livingrockBrickChiseled = new BotaniaBlock(BlockBehaviour.Properties.ofFullCopy(livingrock));
+
 
 	public static final Block livingwoodLog = new RotatedPillarBlock(BlockBehaviour.Properties.of().strength(2)
 			.sound(SoundType.WOOD).instrument(NoteBlockInstrument.BASS).mapColor(state -> state.getValue(BlockStateProperties.AXIS) == Direction.Axis.Y ? MapColor.TERRACOTTA_RED : MapColor.TERRACOTTA_BROWN));
-	public static final Block livingwoodLogStripped = new RotatedPillarBlock(BlockBehaviour.Properties.ofFullCopy(livingwoodLog).mapColor(MapColor.TERRACOTTA_RED));
-	public static final Block livingwoodLogGlimmering = new RotatedPillarBlock(BlockBehaviour.Properties.ofFullCopy(livingwoodLog).lightLevel(b -> 12));
-	public static final Block livingwoodLogStrippedGlimmering = new RotatedPillarBlock(BlockBehaviour.Properties.ofFullCopy(livingwoodLogStripped).lightLevel(b -> 8));
 	public static final Block livingwood = new RotatedPillarBlock(BlockBehaviour.Properties.ofFullCopy(livingwoodLog).mapColor(MapColor.TERRACOTTA_BROWN));
+	public static final Block livingwoodStairs = new BotaniaStairBlock(livingwood.defaultBlockState(), BlockBehaviour.Properties.ofFullCopy(livingwood));
+	public static final Block livingwoodSlab = new SlabBlock(BlockBehaviour.Properties.ofFullCopy(livingwood));
+	public static final Block livingwoodWall = new WallBlock(BlockBehaviour.Properties.ofFullCopy(livingwood));
+	public static final Block livingwoodLogStripped = new RotatedPillarBlock(BlockBehaviour.Properties.ofFullCopy(livingwoodLog).mapColor(MapColor.TERRACOTTA_RED));
 	public static final Block livingwoodStripped = new RotatedPillarBlock(BlockBehaviour.Properties.ofFullCopy(livingwoodLogStripped));
+	public static final Block livingwoodStrippedStairs = new BotaniaStairBlock(livingwoodStripped.defaultBlockState(), BlockBehaviour.Properties.ofFullCopy(livingwood));
+	public static final Block livingwoodStrippedSlab = new SlabBlock(BlockBehaviour.Properties.ofFullCopy(livingwood));
+	public static final Block livingwoodStrippedWall = new WallBlock(BlockBehaviour.Properties.ofFullCopy(livingwood));
+	public static final Block livingwoodLogGlimmering = new RotatedPillarBlock(BlockBehaviour.Properties.ofFullCopy(livingwoodLog).lightLevel(b -> 12));
 	public static final Block livingwoodGlimmering = new RotatedPillarBlock(BlockBehaviour.Properties.ofFullCopy(livingwoodLogGlimmering).mapColor(MapColor.TERRACOTTA_BROWN));
+	public static final Block livingwoodLogStrippedGlimmering = new RotatedPillarBlock(BlockBehaviour.Properties.ofFullCopy(livingwoodLogStripped).lightLevel(b -> 8));
 	public static final Block livingwoodStrippedGlimmering = new RotatedPillarBlock(BlockBehaviour.Properties.ofFullCopy(livingwoodLogStrippedGlimmering).mapColor(MapColor.TERRACOTTA_BROWN));
 	public static final Block livingwoodPlanks = new BotaniaBlock(BlockBehaviour.Properties.ofFullCopy(livingwoodLog).mapColor(MapColor.TERRACOTTA_RED));
+	public static final Block livingwoodPlankStairs = new BotaniaStairBlock(livingwoodPlanks.defaultBlockState(), BlockBehaviour.Properties.ofFullCopy(livingwoodPlanks));
+	public static final Block livingwoodPlankSlab = new SlabBlock(BlockBehaviour.Properties.ofFullCopy(livingwoodPlanks));
+	public static final Block livingwoodFence = new FenceBlock(BlockBehaviour.Properties.ofFullCopy(livingwood));
+	public static final Block livingwoodFenceGate = new FenceGateBlock(BotaniaBlockSetTypes.LIVINGWOOD, BlockBehaviour.Properties.ofFullCopy(livingwood));
 	public static final Block livingwoodPlanksMossy = new BotaniaBlock(BlockBehaviour.Properties.ofFullCopy(livingwoodPlanks));
 	public static final Block livingwoodFramed = new RotatedPillarBlock(BlockBehaviour.Properties.ofFullCopy(livingwoodPlanks));
 	public static final Block livingwoodPatternFramed = new BotaniaBlock(BlockBehaviour.Properties.ofFullCopy(livingwoodPlanks));
 
 	public static final Block dreamwoodLog = new RotatedPillarBlock(BlockBehaviour.Properties.ofFullCopy(livingwoodLog).mapColor(MapColor.QUARTZ));
-	public static final Block dreamwoodLogStripped = new RotatedPillarBlock(BlockBehaviour.Properties.ofFullCopy(dreamwoodLog));
-	public static final Block dreamwoodLogGlimmering = new RotatedPillarBlock(BlockBehaviour.Properties.ofFullCopy(livingwoodLogGlimmering).mapColor(MapColor.QUARTZ));
-	public static final Block dreamwoodLogStrippedGlimmering = new RotatedPillarBlock(BlockBehaviour.Properties.ofFullCopy(livingwoodLogStrippedGlimmering).mapColor(MapColor.QUARTZ));
 	public static final Block dreamwood = new RotatedPillarBlock(BlockBehaviour.Properties.ofFullCopy(dreamwoodLog));
+	public static final Block dreamwoodStairs = new BotaniaStairBlock(dreamwood.defaultBlockState(), BlockBehaviour.Properties.ofFullCopy(dreamwood));
+	public static final Block dreamwoodSlab = new SlabBlock(BlockBehaviour.Properties.ofFullCopy(dreamwood));
+	public static final Block dreamwoodWall = new WallBlock(BlockBehaviour.Properties.ofFullCopy(dreamwood));
+	public static final Block dreamwoodLogStripped = new RotatedPillarBlock(BlockBehaviour.Properties.ofFullCopy(dreamwoodLog));
 	public static final Block dreamwoodStripped = new RotatedPillarBlock(BlockBehaviour.Properties.ofFullCopy(dreamwoodLog));
+	public static final Block dreamwoodStrippedStairs = new BotaniaStairBlock(dreamwoodStripped.defaultBlockState(), BlockBehaviour.Properties.ofFullCopy(dreamwood));
+	public static final Block dreamwoodStrippedSlab = new SlabBlock(BlockBehaviour.Properties.ofFullCopy(dreamwood));
+	public static final Block dreamwoodStrippedWall = new WallBlock(BlockBehaviour.Properties.ofFullCopy(dreamwood));
+	public static final Block dreamwoodLogGlimmering = new RotatedPillarBlock(BlockBehaviour.Properties.ofFullCopy(livingwoodLogGlimmering).mapColor(MapColor.QUARTZ));
 	public static final Block dreamwoodGlimmering = new RotatedPillarBlock(BlockBehaviour.Properties.ofFullCopy(dreamwoodLogGlimmering));
+	public static final Block dreamwoodLogStrippedGlimmering = new RotatedPillarBlock(BlockBehaviour.Properties.ofFullCopy(livingwoodLogStrippedGlimmering).mapColor(MapColor.QUARTZ));
 	public static final Block dreamwoodStrippedGlimmering = new RotatedPillarBlock(BlockBehaviour.Properties.ofFullCopy(dreamwoodLogStrippedGlimmering));
 	public static final Block dreamwoodPlanks = new BotaniaBlock(BlockBehaviour.Properties.ofFullCopy(dreamwoodLog));
+	public static final Block dreamwoodPlankStairs = new BotaniaStairBlock(dreamwoodPlanks.defaultBlockState(), BlockBehaviour.Properties.ofFullCopy(dreamwoodPlanks));
+	public static final Block dreamwoodPlankSlab = new SlabBlock(BlockBehaviour.Properties.ofFullCopy(dreamwoodPlanks));
+	public static final Block dreamwoodFence = new FenceBlock(BlockBehaviour.Properties.ofFullCopy(dreamwood));
+	public static final Block dreamwoodFenceGate = new FenceGateBlock(BotaniaBlockSetTypes.DREAMWOOD, BlockBehaviour.Properties.ofFullCopy(dreamwood));
 	public static final Block dreamwoodPlanksMossy = new BotaniaBlock(BlockBehaviour.Properties.ofFullCopy(dreamwoodPlanks));
 	public static final Block dreamwoodFramed = new RotatedPillarBlock(BlockBehaviour.Properties.ofFullCopy(dreamwoodPlanks));
 	public static final Block dreamwoodPatternFramed = new BotaniaBlock(BlockBehaviour.Properties.ofFullCopy(dreamwoodPlanks));
@@ -368,11 +401,11 @@ public final class BotaniaBlocks {
 	public static final Block corporeaRetainer = new CorporeaRetainerBlock(BlockBehaviour.Properties.ofFullCopy(corporeaFunnel));
 
 	public static final Block corporeaBlock = new BotaniaBlock(BlockBehaviour.Properties.ofFullCopy(corporeaFunnel));
-	public static final Block corporeaBrick = new BotaniaBlock(BlockBehaviour.Properties.ofFullCopy(corporeaBlock));
-	public static final SlabBlock corporeaSlab = new SlabBlock(BlockBehaviour.Properties.ofFullCopy(corporeaBlock));
 	public static final StairBlock corporeaStairs = new BotaniaStairBlock(corporeaBlock.defaultBlockState(), BlockBehaviour.Properties.ofFullCopy(corporeaBlock));
-	public static final SlabBlock corporeaBrickSlab = new SlabBlock(BlockBehaviour.Properties.ofFullCopy(corporeaBrick));
+	public static final SlabBlock corporeaSlab = new SlabBlock(BlockBehaviour.Properties.ofFullCopy(corporeaBlock));
+	public static final Block corporeaBrick = new BotaniaBlock(BlockBehaviour.Properties.ofFullCopy(corporeaBlock));
 	public static final StairBlock corporeaBrickStairs = new BotaniaStairBlock(corporeaBrick.defaultBlockState(), BlockBehaviour.Properties.ofFullCopy(corporeaBrick));
+	public static final SlabBlock corporeaBrickSlab = new SlabBlock(BlockBehaviour.Properties.ofFullCopy(corporeaBrick));
 	public static final Block corporeaBrickWall = new WallBlock(BlockBehaviour.Properties.ofFullCopy(corporeaBrick));
 
 	public static final Block incensePlate = new IncensePlateBlock(BlockBehaviour.Properties.ofFullCopy(livingwood));
@@ -416,8 +449,14 @@ public final class BotaniaBlocks {
 	public static final Block blazeBlock = new BotaniaBlock(BlockBehaviour.Properties.ofFullCopy(manasteelBlock).instrument(NoteBlockInstrument.PLING).lightLevel(s -> 15).mapColor(MapColor.GOLD));
 	public static final Block gaiaHead = new GaiaHeadBlock(BlockBehaviour.Properties.of().pushReaction(PushReaction.DESTROY).strength(1));
 	public static final Block gaiaHeadWall = new WallGaiaHeadBlock(BlockBehaviour.Properties.ofFullCopy(gaiaHead));
+
 	public static final Block shimmerrock = new BotaniaBlock(BlockBehaviour.Properties.ofFullCopy(livingrock));
+	public static final Block shimmerrockStairs = new BotaniaStairBlock(shimmerrock.defaultBlockState(), BlockBehaviour.Properties.ofFullCopy(shimmerrock));
+	public static final Block shimmerrockSlab = new SlabBlock(BlockBehaviour.Properties.ofFullCopy(shimmerrock));
 	public static final Block shimmerwoodPlanks = new BotaniaBlock(BlockBehaviour.Properties.ofFullCopy(livingwood));
+	public static final Block shimmerwoodPlankStairs = new BotaniaStairBlock(shimmerwoodPlanks.defaultBlockState(), BlockBehaviour.Properties.ofFullCopy(shimmerwoodPlanks));
+	public static final Block shimmerwoodPlankSlab = new SlabBlock(BlockBehaviour.Properties.ofFullCopy(shimmerwoodPlanks));
+
 	public static final Block dryGrass = new BotaniaGrassBlock(BotaniaGrassBlock.Variant.DRY, BlockBehaviour.Properties.of().strength(0.6F).randomTicks().sound(SoundType.GRASS).mapColor(MapColor.TERRACOTTA_LIGHT_GREEN));
 	public static final Block goldenGrass = new BotaniaGrassBlock(BotaniaGrassBlock.Variant.GOLDEN, BlockBehaviour.Properties.ofFullCopy(dryGrass).mapColor(MapColor.GOLD));
 	public static final Block vividGrass = new BotaniaGrassBlock(BotaniaGrassBlock.Variant.VIVID, BlockBehaviour.Properties.ofFullCopy(dryGrass).mapColor(MapColor.PLANT));
@@ -433,82 +472,167 @@ public final class BotaniaBlocks {
 	public static final Block pottedMotifNightshade = flowerPot(motifNightshade, 0);
 	public static final Block pottedMotifHydroangeas = flowerPot(motifHydroangeas, 0);
 
-	public static final Block livingwoodStairs = new BotaniaStairBlock(livingwood.defaultBlockState(), BlockBehaviour.Properties.ofFullCopy(livingwood));
-	public static final Block livingwoodSlab = new SlabBlock(BlockBehaviour.Properties.ofFullCopy(livingwood));
-	public static final Block livingwoodWall = new WallBlock(BlockBehaviour.Properties.ofFullCopy(livingwood));
-	public static final Block livingwoodFence = new FenceBlock(BlockBehaviour.Properties.ofFullCopy(livingwood));
-	public static final Block livingwoodFenceGate = new FenceGateBlock(BotaniaBlockSetTypes.LIVINGWOOD, BlockBehaviour.Properties.ofFullCopy(livingwood));
-	public static final Block livingwoodStrippedStairs = new BotaniaStairBlock(livingwoodStripped.defaultBlockState(), BlockBehaviour.Properties.ofFullCopy(livingwood));
-	public static final Block livingwoodStrippedSlab = new SlabBlock(BlockBehaviour.Properties.ofFullCopy(livingwood));
-	public static final Block livingwoodStrippedWall = new WallBlock(BlockBehaviour.Properties.ofFullCopy(livingwood));
-	public static final Block livingwoodPlankStairs = new BotaniaStairBlock(livingwoodPlanks.defaultBlockState(), BlockBehaviour.Properties.ofFullCopy(livingwoodPlanks));
-	public static final Block livingwoodPlankSlab = new SlabBlock(BlockBehaviour.Properties.ofFullCopy(livingwoodPlanks));
-
-	public static final Block livingrockStairs = new BotaniaStairBlock(livingrock.defaultBlockState(), BlockBehaviour.Properties.ofFullCopy(livingrock));
-	public static final Block livingrockSlab = new SlabBlock(BlockBehaviour.Properties.ofFullCopy(livingrock));
-	public static final Block livingrockWall = new WallBlock(BlockBehaviour.Properties.ofFullCopy(livingrock));
-	public static final Block livingrockPolishedStairs = new BotaniaStairBlock(livingrock.defaultBlockState(), BlockBehaviour.Properties.ofFullCopy(livingrockPolished));
-	public static final Block livingrockPolishedSlab = new SlabBlock(BlockBehaviour.Properties.ofFullCopy(livingrockPolished));
-	public static final Block livingrockPolishedWall = new WallBlock(BlockBehaviour.Properties.ofFullCopy(livingrockPolished));
-	public static final Block livingrockBrickStairs = new BotaniaStairBlock(livingrockBrick.defaultBlockState(), BlockBehaviour.Properties.ofFullCopy(livingrockBrick));
-	public static final Block livingrockBrickSlab = new SlabBlock(BlockBehaviour.Properties.ofFullCopy(livingrockBrick));
-	public static final Block livingrockBrickWall = new WallBlock(BlockBehaviour.Properties.ofFullCopy(livingrockBrick));
-	public static final Block livingrockBrickMossyStairs = new BotaniaStairBlock(livingrockBrickMossy.defaultBlockState(), BlockBehaviour.Properties.ofFullCopy(livingrockBrickMossy));
-	public static final Block livingrockBrickMossySlab = new SlabBlock(BlockBehaviour.Properties.ofFullCopy(livingrockBrickMossy));
-	public static final Block livingrockBrickMossyWall = new WallBlock(BlockBehaviour.Properties.ofFullCopy(livingrockBrickMossy));
-
-	public static final Block dreamwoodStairs = new BotaniaStairBlock(dreamwood.defaultBlockState(), BlockBehaviour.Properties.ofFullCopy(dreamwood));
-	public static final Block dreamwoodSlab = new SlabBlock(BlockBehaviour.Properties.ofFullCopy(dreamwood));
-	public static final Block dreamwoodWall = new WallBlock(BlockBehaviour.Properties.ofFullCopy(dreamwood));
-	public static final Block dreamwoodFence = new FenceBlock(BlockBehaviour.Properties.ofFullCopy(dreamwood));
-	public static final Block dreamwoodFenceGate = new FenceGateBlock(BotaniaBlockSetTypes.DREAMWOOD, BlockBehaviour.Properties.ofFullCopy(dreamwood));
-	public static final Block dreamwoodStrippedStairs = new BotaniaStairBlock(dreamwoodStripped.defaultBlockState(), BlockBehaviour.Properties.ofFullCopy(dreamwood));
-	public static final Block dreamwoodStrippedSlab = new SlabBlock(BlockBehaviour.Properties.ofFullCopy(dreamwood));
-	public static final Block dreamwoodStrippedWall = new WallBlock(BlockBehaviour.Properties.ofFullCopy(dreamwood));
-	public static final Block dreamwoodPlankStairs = new BotaniaStairBlock(dreamwoodPlanks.defaultBlockState(), BlockBehaviour.Properties.ofFullCopy(dreamwoodPlanks));
-	public static final Block dreamwoodPlankSlab = new SlabBlock(BlockBehaviour.Properties.ofFullCopy(dreamwoodPlanks));
-
 	public static final Block darkQuartz = new BotaniaBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.QUARTZ_BLOCK).mapColor(MapColor.COLOR_BLACK));
+	public static final Block darkQuartzStairs = new BotaniaStairBlock(darkQuartz.defaultBlockState(), BlockBehaviour.Properties.ofFullCopy(darkQuartz));
+	public static final Block darkQuartzSlab = new SlabBlock(BlockBehaviour.Properties.ofFullCopy(darkQuartz));
 	public static final Block darkQuartzChiseled = new BotaniaBlock(BlockBehaviour.Properties.ofFullCopy(darkQuartz));
 	public static final Block darkQuartzPillar = new RotatedPillarBlock(BlockBehaviour.Properties.ofFullCopy(darkQuartz));
-	public static final Block darkQuartzSlab = new SlabBlock(BlockBehaviour.Properties.ofFullCopy(darkQuartz));
-	public static final Block darkQuartzStairs = new BotaniaStairBlock(darkQuartz.defaultBlockState(), BlockBehaviour.Properties.ofFullCopy(darkQuartz));
 
 	public static final Block manaQuartz = new BotaniaBlock(BlockBehaviour.Properties.ofFullCopy(darkQuartz).mapColor(MapColor.DIAMOND));
+	public static final Block manaQuartzStairs = new BotaniaStairBlock(manaQuartz.defaultBlockState(), BlockBehaviour.Properties.ofFullCopy(darkQuartz));
+	public static final Block manaQuartzSlab = new SlabBlock(BlockBehaviour.Properties.ofFullCopy(manaQuartz));
 	public static final Block manaQuartzChiseled = new BotaniaBlock(BlockBehaviour.Properties.ofFullCopy(manaQuartz));
 	public static final Block manaQuartzPillar = new RotatedPillarBlock(BlockBehaviour.Properties.ofFullCopy(manaQuartz));
-	public static final Block manaQuartzSlab = new SlabBlock(BlockBehaviour.Properties.ofFullCopy(manaQuartz));
-	public static final Block manaQuartzStairs = new BotaniaStairBlock(manaQuartz.defaultBlockState(), BlockBehaviour.Properties.ofFullCopy(darkQuartz));
 
 	public static final Block blazeQuartz = new BotaniaBlock(BlockBehaviour.Properties.ofFullCopy(darkQuartz).mapColor(MapColor.SAND));
+	public static final Block blazeQuartzStairs = new BotaniaStairBlock(blazeQuartz.defaultBlockState(), BlockBehaviour.Properties.ofFullCopy(blazeQuartz));
+	public static final Block blazeQuartzSlab = new SlabBlock(BlockBehaviour.Properties.ofFullCopy(blazeQuartz));
 	public static final Block blazeQuartzChiseled = new BotaniaBlock(BlockBehaviour.Properties.ofFullCopy(blazeQuartz));
 	public static final Block blazeQuartzPillar = new RotatedPillarBlock(BlockBehaviour.Properties.ofFullCopy(blazeQuartz));
-	public static final Block blazeQuartzSlab = new SlabBlock(BlockBehaviour.Properties.ofFullCopy(blazeQuartz));
-	public static final Block blazeQuartzStairs = new BotaniaStairBlock(blazeQuartz.defaultBlockState(), BlockBehaviour.Properties.ofFullCopy(blazeQuartz));
 
 	public static final Block lavenderQuartz = new BotaniaBlock(BlockBehaviour.Properties.ofFullCopy(darkQuartz).mapColor(MapColor.COLOR_PINK));
+	public static final Block lavenderQuartzStairs = new BotaniaStairBlock(lavenderQuartz.defaultBlockState(), BlockBehaviour.Properties.ofFullCopy(lavenderQuartz));
+	public static final Block lavenderQuartzSlab = new SlabBlock(BlockBehaviour.Properties.ofFullCopy(lavenderQuartz));
 	public static final Block lavenderQuartzChiseled = new BotaniaBlock(BlockBehaviour.Properties.ofFullCopy(lavenderQuartz));
 	public static final Block lavenderQuartzPillar = new RotatedPillarBlock(BlockBehaviour.Properties.ofFullCopy(lavenderQuartz));
-	public static final Block lavenderQuartzSlab = new SlabBlock(BlockBehaviour.Properties.ofFullCopy(lavenderQuartz));
-	public static final Block lavenderQuartzStairs = new BotaniaStairBlock(lavenderQuartz.defaultBlockState(), BlockBehaviour.Properties.ofFullCopy(lavenderQuartz));
 
 	public static final Block redQuartz = new BotaniaBlock(BlockBehaviour.Properties.ofFullCopy(darkQuartz).mapColor(MapColor.TERRACOTTA_WHITE));
+	public static final Block redQuartzStairs = new BotaniaStairBlock(redQuartz.defaultBlockState(), BlockBehaviour.Properties.ofFullCopy(redQuartz));
+	public static final Block redQuartzSlab = new SlabBlock(BlockBehaviour.Properties.ofFullCopy(redQuartz));
 	public static final Block redQuartzChiseled = new BotaniaBlock(BlockBehaviour.Properties.ofFullCopy(redQuartz));
 	public static final Block redQuartzPillar = new RotatedPillarBlock(BlockBehaviour.Properties.ofFullCopy(redQuartz));
-	public static final Block redQuartzSlab = new SlabBlock(BlockBehaviour.Properties.ofFullCopy(redQuartz));
-	public static final Block redQuartzStairs = new BotaniaStairBlock(redQuartz.defaultBlockState(), BlockBehaviour.Properties.ofFullCopy(redQuartz));
 
 	public static final Block elfQuartz = new BotaniaBlock(BlockBehaviour.Properties.ofFullCopy(darkQuartz).mapColor(MapColor.COLOR_LIGHT_GREEN));
+	public static final Block elfQuartzStairs = new BotaniaStairBlock(elfQuartz.defaultBlockState(), BlockBehaviour.Properties.ofFullCopy(elfQuartz));
+	public static final Block elfQuartzSlab = new SlabBlock(BlockBehaviour.Properties.ofFullCopy(elfQuartz));
 	public static final Block elfQuartzChiseled = new BotaniaBlock(BlockBehaviour.Properties.ofFullCopy(elfQuartz));
 	public static final Block elfQuartzPillar = new RotatedPillarBlock(BlockBehaviour.Properties.ofFullCopy(elfQuartz));
-	public static final Block elfQuartzSlab = new SlabBlock(BlockBehaviour.Properties.ofFullCopy(elfQuartz));
-	public static final Block elfQuartzStairs = new BotaniaStairBlock(elfQuartz.defaultBlockState(), BlockBehaviour.Properties.ofFullCopy(elfQuartz));
 
 	public static final Block sunnyQuartz = new BotaniaBlock(BlockBehaviour.Properties.ofFullCopy(darkQuartz).mapColor(MapColor.COLOR_YELLOW));
+	public static final Block sunnyQuartzStairs = new BotaniaStairBlock(sunnyQuartz.defaultBlockState(), BlockBehaviour.Properties.ofFullCopy(sunnyQuartz));
+	public static final Block sunnyQuartzSlab = new SlabBlock(BlockBehaviour.Properties.ofFullCopy(sunnyQuartz));
 	public static final Block sunnyQuartzChiseled = new BotaniaBlock(BlockBehaviour.Properties.ofFullCopy(sunnyQuartz));
 	public static final Block sunnyQuartzPillar = new RotatedPillarBlock(BlockBehaviour.Properties.ofFullCopy(sunnyQuartz));
-	public static final Block sunnyQuartzSlab = new SlabBlock(BlockBehaviour.Properties.ofFullCopy(sunnyQuartz));
-	public static final Block sunnyQuartzStairs = new BotaniaStairBlock(sunnyQuartz.defaultBlockState(), BlockBehaviour.Properties.ofFullCopy(sunnyQuartz));
+
+	public static final Block biomeStoneForest = new BotaniaBlock(BlockBehaviour.Properties.of().strength(1.5F, 10)
+			.sound(SoundType.TUFF).instrument(NoteBlockInstrument.BASEDRUM).requiresCorrectToolForDrops().mapColor(MapColor.WARPED_NYLIUM));
+	public static final Block biomeStoneForestStairs = new BotaniaStairBlock(biomeStoneForest.defaultBlockState(), BlockBehaviour.Properties.ofFullCopy(biomeStoneForest));
+	public static final Block biomeStoneForestSlab = new SlabBlock(BlockBehaviour.Properties.ofFullCopy(biomeStoneForest));
+	public static final Block biomeStoneForestWall = new WallBlock(BlockBehaviour.Properties.ofFullCopy(biomeStoneForest));
+	public static final Block biomeCobblestoneForest = new BotaniaBlock(BlockBehaviour.Properties.ofFullCopy(biomeStoneForest));
+	public static final Block biomeCobblestoneForestStairs = new BotaniaStairBlock(biomeStoneForest.defaultBlockState(), BlockBehaviour.Properties.ofFullCopy(biomeStoneForest));
+	public static final Block biomeCobblestoneForestSlab = new SlabBlock(BlockBehaviour.Properties.ofFullCopy(biomeStoneForest));
+	public static final Block biomeCobblestoneForestWall = new WallBlock(BlockBehaviour.Properties.ofFullCopy(biomeStoneForest));
+	public static final Block biomeBrickForest = new BotaniaBlock(BlockBehaviour.Properties.ofFullCopy(biomeStoneForest));
+	public static final Block biomeBrickForestStairs = new BotaniaStairBlock(biomeStoneForest.defaultBlockState(), BlockBehaviour.Properties.ofFullCopy(biomeStoneForest));
+	public static final Block biomeBrickForestSlab = new SlabBlock(BlockBehaviour.Properties.ofFullCopy(biomeStoneForest));
+	public static final Block biomeBrickForestWall = new WallBlock(BlockBehaviour.Properties.ofFullCopy(biomeStoneForest));
+	public static final Block biomeChiseledBrickForest = new BotaniaBlock(BlockBehaviour.Properties.ofFullCopy(biomeStoneForest));
+
+	public static final Block biomeStonePlains = new BotaniaBlock(BlockBehaviour.Properties.ofFullCopy(biomeStoneForest)
+			.sound(SoundType.CALCITE).mapColor(MapColor.QUARTZ));
+	public static final Block biomeStonePlainsStairs = new BotaniaStairBlock(biomeStonePlains.defaultBlockState(), BlockBehaviour.Properties.ofFullCopy(biomeStonePlains));
+	public static final Block biomeStonePlainsSlab = new SlabBlock(BlockBehaviour.Properties.ofFullCopy(biomeStonePlains));
+	public static final Block biomeStonePlainsWall = new WallBlock(BlockBehaviour.Properties.ofFullCopy(biomeStonePlains));
+	public static final Block biomeCobblestonePlains = new BotaniaBlock(BlockBehaviour.Properties.ofFullCopy(biomeStonePlains));
+	public static final Block biomeCobblestonePlainsStairs = new BotaniaStairBlock(biomeStonePlains.defaultBlockState(), BlockBehaviour.Properties.ofFullCopy(biomeStonePlains));
+	public static final Block biomeCobblestonePlainsSlab = new SlabBlock(BlockBehaviour.Properties.ofFullCopy(biomeStonePlains));
+	public static final Block biomeCobblestonePlainsWall = new WallBlock(BlockBehaviour.Properties.ofFullCopy(biomeStonePlains));
+	public static final Block biomeBrickPlains = new RotatedPillarBlock(BlockBehaviour.Properties.ofFullCopy(biomeStonePlains));
+	public static final Block biomeBrickPlainsStairs = new BotaniaStairBlock(biomeStonePlains.defaultBlockState(), BlockBehaviour.Properties.ofFullCopy(biomeStonePlains));
+	public static final Block biomeBrickPlainsSlab = new SlabBlock(BlockBehaviour.Properties.ofFullCopy(biomeStonePlains));
+	public static final Block biomeBrickPlainsWall = new WallBlock(BlockBehaviour.Properties.ofFullCopy(biomeStonePlains));
+	public static final Block biomeChiseledBrickPlains = new BotaniaBlock(BlockBehaviour.Properties.ofFullCopy(biomeStonePlains));
+
+	public static final Block biomeStoneMountain = new BotaniaBlock(BlockBehaviour.Properties.ofFullCopy(biomeStoneForest)
+			.sound(SoundType.DEEPSLATE_TILES).mapColor(MapColor.GLOW_LICHEN));
+	public static final Block biomeStoneMountainStairs = new BotaniaStairBlock(biomeStoneMountain.defaultBlockState(), BlockBehaviour.Properties.ofFullCopy(biomeStoneMountain));
+	public static final Block biomeStoneMountainSlab = new SlabBlock(BlockBehaviour.Properties.ofFullCopy(biomeStoneMountain));
+	public static final Block biomeStoneMountainWall = new WallBlock(BlockBehaviour.Properties.ofFullCopy(biomeStoneMountain));
+	public static final Block biomeCobblestoneMountain = new BotaniaBlock(BlockBehaviour.Properties.ofFullCopy(biomeStoneMountain));
+	public static final Block biomeCobblestoneMountainStairs = new BotaniaStairBlock(biomeStoneMountain.defaultBlockState(), BlockBehaviour.Properties.ofFullCopy(biomeStoneMountain));
+	public static final Block biomeCobblestoneMountainSlab = new SlabBlock(BlockBehaviour.Properties.ofFullCopy(biomeStoneMountain));
+	public static final Block biomeCobblestoneMountainWall = new WallBlock(BlockBehaviour.Properties.ofFullCopy(biomeStoneMountain));
+	public static final Block biomeBrickMountain = new BotaniaBlock(BlockBehaviour.Properties.ofFullCopy(biomeStoneMountain));
+	public static final Block biomeBrickMountainStairs = new BotaniaStairBlock(biomeStoneMountain.defaultBlockState(), BlockBehaviour.Properties.ofFullCopy(biomeStoneMountain));
+	public static final Block biomeBrickMountainSlab = new SlabBlock(BlockBehaviour.Properties.ofFullCopy(biomeStoneMountain));
+	public static final Block biomeBrickMountainWall = new WallBlock(BlockBehaviour.Properties.ofFullCopy(biomeStoneMountain));
+	public static final Block biomeChiseledBrickMountain = new BotaniaBlock(BlockBehaviour.Properties.ofFullCopy(biomeStoneMountain));
+
+	public static final Block biomeStoneFungal = new BotaniaBlock(BlockBehaviour.Properties.ofFullCopy(biomeStoneForest)
+			.sound(SoundType.DEEPSLATE_BRICKS).mapColor(MapColor.TERRACOTTA_PURPLE));
+	public static final Block biomeStoneFungalStairs = new BotaniaStairBlock(biomeStoneFungal.defaultBlockState(), BlockBehaviour.Properties.ofFullCopy(biomeStoneFungal));
+	public static final Block biomeStoneFungalSlab = new SlabBlock(BlockBehaviour.Properties.ofFullCopy(biomeStoneFungal));
+	public static final Block biomeStoneFungalWall = new WallBlock(BlockBehaviour.Properties.ofFullCopy(biomeStoneFungal));
+	public static final Block biomeCobblestoneFungal = new BotaniaBlock(BlockBehaviour.Properties.ofFullCopy(biomeStoneFungal));
+	public static final Block biomeCobblestoneFungalStairs = new BotaniaStairBlock(biomeStoneFungal.defaultBlockState(), BlockBehaviour.Properties.ofFullCopy(biomeStoneFungal));
+	public static final Block biomeCobblestoneFungalSlab = new SlabBlock(BlockBehaviour.Properties.ofFullCopy(biomeStoneFungal));
+	public static final Block biomeCobblestoneFungalWall = new WallBlock(BlockBehaviour.Properties.ofFullCopy(biomeStoneFungal));
+	public static final Block biomeBrickFungal = new BotaniaBlock(BlockBehaviour.Properties.ofFullCopy(biomeStoneFungal));
+	public static final Block biomeBrickFungalStairs = new BotaniaStairBlock(biomeStoneFungal.defaultBlockState(), BlockBehaviour.Properties.ofFullCopy(biomeStoneFungal));
+	public static final Block biomeBrickFungalSlab = new SlabBlock(BlockBehaviour.Properties.ofFullCopy(biomeStoneFungal));
+	public static final Block biomeBrickFungalWall = new WallBlock(BlockBehaviour.Properties.ofFullCopy(biomeStoneFungal));
+	public static final Block biomeChiseledBrickFungal = new BotaniaBlock(BlockBehaviour.Properties.ofFullCopy(biomeStoneFungal));
+
+	public static final Block biomeStoneSwamp = new BotaniaBlock(BlockBehaviour.Properties.ofFullCopy(biomeStoneForest)
+			.sound(SoundType.DEEPSLATE_TILES).mapColor(MapColor.TERRACOTTA_LIGHT_GRAY));
+	public static final Block biomeStoneSwampStairs = new BotaniaStairBlock(biomeStoneSwamp.defaultBlockState(), BlockBehaviour.Properties.ofFullCopy(biomeStoneSwamp));
+	public static final Block biomeStoneSwampSlab = new SlabBlock(BlockBehaviour.Properties.ofFullCopy(biomeStoneSwamp));
+	public static final Block biomeStoneSwampWall = new WallBlock(BlockBehaviour.Properties.ofFullCopy(biomeStoneSwamp));
+	public static final Block biomeCobblestoneSwamp = new BotaniaBlock(BlockBehaviour.Properties.ofFullCopy(biomeStoneSwamp));
+	public static final Block biomeCobblestoneSwampStairs = new BotaniaStairBlock(biomeStoneSwamp.defaultBlockState(), BlockBehaviour.Properties.ofFullCopy(biomeStoneSwamp));
+	public static final Block biomeCobblestoneSwampSlab = new SlabBlock(BlockBehaviour.Properties.ofFullCopy(biomeStoneSwamp));
+	public static final Block biomeCobblestoneSwampWall = new WallBlock(BlockBehaviour.Properties.ofFullCopy(biomeStoneSwamp));
+	public static final Block biomeBrickSwamp = new BotaniaDirectionalBlock(BlockBehaviour.Properties.ofFullCopy(biomeStoneSwamp));
+	public static final Block biomeBrickSwampStairs = new BotaniaStairBlock(biomeStoneSwamp.defaultBlockState(), BlockBehaviour.Properties.ofFullCopy(biomeStoneSwamp));
+	public static final Block biomeBrickSwampSlab = new SlabBlock(BlockBehaviour.Properties.ofFullCopy(biomeStoneSwamp));
+	public static final Block biomeBrickSwampWall = new WallBlock(BlockBehaviour.Properties.ofFullCopy(biomeStoneSwamp));
+	public static final Block biomeChiseledBrickSwamp = new BotaniaDirectionalBlock(BlockBehaviour.Properties.ofFullCopy(biomeStoneSwamp));
+
+	public static final Block biomeStoneDesert = new BotaniaBlock(BlockBehaviour.Properties.ofFullCopy(biomeStoneForest)
+			.sound(SoundType.DEEPSLATE).mapColor(MapColor.DIRT));
+	public static final Block biomeStoneDesertStairs = new BotaniaStairBlock(biomeStoneDesert.defaultBlockState(), BlockBehaviour.Properties.ofFullCopy(biomeStoneDesert));
+	public static final Block biomeStoneDesertSlab = new SlabBlock(BlockBehaviour.Properties.ofFullCopy(biomeStoneDesert));
+	public static final Block biomeStoneDesertWall = new WallBlock(BlockBehaviour.Properties.ofFullCopy(biomeStoneDesert));
+	public static final Block biomeCobblestoneDesert = new BotaniaBlock(BlockBehaviour.Properties.ofFullCopy(biomeStoneDesert));
+	public static final Block biomeCobblestoneDesertStairs = new BotaniaStairBlock(biomeStoneDesert.defaultBlockState(), BlockBehaviour.Properties.ofFullCopy(biomeStoneDesert));
+	public static final Block biomeCobblestoneDesertSlab = new SlabBlock(BlockBehaviour.Properties.ofFullCopy(biomeStoneDesert));
+	public static final Block biomeCobblestoneDesertWall = new WallBlock(BlockBehaviour.Properties.ofFullCopy(biomeStoneDesert));
+	public static final Block biomeBrickDesert = new BotaniaBlock(BlockBehaviour.Properties.ofFullCopy(biomeStoneDesert));
+	public static final Block biomeBrickDesertStairs = new BotaniaStairBlock(biomeStoneDesert.defaultBlockState(), BlockBehaviour.Properties.ofFullCopy(biomeStoneDesert));
+	public static final Block biomeBrickDesertSlab = new SlabBlock(BlockBehaviour.Properties.ofFullCopy(biomeStoneDesert));
+	public static final Block biomeBrickDesertWall = new WallBlock(BlockBehaviour.Properties.ofFullCopy(biomeStoneDesert));
+	public static final Block biomeChiseledBrickDesert = new BotaniaBlock(BlockBehaviour.Properties.ofFullCopy(biomeStoneDesert));
+
+	public static final Block biomeStoneTaiga = new BotaniaBlock(BlockBehaviour.Properties.ofFullCopy(biomeStoneForest)
+			.sound(SoundType.DEEPSLATE).mapColor(MapColor.TERRACOTTA_BLUE));
+	public static final Block biomeStoneTaigaStairs = new BotaniaStairBlock(biomeStoneTaiga.defaultBlockState(), BlockBehaviour.Properties.ofFullCopy(biomeStoneTaiga));
+	public static final Block biomeStoneTaigaSlab = new SlabBlock(BlockBehaviour.Properties.ofFullCopy(biomeStoneTaiga));
+	public static final Block biomeStoneTaigaWall = new WallBlock(BlockBehaviour.Properties.ofFullCopy(biomeStoneTaiga));
+	public static final Block biomeCobblestoneTaiga = new BotaniaBlock(BlockBehaviour.Properties.ofFullCopy(biomeStoneTaiga));
+	public static final Block biomeCobblestoneTaigaStairs = new BotaniaStairBlock(biomeStoneTaiga.defaultBlockState(), BlockBehaviour.Properties.ofFullCopy(biomeStoneTaiga));
+	public static final Block biomeCobblestoneTaigaSlab = new SlabBlock(BlockBehaviour.Properties.ofFullCopy(biomeStoneTaiga));
+	public static final Block biomeCobblestoneTaigaWall = new WallBlock(BlockBehaviour.Properties.ofFullCopy(biomeStoneTaiga));
+	public static final Block biomeBrickTaiga = new BotaniaBlock(BlockBehaviour.Properties.ofFullCopy(biomeStoneTaiga));
+	public static final Block biomeBrickTaigaStairs = new BotaniaStairBlock(biomeStoneTaiga.defaultBlockState(), BlockBehaviour.Properties.ofFullCopy(biomeStoneTaiga));
+	public static final Block biomeBrickTaigaSlab = new SlabBlock(BlockBehaviour.Properties.ofFullCopy(biomeStoneTaiga));
+	public static final Block biomeBrickTaigaWall = new WallBlock(BlockBehaviour.Properties.ofFullCopy(biomeStoneTaiga));
+	public static final Block biomeChiseledBrickTaiga = new BotaniaBlock(BlockBehaviour.Properties.ofFullCopy(biomeStoneTaiga));
+
+	public static final Block biomeStoneMesa = new BotaniaBlock(BlockBehaviour.Properties.ofFullCopy(biomeStoneForest)
+			.sound(SoundType.CALCITE).mapColor(MapColor.TERRACOTTA_WHITE));
+	public static final Block biomeStoneMesaStairs = new BotaniaStairBlock(biomeStoneMesa.defaultBlockState(), BlockBehaviour.Properties.ofFullCopy(biomeStoneMesa));
+	public static final Block biomeStoneMesaSlab = new SlabBlock(BlockBehaviour.Properties.ofFullCopy(biomeStoneMesa));
+	public static final Block biomeStoneMesaWall = new WallBlock(BlockBehaviour.Properties.ofFullCopy(biomeStoneMesa));
+	public static final Block biomeCobblestoneMesa = new BotaniaBlock(BlockBehaviour.Properties.ofFullCopy(biomeStoneMesa));
+	public static final Block biomeCobblestoneMesaStairs = new BotaniaStairBlock(biomeStoneMesa.defaultBlockState(), BlockBehaviour.Properties.ofFullCopy(biomeStoneMesa));
+	public static final Block biomeCobblestoneMesaSlab = new SlabBlock(BlockBehaviour.Properties.ofFullCopy(biomeStoneMesa));
+	public static final Block biomeCobblestoneMesaWall = new WallBlock(BlockBehaviour.Properties.ofFullCopy(biomeStoneMesa));
+	public static final Block biomeBrickMesa = new BotaniaBlock(BlockBehaviour.Properties.ofFullCopy(biomeStoneMesa));
+	public static final Block biomeBrickMesaStairs = new BotaniaStairBlock(biomeStoneMesa.defaultBlockState(), BlockBehaviour.Properties.ofFullCopy(biomeStoneMesa));
+	public static final Block biomeBrickMesaSlab = new SlabBlock(BlockBehaviour.Properties.ofFullCopy(biomeStoneMesa));
+	public static final Block biomeBrickMesaWall = new WallBlock(BlockBehaviour.Properties.ofFullCopy(biomeStoneMesa));
+	public static final Block biomeChiseledBrickMesa = new RotatedPillarBlock(BlockBehaviour.Properties.ofFullCopy(biomeStoneMesa));
 
 	public static final Block whitePavement = new BotaniaBlock(BlockBehaviour.Properties.ofFullCopy(livingrock).mapColor(MapColor.TERRACOTTA_WHITE));
 	public static final Block whitePavementStair = new BotaniaStairBlock(whitePavement.defaultBlockState(), BlockBehaviour.Properties.ofFullCopy(whitePavement));
@@ -533,132 +657,6 @@ public final class BotaniaBlocks {
 	public static final Block greenPavement = new BotaniaBlock(BlockBehaviour.Properties.ofFullCopy(whitePavement).mapColor(MapColor.TERRACOTTA_GREEN));
 	public static final Block greenPavementStair = new BotaniaStairBlock(greenPavement.defaultBlockState(), BlockBehaviour.Properties.ofFullCopy(greenPavement));
 	public static final Block greenPavementSlab = new SlabBlock(BlockBehaviour.Properties.ofFullCopy(greenPavement));
-
-	public static final Block biomeStoneForest = new BotaniaBlock(BlockBehaviour.Properties.of().strength(1.5F, 10)
-			.sound(SoundType.TUFF).instrument(NoteBlockInstrument.BASEDRUM).requiresCorrectToolForDrops().mapColor(MapColor.WARPED_NYLIUM));
-	public static final Block biomeStoneForestSlab = new SlabBlock(BlockBehaviour.Properties.ofFullCopy(biomeStoneForest));
-	public static final Block biomeStoneForestStairs = new BotaniaStairBlock(biomeStoneForest.defaultBlockState(), BlockBehaviour.Properties.ofFullCopy(biomeStoneForest));
-	public static final Block biomeStoneForestWall = new WallBlock(BlockBehaviour.Properties.ofFullCopy(biomeStoneForest));
-	public static final Block biomeCobblestoneForest = new BotaniaBlock(BlockBehaviour.Properties.ofFullCopy(biomeStoneForest));
-	public static final Block biomeCobblestoneForestSlab = new SlabBlock(BlockBehaviour.Properties.ofFullCopy(biomeStoneForest));
-	public static final Block biomeCobblestoneForestStairs = new BotaniaStairBlock(biomeStoneForest.defaultBlockState(), BlockBehaviour.Properties.ofFullCopy(biomeStoneForest));
-	public static final Block biomeCobblestoneForestWall = new WallBlock(BlockBehaviour.Properties.ofFullCopy(biomeStoneForest));
-	public static final Block biomeBrickForest = new BotaniaBlock(BlockBehaviour.Properties.ofFullCopy(biomeStoneForest));
-	public static final Block biomeBrickForestSlab = new SlabBlock(BlockBehaviour.Properties.ofFullCopy(biomeStoneForest));
-	public static final Block biomeBrickForestStairs = new BotaniaStairBlock(biomeStoneForest.defaultBlockState(), BlockBehaviour.Properties.ofFullCopy(biomeStoneForest));
-	public static final Block biomeBrickForestWall = new WallBlock(BlockBehaviour.Properties.ofFullCopy(biomeStoneForest));
-	public static final Block biomeChiseledBrickForest = new BotaniaBlock(BlockBehaviour.Properties.ofFullCopy(biomeStoneForest));
-
-	public static final Block biomeStonePlains = new BotaniaBlock(BlockBehaviour.Properties.ofFullCopy(biomeStoneForest)
-			.sound(SoundType.CALCITE).mapColor(MapColor.QUARTZ));
-	public static final Block biomeStonePlainsSlab = new SlabBlock(BlockBehaviour.Properties.ofFullCopy(biomeStonePlains));
-	public static final Block biomeStonePlainsStairs = new BotaniaStairBlock(biomeStonePlains.defaultBlockState(), BlockBehaviour.Properties.ofFullCopy(biomeStonePlains));
-	public static final Block biomeStonePlainsWall = new WallBlock(BlockBehaviour.Properties.ofFullCopy(biomeStonePlains));
-	public static final Block biomeCobblestonePlains = new BotaniaBlock(BlockBehaviour.Properties.ofFullCopy(biomeStonePlains));
-	public static final Block biomeCobblestonePlainsSlab = new SlabBlock(BlockBehaviour.Properties.ofFullCopy(biomeStonePlains));
-	public static final Block biomeCobblestonePlainsStairs = new BotaniaStairBlock(biomeStonePlains.defaultBlockState(), BlockBehaviour.Properties.ofFullCopy(biomeStonePlains));
-	public static final Block biomeCobblestonePlainsWall = new WallBlock(BlockBehaviour.Properties.ofFullCopy(biomeStonePlains));
-	public static final Block biomeBrickPlains = new RotatedPillarBlock(BlockBehaviour.Properties.ofFullCopy(biomeStonePlains));
-	public static final Block biomeBrickPlainsSlab = new SlabBlock(BlockBehaviour.Properties.ofFullCopy(biomeStonePlains));
-	public static final Block biomeBrickPlainsStairs = new BotaniaStairBlock(biomeStonePlains.defaultBlockState(), BlockBehaviour.Properties.ofFullCopy(biomeStonePlains));
-	public static final Block biomeBrickPlainsWall = new WallBlock(BlockBehaviour.Properties.ofFullCopy(biomeStonePlains));
-	public static final Block biomeChiseledBrickPlains = new BotaniaBlock(BlockBehaviour.Properties.ofFullCopy(biomeStonePlains));
-
-	public static final Block biomeStoneMountain = new BotaniaBlock(BlockBehaviour.Properties.ofFullCopy(biomeStoneForest)
-			.sound(SoundType.DEEPSLATE_TILES).mapColor(MapColor.GLOW_LICHEN));
-	public static final Block biomeStoneMountainSlab = new SlabBlock(BlockBehaviour.Properties.ofFullCopy(biomeStoneMountain));
-	public static final Block biomeStoneMountainStairs = new BotaniaStairBlock(biomeStoneMountain.defaultBlockState(), BlockBehaviour.Properties.ofFullCopy(biomeStoneMountain));
-	public static final Block biomeStoneMountainWall = new WallBlock(BlockBehaviour.Properties.ofFullCopy(biomeStoneMountain));
-	public static final Block biomeCobblestoneMountain = new BotaniaBlock(BlockBehaviour.Properties.ofFullCopy(biomeStoneMountain));
-	public static final Block biomeCobblestoneMountainSlab = new SlabBlock(BlockBehaviour.Properties.ofFullCopy(biomeStoneMountain));
-	public static final Block biomeCobblestoneMountainStairs = new BotaniaStairBlock(biomeStoneMountain.defaultBlockState(), BlockBehaviour.Properties.ofFullCopy(biomeStoneMountain));
-	public static final Block biomeCobblestoneMountainWall = new WallBlock(BlockBehaviour.Properties.ofFullCopy(biomeStoneMountain));
-	public static final Block biomeBrickMountain = new BotaniaBlock(BlockBehaviour.Properties.ofFullCopy(biomeStoneMountain));
-	public static final Block biomeBrickMountainSlab = new SlabBlock(BlockBehaviour.Properties.ofFullCopy(biomeStoneMountain));
-	public static final Block biomeBrickMountainStairs = new BotaniaStairBlock(biomeStoneMountain.defaultBlockState(), BlockBehaviour.Properties.ofFullCopy(biomeStoneMountain));
-	public static final Block biomeBrickMountainWall = new WallBlock(BlockBehaviour.Properties.ofFullCopy(biomeStoneMountain));
-	public static final Block biomeChiseledBrickMountain = new BotaniaBlock(BlockBehaviour.Properties.ofFullCopy(biomeStoneMountain));
-
-	public static final Block biomeStoneFungal = new BotaniaBlock(BlockBehaviour.Properties.ofFullCopy(biomeStoneForest)
-			.sound(SoundType.DEEPSLATE_BRICKS).mapColor(MapColor.TERRACOTTA_PURPLE));
-	public static final Block biomeStoneFungalSlab = new SlabBlock(BlockBehaviour.Properties.ofFullCopy(biomeStoneFungal));
-	public static final Block biomeStoneFungalStairs = new BotaniaStairBlock(biomeStoneFungal.defaultBlockState(), BlockBehaviour.Properties.ofFullCopy(biomeStoneFungal));
-	public static final Block biomeStoneFungalWall = new WallBlock(BlockBehaviour.Properties.ofFullCopy(biomeStoneFungal));
-	public static final Block biomeCobblestoneFungal = new BotaniaBlock(BlockBehaviour.Properties.ofFullCopy(biomeStoneFungal));
-	public static final Block biomeCobblestoneFungalSlab = new SlabBlock(BlockBehaviour.Properties.ofFullCopy(biomeStoneFungal));
-	public static final Block biomeCobblestoneFungalStairs = new BotaniaStairBlock(biomeStoneFungal.defaultBlockState(), BlockBehaviour.Properties.ofFullCopy(biomeStoneFungal));
-	public static final Block biomeCobblestoneFungalWall = new WallBlock(BlockBehaviour.Properties.ofFullCopy(biomeStoneFungal));
-	public static final Block biomeBrickFungal = new BotaniaBlock(BlockBehaviour.Properties.ofFullCopy(biomeStoneFungal));
-	public static final Block biomeBrickFungalSlab = new SlabBlock(BlockBehaviour.Properties.ofFullCopy(biomeStoneFungal));
-	public static final Block biomeBrickFungalStairs = new BotaniaStairBlock(biomeStoneFungal.defaultBlockState(), BlockBehaviour.Properties.ofFullCopy(biomeStoneFungal));
-	public static final Block biomeBrickFungalWall = new WallBlock(BlockBehaviour.Properties.ofFullCopy(biomeStoneFungal));
-	public static final Block biomeChiseledBrickFungal = new BotaniaBlock(BlockBehaviour.Properties.ofFullCopy(biomeStoneFungal));
-
-	public static final Block biomeStoneSwamp = new BotaniaBlock(BlockBehaviour.Properties.ofFullCopy(biomeStoneForest)
-			.sound(SoundType.DEEPSLATE_TILES).mapColor(MapColor.TERRACOTTA_LIGHT_GRAY));
-	public static final Block biomeStoneSwampSlab = new SlabBlock(BlockBehaviour.Properties.ofFullCopy(biomeStoneSwamp));
-	public static final Block biomeStoneSwampStairs = new BotaniaStairBlock(biomeStoneSwamp.defaultBlockState(), BlockBehaviour.Properties.ofFullCopy(biomeStoneSwamp));
-	public static final Block biomeStoneSwampWall = new WallBlock(BlockBehaviour.Properties.ofFullCopy(biomeStoneSwamp));
-	public static final Block biomeCobblestoneSwamp = new BotaniaBlock(BlockBehaviour.Properties.ofFullCopy(biomeStoneSwamp));
-	public static final Block biomeCobblestoneSwampSlab = new SlabBlock(BlockBehaviour.Properties.ofFullCopy(biomeStoneSwamp));
-	public static final Block biomeCobblestoneSwampStairs = new BotaniaStairBlock(biomeStoneSwamp.defaultBlockState(), BlockBehaviour.Properties.ofFullCopy(biomeStoneSwamp));
-	public static final Block biomeCobblestoneSwampWall = new WallBlock(BlockBehaviour.Properties.ofFullCopy(biomeStoneSwamp));
-	public static final Block biomeBrickSwamp = new BotaniaDirectionalBlock(BlockBehaviour.Properties.ofFullCopy(biomeStoneSwamp));
-	public static final Block biomeBrickSwampSlab = new SlabBlock(BlockBehaviour.Properties.ofFullCopy(biomeStoneSwamp));
-	public static final Block biomeBrickSwampStairs = new BotaniaStairBlock(biomeStoneSwamp.defaultBlockState(), BlockBehaviour.Properties.ofFullCopy(biomeStoneSwamp));
-	public static final Block biomeBrickSwampWall = new WallBlock(BlockBehaviour.Properties.ofFullCopy(biomeStoneSwamp));
-	public static final Block biomeChiseledBrickSwamp = new BotaniaDirectionalBlock(BlockBehaviour.Properties.ofFullCopy(biomeStoneSwamp));
-
-	public static final Block biomeStoneDesert = new BotaniaBlock(BlockBehaviour.Properties.ofFullCopy(biomeStoneForest)
-			.sound(SoundType.DEEPSLATE).mapColor(MapColor.DIRT));
-	public static final Block biomeStoneDesertSlab = new SlabBlock(BlockBehaviour.Properties.ofFullCopy(biomeStoneDesert));
-	public static final Block biomeStoneDesertStairs = new BotaniaStairBlock(biomeStoneDesert.defaultBlockState(), BlockBehaviour.Properties.ofFullCopy(biomeStoneDesert));
-	public static final Block biomeStoneDesertWall = new WallBlock(BlockBehaviour.Properties.ofFullCopy(biomeStoneDesert));
-	public static final Block biomeCobblestoneDesert = new BotaniaBlock(BlockBehaviour.Properties.ofFullCopy(biomeStoneDesert));
-	public static final Block biomeCobblestoneDesertSlab = new SlabBlock(BlockBehaviour.Properties.ofFullCopy(biomeStoneDesert));
-	public static final Block biomeCobblestoneDesertStairs = new BotaniaStairBlock(biomeStoneDesert.defaultBlockState(), BlockBehaviour.Properties.ofFullCopy(biomeStoneDesert));
-	public static final Block biomeCobblestoneDesertWall = new WallBlock(BlockBehaviour.Properties.ofFullCopy(biomeStoneDesert));
-	public static final Block biomeBrickDesert = new BotaniaBlock(BlockBehaviour.Properties.ofFullCopy(biomeStoneDesert));
-	public static final Block biomeBrickDesertSlab = new SlabBlock(BlockBehaviour.Properties.ofFullCopy(biomeStoneDesert));
-	public static final Block biomeBrickDesertStairs = new BotaniaStairBlock(biomeStoneDesert.defaultBlockState(), BlockBehaviour.Properties.ofFullCopy(biomeStoneDesert));
-	public static final Block biomeBrickDesertWall = new WallBlock(BlockBehaviour.Properties.ofFullCopy(biomeStoneDesert));
-	public static final Block biomeChiseledBrickDesert = new BotaniaBlock(BlockBehaviour.Properties.ofFullCopy(biomeStoneDesert));
-
-	public static final Block biomeStoneTaiga = new BotaniaBlock(BlockBehaviour.Properties.ofFullCopy(biomeStoneForest)
-			.sound(SoundType.DEEPSLATE).mapColor(MapColor.TERRACOTTA_BLUE));
-	public static final Block biomeStoneTaigaSlab = new SlabBlock(BlockBehaviour.Properties.ofFullCopy(biomeStoneTaiga));
-	public static final Block biomeStoneTaigaStairs = new BotaniaStairBlock(biomeStoneTaiga.defaultBlockState(), BlockBehaviour.Properties.ofFullCopy(biomeStoneTaiga));
-	public static final Block biomeStoneTaigaWall = new WallBlock(BlockBehaviour.Properties.ofFullCopy(biomeStoneTaiga));
-	public static final Block biomeCobblestoneTaiga = new BotaniaBlock(BlockBehaviour.Properties.ofFullCopy(biomeStoneTaiga));
-	public static final Block biomeCobblestoneTaigaSlab = new SlabBlock(BlockBehaviour.Properties.ofFullCopy(biomeStoneTaiga));
-	public static final Block biomeCobblestoneTaigaStairs = new BotaniaStairBlock(biomeStoneTaiga.defaultBlockState(), BlockBehaviour.Properties.ofFullCopy(biomeStoneTaiga));
-	public static final Block biomeCobblestoneTaigaWall = new WallBlock(BlockBehaviour.Properties.ofFullCopy(biomeStoneTaiga));
-	public static final Block biomeBrickTaiga = new BotaniaBlock(BlockBehaviour.Properties.ofFullCopy(biomeStoneTaiga));
-	public static final Block biomeBrickTaigaSlab = new SlabBlock(BlockBehaviour.Properties.ofFullCopy(biomeStoneTaiga));
-	public static final Block biomeBrickTaigaStairs = new BotaniaStairBlock(biomeStoneTaiga.defaultBlockState(), BlockBehaviour.Properties.ofFullCopy(biomeStoneTaiga));
-	public static final Block biomeBrickTaigaWall = new WallBlock(BlockBehaviour.Properties.ofFullCopy(biomeStoneTaiga));
-	public static final Block biomeChiseledBrickTaiga = new BotaniaBlock(BlockBehaviour.Properties.ofFullCopy(biomeStoneTaiga));
-
-	public static final Block biomeStoneMesa = new BotaniaBlock(BlockBehaviour.Properties.ofFullCopy(biomeStoneForest)
-			.sound(SoundType.CALCITE).mapColor(MapColor.TERRACOTTA_WHITE));
-	public static final Block biomeStoneMesaSlab = new SlabBlock(BlockBehaviour.Properties.ofFullCopy(biomeStoneMesa));
-	public static final Block biomeStoneMesaStairs = new BotaniaStairBlock(biomeStoneMesa.defaultBlockState(), BlockBehaviour.Properties.ofFullCopy(biomeStoneMesa));
-	public static final Block biomeStoneMesaWall = new WallBlock(BlockBehaviour.Properties.ofFullCopy(biomeStoneMesa));
-	public static final Block biomeCobblestoneMesa = new BotaniaBlock(BlockBehaviour.Properties.ofFullCopy(biomeStoneMesa));
-	public static final Block biomeCobblestoneMesaSlab = new SlabBlock(BlockBehaviour.Properties.ofFullCopy(biomeStoneMesa));
-	public static final Block biomeCobblestoneMesaStairs = new BotaniaStairBlock(biomeStoneMesa.defaultBlockState(), BlockBehaviour.Properties.ofFullCopy(biomeStoneMesa));
-	public static final Block biomeCobblestoneMesaWall = new WallBlock(BlockBehaviour.Properties.ofFullCopy(biomeStoneMesa));
-	public static final Block biomeBrickMesa = new BotaniaBlock(BlockBehaviour.Properties.ofFullCopy(biomeStoneMesa));
-	public static final Block biomeBrickMesaSlab = new SlabBlock(BlockBehaviour.Properties.ofFullCopy(biomeStoneMesa));
-	public static final Block biomeBrickMesaStairs = new BotaniaStairBlock(biomeStoneMesa.defaultBlockState(), BlockBehaviour.Properties.ofFullCopy(biomeStoneMesa));
-	public static final Block biomeBrickMesaWall = new WallBlock(BlockBehaviour.Properties.ofFullCopy(biomeStoneMesa));
-	public static final Block biomeChiseledBrickMesa = new RotatedPillarBlock(BlockBehaviour.Properties.ofFullCopy(biomeStoneMesa));
-
-	public static final Block shimmerrockSlab = new SlabBlock(BlockBehaviour.Properties.ofFullCopy(shimmerrock));
-	public static final Block shimmerrockStairs = new BotaniaStairBlock(shimmerrock.defaultBlockState(), BlockBehaviour.Properties.ofFullCopy(shimmerrock));
-
-	public static final Block shimmerwoodPlankSlab = new SlabBlock(BlockBehaviour.Properties.ofFullCopy(shimmerwoodPlanks));
-	public static final Block shimmerwoodPlankStairs = new BotaniaStairBlock(shimmerwoodPlanks.defaultBlockState(), BlockBehaviour.Properties.ofFullCopy(shimmerwoodPlanks));
 
 	public static final Block managlassPane = new BotaniaPaneBlock(BlockBehaviour.Properties.ofFullCopy(manaGlass));
 	public static final Block alfglassPane = new BotaniaPaneBlock(BlockBehaviour.Properties.ofFullCopy(elfGlass));
@@ -690,6 +688,9 @@ public final class BotaniaBlocks {
 		});
 
 		r.accept(defaultAltar, botaniaRL(LibBlockNames.APOTHECARY_PREFIX + PetalApothecaryBlock.Variant.DEFAULT.name().toLowerCase(Locale.ROOT)));
+		r.accept(deepslateAltar, botaniaRL(LibBlockNames.APOTHECARY_PREFIX + PetalApothecaryBlock.Variant.DEEPSLATE.name().toLowerCase(Locale.ROOT)));
+		r.accept(livingrockAltar, botaniaRL(LibBlockNames.APOTHECARY_PREFIX + PetalApothecaryBlock.Variant.LIVINGROCK.name().toLowerCase(Locale.ROOT)));
+		r.accept(mossyAltar, botaniaRL(LibBlockNames.APOTHECARY_PREFIX + PetalApothecaryBlock.Variant.MOSSY.name().toLowerCase(Locale.ROOT)));
 		r.accept(forestAltar, botaniaRL(LibBlockNames.APOTHECARY_PREFIX + PetalApothecaryBlock.Variant.FOREST.name().toLowerCase(Locale.ROOT)));
 		r.accept(plainsAltar, botaniaRL(LibBlockNames.APOTHECARY_PREFIX + PetalApothecaryBlock.Variant.PLAINS.name().toLowerCase(Locale.ROOT)));
 		r.accept(mountainAltar, botaniaRL(LibBlockNames.APOTHECARY_PREFIX + PetalApothecaryBlock.Variant.MOUNTAIN.name().toLowerCase(Locale.ROOT)));
@@ -698,9 +699,6 @@ public final class BotaniaBlocks {
 		r.accept(desertAltar, botaniaRL(LibBlockNames.APOTHECARY_PREFIX + PetalApothecaryBlock.Variant.DESERT.name().toLowerCase(Locale.ROOT)));
 		r.accept(taigaAltar, botaniaRL(LibBlockNames.APOTHECARY_PREFIX + PetalApothecaryBlock.Variant.TAIGA.name().toLowerCase(Locale.ROOT)));
 		r.accept(mesaAltar, botaniaRL(LibBlockNames.APOTHECARY_PREFIX + PetalApothecaryBlock.Variant.MESA.name().toLowerCase(Locale.ROOT)));
-		r.accept(mossyAltar, botaniaRL(LibBlockNames.APOTHECARY_PREFIX + PetalApothecaryBlock.Variant.MOSSY.name().toLowerCase(Locale.ROOT)));
-		r.accept(livingrockAltar, botaniaRL(LibBlockNames.APOTHECARY_PREFIX + PetalApothecaryBlock.Variant.LIVINGROCK.name().toLowerCase(Locale.ROOT)));
-		r.accept(deepslateAltar, botaniaRL(LibBlockNames.APOTHECARY_PREFIX + PetalApothecaryBlock.Variant.DEEPSLATE.name().toLowerCase(Locale.ROOT)));
 
 		r.accept(livingrock, botaniaRL(LibBlockNames.LIVING_ROCK));
 		r.accept(livingrockStairs, botaniaRL(LibBlockNames.LIVING_ROCK + STAIR_SUFFIX));
@@ -719,8 +717,8 @@ public final class BotaniaBlocks {
 		r.accept(livingrockBrickMossyStairs, botaniaRL(LibBlockNames.LIVING_ROCK_BRICK_MOSSY + STAIR_SUFFIX));
 		r.accept(livingrockBrickMossySlab, botaniaRL(LibBlockNames.LIVING_ROCK_BRICK_MOSSY + SLAB_SUFFIX));
 		r.accept(livingrockBrickMossyWall, botaniaRL(LibBlockNames.LIVING_ROCK_BRICK_MOSSY + WALL_SUFFIX));
-		r.accept(livingrockBrickChiseled, botaniaRL(LibBlockNames.LIVING_ROCK_BRICK_CHISELED));
 		r.accept(livingrockBrickCracked, botaniaRL(LibBlockNames.LIVING_ROCK_BRICK_CRACKED));
+		r.accept(livingrockBrickChiseled, botaniaRL(LibBlockNames.LIVING_ROCK_BRICK_CHISELED));
 
 		r.accept(livingwoodLog, botaniaRL(LibBlockNames.LIVING_WOOD_LOG));
 		r.accept(livingwood, botaniaRL(LibBlockNames.LIVING_WOOD));
@@ -826,17 +824,17 @@ public final class BotaniaBlocks {
 		r.accept(redStringComparator, botaniaRL(LibBlockNames.RED_STRING_COMPARATOR));
 		r.accept(redStringRelay, botaniaRL(LibBlockNames.RED_STRING_RELAY));
 		r.accept(redStringInterceptor, botaniaRL(LibBlockNames.RED_STRING_INTERCEPTOR));
-		r.accept(corporeaIndex, botaniaRL(LibBlockNames.CORPOREA_INDEX));
 		r.accept(corporeaFunnel, botaniaRL(LibBlockNames.CORPOREA_FUNNEL));
 		r.accept(corporeaInterceptor, botaniaRL(LibBlockNames.CORPOREA_INTERCEPTOR));
+		r.accept(corporeaIndex, botaniaRL(LibBlockNames.CORPOREA_INDEX));
 		r.accept(corporeaCrystalCube, botaniaRL(LibBlockNames.CORPOREA_CRYSTAL_CUBE));
 		r.accept(corporeaRetainer, botaniaRL(LibBlockNames.CORPOREA_RETAINER));
 		r.accept(corporeaBlock, botaniaRL(LibBlockNames.CORPOREA_BLOCK));
-		r.accept(corporeaSlab, botaniaRL(LibBlockNames.CORPOREA_SLAB));
 		r.accept(corporeaStairs, botaniaRL(LibBlockNames.CORPOREA_STAIRS));
+		r.accept(corporeaSlab, botaniaRL(LibBlockNames.CORPOREA_SLAB));
 		r.accept(corporeaBrick, botaniaRL(LibBlockNames.CORPOREA_BRICK));
-		r.accept(corporeaBrickSlab, botaniaRL(LibBlockNames.CORPOREA_BRICK + LibBlockNames.SLAB_SUFFIX));
 		r.accept(corporeaBrickStairs, botaniaRL(LibBlockNames.CORPOREA_BRICK + LibBlockNames.STAIR_SUFFIX));
+		r.accept(corporeaBrickSlab, botaniaRL(LibBlockNames.CORPOREA_BRICK + LibBlockNames.SLAB_SUFFIX));
 		r.accept(corporeaBrickWall, botaniaRL(LibBlockNames.CORPOREA_BRICK + LibBlockNames.WALL_SUFFIX));
 		r.accept(incensePlate, botaniaRL(LibBlockNames.INCENSE_PLATE));
 		r.accept(hourglass, botaniaRL(LibBlockNames.HOURGLASS));
@@ -878,11 +876,11 @@ public final class BotaniaBlocks {
 		r.accept(gaiaHeadWall, botaniaRL(LibBlockNames.GAIA_WALL_HEAD));
 		r.accept(gaiaHead, botaniaRL(LibBlockNames.GAIA_HEAD));
 		r.accept(shimmerrock, botaniaRL(LibBlockNames.SHIMMERROCK));
-		r.accept(shimmerrockSlab, botaniaRL(LibBlockNames.SHIMMERROCK + SLAB_SUFFIX));
 		r.accept(shimmerrockStairs, botaniaRL(LibBlockNames.SHIMMERROCK + STAIR_SUFFIX));
+		r.accept(shimmerrockSlab, botaniaRL(LibBlockNames.SHIMMERROCK + SLAB_SUFFIX));
 		r.accept(shimmerwoodPlanks, botaniaRL(LibBlockNames.SHIMMERWOOD_PLANKS));
-		r.accept(shimmerwoodPlankSlab, botaniaRL(LibBlockNames.SHIMMERWOOD_PLANKS + SLAB_SUFFIX));
 		r.accept(shimmerwoodPlankStairs, botaniaRL(LibBlockNames.SHIMMERWOOD_PLANKS + STAIR_SUFFIX));
+		r.accept(shimmerwoodPlankSlab, botaniaRL(LibBlockNames.SHIMMERWOOD_PLANKS + SLAB_SUFFIX));
 		r.accept(dryGrass, botaniaRL(BotaniaGrassBlock.Variant.DRY.name().toLowerCase(Locale.ROOT) + LibBlockNames.ALT_GRASS_SUFFIX));
 		r.accept(goldenGrass, botaniaRL(BotaniaGrassBlock.Variant.GOLDEN.name().toLowerCase(Locale.ROOT) + LibBlockNames.ALT_GRASS_SUFFIX));
 		r.accept(vividGrass, botaniaRL(BotaniaGrassBlock.Variant.VIVID.name().toLowerCase(Locale.ROOT) + LibBlockNames.ALT_GRASS_SUFFIX));
@@ -897,46 +895,158 @@ public final class BotaniaBlocks {
 		r.accept(pottedMotifHydroangeas, botaniaRL(LibBlockNames.POTTED_PREFIX + LibBlockNames.MOTIF_HYDROANGEAS));
 
 		r.accept(darkQuartz, botaniaRL(QUARTZ_DARK));
+		r.accept(darkQuartzStairs, botaniaRL(QUARTZ_DARK + STAIR_SUFFIX));
+		r.accept(darkQuartzSlab, botaniaRL(QUARTZ_DARK + SLAB_SUFFIX));
 		r.accept(darkQuartzChiseled, botaniaRL("chiseled_" + QUARTZ_DARK));
 		r.accept(darkQuartzPillar, botaniaRL(QUARTZ_DARK + "_pillar"));
-		r.accept(darkQuartzSlab, botaniaRL(QUARTZ_DARK + SLAB_SUFFIX));
-		r.accept(darkQuartzStairs, botaniaRL(QUARTZ_DARK + STAIR_SUFFIX));
 
 		r.accept(manaQuartz, botaniaRL(QUARTZ_MANA));
+		r.accept(manaQuartzStairs, botaniaRL(QUARTZ_MANA + STAIR_SUFFIX));
+		r.accept(manaQuartzSlab, botaniaRL(QUARTZ_MANA + SLAB_SUFFIX));
 		r.accept(manaQuartzChiseled, botaniaRL("chiseled_" + QUARTZ_MANA));
 		r.accept(manaQuartzPillar, botaniaRL(QUARTZ_MANA + "_pillar"));
-		r.accept(manaQuartzSlab, botaniaRL(QUARTZ_MANA + SLAB_SUFFIX));
-		r.accept(manaQuartzStairs, botaniaRL(QUARTZ_MANA + STAIR_SUFFIX));
 
 		r.accept(blazeQuartz, botaniaRL(QUARTZ_BLAZE));
+		r.accept(blazeQuartzStairs, botaniaRL(QUARTZ_BLAZE + STAIR_SUFFIX));
+		r.accept(blazeQuartzSlab, botaniaRL(QUARTZ_BLAZE + SLAB_SUFFIX));
 		r.accept(blazeQuartzChiseled, botaniaRL("chiseled_" + QUARTZ_BLAZE));
 		r.accept(blazeQuartzPillar, botaniaRL(QUARTZ_BLAZE + "_pillar"));
-		r.accept(blazeQuartzSlab, botaniaRL(QUARTZ_BLAZE + SLAB_SUFFIX));
-		r.accept(blazeQuartzStairs, botaniaRL(QUARTZ_BLAZE + STAIR_SUFFIX));
 
 		r.accept(lavenderQuartz, botaniaRL(QUARTZ_LAVENDER));
+		r.accept(lavenderQuartzStairs, botaniaRL(QUARTZ_LAVENDER + STAIR_SUFFIX));
+		r.accept(lavenderQuartzSlab, botaniaRL(QUARTZ_LAVENDER + SLAB_SUFFIX));
 		r.accept(lavenderQuartzChiseled, botaniaRL("chiseled_" + QUARTZ_LAVENDER));
 		r.accept(lavenderQuartzPillar, botaniaRL(QUARTZ_LAVENDER + "_pillar"));
-		r.accept(lavenderQuartzSlab, botaniaRL(QUARTZ_LAVENDER + SLAB_SUFFIX));
-		r.accept(lavenderQuartzStairs, botaniaRL(QUARTZ_LAVENDER + STAIR_SUFFIX));
 
 		r.accept(redQuartz, botaniaRL(QUARTZ_RED));
+		r.accept(redQuartzStairs, botaniaRL(QUARTZ_RED + STAIR_SUFFIX));
+		r.accept(redQuartzSlab, botaniaRL(QUARTZ_RED + SLAB_SUFFIX));
 		r.accept(redQuartzChiseled, botaniaRL("chiseled_" + QUARTZ_RED));
 		r.accept(redQuartzPillar, botaniaRL(QUARTZ_RED + "_pillar"));
-		r.accept(redQuartzSlab, botaniaRL(QUARTZ_RED + SLAB_SUFFIX));
-		r.accept(redQuartzStairs, botaniaRL(QUARTZ_RED + STAIR_SUFFIX));
 
 		r.accept(elfQuartz, botaniaRL(QUARTZ_ELF));
+		r.accept(elfQuartzStairs, botaniaRL(QUARTZ_ELF + STAIR_SUFFIX));
+		r.accept(elfQuartzSlab, botaniaRL(QUARTZ_ELF + SLAB_SUFFIX));
 		r.accept(elfQuartzChiseled, botaniaRL("chiseled_" + QUARTZ_ELF));
 		r.accept(elfQuartzPillar, botaniaRL(QUARTZ_ELF + "_pillar"));
-		r.accept(elfQuartzSlab, botaniaRL(QUARTZ_ELF + SLAB_SUFFIX));
-		r.accept(elfQuartzStairs, botaniaRL(QUARTZ_ELF + STAIR_SUFFIX));
 
 		r.accept(sunnyQuartz, botaniaRL(QUARTZ_SUNNY));
+		r.accept(sunnyQuartzStairs, botaniaRL(QUARTZ_SUNNY + STAIR_SUFFIX));
+		r.accept(sunnyQuartzSlab, botaniaRL(QUARTZ_SUNNY + SLAB_SUFFIX));
 		r.accept(sunnyQuartzChiseled, botaniaRL("chiseled_" + QUARTZ_SUNNY));
 		r.accept(sunnyQuartzPillar, botaniaRL(QUARTZ_SUNNY + "_pillar"));
-		r.accept(sunnyQuartzSlab, botaniaRL(QUARTZ_SUNNY + SLAB_SUFFIX));
-		r.accept(sunnyQuartzStairs, botaniaRL(QUARTZ_SUNNY + STAIR_SUFFIX));
+
+		r.accept(biomeStoneForest, botaniaRL(METAMORPHIC_PREFIX + "forest_stone"));
+		r.accept(biomeStoneForestStairs, botaniaRL(METAMORPHIC_PREFIX + "forest_stone" + STAIR_SUFFIX));
+		r.accept(biomeStoneForestSlab, botaniaRL(METAMORPHIC_PREFIX + "forest_stone" + SLAB_SUFFIX));
+		r.accept(biomeStoneForestWall, botaniaRL(METAMORPHIC_PREFIX + "forest_stone" + WALL_SUFFIX));
+		r.accept(biomeCobblestoneForest, botaniaRL(METAMORPHIC_PREFIX + "forest_cobblestone"));
+		r.accept(biomeCobblestoneForestStairs, botaniaRL(METAMORPHIC_PREFIX + "forest_cobblestone" + STAIR_SUFFIX));
+		r.accept(biomeCobblestoneForestSlab, botaniaRL(METAMORPHIC_PREFIX + "forest_cobblestone" + SLAB_SUFFIX));
+		r.accept(biomeCobblestoneForestWall, botaniaRL(METAMORPHIC_PREFIX + "forest_cobblestone" + WALL_SUFFIX));
+		r.accept(biomeBrickForest, botaniaRL(METAMORPHIC_PREFIX + "forest_bricks"));
+		r.accept(biomeBrickForestStairs, botaniaRL(METAMORPHIC_PREFIX + "forest_bricks" + STAIR_SUFFIX));
+		r.accept(biomeBrickForestSlab, botaniaRL(METAMORPHIC_PREFIX + "forest_bricks" + SLAB_SUFFIX));
+		r.accept(biomeBrickForestWall, botaniaRL(METAMORPHIC_PREFIX + "forest_bricks" + WALL_SUFFIX));
+		r.accept(biomeChiseledBrickForest, botaniaRL("chiseled_" + METAMORPHIC_PREFIX + "forest_bricks"));
+
+		r.accept(biomeStonePlains, botaniaRL(METAMORPHIC_PREFIX + "plains_stone"));
+		r.accept(biomeStonePlainsStairs, botaniaRL(METAMORPHIC_PREFIX + "plains_stone" + STAIR_SUFFIX));
+		r.accept(biomeStonePlainsSlab, botaniaRL(METAMORPHIC_PREFIX + "plains_stone" + SLAB_SUFFIX));
+		r.accept(biomeStonePlainsWall, botaniaRL(METAMORPHIC_PREFIX + "plains_stone" + WALL_SUFFIX));
+		r.accept(biomeCobblestonePlains, botaniaRL(METAMORPHIC_PREFIX + "plains_cobblestone"));
+		r.accept(biomeCobblestonePlainsStairs, botaniaRL(METAMORPHIC_PREFIX + "plains_cobblestone" + STAIR_SUFFIX));
+		r.accept(biomeCobblestonePlainsSlab, botaniaRL(METAMORPHIC_PREFIX + "plains_cobblestone" + SLAB_SUFFIX));
+		r.accept(biomeCobblestonePlainsWall, botaniaRL(METAMORPHIC_PREFIX + "plains_cobblestone" + WALL_SUFFIX));
+		r.accept(biomeBrickPlains, botaniaRL(METAMORPHIC_PREFIX + "plains_bricks"));
+		r.accept(biomeBrickPlainsStairs, botaniaRL(METAMORPHIC_PREFIX + "plains_bricks" + STAIR_SUFFIX));
+		r.accept(biomeBrickPlainsSlab, botaniaRL(METAMORPHIC_PREFIX + "plains_bricks" + SLAB_SUFFIX));
+		r.accept(biomeBrickPlainsWall, botaniaRL(METAMORPHIC_PREFIX + "plains_bricks" + WALL_SUFFIX));
+		r.accept(biomeChiseledBrickPlains, botaniaRL("chiseled_" + METAMORPHIC_PREFIX + "plains_bricks"));
+
+		r.accept(biomeStoneMountain, botaniaRL(METAMORPHIC_PREFIX + "mountain_stone"));
+		r.accept(biomeStoneMountainStairs, botaniaRL(METAMORPHIC_PREFIX + "mountain_stone" + STAIR_SUFFIX));
+		r.accept(biomeStoneMountainSlab, botaniaRL(METAMORPHIC_PREFIX + "mountain_stone" + SLAB_SUFFIX));
+		r.accept(biomeStoneMountainWall, botaniaRL(METAMORPHIC_PREFIX + "mountain_stone" + WALL_SUFFIX));
+		r.accept(biomeCobblestoneMountain, botaniaRL(METAMORPHIC_PREFIX + "mountain_cobblestone"));
+		r.accept(biomeCobblestoneMountainStairs, botaniaRL(METAMORPHIC_PREFIX + "mountain_cobblestone" + STAIR_SUFFIX));
+		r.accept(biomeCobblestoneMountainSlab, botaniaRL(METAMORPHIC_PREFIX + "mountain_cobblestone" + SLAB_SUFFIX));
+		r.accept(biomeCobblestoneMountainWall, botaniaRL(METAMORPHIC_PREFIX + "mountain_cobblestone" + WALL_SUFFIX));
+		r.accept(biomeBrickMountain, botaniaRL(METAMORPHIC_PREFIX + "mountain_bricks"));
+		r.accept(biomeBrickMountainStairs, botaniaRL(METAMORPHIC_PREFIX + "mountain_bricks" + STAIR_SUFFIX));
+		r.accept(biomeBrickMountainSlab, botaniaRL(METAMORPHIC_PREFIX + "mountain_bricks" + SLAB_SUFFIX));
+		r.accept(biomeBrickMountainWall, botaniaRL(METAMORPHIC_PREFIX + "mountain_bricks" + WALL_SUFFIX));
+		r.accept(biomeChiseledBrickMountain, botaniaRL("chiseled_" + METAMORPHIC_PREFIX + "mountain_bricks"));
+
+		r.accept(biomeStoneFungal, botaniaRL(METAMORPHIC_PREFIX + "fungal_stone"));
+		r.accept(biomeStoneFungalStairs, botaniaRL(METAMORPHIC_PREFIX + "fungal_stone" + STAIR_SUFFIX));
+		r.accept(biomeStoneFungalSlab, botaniaRL(METAMORPHIC_PREFIX + "fungal_stone" + SLAB_SUFFIX));
+		r.accept(biomeStoneFungalWall, botaniaRL(METAMORPHIC_PREFIX + "fungal_stone" + WALL_SUFFIX));
+		r.accept(biomeCobblestoneFungal, botaniaRL(METAMORPHIC_PREFIX + "fungal_cobblestone"));
+		r.accept(biomeCobblestoneFungalStairs, botaniaRL(METAMORPHIC_PREFIX + "fungal_cobblestone" + STAIR_SUFFIX));
+		r.accept(biomeCobblestoneFungalSlab, botaniaRL(METAMORPHIC_PREFIX + "fungal_cobblestone" + SLAB_SUFFIX));
+		r.accept(biomeCobblestoneFungalWall, botaniaRL(METAMORPHIC_PREFIX + "fungal_cobblestone" + WALL_SUFFIX));
+		r.accept(biomeBrickFungal, botaniaRL(METAMORPHIC_PREFIX + "fungal_bricks"));
+		r.accept(biomeBrickFungalStairs, botaniaRL(METAMORPHIC_PREFIX + "fungal_bricks" + STAIR_SUFFIX));
+		r.accept(biomeBrickFungalSlab, botaniaRL(METAMORPHIC_PREFIX + "fungal_bricks" + SLAB_SUFFIX));
+		r.accept(biomeBrickFungalWall, botaniaRL(METAMORPHIC_PREFIX + "fungal_bricks" + WALL_SUFFIX));
+		r.accept(biomeChiseledBrickFungal, botaniaRL("chiseled_" + METAMORPHIC_PREFIX + "fungal_bricks"));
+
+		r.accept(biomeStoneSwamp, botaniaRL(METAMORPHIC_PREFIX + "swamp_stone"));
+		r.accept(biomeStoneSwampStairs, botaniaRL(METAMORPHIC_PREFIX + "swamp_stone" + STAIR_SUFFIX));
+		r.accept(biomeStoneSwampSlab, botaniaRL(METAMORPHIC_PREFIX + "swamp_stone" + SLAB_SUFFIX));
+		r.accept(biomeStoneSwampWall, botaniaRL(METAMORPHIC_PREFIX + "swamp_stone" + WALL_SUFFIX));
+		r.accept(biomeCobblestoneSwamp, botaniaRL(METAMORPHIC_PREFIX + "swamp_cobblestone"));
+		r.accept(biomeCobblestoneSwampStairs, botaniaRL(METAMORPHIC_PREFIX + "swamp_cobblestone" + STAIR_SUFFIX));
+		r.accept(biomeCobblestoneSwampSlab, botaniaRL(METAMORPHIC_PREFIX + "swamp_cobblestone" + SLAB_SUFFIX));
+		r.accept(biomeCobblestoneSwampWall, botaniaRL(METAMORPHIC_PREFIX + "swamp_cobblestone" + WALL_SUFFIX));
+		r.accept(biomeBrickSwamp, botaniaRL(METAMORPHIC_PREFIX + "swamp_bricks"));
+		r.accept(biomeBrickSwampStairs, botaniaRL(METAMORPHIC_PREFIX + "swamp_bricks" + STAIR_SUFFIX));
+		r.accept(biomeBrickSwampSlab, botaniaRL(METAMORPHIC_PREFIX + "swamp_bricks" + SLAB_SUFFIX));
+		r.accept(biomeBrickSwampWall, botaniaRL(METAMORPHIC_PREFIX + "swamp_bricks" + WALL_SUFFIX));
+		r.accept(biomeChiseledBrickSwamp, botaniaRL("chiseled_" + METAMORPHIC_PREFIX + "swamp_bricks"));
+
+		r.accept(biomeStoneDesert, botaniaRL(METAMORPHIC_PREFIX + "desert_stone"));
+		r.accept(biomeStoneDesertStairs, botaniaRL(METAMORPHIC_PREFIX + "desert_stone" + STAIR_SUFFIX));
+		r.accept(biomeStoneDesertSlab, botaniaRL(METAMORPHIC_PREFIX + "desert_stone" + SLAB_SUFFIX));
+		r.accept(biomeStoneDesertWall, botaniaRL(METAMORPHIC_PREFIX + "desert_stone" + WALL_SUFFIX));
+		r.accept(biomeCobblestoneDesert, botaniaRL(METAMORPHIC_PREFIX + "desert_cobblestone"));
+		r.accept(biomeCobblestoneDesertStairs, botaniaRL(METAMORPHIC_PREFIX + "desert_cobblestone" + STAIR_SUFFIX));
+		r.accept(biomeCobblestoneDesertSlab, botaniaRL(METAMORPHIC_PREFIX + "desert_cobblestone" + SLAB_SUFFIX));
+		r.accept(biomeCobblestoneDesertWall, botaniaRL(METAMORPHIC_PREFIX + "desert_cobblestone" + WALL_SUFFIX));
+		r.accept(biomeBrickDesert, botaniaRL(METAMORPHIC_PREFIX + "desert_bricks"));
+		r.accept(biomeBrickDesertStairs, botaniaRL(METAMORPHIC_PREFIX + "desert_bricks" + STAIR_SUFFIX));
+		r.accept(biomeBrickDesertSlab, botaniaRL(METAMORPHIC_PREFIX + "desert_bricks" + SLAB_SUFFIX));
+		r.accept(biomeBrickDesertWall, botaniaRL(METAMORPHIC_PREFIX + "desert_bricks" + WALL_SUFFIX));
+		r.accept(biomeChiseledBrickDesert, botaniaRL("chiseled_" + METAMORPHIC_PREFIX + "desert_bricks"));
+
+		r.accept(biomeStoneTaiga, botaniaRL(METAMORPHIC_PREFIX + "taiga_stone"));
+		r.accept(biomeStoneTaigaStairs, botaniaRL(METAMORPHIC_PREFIX + "taiga_stone" + STAIR_SUFFIX));
+		r.accept(biomeStoneTaigaSlab, botaniaRL(METAMORPHIC_PREFIX + "taiga_stone" + SLAB_SUFFIX));
+		r.accept(biomeStoneTaigaWall, botaniaRL(METAMORPHIC_PREFIX + "taiga_stone" + WALL_SUFFIX));
+		r.accept(biomeCobblestoneTaiga, botaniaRL(METAMORPHIC_PREFIX + "taiga_cobblestone"));
+		r.accept(biomeCobblestoneTaigaStairs, botaniaRL(METAMORPHIC_PREFIX + "taiga_cobblestone" + STAIR_SUFFIX));
+		r.accept(biomeCobblestoneTaigaSlab, botaniaRL(METAMORPHIC_PREFIX + "taiga_cobblestone" + SLAB_SUFFIX));
+		r.accept(biomeCobblestoneTaigaWall, botaniaRL(METAMORPHIC_PREFIX + "taiga_cobblestone" + WALL_SUFFIX));
+		r.accept(biomeBrickTaiga, botaniaRL(METAMORPHIC_PREFIX + "taiga_bricks"));
+		r.accept(biomeBrickTaigaStairs, botaniaRL(METAMORPHIC_PREFIX + "taiga_bricks" + STAIR_SUFFIX));
+		r.accept(biomeBrickTaigaSlab, botaniaRL(METAMORPHIC_PREFIX + "taiga_bricks" + SLAB_SUFFIX));
+		r.accept(biomeBrickTaigaWall, botaniaRL(METAMORPHIC_PREFIX + "taiga_bricks" + WALL_SUFFIX));
+		r.accept(biomeChiseledBrickTaiga, botaniaRL("chiseled_" + METAMORPHIC_PREFIX + "taiga_bricks"));
+
+		r.accept(biomeStoneMesa, botaniaRL(METAMORPHIC_PREFIX + "mesa_stone"));
+		r.accept(biomeStoneMesaStairs, botaniaRL(METAMORPHIC_PREFIX + "mesa_stone" + STAIR_SUFFIX));
+		r.accept(biomeStoneMesaSlab, botaniaRL(METAMORPHIC_PREFIX + "mesa_stone" + SLAB_SUFFIX));
+		r.accept(biomeStoneMesaWall, botaniaRL(METAMORPHIC_PREFIX + "mesa_stone" + WALL_SUFFIX));
+		r.accept(biomeCobblestoneMesa, botaniaRL(METAMORPHIC_PREFIX + "mesa_cobblestone"));
+		r.accept(biomeCobblestoneMesaStairs, botaniaRL(METAMORPHIC_PREFIX + "mesa_cobblestone" + STAIR_SUFFIX));
+		r.accept(biomeCobblestoneMesaSlab, botaniaRL(METAMORPHIC_PREFIX + "mesa_cobblestone" + SLAB_SUFFIX));
+		r.accept(biomeCobblestoneMesaWall, botaniaRL(METAMORPHIC_PREFIX + "mesa_cobblestone" + WALL_SUFFIX));
+		r.accept(biomeBrickMesa, botaniaRL(METAMORPHIC_PREFIX + "mesa_bricks"));
+		r.accept(biomeBrickMesaStairs, botaniaRL(METAMORPHIC_PREFIX + "mesa_bricks" + STAIR_SUFFIX));
+		r.accept(biomeBrickMesaSlab, botaniaRL(METAMORPHIC_PREFIX + "mesa_bricks" + SLAB_SUFFIX));
+		r.accept(biomeBrickMesaWall, botaniaRL(METAMORPHIC_PREFIX + "mesa_bricks" + WALL_SUFFIX));
+		r.accept(biomeChiseledBrickMesa, botaniaRL("chiseled_" + METAMORPHIC_PREFIX + "mesa_bricks"));
 
 		r.accept(whitePavement, botaniaRL("white" + PAVEMENT_SUFFIX));
 		r.accept(whitePavementStair, botaniaRL("white" + PAVEMENT_SUFFIX + STAIR_SUFFIX));
@@ -962,118 +1072,6 @@ public final class BotaniaBlocks {
 		r.accept(greenPavementStair, botaniaRL("green" + PAVEMENT_SUFFIX + STAIR_SUFFIX));
 		r.accept(greenPavementSlab, botaniaRL("green" + PAVEMENT_SUFFIX + SLAB_SUFFIX));
 
-		r.accept(biomeStoneForest, botaniaRL(METAMORPHIC_PREFIX + "forest_stone"));
-		r.accept(biomeStoneForestSlab, botaniaRL(METAMORPHIC_PREFIX + "forest_stone" + SLAB_SUFFIX));
-		r.accept(biomeStoneForestStairs, botaniaRL(METAMORPHIC_PREFIX + "forest_stone" + STAIR_SUFFIX));
-		r.accept(biomeStoneForestWall, botaniaRL(METAMORPHIC_PREFIX + "forest_stone" + WALL_SUFFIX));
-		r.accept(biomeCobblestoneForest, botaniaRL(METAMORPHIC_PREFIX + "forest_cobblestone"));
-		r.accept(biomeCobblestoneForestSlab, botaniaRL(METAMORPHIC_PREFIX + "forest_cobblestone" + SLAB_SUFFIX));
-		r.accept(biomeCobblestoneForestStairs, botaniaRL(METAMORPHIC_PREFIX + "forest_cobblestone" + STAIR_SUFFIX));
-		r.accept(biomeCobblestoneForestWall, botaniaRL(METAMORPHIC_PREFIX + "forest_cobblestone" + WALL_SUFFIX));
-		r.accept(biomeBrickForest, botaniaRL(METAMORPHIC_PREFIX + "forest_bricks"));
-		r.accept(biomeBrickForestSlab, botaniaRL(METAMORPHIC_PREFIX + "forest_bricks" + SLAB_SUFFIX));
-		r.accept(biomeBrickForestStairs, botaniaRL(METAMORPHIC_PREFIX + "forest_bricks" + STAIR_SUFFIX));
-		r.accept(biomeBrickForestWall, botaniaRL(METAMORPHIC_PREFIX + "forest_bricks" + WALL_SUFFIX));
-		r.accept(biomeChiseledBrickForest, botaniaRL("chiseled_" + METAMORPHIC_PREFIX + "forest_bricks"));
-
-		r.accept(biomeStonePlains, botaniaRL(METAMORPHIC_PREFIX + "plains_stone"));
-		r.accept(biomeStonePlainsSlab, botaniaRL(METAMORPHIC_PREFIX + "plains_stone" + SLAB_SUFFIX));
-		r.accept(biomeStonePlainsStairs, botaniaRL(METAMORPHIC_PREFIX + "plains_stone" + STAIR_SUFFIX));
-		r.accept(biomeStonePlainsWall, botaniaRL(METAMORPHIC_PREFIX + "plains_stone" + WALL_SUFFIX));
-		r.accept(biomeCobblestonePlains, botaniaRL(METAMORPHIC_PREFIX + "plains_cobblestone"));
-		r.accept(biomeCobblestonePlainsSlab, botaniaRL(METAMORPHIC_PREFIX + "plains_cobblestone" + SLAB_SUFFIX));
-		r.accept(biomeCobblestonePlainsStairs, botaniaRL(METAMORPHIC_PREFIX + "plains_cobblestone" + STAIR_SUFFIX));
-		r.accept(biomeCobblestonePlainsWall, botaniaRL(METAMORPHIC_PREFIX + "plains_cobblestone" + WALL_SUFFIX));
-		r.accept(biomeBrickPlains, botaniaRL(METAMORPHIC_PREFIX + "plains_bricks"));
-		r.accept(biomeBrickPlainsSlab, botaniaRL(METAMORPHIC_PREFIX + "plains_bricks" + SLAB_SUFFIX));
-		r.accept(biomeBrickPlainsStairs, botaniaRL(METAMORPHIC_PREFIX + "plains_bricks" + STAIR_SUFFIX));
-		r.accept(biomeBrickPlainsWall, botaniaRL(METAMORPHIC_PREFIX + "plains_bricks" + WALL_SUFFIX));
-		r.accept(biomeChiseledBrickPlains, botaniaRL("chiseled_" + METAMORPHIC_PREFIX + "plains_bricks"));
-
-		r.accept(biomeStoneMountain, botaniaRL(METAMORPHIC_PREFIX + "mountain_stone"));
-		r.accept(biomeStoneMountainSlab, botaniaRL(METAMORPHIC_PREFIX + "mountain_stone" + SLAB_SUFFIX));
-		r.accept(biomeStoneMountainStairs, botaniaRL(METAMORPHIC_PREFIX + "mountain_stone" + STAIR_SUFFIX));
-		r.accept(biomeStoneMountainWall, botaniaRL(METAMORPHIC_PREFIX + "mountain_stone" + WALL_SUFFIX));
-		r.accept(biomeCobblestoneMountain, botaniaRL(METAMORPHIC_PREFIX + "mountain_cobblestone"));
-		r.accept(biomeCobblestoneMountainSlab, botaniaRL(METAMORPHIC_PREFIX + "mountain_cobblestone" + SLAB_SUFFIX));
-		r.accept(biomeCobblestoneMountainStairs, botaniaRL(METAMORPHIC_PREFIX + "mountain_cobblestone" + STAIR_SUFFIX));
-		r.accept(biomeCobblestoneMountainWall, botaniaRL(METAMORPHIC_PREFIX + "mountain_cobblestone" + WALL_SUFFIX));
-		r.accept(biomeBrickMountain, botaniaRL(METAMORPHIC_PREFIX + "mountain_bricks"));
-		r.accept(biomeBrickMountainSlab, botaniaRL(METAMORPHIC_PREFIX + "mountain_bricks" + SLAB_SUFFIX));
-		r.accept(biomeBrickMountainStairs, botaniaRL(METAMORPHIC_PREFIX + "mountain_bricks" + STAIR_SUFFIX));
-		r.accept(biomeBrickMountainWall, botaniaRL(METAMORPHIC_PREFIX + "mountain_bricks" + WALL_SUFFIX));
-		r.accept(biomeChiseledBrickMountain, botaniaRL("chiseled_" + METAMORPHIC_PREFIX + "mountain_bricks"));
-
-		r.accept(biomeStoneFungal, botaniaRL(METAMORPHIC_PREFIX + "fungal_stone"));
-		r.accept(biomeStoneFungalSlab, botaniaRL(METAMORPHIC_PREFIX + "fungal_stone" + SLAB_SUFFIX));
-		r.accept(biomeStoneFungalStairs, botaniaRL(METAMORPHIC_PREFIX + "fungal_stone" + STAIR_SUFFIX));
-		r.accept(biomeStoneFungalWall, botaniaRL(METAMORPHIC_PREFIX + "fungal_stone" + WALL_SUFFIX));
-		r.accept(biomeCobblestoneFungal, botaniaRL(METAMORPHIC_PREFIX + "fungal_cobblestone"));
-		r.accept(biomeCobblestoneFungalSlab, botaniaRL(METAMORPHIC_PREFIX + "fungal_cobblestone" + SLAB_SUFFIX));
-		r.accept(biomeCobblestoneFungalStairs, botaniaRL(METAMORPHIC_PREFIX + "fungal_cobblestone" + STAIR_SUFFIX));
-		r.accept(biomeCobblestoneFungalWall, botaniaRL(METAMORPHIC_PREFIX + "fungal_cobblestone" + WALL_SUFFIX));
-		r.accept(biomeBrickFungal, botaniaRL(METAMORPHIC_PREFIX + "fungal_bricks"));
-		r.accept(biomeBrickFungalSlab, botaniaRL(METAMORPHIC_PREFIX + "fungal_bricks" + SLAB_SUFFIX));
-		r.accept(biomeBrickFungalStairs, botaniaRL(METAMORPHIC_PREFIX + "fungal_bricks" + STAIR_SUFFIX));
-		r.accept(biomeBrickFungalWall, botaniaRL(METAMORPHIC_PREFIX + "fungal_bricks" + WALL_SUFFIX));
-		r.accept(biomeChiseledBrickFungal, botaniaRL("chiseled_" + METAMORPHIC_PREFIX + "fungal_bricks"));
-
-		r.accept(biomeStoneSwamp, botaniaRL(METAMORPHIC_PREFIX + "swamp_stone"));
-		r.accept(biomeStoneSwampSlab, botaniaRL(METAMORPHIC_PREFIX + "swamp_stone" + SLAB_SUFFIX));
-		r.accept(biomeStoneSwampStairs, botaniaRL(METAMORPHIC_PREFIX + "swamp_stone" + STAIR_SUFFIX));
-		r.accept(biomeStoneSwampWall, botaniaRL(METAMORPHIC_PREFIX + "swamp_stone" + WALL_SUFFIX));
-		r.accept(biomeCobblestoneSwamp, botaniaRL(METAMORPHIC_PREFIX + "swamp_cobblestone"));
-		r.accept(biomeCobblestoneSwampSlab, botaniaRL(METAMORPHIC_PREFIX + "swamp_cobblestone" + SLAB_SUFFIX));
-		r.accept(biomeCobblestoneSwampStairs, botaniaRL(METAMORPHIC_PREFIX + "swamp_cobblestone" + STAIR_SUFFIX));
-		r.accept(biomeCobblestoneSwampWall, botaniaRL(METAMORPHIC_PREFIX + "swamp_cobblestone" + WALL_SUFFIX));
-		r.accept(biomeBrickSwamp, botaniaRL(METAMORPHIC_PREFIX + "swamp_bricks"));
-		r.accept(biomeBrickSwampSlab, botaniaRL(METAMORPHIC_PREFIX + "swamp_bricks" + SLAB_SUFFIX));
-		r.accept(biomeBrickSwampStairs, botaniaRL(METAMORPHIC_PREFIX + "swamp_bricks" + STAIR_SUFFIX));
-		r.accept(biomeBrickSwampWall, botaniaRL(METAMORPHIC_PREFIX + "swamp_bricks" + WALL_SUFFIX));
-		r.accept(biomeChiseledBrickSwamp, botaniaRL("chiseled_" + METAMORPHIC_PREFIX + "swamp_bricks"));
-
-		r.accept(biomeStoneDesert, botaniaRL(METAMORPHIC_PREFIX + "desert_stone"));
-		r.accept(biomeStoneDesertSlab, botaniaRL(METAMORPHIC_PREFIX + "desert_stone" + SLAB_SUFFIX));
-		r.accept(biomeStoneDesertStairs, botaniaRL(METAMORPHIC_PREFIX + "desert_stone" + STAIR_SUFFIX));
-		r.accept(biomeStoneDesertWall, botaniaRL(METAMORPHIC_PREFIX + "desert_stone" + WALL_SUFFIX));
-		r.accept(biomeCobblestoneDesert, botaniaRL(METAMORPHIC_PREFIX + "desert_cobblestone"));
-		r.accept(biomeCobblestoneDesertSlab, botaniaRL(METAMORPHIC_PREFIX + "desert_cobblestone" + SLAB_SUFFIX));
-		r.accept(biomeCobblestoneDesertStairs, botaniaRL(METAMORPHIC_PREFIX + "desert_cobblestone" + STAIR_SUFFIX));
-		r.accept(biomeCobblestoneDesertWall, botaniaRL(METAMORPHIC_PREFIX + "desert_cobblestone" + WALL_SUFFIX));
-		r.accept(biomeBrickDesert, botaniaRL(METAMORPHIC_PREFIX + "desert_bricks"));
-		r.accept(biomeBrickDesertSlab, botaniaRL(METAMORPHIC_PREFIX + "desert_bricks" + SLAB_SUFFIX));
-		r.accept(biomeBrickDesertStairs, botaniaRL(METAMORPHIC_PREFIX + "desert_bricks" + STAIR_SUFFIX));
-		r.accept(biomeBrickDesertWall, botaniaRL(METAMORPHIC_PREFIX + "desert_bricks" + WALL_SUFFIX));
-		r.accept(biomeChiseledBrickDesert, botaniaRL("chiseled_" + METAMORPHIC_PREFIX + "desert_bricks"));
-
-		r.accept(biomeStoneTaiga, botaniaRL(METAMORPHIC_PREFIX + "taiga_stone"));
-		r.accept(biomeStoneTaigaSlab, botaniaRL(METAMORPHIC_PREFIX + "taiga_stone" + SLAB_SUFFIX));
-		r.accept(biomeStoneTaigaStairs, botaniaRL(METAMORPHIC_PREFIX + "taiga_stone" + STAIR_SUFFIX));
-		r.accept(biomeStoneTaigaWall, botaniaRL(METAMORPHIC_PREFIX + "taiga_stone" + WALL_SUFFIX));
-		r.accept(biomeCobblestoneTaiga, botaniaRL(METAMORPHIC_PREFIX + "taiga_cobblestone"));
-		r.accept(biomeCobblestoneTaigaSlab, botaniaRL(METAMORPHIC_PREFIX + "taiga_cobblestone" + SLAB_SUFFIX));
-		r.accept(biomeCobblestoneTaigaStairs, botaniaRL(METAMORPHIC_PREFIX + "taiga_cobblestone" + STAIR_SUFFIX));
-		r.accept(biomeCobblestoneTaigaWall, botaniaRL(METAMORPHIC_PREFIX + "taiga_cobblestone" + WALL_SUFFIX));
-		r.accept(biomeBrickTaiga, botaniaRL(METAMORPHIC_PREFIX + "taiga_bricks"));
-		r.accept(biomeBrickTaigaSlab, botaniaRL(METAMORPHIC_PREFIX + "taiga_bricks" + SLAB_SUFFIX));
-		r.accept(biomeBrickTaigaStairs, botaniaRL(METAMORPHIC_PREFIX + "taiga_bricks" + STAIR_SUFFIX));
-		r.accept(biomeBrickTaigaWall, botaniaRL(METAMORPHIC_PREFIX + "taiga_bricks" + WALL_SUFFIX));
-		r.accept(biomeChiseledBrickTaiga, botaniaRL("chiseled_" + METAMORPHIC_PREFIX + "taiga_bricks"));
-
-		r.accept(biomeStoneMesa, botaniaRL(METAMORPHIC_PREFIX + "mesa_stone"));
-		r.accept(biomeStoneMesaSlab, botaniaRL(METAMORPHIC_PREFIX + "mesa_stone" + SLAB_SUFFIX));
-		r.accept(biomeStoneMesaStairs, botaniaRL(METAMORPHIC_PREFIX + "mesa_stone" + STAIR_SUFFIX));
-		r.accept(biomeStoneMesaWall, botaniaRL(METAMORPHIC_PREFIX + "mesa_stone" + WALL_SUFFIX));
-		r.accept(biomeCobblestoneMesa, botaniaRL(METAMORPHIC_PREFIX + "mesa_cobblestone"));
-		r.accept(biomeCobblestoneMesaSlab, botaniaRL(METAMORPHIC_PREFIX + "mesa_cobblestone" + SLAB_SUFFIX));
-		r.accept(biomeCobblestoneMesaStairs, botaniaRL(METAMORPHIC_PREFIX + "mesa_cobblestone" + STAIR_SUFFIX));
-		r.accept(biomeCobblestoneMesaWall, botaniaRL(METAMORPHIC_PREFIX + "mesa_cobblestone" + WALL_SUFFIX));
-		r.accept(biomeBrickMesa, botaniaRL(METAMORPHIC_PREFIX + "mesa_bricks"));
-		r.accept(biomeBrickMesaSlab, botaniaRL(METAMORPHIC_PREFIX + "mesa_bricks" + SLAB_SUFFIX));
-		r.accept(biomeBrickMesaStairs, botaniaRL(METAMORPHIC_PREFIX + "mesa_bricks" + STAIR_SUFFIX));
-		r.accept(biomeBrickMesaWall, botaniaRL(METAMORPHIC_PREFIX + "mesa_bricks" + WALL_SUFFIX));
-		r.accept(biomeChiseledBrickMesa, botaniaRL("chiseled_" + METAMORPHIC_PREFIX + "mesa_bricks"));
-
 		r.accept(managlassPane, botaniaRL(LibBlockNames.MANA_GLASS + "_pane"));
 		r.accept(alfglassPane, botaniaRL(LibBlockNames.ELF_GLASS + "_pane"));
 		r.accept(bifrostPane, botaniaRL(LibBlockNames.BIFROST + "_pane"));
@@ -1094,6 +1092,9 @@ public final class BotaniaBlocks {
 				)
 		);
 		r.accept(new BlockItem(defaultAltar, props), BuiltInRegistries.BLOCK.getKey(defaultAltar));
+		r.accept(new BlockItem(deepslateAltar, props), BuiltInRegistries.BLOCK.getKey(deepslateAltar));
+		r.accept(new BlockItem(livingrockAltar, props), BuiltInRegistries.BLOCK.getKey(livingrockAltar));
+		r.accept(new BlockItem(mossyAltar, props), BuiltInRegistries.BLOCK.getKey(mossyAltar));
 		r.accept(new BlockItem(forestAltar, props), BuiltInRegistries.BLOCK.getKey(forestAltar));
 		r.accept(new BlockItem(plainsAltar, props), BuiltInRegistries.BLOCK.getKey(plainsAltar));
 		r.accept(new BlockItem(mountainAltar, props), BuiltInRegistries.BLOCK.getKey(mountainAltar));
@@ -1102,9 +1103,6 @@ public final class BotaniaBlocks {
 		r.accept(new BlockItem(desertAltar, props), BuiltInRegistries.BLOCK.getKey(desertAltar));
 		r.accept(new BlockItem(taigaAltar, props), BuiltInRegistries.BLOCK.getKey(taigaAltar));
 		r.accept(new BlockItem(mesaAltar, props), BuiltInRegistries.BLOCK.getKey(mesaAltar));
-		r.accept(new BlockItem(mossyAltar, props), BuiltInRegistries.BLOCK.getKey(mossyAltar));
-		r.accept(new BlockItem(livingrockAltar, props), BuiltInRegistries.BLOCK.getKey(livingrockAltar));
-		r.accept(new BlockItem(deepslateAltar, props), BuiltInRegistries.BLOCK.getKey(deepslateAltar));
 
 		r.accept(new BlockItem(livingrock, props), BuiltInRegistries.BLOCK.getKey(livingrock));
 		r.accept(new BlockItem(livingrockStairs, props), BuiltInRegistries.BLOCK.getKey(livingrockStairs));
@@ -1123,8 +1121,8 @@ public final class BotaniaBlocks {
 		r.accept(new BlockItem(livingrockBrickMossyStairs, props), BuiltInRegistries.BLOCK.getKey(livingrockBrickMossyStairs));
 		r.accept(new BlockItem(livingrockBrickMossySlab, props), BuiltInRegistries.BLOCK.getKey(livingrockBrickMossySlab));
 		r.accept(new BlockItem(livingrockBrickMossyWall, props), BuiltInRegistries.BLOCK.getKey(livingrockBrickMossyWall));
-		r.accept(new BlockItem(livingrockBrickChiseled, props), BuiltInRegistries.BLOCK.getKey(livingrockBrickChiseled));
 		r.accept(new BlockItem(livingrockBrickCracked, props), BuiltInRegistries.BLOCK.getKey(livingrockBrickCracked));
+		r.accept(new BlockItem(livingrockBrickChiseled, props), BuiltInRegistries.BLOCK.getKey(livingrockBrickChiseled));
 
 		r.accept(new BlockItem(livingwoodLog, props), BuiltInRegistries.BLOCK.getKey(livingwoodLog));
 		r.accept(new BlockItem(livingwood, props), BuiltInRegistries.BLOCK.getKey(livingwood));
@@ -1229,17 +1227,17 @@ public final class BotaniaBlocks {
 		r.accept(new BlockItem(redStringComparator, props), BuiltInRegistries.BLOCK.getKey(redStringComparator));
 		r.accept(new BlockItem(redStringRelay, props), BuiltInRegistries.BLOCK.getKey(redStringRelay));
 		r.accept(new BlockItem(redStringInterceptor, props), BuiltInRegistries.BLOCK.getKey(redStringInterceptor));
-		r.accept(new BlockItemWithSpecialRenderer(corporeaIndex, props), BuiltInRegistries.BLOCK.getKey(corporeaIndex));
 		r.accept(new BlockItem(corporeaFunnel, props), BuiltInRegistries.BLOCK.getKey(corporeaFunnel));
 		r.accept(new BlockItem(corporeaInterceptor, props), BuiltInRegistries.BLOCK.getKey(corporeaInterceptor));
+		r.accept(new BlockItemWithSpecialRenderer(corporeaIndex, props), BuiltInRegistries.BLOCK.getKey(corporeaIndex));
 		r.accept(new BlockItem(corporeaCrystalCube, props), BuiltInRegistries.BLOCK.getKey(corporeaCrystalCube));
 		r.accept(new BlockItem(corporeaRetainer, props), BuiltInRegistries.BLOCK.getKey(corporeaRetainer));
 		r.accept(new BlockItem(corporeaBlock, props), BuiltInRegistries.BLOCK.getKey(corporeaBlock));
-		r.accept(new BlockItem(corporeaSlab, props), BuiltInRegistries.BLOCK.getKey(corporeaSlab));
 		r.accept(new BlockItem(corporeaStairs, props), BuiltInRegistries.BLOCK.getKey(corporeaStairs));
+		r.accept(new BlockItem(corporeaSlab, props), BuiltInRegistries.BLOCK.getKey(corporeaSlab));
 		r.accept(new BlockItem(corporeaBrick, props), BuiltInRegistries.BLOCK.getKey(corporeaBrick));
-		r.accept(new BlockItem(corporeaBrickSlab, props), BuiltInRegistries.BLOCK.getKey(corporeaBrickSlab));
 		r.accept(new BlockItem(corporeaBrickStairs, props), BuiltInRegistries.BLOCK.getKey(corporeaBrickStairs));
+		r.accept(new BlockItem(corporeaBrickSlab, props), BuiltInRegistries.BLOCK.getKey(corporeaBrickSlab));
 		r.accept(new BlockItem(corporeaBrickWall, props), BuiltInRegistries.BLOCK.getKey(corporeaBrickWall));
 		r.accept(new BlockItem(incensePlate, props), BuiltInRegistries.BLOCK.getKey(incensePlate));
 		r.accept(new BlockItemWithSpecialRenderer(hourglass, props), BuiltInRegistries.BLOCK.getKey(hourglass));
@@ -1278,11 +1276,11 @@ public final class BotaniaBlocks {
 		r.accept(new BlazeItemBlock(blazeBlock, props), BuiltInRegistries.BLOCK.getKey(blazeBlock));
 		r.accept(new StandingAndWallBlockItem(gaiaHead, gaiaHeadWall, BotaniaItems.defaultBuilder().rarity(Rarity.UNCOMMON), Direction.DOWN), BuiltInRegistries.BLOCK.getKey(gaiaHead));
 		r.accept(new BlockItem(shimmerrock, props), BuiltInRegistries.BLOCK.getKey(shimmerrock));
-		r.accept(new BlockItem(shimmerrockSlab, props), BuiltInRegistries.BLOCK.getKey(shimmerrockSlab));
 		r.accept(new BlockItem(shimmerrockStairs, props), BuiltInRegistries.BLOCK.getKey(shimmerrockStairs));
+		r.accept(new BlockItem(shimmerrockSlab, props), BuiltInRegistries.BLOCK.getKey(shimmerrockSlab));
 		r.accept(new BlockItem(shimmerwoodPlanks, props), BuiltInRegistries.BLOCK.getKey(shimmerwoodPlanks));
-		r.accept(new BlockItem(shimmerwoodPlankSlab, props), BuiltInRegistries.BLOCK.getKey(shimmerwoodPlankSlab));
 		r.accept(new BlockItem(shimmerwoodPlankStairs, props), BuiltInRegistries.BLOCK.getKey(shimmerwoodPlankStairs));
+		r.accept(new BlockItem(shimmerwoodPlankSlab, props), BuiltInRegistries.BLOCK.getKey(shimmerwoodPlankSlab));
 		r.accept(new BlockItem(dryGrass, props), BuiltInRegistries.BLOCK.getKey(dryGrass));
 		r.accept(new BlockItem(goldenGrass, props), BuiltInRegistries.BLOCK.getKey(goldenGrass));
 		r.accept(new BlockItem(vividGrass, props), BuiltInRegistries.BLOCK.getKey(vividGrass));
@@ -1294,156 +1292,156 @@ public final class BotaniaBlocks {
 		r.accept(new BlockItem(motifHydroangeas, props), BuiltInRegistries.BLOCK.getKey(motifHydroangeas));
 
 		r.accept(new BlockItem(darkQuartz, props), BuiltInRegistries.BLOCK.getKey(darkQuartz));
-		r.accept(new BlockItem(darkQuartzPillar, props), BuiltInRegistries.BLOCK.getKey(darkQuartzPillar));
-		r.accept(new BlockItem(darkQuartzChiseled, props), BuiltInRegistries.BLOCK.getKey(darkQuartzChiseled));
-		r.accept(new BlockItem(darkQuartzSlab, props), BuiltInRegistries.BLOCK.getKey(darkQuartzSlab));
 		r.accept(new BlockItem(darkQuartzStairs, props), BuiltInRegistries.BLOCK.getKey(darkQuartzStairs));
+		r.accept(new BlockItem(darkQuartzSlab, props), BuiltInRegistries.BLOCK.getKey(darkQuartzSlab));
+		r.accept(new BlockItem(darkQuartzChiseled, props), BuiltInRegistries.BLOCK.getKey(darkQuartzChiseled));
+		r.accept(new BlockItem(darkQuartzPillar, props), BuiltInRegistries.BLOCK.getKey(darkQuartzPillar));
 
 		r.accept(new BlockItem(manaQuartz, props), BuiltInRegistries.BLOCK.getKey(manaQuartz));
-		r.accept(new BlockItem(manaQuartzPillar, props), BuiltInRegistries.BLOCK.getKey(manaQuartzPillar));
-		r.accept(new BlockItem(manaQuartzChiseled, props), BuiltInRegistries.BLOCK.getKey(manaQuartzChiseled));
-		r.accept(new BlockItem(manaQuartzSlab, props), BuiltInRegistries.BLOCK.getKey(manaQuartzSlab));
 		r.accept(new BlockItem(manaQuartzStairs, props), BuiltInRegistries.BLOCK.getKey(manaQuartzStairs));
+		r.accept(new BlockItem(manaQuartzSlab, props), BuiltInRegistries.BLOCK.getKey(manaQuartzSlab));
+		r.accept(new BlockItem(manaQuartzChiseled, props), BuiltInRegistries.BLOCK.getKey(manaQuartzChiseled));
+		r.accept(new BlockItem(manaQuartzPillar, props), BuiltInRegistries.BLOCK.getKey(manaQuartzPillar));
 
 		r.accept(new BlockItem(blazeQuartz, props), BuiltInRegistries.BLOCK.getKey(blazeQuartz));
-		r.accept(new BlockItem(blazeQuartzPillar, props), BuiltInRegistries.BLOCK.getKey(blazeQuartzPillar));
-		r.accept(new BlockItem(blazeQuartzChiseled, props), BuiltInRegistries.BLOCK.getKey(blazeQuartzChiseled));
-		r.accept(new BlockItem(blazeQuartzSlab, props), BuiltInRegistries.BLOCK.getKey(blazeQuartzSlab));
 		r.accept(new BlockItem(blazeQuartzStairs, props), BuiltInRegistries.BLOCK.getKey(blazeQuartzStairs));
+		r.accept(new BlockItem(blazeQuartzSlab, props), BuiltInRegistries.BLOCK.getKey(blazeQuartzSlab));
+		r.accept(new BlockItem(blazeQuartzChiseled, props), BuiltInRegistries.BLOCK.getKey(blazeQuartzChiseled));
+		r.accept(new BlockItem(blazeQuartzPillar, props), BuiltInRegistries.BLOCK.getKey(blazeQuartzPillar));
 
 		r.accept(new BlockItem(lavenderQuartz, props), BuiltInRegistries.BLOCK.getKey(lavenderQuartz));
-		r.accept(new BlockItem(lavenderQuartzPillar, props), BuiltInRegistries.BLOCK.getKey(lavenderQuartzPillar));
-		r.accept(new BlockItem(lavenderQuartzChiseled, props), BuiltInRegistries.BLOCK.getKey(lavenderQuartzChiseled));
-		r.accept(new BlockItem(lavenderQuartzSlab, props), BuiltInRegistries.BLOCK.getKey(lavenderQuartzSlab));
 		r.accept(new BlockItem(lavenderQuartzStairs, props), BuiltInRegistries.BLOCK.getKey(lavenderQuartzStairs));
+		r.accept(new BlockItem(lavenderQuartzSlab, props), BuiltInRegistries.BLOCK.getKey(lavenderQuartzSlab));
+		r.accept(new BlockItem(lavenderQuartzChiseled, props), BuiltInRegistries.BLOCK.getKey(lavenderQuartzChiseled));
+		r.accept(new BlockItem(lavenderQuartzPillar, props), BuiltInRegistries.BLOCK.getKey(lavenderQuartzPillar));
 
 		r.accept(new BlockItem(redQuartz, props), BuiltInRegistries.BLOCK.getKey(redQuartz));
-		r.accept(new BlockItem(redQuartzPillar, props), BuiltInRegistries.BLOCK.getKey(redQuartzPillar));
-		r.accept(new BlockItem(redQuartzChiseled, props), BuiltInRegistries.BLOCK.getKey(redQuartzChiseled));
-		r.accept(new BlockItem(redQuartzSlab, props), BuiltInRegistries.BLOCK.getKey(redQuartzSlab));
 		r.accept(new BlockItem(redQuartzStairs, props), BuiltInRegistries.BLOCK.getKey(redQuartzStairs));
+		r.accept(new BlockItem(redQuartzSlab, props), BuiltInRegistries.BLOCK.getKey(redQuartzSlab));
+		r.accept(new BlockItem(redQuartzChiseled, props), BuiltInRegistries.BLOCK.getKey(redQuartzChiseled));
+		r.accept(new BlockItem(redQuartzPillar, props), BuiltInRegistries.BLOCK.getKey(redQuartzPillar));
 
 		r.accept(new BlockItem(elfQuartz, props), BuiltInRegistries.BLOCK.getKey(elfQuartz));
-		r.accept(new BlockItem(elfQuartzPillar, props), BuiltInRegistries.BLOCK.getKey(elfQuartzPillar));
-		r.accept(new BlockItem(elfQuartzChiseled, props), BuiltInRegistries.BLOCK.getKey(elfQuartzChiseled));
-		r.accept(new BlockItem(elfQuartzSlab, props), BuiltInRegistries.BLOCK.getKey(elfQuartzSlab));
 		r.accept(new BlockItem(elfQuartzStairs, props), BuiltInRegistries.BLOCK.getKey(elfQuartzStairs));
+		r.accept(new BlockItem(elfQuartzSlab, props), BuiltInRegistries.BLOCK.getKey(elfQuartzSlab));
+		r.accept(new BlockItem(elfQuartzChiseled, props), BuiltInRegistries.BLOCK.getKey(elfQuartzChiseled));
+		r.accept(new BlockItem(elfQuartzPillar, props), BuiltInRegistries.BLOCK.getKey(elfQuartzPillar));
 
 		r.accept(new BlockItem(sunnyQuartz, props), BuiltInRegistries.BLOCK.getKey(sunnyQuartz));
-		r.accept(new BlockItem(sunnyQuartzPillar, props), BuiltInRegistries.BLOCK.getKey(sunnyQuartzPillar));
-		r.accept(new BlockItem(sunnyQuartzChiseled, props), BuiltInRegistries.BLOCK.getKey(sunnyQuartzChiseled));
-		r.accept(new BlockItem(sunnyQuartzSlab, props), BuiltInRegistries.BLOCK.getKey(sunnyQuartzSlab));
 		r.accept(new BlockItem(sunnyQuartzStairs, props), BuiltInRegistries.BLOCK.getKey(sunnyQuartzStairs));
+		r.accept(new BlockItem(sunnyQuartzSlab, props), BuiltInRegistries.BLOCK.getKey(sunnyQuartzSlab));
+		r.accept(new BlockItem(sunnyQuartzChiseled, props), BuiltInRegistries.BLOCK.getKey(sunnyQuartzChiseled));
+		r.accept(new BlockItem(sunnyQuartzPillar, props), BuiltInRegistries.BLOCK.getKey(sunnyQuartzPillar));
 
 		r.accept(new BlockItem(biomeStoneForest, props), BuiltInRegistries.BLOCK.getKey(biomeStoneForest));
-		r.accept(new BlockItem(biomeStoneForestSlab, props), BuiltInRegistries.BLOCK.getKey(biomeStoneForestSlab));
 		r.accept(new BlockItem(biomeStoneForestStairs, props), BuiltInRegistries.BLOCK.getKey(biomeStoneForestStairs));
+		r.accept(new BlockItem(biomeStoneForestSlab, props), BuiltInRegistries.BLOCK.getKey(biomeStoneForestSlab));
 		r.accept(new BlockItem(biomeStoneForestWall, props), BuiltInRegistries.BLOCK.getKey(biomeStoneForestWall));
 		r.accept(new BlockItem(biomeBrickForest, props), BuiltInRegistries.BLOCK.getKey(biomeBrickForest));
-		r.accept(new BlockItem(biomeBrickForestSlab, props), BuiltInRegistries.BLOCK.getKey(biomeBrickForestSlab));
 		r.accept(new BlockItem(biomeBrickForestStairs, props), BuiltInRegistries.BLOCK.getKey(biomeBrickForestStairs));
+		r.accept(new BlockItem(biomeBrickForestSlab, props), BuiltInRegistries.BLOCK.getKey(biomeBrickForestSlab));
 		r.accept(new BlockItem(biomeBrickForestWall, props), BuiltInRegistries.BLOCK.getKey(biomeBrickForestWall));
 		r.accept(new BlockItem(biomeCobblestoneForest, props), BuiltInRegistries.BLOCK.getKey(biomeCobblestoneForest));
-		r.accept(new BlockItem(biomeCobblestoneForestSlab, props), BuiltInRegistries.BLOCK.getKey(biomeCobblestoneForestSlab));
 		r.accept(new BlockItem(biomeCobblestoneForestStairs, props), BuiltInRegistries.BLOCK.getKey(biomeCobblestoneForestStairs));
+		r.accept(new BlockItem(biomeCobblestoneForestSlab, props), BuiltInRegistries.BLOCK.getKey(biomeCobblestoneForestSlab));
 		r.accept(new BlockItem(biomeCobblestoneForestWall, props), BuiltInRegistries.BLOCK.getKey(biomeCobblestoneForestWall));
 		r.accept(new BlockItem(biomeChiseledBrickForest, props), BuiltInRegistries.BLOCK.getKey(biomeChiseledBrickForest));
 
 		r.accept(new BlockItem(biomeStonePlains, props), BuiltInRegistries.BLOCK.getKey(biomeStonePlains));
-		r.accept(new BlockItem(biomeStonePlainsSlab, props), BuiltInRegistries.BLOCK.getKey(biomeStonePlainsSlab));
 		r.accept(new BlockItem(biomeStonePlainsStairs, props), BuiltInRegistries.BLOCK.getKey(biomeStonePlainsStairs));
+		r.accept(new BlockItem(biomeStonePlainsSlab, props), BuiltInRegistries.BLOCK.getKey(biomeStonePlainsSlab));
 		r.accept(new BlockItem(biomeStonePlainsWall, props), BuiltInRegistries.BLOCK.getKey(biomeStonePlainsWall));
 		r.accept(new BlockItem(biomeBrickPlains, props), BuiltInRegistries.BLOCK.getKey(biomeBrickPlains));
-		r.accept(new BlockItem(biomeBrickPlainsSlab, props), BuiltInRegistries.BLOCK.getKey(biomeBrickPlainsSlab));
 		r.accept(new BlockItem(biomeBrickPlainsStairs, props), BuiltInRegistries.BLOCK.getKey(biomeBrickPlainsStairs));
+		r.accept(new BlockItem(biomeBrickPlainsSlab, props), BuiltInRegistries.BLOCK.getKey(biomeBrickPlainsSlab));
 		r.accept(new BlockItem(biomeBrickPlainsWall, props), BuiltInRegistries.BLOCK.getKey(biomeBrickPlainsWall));
 		r.accept(new BlockItem(biomeCobblestonePlains, props), BuiltInRegistries.BLOCK.getKey(biomeCobblestonePlains));
-		r.accept(new BlockItem(biomeCobblestonePlainsSlab, props), BuiltInRegistries.BLOCK.getKey(biomeCobblestonePlainsSlab));
 		r.accept(new BlockItem(biomeCobblestonePlainsStairs, props), BuiltInRegistries.BLOCK.getKey(biomeCobblestonePlainsStairs));
+		r.accept(new BlockItem(biomeCobblestonePlainsSlab, props), BuiltInRegistries.BLOCK.getKey(biomeCobblestonePlainsSlab));
 		r.accept(new BlockItem(biomeCobblestonePlainsWall, props), BuiltInRegistries.BLOCK.getKey(biomeCobblestonePlainsWall));
 		r.accept(new BlockItem(biomeChiseledBrickPlains, props), BuiltInRegistries.BLOCK.getKey(biomeChiseledBrickPlains));
 
 		r.accept(new BlockItem(biomeStoneMountain, props), BuiltInRegistries.BLOCK.getKey(biomeStoneMountain));
-		r.accept(new BlockItem(biomeStoneMountainSlab, props), BuiltInRegistries.BLOCK.getKey(biomeStoneMountainSlab));
 		r.accept(new BlockItem(biomeStoneMountainStairs, props), BuiltInRegistries.BLOCK.getKey(biomeStoneMountainStairs));
+		r.accept(new BlockItem(biomeStoneMountainSlab, props), BuiltInRegistries.BLOCK.getKey(biomeStoneMountainSlab));
 		r.accept(new BlockItem(biomeStoneMountainWall, props), BuiltInRegistries.BLOCK.getKey(biomeStoneMountainWall));
 		r.accept(new BlockItem(biomeBrickMountain, props), BuiltInRegistries.BLOCK.getKey(biomeBrickMountain));
-		r.accept(new BlockItem(biomeBrickMountainSlab, props), BuiltInRegistries.BLOCK.getKey(biomeBrickMountainSlab));
 		r.accept(new BlockItem(biomeBrickMountainStairs, props), BuiltInRegistries.BLOCK.getKey(biomeBrickMountainStairs));
+		r.accept(new BlockItem(biomeBrickMountainSlab, props), BuiltInRegistries.BLOCK.getKey(biomeBrickMountainSlab));
 		r.accept(new BlockItem(biomeBrickMountainWall, props), BuiltInRegistries.BLOCK.getKey(biomeBrickMountainWall));
 		r.accept(new BlockItem(biomeCobblestoneMountain, props), BuiltInRegistries.BLOCK.getKey(biomeCobblestoneMountain));
-		r.accept(new BlockItem(biomeCobblestoneMountainSlab, props), BuiltInRegistries.BLOCK.getKey(biomeCobblestoneMountainSlab));
 		r.accept(new BlockItem(biomeCobblestoneMountainStairs, props), BuiltInRegistries.BLOCK.getKey(biomeCobblestoneMountainStairs));
+		r.accept(new BlockItem(biomeCobblestoneMountainSlab, props), BuiltInRegistries.BLOCK.getKey(biomeCobblestoneMountainSlab));
 		r.accept(new BlockItem(biomeCobblestoneMountainWall, props), BuiltInRegistries.BLOCK.getKey(biomeCobblestoneMountainWall));
 		r.accept(new BlockItem(biomeChiseledBrickMountain, props), BuiltInRegistries.BLOCK.getKey(biomeChiseledBrickMountain));
 
 		r.accept(new BlockItem(biomeStoneFungal, props), BuiltInRegistries.BLOCK.getKey(biomeStoneFungal));
-		r.accept(new BlockItem(biomeStoneFungalSlab, props), BuiltInRegistries.BLOCK.getKey(biomeStoneFungalSlab));
 		r.accept(new BlockItem(biomeStoneFungalStairs, props), BuiltInRegistries.BLOCK.getKey(biomeStoneFungalStairs));
+		r.accept(new BlockItem(biomeStoneFungalSlab, props), BuiltInRegistries.BLOCK.getKey(biomeStoneFungalSlab));
 		r.accept(new BlockItem(biomeStoneFungalWall, props), BuiltInRegistries.BLOCK.getKey(biomeStoneFungalWall));
 		r.accept(new BlockItem(biomeBrickFungal, props), BuiltInRegistries.BLOCK.getKey(biomeBrickFungal));
-		r.accept(new BlockItem(biomeBrickFungalSlab, props), BuiltInRegistries.BLOCK.getKey(biomeBrickFungalSlab));
 		r.accept(new BlockItem(biomeBrickFungalStairs, props), BuiltInRegistries.BLOCK.getKey(biomeBrickFungalStairs));
+		r.accept(new BlockItem(biomeBrickFungalSlab, props), BuiltInRegistries.BLOCK.getKey(biomeBrickFungalSlab));
 		r.accept(new BlockItem(biomeBrickFungalWall, props), BuiltInRegistries.BLOCK.getKey(biomeBrickFungalWall));
 		r.accept(new BlockItem(biomeCobblestoneFungal, props), BuiltInRegistries.BLOCK.getKey(biomeCobblestoneFungal));
-		r.accept(new BlockItem(biomeCobblestoneFungalSlab, props), BuiltInRegistries.BLOCK.getKey(biomeCobblestoneFungalSlab));
 		r.accept(new BlockItem(biomeCobblestoneFungalStairs, props), BuiltInRegistries.BLOCK.getKey(biomeCobblestoneFungalStairs));
+		r.accept(new BlockItem(biomeCobblestoneFungalSlab, props), BuiltInRegistries.BLOCK.getKey(biomeCobblestoneFungalSlab));
 		r.accept(new BlockItem(biomeCobblestoneFungalWall, props), BuiltInRegistries.BLOCK.getKey(biomeCobblestoneFungalWall));
 		r.accept(new BlockItem(biomeChiseledBrickFungal, props), BuiltInRegistries.BLOCK.getKey(biomeChiseledBrickFungal));
 
 		r.accept(new BlockItem(biomeStoneSwamp, props), BuiltInRegistries.BLOCK.getKey(biomeStoneSwamp));
-		r.accept(new BlockItem(biomeStoneSwampSlab, props), BuiltInRegistries.BLOCK.getKey(biomeStoneSwampSlab));
 		r.accept(new BlockItem(biomeStoneSwampStairs, props), BuiltInRegistries.BLOCK.getKey(biomeStoneSwampStairs));
+		r.accept(new BlockItem(biomeStoneSwampSlab, props), BuiltInRegistries.BLOCK.getKey(biomeStoneSwampSlab));
 		r.accept(new BlockItem(biomeStoneSwampWall, props), BuiltInRegistries.BLOCK.getKey(biomeStoneSwampWall));
 		r.accept(new BlockItem(biomeBrickSwamp, props), BuiltInRegistries.BLOCK.getKey(biomeBrickSwamp));
-		r.accept(new BlockItem(biomeBrickSwampSlab, props), BuiltInRegistries.BLOCK.getKey(biomeBrickSwampSlab));
 		r.accept(new BlockItem(biomeBrickSwampStairs, props), BuiltInRegistries.BLOCK.getKey(biomeBrickSwampStairs));
+		r.accept(new BlockItem(biomeBrickSwampSlab, props), BuiltInRegistries.BLOCK.getKey(biomeBrickSwampSlab));
 		r.accept(new BlockItem(biomeBrickSwampWall, props), BuiltInRegistries.BLOCK.getKey(biomeBrickSwampWall));
 		r.accept(new BlockItem(biomeCobblestoneSwamp, props), BuiltInRegistries.BLOCK.getKey(biomeCobblestoneSwamp));
-		r.accept(new BlockItem(biomeCobblestoneSwampSlab, props), BuiltInRegistries.BLOCK.getKey(biomeCobblestoneSwampSlab));
 		r.accept(new BlockItem(biomeCobblestoneSwampStairs, props), BuiltInRegistries.BLOCK.getKey(biomeCobblestoneSwampStairs));
+		r.accept(new BlockItem(biomeCobblestoneSwampSlab, props), BuiltInRegistries.BLOCK.getKey(biomeCobblestoneSwampSlab));
 		r.accept(new BlockItem(biomeCobblestoneSwampWall, props), BuiltInRegistries.BLOCK.getKey(biomeCobblestoneSwampWall));
 		r.accept(new BlockItem(biomeChiseledBrickSwamp, props), BuiltInRegistries.BLOCK.getKey(biomeChiseledBrickSwamp));
 
 		r.accept(new BlockItem(biomeStoneDesert, props), BuiltInRegistries.BLOCK.getKey(biomeStoneDesert));
-		r.accept(new BlockItem(biomeStoneDesertSlab, props), BuiltInRegistries.BLOCK.getKey(biomeStoneDesertSlab));
 		r.accept(new BlockItem(biomeStoneDesertStairs, props), BuiltInRegistries.BLOCK.getKey(biomeStoneDesertStairs));
+		r.accept(new BlockItem(biomeStoneDesertSlab, props), BuiltInRegistries.BLOCK.getKey(biomeStoneDesertSlab));
 		r.accept(new BlockItem(biomeStoneDesertWall, props), BuiltInRegistries.BLOCK.getKey(biomeStoneDesertWall));
 		r.accept(new BlockItem(biomeBrickDesert, props), BuiltInRegistries.BLOCK.getKey(biomeBrickDesert));
-		r.accept(new BlockItem(biomeBrickDesertSlab, props), BuiltInRegistries.BLOCK.getKey(biomeBrickDesertSlab));
 		r.accept(new BlockItem(biomeBrickDesertStairs, props), BuiltInRegistries.BLOCK.getKey(biomeBrickDesertStairs));
+		r.accept(new BlockItem(biomeBrickDesertSlab, props), BuiltInRegistries.BLOCK.getKey(biomeBrickDesertSlab));
 		r.accept(new BlockItem(biomeBrickDesertWall, props), BuiltInRegistries.BLOCK.getKey(biomeBrickDesertWall));
 		r.accept(new BlockItem(biomeCobblestoneDesert, props), BuiltInRegistries.BLOCK.getKey(biomeCobblestoneDesert));
-		r.accept(new BlockItem(biomeCobblestoneDesertSlab, props), BuiltInRegistries.BLOCK.getKey(biomeCobblestoneDesertSlab));
 		r.accept(new BlockItem(biomeCobblestoneDesertStairs, props), BuiltInRegistries.BLOCK.getKey(biomeCobblestoneDesertStairs));
+		r.accept(new BlockItem(biomeCobblestoneDesertSlab, props), BuiltInRegistries.BLOCK.getKey(biomeCobblestoneDesertSlab));
 		r.accept(new BlockItem(biomeCobblestoneDesertWall, props), BuiltInRegistries.BLOCK.getKey(biomeCobblestoneDesertWall));
 		r.accept(new BlockItem(biomeChiseledBrickDesert, props), BuiltInRegistries.BLOCK.getKey(biomeChiseledBrickDesert));
 
 		r.accept(new BlockItem(biomeStoneTaiga, props), BuiltInRegistries.BLOCK.getKey(biomeStoneTaiga));
-		r.accept(new BlockItem(biomeStoneTaigaSlab, props), BuiltInRegistries.BLOCK.getKey(biomeStoneTaigaSlab));
 		r.accept(new BlockItem(biomeStoneTaigaStairs, props), BuiltInRegistries.BLOCK.getKey(biomeStoneTaigaStairs));
+		r.accept(new BlockItem(biomeStoneTaigaSlab, props), BuiltInRegistries.BLOCK.getKey(biomeStoneTaigaSlab));
 		r.accept(new BlockItem(biomeStoneTaigaWall, props), BuiltInRegistries.BLOCK.getKey(biomeStoneTaigaWall));
 		r.accept(new BlockItem(biomeBrickTaiga, props), BuiltInRegistries.BLOCK.getKey(biomeBrickTaiga));
-		r.accept(new BlockItem(biomeBrickTaigaSlab, props), BuiltInRegistries.BLOCK.getKey(biomeBrickTaigaSlab));
 		r.accept(new BlockItem(biomeBrickTaigaStairs, props), BuiltInRegistries.BLOCK.getKey(biomeBrickTaigaStairs));
+		r.accept(new BlockItem(biomeBrickTaigaSlab, props), BuiltInRegistries.BLOCK.getKey(biomeBrickTaigaSlab));
 		r.accept(new BlockItem(biomeBrickTaigaWall, props), BuiltInRegistries.BLOCK.getKey(biomeBrickTaigaWall));
 		r.accept(new BlockItem(biomeCobblestoneTaiga, props), BuiltInRegistries.BLOCK.getKey(biomeCobblestoneTaiga));
-		r.accept(new BlockItem(biomeCobblestoneTaigaSlab, props), BuiltInRegistries.BLOCK.getKey(biomeCobblestoneTaigaSlab));
 		r.accept(new BlockItem(biomeCobblestoneTaigaStairs, props), BuiltInRegistries.BLOCK.getKey(biomeCobblestoneTaigaStairs));
+		r.accept(new BlockItem(biomeCobblestoneTaigaSlab, props), BuiltInRegistries.BLOCK.getKey(biomeCobblestoneTaigaSlab));
 		r.accept(new BlockItem(biomeCobblestoneTaigaWall, props), BuiltInRegistries.BLOCK.getKey(biomeCobblestoneTaigaWall));
 		r.accept(new BlockItem(biomeChiseledBrickTaiga, props), BuiltInRegistries.BLOCK.getKey(biomeChiseledBrickTaiga));
 
 		r.accept(new BlockItem(biomeStoneMesa, props), BuiltInRegistries.BLOCK.getKey(biomeStoneMesa));
-		r.accept(new BlockItem(biomeStoneMesaSlab, props), BuiltInRegistries.BLOCK.getKey(biomeStoneMesaSlab));
 		r.accept(new BlockItem(biomeStoneMesaStairs, props), BuiltInRegistries.BLOCK.getKey(biomeStoneMesaStairs));
+		r.accept(new BlockItem(biomeStoneMesaSlab, props), BuiltInRegistries.BLOCK.getKey(biomeStoneMesaSlab));
 		r.accept(new BlockItem(biomeStoneMesaWall, props), BuiltInRegistries.BLOCK.getKey(biomeStoneMesaWall));
 		r.accept(new BlockItem(biomeBrickMesa, props), BuiltInRegistries.BLOCK.getKey(biomeBrickMesa));
-		r.accept(new BlockItem(biomeBrickMesaSlab, props), BuiltInRegistries.BLOCK.getKey(biomeBrickMesaSlab));
 		r.accept(new BlockItem(biomeBrickMesaStairs, props), BuiltInRegistries.BLOCK.getKey(biomeBrickMesaStairs));
+		r.accept(new BlockItem(biomeBrickMesaSlab, props), BuiltInRegistries.BLOCK.getKey(biomeBrickMesaSlab));
 		r.accept(new BlockItem(biomeBrickMesaWall, props), BuiltInRegistries.BLOCK.getKey(biomeBrickMesaWall));
 		r.accept(new BlockItem(biomeCobblestoneMesa, props), BuiltInRegistries.BLOCK.getKey(biomeCobblestoneMesa));
-		r.accept(new BlockItem(biomeCobblestoneMesaSlab, props), BuiltInRegistries.BLOCK.getKey(biomeCobblestoneMesaSlab));
 		r.accept(new BlockItem(biomeCobblestoneMesaStairs, props), BuiltInRegistries.BLOCK.getKey(biomeCobblestoneMesaStairs));
+		r.accept(new BlockItem(biomeCobblestoneMesaSlab, props), BuiltInRegistries.BLOCK.getKey(biomeCobblestoneMesaSlab));
 		r.accept(new BlockItem(biomeCobblestoneMesaWall, props), BuiltInRegistries.BLOCK.getKey(biomeCobblestoneMesaWall));
 		r.accept(new BlockItem(biomeChiseledBrickMesa, props), BuiltInRegistries.BLOCK.getKey(biomeChiseledBrickMesa));
 
