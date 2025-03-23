@@ -14,7 +14,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.ItemStack;
 
 import vazkii.botania.api.recipe.OrechidRecipe;
-import vazkii.botania.common.block.BotaniaFlowerBlocks;
+import vazkii.botania.common.block.BotaniaBlocks;
 import vazkii.botania.common.lib.LibMisc;
 
 public class OrechidRecipeCategory extends OrechidRecipeCategoryBase {
@@ -22,7 +22,7 @@ public class OrechidRecipeCategory extends OrechidRecipeCategoryBase {
 			mezz.jei.api.recipe.RecipeType.create(LibMisc.MOD_ID, "orechid", OrechidRecipe.class);
 
 	public OrechidRecipeCategory(IGuiHelper guiHelper) {
-		super(guiHelper, new ItemStack(BotaniaFlowerBlocks.orechid), Component.translatable("botania.nei.orechid"));
+		super(guiHelper, new ItemStack(BotaniaBlocks.orechid), Component.translatable("botania.nei.orechid"));
 	}
 
 	@Override

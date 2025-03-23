@@ -169,9 +169,6 @@ public class FabricCommonInitializer implements ModInitializer {
 		BotaniaBlockFlammability.register();
 		BotaniaBlockEntities.registerTiles(bind(BuiltInRegistries.BLOCK_ENTITY_TYPE));
 		BotaniaItems.registerItems(boundForItem);
-		BotaniaFlowerBlocks.registerBlocks(bind(BuiltInRegistries.BLOCK));
-		BotaniaFlowerBlocks.registerItemBlocks(boundForItem);
-		BotaniaFlowerBlocks.registerTEs(bind(BuiltInRegistries.BLOCK_ENTITY_TYPE));
 		BotaniaBlocks.addDispenserBehaviours();
 		BotaniaBlocks.addAxeStripping();
 		for (Block b : List.of(BotaniaBlocks.dryGrass, BotaniaBlocks.goldenGrass,

@@ -19,7 +19,7 @@ import net.minecraft.world.phys.Vec3;
 import vazkii.botania.api.block_entity.FunctionalFlowerBlockEntity;
 import vazkii.botania.api.block_entity.RadiusDescriptor;
 import vazkii.botania.client.fx.SparkleParticleData;
-import vazkii.botania.common.block.BotaniaFlowerBlocks;
+import vazkii.botania.common.block.block_entity.BotaniaBlockEntities;
 import vazkii.botania.common.helper.MathHelper;
 
 import java.util.List;
@@ -35,7 +35,7 @@ public class TangleberrieBlockEntity extends FunctionalFlowerBlockEntity {
 	}
 
 	public TangleberrieBlockEntity(BlockPos pos, BlockState state) {
-		this(BotaniaFlowerBlocks.TANGLEBERRIE, pos, state);
+		this(BotaniaBlockEntities.TANGLEBERRIE, pos, state);
 	}
 
 	@Override
@@ -117,7 +117,7 @@ public class TangleberrieBlockEntity extends FunctionalFlowerBlockEntity {
 
 	public static class Mini extends TangleberrieBlockEntity {
 		public Mini(BlockPos pos, BlockState state) {
-			super(BotaniaFlowerBlocks.TANGLEBERRIE_CHIBI, pos, state);
+			super(BotaniaBlockEntities.TANGLEBERRIE_CHIBI, pos, state);
 		}
 
 		@Override

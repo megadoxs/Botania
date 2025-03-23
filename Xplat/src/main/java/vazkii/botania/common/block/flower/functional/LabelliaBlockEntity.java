@@ -26,7 +26,7 @@ import net.minecraft.world.phys.AABB;
 
 import vazkii.botania.api.block_entity.FunctionalFlowerBlockEntity;
 import vazkii.botania.api.block_entity.RadiusDescriptor;
-import vazkii.botania.common.block.BotaniaFlowerBlocks;
+import vazkii.botania.common.block.block_entity.BotaniaBlockEntities;
 import vazkii.botania.common.handler.BotaniaSounds;
 import vazkii.botania.common.helper.DelayHelper;
 import vazkii.botania.common.helper.EntityHelper;
@@ -39,7 +39,7 @@ public class LabelliaBlockEntity extends FunctionalFlowerBlockEntity {
 	private static final int COST = 500;
 
 	public LabelliaBlockEntity(BlockPos pos, BlockState state) {
-		super(BotaniaFlowerBlocks.LABELLIA, pos, state);
+		super(BotaniaBlockEntities.LABELLIA, pos, state);
 	}
 
 	@Override

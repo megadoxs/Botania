@@ -19,13 +19,13 @@ import net.minecraft.world.level.gameevent.GameEvent;
 
 import vazkii.botania.api.block_entity.GeneratingFlowerBlockEntity;
 import vazkii.botania.api.block_entity.RadiusDescriptor;
-import vazkii.botania.common.block.BotaniaFlowerBlocks;
+import vazkii.botania.common.block.block_entity.BotaniaBlockEntities;
 
 public class KekimurusBlockEntity extends GeneratingFlowerBlockEntity {
 	private static final int RANGE = 5;
 
 	public KekimurusBlockEntity(BlockPos pos, BlockState state) {
-		super(BotaniaFlowerBlocks.KEKIMURUS, pos, state);
+		super(BotaniaBlockEntities.KEKIMURUS, pos, state);
 	}
 
 	@Override

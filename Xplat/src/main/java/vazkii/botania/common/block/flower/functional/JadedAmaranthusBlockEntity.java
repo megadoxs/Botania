@@ -18,7 +18,7 @@ import net.minecraft.world.level.gameevent.GameEvent;
 import vazkii.botania.api.block_entity.FunctionalFlowerBlockEntity;
 import vazkii.botania.api.block_entity.RadiusDescriptor;
 import vazkii.botania.common.block.BotaniaBlocks;
-import vazkii.botania.common.block.BotaniaFlowerBlocks;
+import vazkii.botania.common.block.block_entity.BotaniaBlockEntities;
 import vazkii.botania.xplat.BotaniaConfig;
 
 public class JadedAmaranthusBlockEntity extends FunctionalFlowerBlockEntity {
@@ -26,7 +26,7 @@ public class JadedAmaranthusBlockEntity extends FunctionalFlowerBlockEntity {
 	final int RANGE = 4;
 
 	public JadedAmaranthusBlockEntity(BlockPos pos, BlockState state) {
-		super(BotaniaFlowerBlocks.JADED_AMARANTHUS, pos, state);
+		super(BotaniaBlockEntities.JADED_AMARANTHUS, pos, state);
 	}
 
 	@Override

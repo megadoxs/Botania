@@ -34,7 +34,7 @@ import org.jetbrains.annotations.Nullable;
 import vazkii.botania.api.block.Wandable;
 import vazkii.botania.api.block_entity.FunctionalFlowerBlockEntity;
 import vazkii.botania.api.block_entity.RadiusDescriptor;
-import vazkii.botania.common.block.BotaniaFlowerBlocks;
+import vazkii.botania.common.block.block_entity.BotaniaBlockEntities;
 import vazkii.botania.common.helper.DelayHelper;
 import vazkii.botania.common.helper.EntityHelper;
 import vazkii.botania.mixin.AnimalAccessor;
@@ -51,7 +51,7 @@ public class PollidisiacBlockEntity extends FunctionalFlowerBlockEntity implemen
 	private Mode mode = Mode.FEED_ADULTS;
 
 	public PollidisiacBlockEntity(BlockPos pos, BlockState state) {
-		super(BotaniaFlowerBlocks.POLLIDISIAC, pos, state);
+		super(BotaniaBlockEntities.POLLIDISIAC, pos, state);
 	}
 
 	@Override

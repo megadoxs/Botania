@@ -24,7 +24,6 @@ import org.jetbrains.annotations.Nullable;
 import vazkii.botania.api.block_entity.FunctionalFlowerBlockEntity;
 import vazkii.botania.api.block_entity.GeneratingFlowerBlockEntity;
 import vazkii.botania.common.block.BotaniaBlocks;
-import vazkii.botania.common.block.BotaniaFlowerBlocks;
 import vazkii.botania.common.item.BotaniaItems;
 import vazkii.botania.test.TestingUtil;
 
@@ -38,12 +37,12 @@ public class BindingTest {
 
 	@GameTest(template = TEMPLATE)
 	public void functionalFlowerAutoBindTest(GameTestHelper helper) {
-		autobindTest(helper, BotaniaBlocks.creativePool, BotaniaFlowerBlocks.clayconiaFloating, 10);
+		autobindTest(helper, BotaniaBlocks.creativePool, BotaniaBlocks.clayconiaFloating, 10);
 	}
 
 	@GameTest(template = TEMPLATE)
 	public void generatingFlowerAutoBindTest(GameTestHelper helper) {
-		autobindTest(helper, BotaniaBlocks.manaSpreader, BotaniaFlowerBlocks.endoflameFloating, 6);
+		autobindTest(helper, BotaniaBlocks.manaSpreader, BotaniaBlocks.endoflameFloating, 6);
 	}
 
 	private void autobindTest(GameTestHelper helper, Block bindTargetBlock, Block flower, int maxDistance) {
@@ -63,12 +62,12 @@ public class BindingTest {
 
 	@GameTest(template = TEMPLATE)
 	public void functionalFlowerManualBindTest(GameTestHelper helper) {
-		manualBindTest(helper, BotaniaBlocks.creativePool, BotaniaFlowerBlocks.clayconiaFloating, 10);
+		manualBindTest(helper, BotaniaBlocks.creativePool, BotaniaBlocks.clayconiaFloating, 10);
 	}
 
 	@GameTest(template = TEMPLATE)
 	public void generatingFlowerManualBindTest(GameTestHelper helper) {
-		manualBindTest(helper, BotaniaBlocks.manaSpreader, BotaniaFlowerBlocks.endoflameFloating, 6);
+		manualBindTest(helper, BotaniaBlocks.manaSpreader, BotaniaBlocks.endoflameFloating, 6);
 	}
 
 	private void manualBindTest(GameTestHelper helper, Block bindTargetBlock, Block flower, int maxDistance) {
@@ -94,12 +93,12 @@ public class BindingTest {
 
 	@GameTest(template = TEMPLATE)
 	public void functionalFlowerObedienceStick(GameTestHelper helper) {
-		obedienceStickTest(helper, BotaniaBlocks.creativePool, BotaniaFlowerBlocks.clayconiaFloating, 10);
+		obedienceStickTest(helper, BotaniaBlocks.creativePool, BotaniaBlocks.clayconiaFloating, 10);
 	}
 
 	@GameTest(template = TEMPLATE)
 	public void generatingFlowerObedienceStick(GameTestHelper helper) {
-		obedienceStickTest(helper, BotaniaBlocks.manaSpreader, BotaniaFlowerBlocks.endoflameFloating, 6);
+		obedienceStickTest(helper, BotaniaBlocks.manaSpreader, BotaniaBlocks.endoflameFloating, 6);
 	}
 
 	private void obedienceStickTest(GameTestHelper helper, Block bindTargetBlock, Block flower, int maxDistance) {

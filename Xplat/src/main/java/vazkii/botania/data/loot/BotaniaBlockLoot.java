@@ -27,7 +27,6 @@ import net.minecraft.world.level.storage.loot.functions.CopyComponentsFunction;
 import net.minecraft.world.level.storage.loot.providers.number.ConstantValue;
 
 import vazkii.botania.common.block.BotaniaBlocks;
-import vazkii.botania.common.block.BotaniaFlowerBlocks;
 import vazkii.botania.common.block.BotaniaGrassBlock;
 import vazkii.botania.common.component.BotaniaDataComponents;
 import vazkii.botania.common.item.BotaniaItems;
@@ -77,17 +76,17 @@ public class BotaniaBlockLoot extends BlockLootSubProvider {
 		specialCases.put(BotaniaBlocks.tinyPotato, createNameableBlockEntityTable(BotaniaBlocks.tinyPotato));
 
 		// Flower component saving
-		saveSpecialFlowerState(specialCases, BotaniaFlowerBlocks.gourmaryllis, BotaniaFlowerBlocks.gourmaryllisFloating,
+		saveSpecialFlowerState(specialCases, BotaniaBlocks.gourmaryllis, BotaniaBlocks.gourmaryllisFloating,
 				BotaniaDataComponents.STREAK_LENGTH, BotaniaDataComponents.LAST_REPEATS, BotaniaDataComponents.LAST_FOODS);
-		saveSpecialFlowerState(specialCases, BotaniaFlowerBlocks.hydroangeas, BotaniaFlowerBlocks.hydroangeasFloating,
+		saveSpecialFlowerState(specialCases, BotaniaBlocks.hydroangeas, BotaniaBlocks.hydroangeasFloating,
 				BotaniaDataComponents.COOLDOWN, BotaniaDataComponents.DECAY_TICKS);
-		saveSpecialFlowerState(specialCases, BotaniaFlowerBlocks.munchdew, BotaniaFlowerBlocks.munchdewFloating,
+		saveSpecialFlowerState(specialCases, BotaniaBlocks.munchdew, BotaniaBlocks.munchdewFloating,
 				BotaniaDataComponents.COOLDOWN, BotaniaDataComponents.ACTIVE);
-		saveSpecialFlowerState(specialCases, BotaniaFlowerBlocks.rafflowsia, BotaniaFlowerBlocks.rafflowsiaFloating,
+		saveSpecialFlowerState(specialCases, BotaniaBlocks.rafflowsia, BotaniaBlocks.rafflowsiaFloating,
 				BotaniaDataComponents.LAST_REPEATS, BotaniaDataComponents.LAST_FLOWERS);
-		saveSpecialFlowerState(specialCases, BotaniaFlowerBlocks.spectrolus, BotaniaFlowerBlocks.spectrolusFloating,
+		saveSpecialFlowerState(specialCases, BotaniaBlocks.spectrolus, BotaniaBlocks.spectrolusFloating,
 				BotaniaDataComponents.NEXT_COLOR);
-		saveSpecialFlowerState(specialCases, BotaniaFlowerBlocks.thermalily, BotaniaFlowerBlocks.thermalilyFloating,
+		saveSpecialFlowerState(specialCases, BotaniaBlocks.thermalily, BotaniaBlocks.thermalilyFloating,
 				BotaniaDataComponents.COOLDOWN);
 
 		// TODO: move spreader attachments (wool, scaffolding) to loot table

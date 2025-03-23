@@ -20,7 +20,6 @@ import org.apache.commons.lang3.StringUtils;
 
 import vazkii.botania.client.core.handler.CorporeaInputHandler;
 import vazkii.botania.common.block.BotaniaBlocks;
-import vazkii.botania.common.block.BotaniaFlowerBlocks;
 import vazkii.botania.common.component.BotaniaDataComponents;
 import vazkii.botania.common.crafting.*;
 import vazkii.botania.common.item.BotaniaItems;
@@ -66,13 +65,13 @@ public class BotaniaEmiPlugin implements EmiPlugin {
 	public static final EmiRecipeCategory BOTANICAL_BREWERY = createCategory("botanical_brewery",
 			EmiStack.of(BotaniaBlocks.brewery), BY_ID);
 	public static final EmiRecipeCategory PURE_DAISY = createCategory("pure_daisy",
-			EmiStack.of(BotaniaFlowerBlocks.pureDaisy), BY_ID);
+			EmiStack.of(BotaniaBlocks.pureDaisy), BY_ID);
 	public static final EmiRecipeCategory ORECHID = createCategory("orechid",
-			EmiStack.of(BotaniaFlowerBlocks.orechid), ORECHID_COMPARATOR);
+			EmiStack.of(BotaniaBlocks.orechid), ORECHID_COMPARATOR);
 	public static final EmiRecipeCategory ORECHID_IGNEM = createCategory("orechid_ignem",
-			EmiStack.of(BotaniaFlowerBlocks.orechidIgnem), ORECHID_COMPARATOR);
+			EmiStack.of(BotaniaBlocks.orechidIgnem), ORECHID_COMPARATOR);
 	public static final EmiRecipeCategory MARIMORPHOSIS = createCategory("marimorphosis",
-			EmiStack.of(BotaniaFlowerBlocks.marimorphosis), ORECHID_COMPARATOR);
+			EmiStack.of(BotaniaBlocks.marimorphosis), ORECHID_COMPARATOR);
 
 	private static EmiRecipeCategory createCategory(String idPath, EmiRenderable icon, Comparator<EmiRecipe> comp) {
 		return new EmiRecipeCategory(botaniaRL(idPath), icon, icon, comp);
@@ -133,16 +132,16 @@ public class BotaniaEmiPlugin implements EmiPlugin {
 		registry.addWorkstation(ELVEN_TRADE, EmiStack.of(BotaniaBlocks.alfPortal));
 		registry.addWorkstation(BOTANICAL_BREWERY, EmiStack.of(BotaniaBlocks.brewery));
 
-		registry.addWorkstation(PURE_DAISY, EmiStack.of(BotaniaFlowerBlocks.pureDaisy));
-		registry.addWorkstation(PURE_DAISY, EmiStack.of(BotaniaFlowerBlocks.pureDaisyFloating));
-		registry.addWorkstation(ORECHID, EmiStack.of(BotaniaFlowerBlocks.orechid));
-		registry.addWorkstation(ORECHID, EmiStack.of(BotaniaFlowerBlocks.orechidFloating));
-		registry.addWorkstation(ORECHID_IGNEM, EmiStack.of(BotaniaFlowerBlocks.orechidIgnem));
-		registry.addWorkstation(ORECHID_IGNEM, EmiStack.of(BotaniaFlowerBlocks.orechidIgnemFloating));
-		registry.addWorkstation(MARIMORPHOSIS, EmiStack.of(BotaniaFlowerBlocks.marimorphosis));
-		registry.addWorkstation(MARIMORPHOSIS, EmiStack.of(BotaniaFlowerBlocks.marimorphosisFloating));
-		registry.addWorkstation(MARIMORPHOSIS, EmiStack.of(BotaniaFlowerBlocks.marimorphosisChibi));
-		registry.addWorkstation(MARIMORPHOSIS, EmiStack.of(BotaniaFlowerBlocks.marimorphosisChibiFloating));
+		registry.addWorkstation(PURE_DAISY, EmiStack.of(BotaniaBlocks.pureDaisy));
+		registry.addWorkstation(PURE_DAISY, EmiStack.of(BotaniaBlocks.pureDaisyFloating));
+		registry.addWorkstation(ORECHID, EmiStack.of(BotaniaBlocks.orechid));
+		registry.addWorkstation(ORECHID, EmiStack.of(BotaniaBlocks.orechidFloating));
+		registry.addWorkstation(ORECHID_IGNEM, EmiStack.of(BotaniaBlocks.orechidIgnem));
+		registry.addWorkstation(ORECHID_IGNEM, EmiStack.of(BotaniaBlocks.orechidIgnemFloating));
+		registry.addWorkstation(MARIMORPHOSIS, EmiStack.of(BotaniaBlocks.marimorphosis));
+		registry.addWorkstation(MARIMORPHOSIS, EmiStack.of(BotaniaBlocks.marimorphosisFloating));
+		registry.addWorkstation(MARIMORPHOSIS, EmiStack.of(BotaniaBlocks.marimorphosisChibi));
+		registry.addWorkstation(MARIMORPHOSIS, EmiStack.of(BotaniaBlocks.marimorphosisChibiFloating));
 
 		registry.setDefaultComparison(BotaniaItems.lexicon, Comparison.compareComponents());
 		registry.setDefaultComparison(BotaniaItems.brewFlask, Comparison.compareComponents());
@@ -201,15 +200,15 @@ public class BotaniaEmiPlugin implements EmiPlugin {
 			registry.addRecipe(new PureDaisyEmiRecipe(recipe));
 		}
 
-		EmiIngredient orechid = EmiStack.of(BotaniaFlowerBlocks.orechid);
+		EmiIngredient orechid = EmiStack.of(BotaniaBlocks.orechid);
 		for (var recipe : registry.getRecipeManager().getAllRecipesFor(BotaniaRecipeTypes.ORECHID_TYPE)) {
 			registry.addRecipe(new OrechidEmiRecipe(ORECHID, recipe, orechid));
 		}
-		EmiIngredient orechidIgnem = EmiStack.of(BotaniaFlowerBlocks.orechidIgnem);
+		EmiIngredient orechidIgnem = EmiStack.of(BotaniaBlocks.orechidIgnem);
 		for (var recipe : registry.getRecipeManager().getAllRecipesFor(BotaniaRecipeTypes.ORECHID_IGNEM_TYPE)) {
 			registry.addRecipe(new OrechidEmiRecipe(ORECHID_IGNEM, recipe, orechidIgnem));
 		}
-		EmiIngredient marimorphosis = EmiStack.of(BotaniaFlowerBlocks.marimorphosis);
+		EmiIngredient marimorphosis = EmiStack.of(BotaniaBlocks.marimorphosis);
 		for (var recipe : registry.getRecipeManager().getAllRecipesFor(BotaniaRecipeTypes.MARIMORPHOSIS_TYPE)) {
 			registry.addRecipe(new OrechidEmiRecipe(MARIMORPHOSIS, recipe, marimorphosis));
 		}

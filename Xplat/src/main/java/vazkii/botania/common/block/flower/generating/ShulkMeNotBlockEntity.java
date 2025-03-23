@@ -25,7 +25,7 @@ import net.minecraft.world.phys.Vec3;
 
 import vazkii.botania.api.block_entity.GeneratingFlowerBlockEntity;
 import vazkii.botania.api.block_entity.RadiusDescriptor;
-import vazkii.botania.common.block.BotaniaFlowerBlocks;
+import vazkii.botania.common.block.block_entity.BotaniaBlockEntities;
 import vazkii.botania.common.handler.BotaniaSounds;
 
 import java.util.List;
@@ -34,7 +34,7 @@ public class ShulkMeNotBlockEntity extends GeneratingFlowerBlockEntity {
 	private static final int RADIUS = 8;
 
 	public ShulkMeNotBlockEntity(BlockPos pos, BlockState state) {
-		super(BotaniaFlowerBlocks.SHULK_ME_NOT, pos, state);
+		super(BotaniaBlockEntities.SHULK_ME_NOT, pos, state);
 	}
 
 	@Override

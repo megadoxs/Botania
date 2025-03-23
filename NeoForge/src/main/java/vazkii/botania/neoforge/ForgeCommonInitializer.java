@@ -162,7 +162,6 @@ public class ForgeCommonInitializer {
 		evt.enqueueWork(() -> {
 			BiConsumer<ResourceLocation, Supplier<? extends Block>> consumer = (resourceLocation, blockSupplier) -> ((FlowerPotBlock) Blocks.FLOWER_POT).addPlant(resourceLocation, blockSupplier);
 			BotaniaBlocks.registerFlowerPotPlants(consumer);
-			BotaniaFlowerBlocks.registerFlowerPotPlants(consumer);
 		});
 		BotaniaBlocks.addAxeStripping();
 		PaintableData.init();
@@ -208,9 +207,6 @@ public class ForgeCommonInitializer {
 		bindForItems(event, BotaniaBlocks::registerItemBlocks);
 		bind(event, Registries.BLOCK_ENTITY_TYPE, BotaniaBlockEntities::registerTiles);
 		bindForItems(event, BotaniaItems::registerItems);
-		bind(event, Registries.BLOCK, BotaniaFlowerBlocks::registerBlocks);
-		bindForItems(event, BotaniaFlowerBlocks::registerItemBlocks);
-		bind(event, Registries.BLOCK_ENTITY_TYPE, BotaniaFlowerBlocks::registerTEs);
 
 		// GUI and Recipe
 		bind(event, Registries.MENU, BotaniaItems::registerMenuTypes);

@@ -13,13 +13,13 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.animal.Animal;
 import net.minecraft.world.level.block.state.BlockState;
 
-import vazkii.botania.common.block.BotaniaFlowerBlocks;
+import vazkii.botania.common.block.block_entity.BotaniaBlockEntities;
 
 import java.util.function.Predicate;
 
 public class DreadthornBlockEntity extends BellethornBlockEntity {
 	public DreadthornBlockEntity(BlockPos pos, BlockState state) {
-		super(BotaniaFlowerBlocks.DREADTHORN, pos, state);
+		super(BotaniaBlockEntities.DREADTHORN, pos, state);
 	}
 
 	@Override

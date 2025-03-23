@@ -44,7 +44,6 @@ import vazkii.botania.api.item.AncientWillContainer;
 import vazkii.botania.api.recipe.*;
 import vazkii.botania.client.core.handler.CorporeaInputHandler;
 import vazkii.botania.common.block.BotaniaBlocks;
-import vazkii.botania.common.block.BotaniaFlowerBlocks;
 import vazkii.botania.common.crafting.BotaniaRecipeTypes;
 import vazkii.botania.common.item.AncientWillItem;
 import vazkii.botania.common.item.BotaniaItems;
@@ -78,9 +77,9 @@ public class BotaniaREIPlugin implements REIClientPlugin {
 				new ElvenTradeREICategory(),
 				new BreweryREICategory(),
 				new TerrestrialAgglomerationREICategory(),
-				new OrechidREICategory(BotaniaREICategoryIdentifiers.ORECHID, BotaniaFlowerBlocks.orechid),
-				new OrechidREICategory(BotaniaREICategoryIdentifiers.ORECHID_IGNEM, BotaniaFlowerBlocks.orechidIgnem),
-				new OrechidREICategory(BotaniaREICategoryIdentifiers.MARIMORPHOSIS, BotaniaFlowerBlocks.marimorphosis)
+				new OrechidREICategory(BotaniaREICategoryIdentifiers.ORECHID, BotaniaBlocks.orechid),
+				new OrechidREICategory(BotaniaREICategoryIdentifiers.ORECHID_IGNEM, BotaniaBlocks.orechidIgnem),
+				new OrechidREICategory(BotaniaREICategoryIdentifiers.MARIMORPHOSIS, BotaniaBlocks.marimorphosis)
 		));
 
 		helper.addWorkstations(BuiltinPlugin.CRAFTING, EntryStacks.of(BotaniaItems.craftingHalo), EntryStacks.of(BotaniaItems.autocraftingHalo));
@@ -97,11 +96,11 @@ public class BotaniaREIPlugin implements REIClientPlugin {
 		for (Block pool : manaPools) {
 			helper.addWorkstations(BotaniaREICategoryIdentifiers.MANA_INFUSION, EntryStacks.of(pool));
 		}
-		helper.addWorkstations(BotaniaREICategoryIdentifiers.ORECHID, EntryStacks.of(BotaniaFlowerBlocks.orechid), EntryStacks.of(BotaniaFlowerBlocks.orechidFloating));
-		helper.addWorkstations(BotaniaREICategoryIdentifiers.ORECHID_IGNEM, EntryStacks.of(BotaniaFlowerBlocks.orechidIgnem), EntryStacks.of(BotaniaFlowerBlocks.orechidIgnemFloating));
-		helper.addWorkstations(BotaniaREICategoryIdentifiers.MARIMORPHOSIS, EntryStacks.of(BotaniaFlowerBlocks.marimorphosis), EntryStacks.of(BotaniaFlowerBlocks.marimorphosisFloating),
-				EntryStacks.of(BotaniaFlowerBlocks.marimorphosisChibi), EntryStacks.of(BotaniaFlowerBlocks.marimorphosisChibiFloating));
-		helper.addWorkstations(BotaniaREICategoryIdentifiers.PURE_DAISY, EntryStacks.of(BotaniaFlowerBlocks.pureDaisy), EntryStacks.of(BotaniaFlowerBlocks.pureDaisyFloating));
+		helper.addWorkstations(BotaniaREICategoryIdentifiers.ORECHID, EntryStacks.of(BotaniaBlocks.orechid), EntryStacks.of(BotaniaBlocks.orechidFloating));
+		helper.addWorkstations(BotaniaREICategoryIdentifiers.ORECHID_IGNEM, EntryStacks.of(BotaniaBlocks.orechidIgnem), EntryStacks.of(BotaniaBlocks.orechidIgnemFloating));
+		helper.addWorkstations(BotaniaREICategoryIdentifiers.MARIMORPHOSIS, EntryStacks.of(BotaniaBlocks.marimorphosis), EntryStacks.of(BotaniaBlocks.marimorphosisFloating),
+				EntryStacks.of(BotaniaBlocks.marimorphosisChibi), EntryStacks.of(BotaniaBlocks.marimorphosisChibiFloating));
+		helper.addWorkstations(BotaniaREICategoryIdentifiers.PURE_DAISY, EntryStacks.of(BotaniaBlocks.pureDaisy), EntryStacks.of(BotaniaBlocks.pureDaisyFloating));
 		helper.addWorkstations(BotaniaREICategoryIdentifiers.RUNE_ALTAR, EntryStacks.of(BotaniaBlocks.runeAltar));
 		helper.addWorkstations(BotaniaREICategoryIdentifiers.TERRA_PLATE, EntryStacks.of(BotaniaBlocks.terraPlate));
 

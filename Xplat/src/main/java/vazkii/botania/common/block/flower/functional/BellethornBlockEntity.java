@@ -19,7 +19,7 @@ import net.minecraft.world.phys.AABB;
 
 import vazkii.botania.api.block_entity.FunctionalFlowerBlockEntity;
 import vazkii.botania.api.block_entity.RadiusDescriptor;
-import vazkii.botania.common.block.BotaniaFlowerBlocks;
+import vazkii.botania.common.block.block_entity.BotaniaBlockEntities;
 
 import java.util.List;
 import java.util.function.Predicate;
@@ -33,7 +33,7 @@ public class BellethornBlockEntity extends FunctionalFlowerBlockEntity {
 	}
 
 	public BellethornBlockEntity(BlockPos pos, BlockState state) {
-		this(BotaniaFlowerBlocks.BELLETHORNE, pos, state);
+		this(BotaniaBlockEntities.BELLETHORNE, pos, state);
 	}
 
 	@Override
@@ -105,7 +105,7 @@ public class BellethornBlockEntity extends FunctionalFlowerBlockEntity {
 
 	public static class Mini extends BellethornBlockEntity {
 		public Mini(BlockPos pos, BlockState state) {
-			super(BotaniaFlowerBlocks.BELLETHORNE_CHIBI, pos, state);
+			super(BotaniaBlockEntities.BELLETHORNE_CHIBI, pos, state);
 		}
 
 		@Override

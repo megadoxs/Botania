@@ -43,7 +43,6 @@ import vazkii.botania.client.integration.jei.orechid.MarimorphosisRecipeCategory
 import vazkii.botania.client.integration.jei.orechid.OrechidIgnemRecipeCategory;
 import vazkii.botania.client.integration.jei.orechid.OrechidRecipeCategory;
 import vazkii.botania.common.block.BotaniaBlocks;
-import vazkii.botania.common.block.BotaniaFlowerBlocks;
 import vazkii.botania.common.block.block_entity.AlfheimPortalBlockEntity;
 import vazkii.botania.common.component.BotaniaDataComponents;
 import vazkii.botania.common.crafting.BotaniaRecipeTypes;
@@ -186,16 +185,16 @@ public class JEIBotaniaPlugin implements IModPlugin {
 			registry.addRecipeCatalyst(new ItemStack(apothecary), PetalApothecaryRecipeCategory.TYPE);
 		}
 
-		registry.addRecipeCatalyst(new ItemStack(BotaniaFlowerBlocks.orechid), OrechidRecipeCategory.TYPE);
-		registry.addRecipeCatalyst(new ItemStack(BotaniaFlowerBlocks.orechidFloating), OrechidRecipeCategory.TYPE);
-		registry.addRecipeCatalyst(new ItemStack(BotaniaFlowerBlocks.orechidIgnem), OrechidIgnemRecipeCategory.TYPE);
-		registry.addRecipeCatalyst(new ItemStack(BotaniaFlowerBlocks.orechidIgnemFloating), OrechidIgnemRecipeCategory.TYPE);
-		registry.addRecipeCatalyst(new ItemStack(BotaniaFlowerBlocks.marimorphosis), MarimorphosisRecipeCategory.TYPE);
-		registry.addRecipeCatalyst(new ItemStack(BotaniaFlowerBlocks.marimorphosisChibi), MarimorphosisRecipeCategory.TYPE);
-		registry.addRecipeCatalyst(new ItemStack(BotaniaFlowerBlocks.marimorphosisFloating), MarimorphosisRecipeCategory.TYPE);
-		registry.addRecipeCatalyst(new ItemStack(BotaniaFlowerBlocks.marimorphosisChibiFloating), MarimorphosisRecipeCategory.TYPE);
-		registry.addRecipeCatalyst(new ItemStack(BotaniaFlowerBlocks.pureDaisy), PureDaisyRecipeCategory.TYPE);
-		registry.addRecipeCatalyst(new ItemStack(BotaniaFlowerBlocks.pureDaisyFloating), PureDaisyRecipeCategory.TYPE);
+		registry.addRecipeCatalyst(new ItemStack(BotaniaBlocks.orechid), OrechidRecipeCategory.TYPE);
+		registry.addRecipeCatalyst(new ItemStack(BotaniaBlocks.orechidFloating), OrechidRecipeCategory.TYPE);
+		registry.addRecipeCatalyst(new ItemStack(BotaniaBlocks.orechidIgnem), OrechidIgnemRecipeCategory.TYPE);
+		registry.addRecipeCatalyst(new ItemStack(BotaniaBlocks.orechidIgnemFloating), OrechidIgnemRecipeCategory.TYPE);
+		registry.addRecipeCatalyst(new ItemStack(BotaniaBlocks.marimorphosis), MarimorphosisRecipeCategory.TYPE);
+		registry.addRecipeCatalyst(new ItemStack(BotaniaBlocks.marimorphosisChibi), MarimorphosisRecipeCategory.TYPE);
+		registry.addRecipeCatalyst(new ItemStack(BotaniaBlocks.marimorphosisFloating), MarimorphosisRecipeCategory.TYPE);
+		registry.addRecipeCatalyst(new ItemStack(BotaniaBlocks.marimorphosisChibiFloating), MarimorphosisRecipeCategory.TYPE);
+		registry.addRecipeCatalyst(new ItemStack(BotaniaBlocks.pureDaisy), PureDaisyRecipeCategory.TYPE);
+		registry.addRecipeCatalyst(new ItemStack(BotaniaBlocks.pureDaisyFloating), PureDaisyRecipeCategory.TYPE);
 
 		registry.addRecipeCatalyst(new ItemStack(BotaniaBlocks.runeAltar), RunicAltarRecipeCategory.TYPE);
 		registry.addRecipeCatalyst(new ItemStack(BotaniaBlocks.terraPlate), TerrestrialAgglomerationRecipeCategory.TYPE);

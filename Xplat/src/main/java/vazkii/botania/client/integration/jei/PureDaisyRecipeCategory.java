@@ -27,7 +27,7 @@ import net.minecraft.world.item.ItemStack;
 
 import vazkii.botania.api.recipe.PureDaisyRecipe;
 import vazkii.botania.api.recipe.StateIngredient;
-import vazkii.botania.common.block.BotaniaFlowerBlocks;
+import vazkii.botania.common.block.BotaniaBlocks;
 import vazkii.botania.common.lib.LibMisc;
 
 import static vazkii.botania.api.BotaniaAPI.botaniaRL;
@@ -41,7 +41,7 @@ public class PureDaisyRecipeCategory extends BotaniaRecipeCategoryBase<PureDaisy
 
 	public PureDaisyRecipeCategory(IGuiHelper guiHelper, IPlatformFluidHelper<?> fluidHelper) {
 		super(96, 44, Component.translatable("botania.nei.pureDaisy"),
-				guiHelper.createDrawableIngredient(VanillaTypes.ITEM_STACK, new ItemStack(BotaniaFlowerBlocks.pureDaisy)), null);
+				guiHelper.createDrawableIngredient(VanillaTypes.ITEM_STACK, new ItemStack(BotaniaBlocks.pureDaisy)), null);
 		overlay = guiHelper.createDrawable(botaniaRL("textures/gui/pure_daisy_overlay.png"),
 				0, 0, 64, 44);
 		this.fluidHelper = fluidHelper;
@@ -65,7 +65,7 @@ public class PureDaisyRecipeCategory extends BotaniaRecipeCategoryBase<PureDaisy
 		buildSlot(recipe.getInput(), builder, RecipeIngredientRole.INPUT, 9, 12);
 
 		builder.addSlot(RecipeIngredientRole.CATALYST, 39, 12)
-				.addItemStack(new ItemStack(BotaniaFlowerBlocks.pureDaisy));
+				.addItemStack(new ItemStack(BotaniaBlocks.pureDaisy));
 
 		buildSlot(recipe.getOutput(), builder, RecipeIngredientRole.OUTPUT, 68, 12);
 	}

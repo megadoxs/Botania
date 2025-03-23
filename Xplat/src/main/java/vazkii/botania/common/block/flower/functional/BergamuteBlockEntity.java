@@ -19,7 +19,7 @@ import net.minecraft.world.phys.Vec3;
 import vazkii.botania.api.block_entity.RadiusDescriptor;
 import vazkii.botania.api.block_entity.SpecialFlowerBlockEntity;
 import vazkii.botania.client.fx.SparkleParticleData;
-import vazkii.botania.common.block.BotaniaFlowerBlocks;
+import vazkii.botania.common.block.block_entity.BotaniaBlockEntities;
 import vazkii.botania.common.block.block_entity.mana.ManaPoolBlockEntity;
 
 import java.util.*;
@@ -31,7 +31,7 @@ public class BergamuteBlockEntity extends SpecialFlowerBlockEntity {
 	private boolean disabled = false;
 
 	public BergamuteBlockEntity(BlockPos pos, BlockState state) {
-		super(BotaniaFlowerBlocks.BERGAMUTE, pos, state);
+		super(BotaniaBlockEntities.BERGAMUTE, pos, state);
 	}
 
 	@Override

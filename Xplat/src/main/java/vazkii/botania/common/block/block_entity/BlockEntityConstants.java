@@ -9,7 +9,6 @@ import vazkii.botania.api.block.Wandable;
 import vazkii.botania.api.mana.ManaReceiver;
 import vazkii.botania.api.mana.ManaTrigger;
 import vazkii.botania.api.mana.spark.SparkAttachable;
-import vazkii.botania.common.block.BotaniaFlowerBlocks;
 
 import java.util.Set;
 
@@ -18,8 +17,8 @@ public final class BlockEntityConstants {
 			BotaniaBlockEntities.ALF_PORTAL, BotaniaBlockEntities.ANIMATED_TORCH, BotaniaBlockEntities.CORPOREA_CRYSTAL_CUBE, BotaniaBlockEntities.CORPOREA_RETAINER,
 			BotaniaBlockEntities.CRAFT_CRATE, BotaniaBlockEntities.ENCHANTER, BotaniaBlockEntities.HOURGLASS, BotaniaBlockEntities.PLATFORM, BotaniaBlockEntities.POOL,
 			BotaniaBlockEntities.RUNE_ALTAR, BotaniaBlockEntities.SPREADER, BotaniaBlockEntities.TURNTABLE,
-			BotaniaFlowerBlocks.DAFFOMILL, BotaniaFlowerBlocks.HOPPERHOCK, BotaniaFlowerBlocks.HOPPERHOCK_CHIBI,
-			BotaniaFlowerBlocks.POLLIDISIAC, BotaniaFlowerBlocks.RANNUNCARPUS, BotaniaFlowerBlocks.RANNUNCARPUS_CHIBI
+			BotaniaBlockEntities.DAFFOMILL, BotaniaBlockEntities.HOPPERHOCK, BotaniaBlockEntities.HOPPERHOCK_CHIBI,
+			BotaniaBlockEntities.POLLIDISIAC, BotaniaBlockEntities.RANNUNCARPUS, BotaniaBlockEntities.RANNUNCARPUS_CHIBI
 	);
 
 	public static final Set<BlockEntityType<? extends ManaTrigger>> SELF_MANA_TRIGGER_BES = ImmutableSet.of(

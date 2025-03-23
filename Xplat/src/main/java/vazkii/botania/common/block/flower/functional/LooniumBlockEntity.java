@@ -62,7 +62,7 @@ import vazkii.botania.api.configdata.LooniumMobAttributeModifier;
 import vazkii.botania.api.configdata.LooniumMobEffectToApply;
 import vazkii.botania.api.configdata.LooniumMobSpawnData;
 import vazkii.botania.api.configdata.LooniumStructureConfiguration;
-import vazkii.botania.common.block.BotaniaFlowerBlocks;
+import vazkii.botania.common.block.block_entity.BotaniaBlockEntities;
 import vazkii.botania.common.internal_caps.LooniumComponent;
 import vazkii.botania.common.lib.BotaniaTags;
 import vazkii.botania.common.loot.BotaniaLootTables;
@@ -156,7 +156,7 @@ public class LooniumBlockEntity extends FunctionalFlowerBlockEntity {
 	private String attuneDisplayOverride;
 
 	public LooniumBlockEntity(BlockPos pos, BlockState state) {
-		super(BotaniaFlowerBlocks.LOONIUM, pos, state);
+		super(BotaniaBlockEntities.LOONIUM, pos, state);
 	}
 
 	@Override

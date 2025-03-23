@@ -17,7 +17,7 @@ import org.jetbrains.annotations.Nullable;
 
 import vazkii.botania.api.block_entity.FunctionalFlowerBlockEntity;
 import vazkii.botania.api.block_entity.RadiusDescriptor;
-import vazkii.botania.common.block.BotaniaFlowerBlocks;
+import vazkii.botania.common.block.block_entity.BotaniaBlockEntities;
 import vazkii.botania.common.helper.MathHelper;
 
 import java.util.*;
@@ -27,7 +27,7 @@ public class VinculotusBlockEntity extends FunctionalFlowerBlockEntity {
 	private static final int RANGE = 64;
 
 	public VinculotusBlockEntity(BlockPos pos, BlockState state) {
-		super(BotaniaFlowerBlocks.VINCULOTUS, pos, state);
+		super(BotaniaBlockEntities.VINCULOTUS, pos, state);
 	}
 
 	@Override

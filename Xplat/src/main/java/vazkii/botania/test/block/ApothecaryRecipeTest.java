@@ -8,7 +8,7 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.state.BlockState;
 
 import vazkii.botania.api.block.PetalApothecary;
-import vazkii.botania.common.block.BotaniaFlowerBlocks;
+import vazkii.botania.common.block.BotaniaBlocks;
 import vazkii.botania.common.block.PetalApothecaryBlock;
 import vazkii.botania.common.item.BotaniaItems;
 
@@ -38,7 +38,7 @@ public class ApothecaryRecipeTest {
 		}).thenExecuteAfter(1, () -> {
 			spawnItem(helper, Items.MELON_SEEDS);
 		}).thenExecuteAfter(10, () -> {
-			helper.assertItemEntityPresent(BotaniaFlowerBlocks.pureDaisy.asItem(), APOTHECARY.above(), 1.5);
+			helper.assertItemEntityPresent(BotaniaBlocks.pureDaisy.asItem(), APOTHECARY.above(), 1.5);
 			fillApothecary(helper);
 			// Remove the pure daisy craft result
 			helper.killAllEntities();

@@ -17,7 +17,7 @@ import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.block.state.BlockState;
 
 import vazkii.botania.client.fx.WispParticleData;
-import vazkii.botania.common.block.BotaniaFlowerBlocks;
+import vazkii.botania.common.block.block_entity.BotaniaBlockEntities;
 import vazkii.botania.common.handler.BotaniaSounds;
 
 public class ThermalilyBlockEntity extends FluidGeneratorBlockEntity {
@@ -37,7 +37,7 @@ public class ThermalilyBlockEntity extends FluidGeneratorBlockEntity {
 	}
 
 	public ThermalilyBlockEntity(BlockPos pos, BlockState state) {
-		super(BotaniaFlowerBlocks.THERMALILY, pos, state, FluidTags.LAVA, 600, 45);
+		super(BotaniaBlockEntities.THERMALILY, pos, state, FluidTags.LAVA, 600, 45);
 	}
 
 	@Override

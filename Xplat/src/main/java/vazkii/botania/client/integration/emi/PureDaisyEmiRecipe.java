@@ -9,7 +9,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.crafting.RecipeHolder;
 
 import vazkii.botania.api.recipe.PureDaisyRecipe;
-import vazkii.botania.common.block.BotaniaFlowerBlocks;
+import vazkii.botania.common.block.BotaniaBlocks;
 
 import java.util.List;
 
@@ -17,7 +17,7 @@ import static vazkii.botania.api.BotaniaAPI.botaniaRL;
 
 public class PureDaisyEmiRecipe extends BotaniaEmiRecipe {
 	private static final ResourceLocation TEXTURE = botaniaRL("textures/gui/pure_daisy_overlay.png");
-	private static final EmiStack PURE_DAISY = EmiStack.of(BotaniaFlowerBlocks.pureDaisy);
+	private static final EmiStack PURE_DAISY = EmiStack.of(BotaniaBlocks.pureDaisy);
 
 	public PureDaisyEmiRecipe(RecipeHolder<? extends PureDaisyRecipe> recipe) {
 		super(BotaniaEmiPlugin.PURE_DAISY, recipe);

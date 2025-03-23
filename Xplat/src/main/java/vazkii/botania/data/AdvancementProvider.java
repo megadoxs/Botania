@@ -29,7 +29,6 @@ import net.minecraft.world.level.block.Blocks;
 
 import vazkii.botania.common.advancements.*;
 import vazkii.botania.common.block.BotaniaBlocks;
-import vazkii.botania.common.block.BotaniaFlowerBlocks;
 import vazkii.botania.common.block.block_entity.corporea.CorporeaIndexBlockEntity;
 import vazkii.botania.common.block.flower.functional.LooniumBlockEntity;
 import vazkii.botania.common.component.BotaniaDataComponents;
@@ -129,7 +128,7 @@ public class AdvancementProvider {
 
 			// Parent: mystical flowers
 			Advancement.Builder.advancement()
-					.display(simple(BotaniaFlowerBlocks.endoflame, "generatingFlower", AdvancementType.TASK))
+					.display(simple(BotaniaBlocks.endoflame, "generatingFlower", AdvancementType.TASK))
 					.parent(flowerPickup)
 					.addCriterion("flower", onPickup(BotaniaTags.Items.GENERATING_SPECIAL_FLOWERS))
 					.save(consumer, mainId("generating_flower"));
@@ -141,7 +140,7 @@ public class AdvancementProvider {
 					.addCriterion("code_triggered", CriteriaTriggers.IMPOSSIBLE.createCriterion(new ImpossibleTrigger.TriggerInstance()))
 					.save(consumer, mainId("enchanter_make"));
 			Advancement.Builder.advancement()
-					.display(simple(BotaniaFlowerBlocks.bellethorn, "functionalFlower", AdvancementType.TASK))
+					.display(simple(BotaniaBlocks.bellethorn, "functionalFlower", AdvancementType.TASK))
 					.parent(manaPoolPickup)
 					.addCriterion("flower", onPickup(BotaniaTags.Items.FUNCTIONAL_SPECIAL_FLOWERS))
 					.save(consumer, mainId("functional_flower"));
@@ -188,9 +187,9 @@ public class AdvancementProvider {
 					.addCriterion("shoot", ManaBlasterTrigger.Instance.shoot())
 					.save(consumer, mainId("mana_blaster_shoot"));
 			Advancement.Builder.advancement()
-					.display(simple(BotaniaFlowerBlocks.pollidisiac, "pollidisiacPickup", AdvancementType.TASK))
+					.display(simple(BotaniaBlocks.pollidisiac, "pollidisiacPickup", AdvancementType.TASK))
 					.parent(runePickup)
-					.addCriterion("pollidisiac", onPickup(BotaniaFlowerBlocks.pollidisiac))
+					.addCriterion("pollidisiac", onPickup(BotaniaBlocks.pollidisiac))
 					.save(consumer, mainId("pollidisiac_pickup"));
 			Advancement.Builder.advancement()
 					.display(simple(BotaniaItems.dirtRod, "dirtRodCraft", AdvancementType.TASK))
@@ -212,19 +211,19 @@ public class AdvancementProvider {
 
 			// Parent: elven portal
 			Advancement.Builder.advancement()
-					.display(simple(BotaniaFlowerBlocks.heiseiDream, "heiseiDreamPickup", AdvancementType.TASK))
+					.display(simple(BotaniaBlocks.heiseiDream, "heiseiDreamPickup", AdvancementType.TASK))
 					.parent(elfPortalOpen)
-					.addCriterion("heisei_dream", onPickup(BotaniaFlowerBlocks.heiseiDream))
+					.addCriterion("heisei_dream", onPickup(BotaniaBlocks.heiseiDream))
 					.save(consumer, mainId("heisei_dream_pickup"));
 			Advancement.Builder.advancement()
-					.display(simple(BotaniaFlowerBlocks.kekimurus, "kekimurusPickup", AdvancementType.TASK))
+					.display(simple(BotaniaBlocks.kekimurus, "kekimurusPickup", AdvancementType.TASK))
 					.parent(elfPortalOpen)
-					.addCriterion("kekimurus", onPickup(BotaniaFlowerBlocks.kekimurus))
+					.addCriterion("kekimurus", onPickup(BotaniaBlocks.kekimurus))
 					.save(consumer, mainId("kekimurus_pickup"));
 			Advancement.Builder.advancement()
-					.display(simple(BotaniaFlowerBlocks.bubbell, "bubbellPickup", AdvancementType.TASK))
+					.display(simple(BotaniaBlocks.bubbell, "bubbellPickup", AdvancementType.TASK))
 					.parent(elfPortalOpen)
-					.addCriterion("bubbell", onPickup(BotaniaFlowerBlocks.bubbell))
+					.addCriterion("bubbell", onPickup(BotaniaBlocks.bubbell))
 					.save(consumer, mainId("bubbell_pickup"));
 
 			// Parent: gaia guardian
@@ -253,9 +252,9 @@ public class AdvancementProvider {
 			builder.save(consumer, mainId("tiara_wings"));
 
 			Advancement.Builder.advancement()
-					.display(simple(BotaniaFlowerBlocks.dandelifeon, "dandelifeonPickup", AdvancementType.TASK))
+					.display(simple(BotaniaBlocks.dandelifeon, "dandelifeonPickup", AdvancementType.TASK))
 					.parent(gaiaGuardianKill)
-					.addCriterion("dandelifeon", onPickup(BotaniaFlowerBlocks.dandelifeon))
+					.addCriterion("dandelifeon", onPickup(BotaniaBlocks.dandelifeon))
 					.save(consumer, mainId("dandelifeon_pickup"));
 			Advancement.Builder.advancement()
 					.display(simple(BotaniaBlocks.manaBomb, "manaBombIgnite", AdvancementType.TASK))
@@ -291,7 +290,7 @@ public class AdvancementProvider {
 					.save(consumer, mainId("apothecary_pickup"));
 			Advancement.Builder.advancement()
 					.parent(flowerPickup)
-					.addCriterion("daisy", onPickup(BotaniaFlowerBlocks.pureDaisy))
+					.addCriterion("daisy", onPickup(BotaniaBlocks.pureDaisy))
 					.addCriterion("elven_lexicon", elvenLexicon)
 					.requirements(AdvancementRequirements.Strategy.OR)
 					.save(consumer, mainId("pure_daisy_pickup"));
@@ -441,7 +440,7 @@ public class AdvancementProvider {
 					.addCriterion("code_triggered", CriteriaTriggers.IMPOSSIBLE.createCriterion(new ImpossibleTrigger.TriggerInstance()))
 					.save(consumer, challengeId("tiny_potato_birthday"));
 			addLooniumMobsToKill(Advancement.Builder.advancement())
-					.display(simple(BotaniaFlowerBlocks.loonium, "allLooniumMobs", AdvancementType.CHALLENGE))
+					.display(simple(BotaniaBlocks.loonium, "allLooniumMobs", AdvancementType.CHALLENGE))
 					.parent(root)
 					.requirements(AdvancementRequirements.Strategy.AND)
 					.save(consumer, challengeId("all_loonium_mobs"));

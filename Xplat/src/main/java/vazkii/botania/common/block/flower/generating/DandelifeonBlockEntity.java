@@ -18,7 +18,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import vazkii.botania.api.block_entity.GeneratingFlowerBlockEntity;
 import vazkii.botania.api.block_entity.RadiusDescriptor;
 import vazkii.botania.common.block.BotaniaBlocks;
-import vazkii.botania.common.block.BotaniaFlowerBlocks;
+import vazkii.botania.common.block.block_entity.BotaniaBlockEntities;
 import vazkii.botania.common.block.block_entity.CellularBlockEntity;
 
 import java.util.ArrayList;
@@ -48,7 +48,7 @@ public class DandelifeonBlockEntity extends GeneratingFlowerBlockEntity {
 	};
 
 	public DandelifeonBlockEntity(BlockPos pos, BlockState state) {
-		super(BotaniaFlowerBlocks.DANDELIFEON, pos, state);
+		super(BotaniaBlockEntities.DANDELIFEON, pos, state);
 	}
 
 	public int getRange() {

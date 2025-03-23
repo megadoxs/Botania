@@ -16,7 +16,7 @@ import net.minecraft.world.phys.Vec3;
 
 import org.jetbrains.annotations.Nullable;
 
-import vazkii.botania.common.block.BotaniaFlowerBlocks;
+import vazkii.botania.common.block.BotaniaBlocks;
 import vazkii.botania.common.block.block_entity.BotaniaBlockEntities;
 import vazkii.botania.common.item.BotaniaItems;
 import vazkii.botania.mixin.MushroomCowAccessor;
@@ -132,7 +132,7 @@ public class DrumBlockTest {
 	public void testMilkingNearBergamute(GameTestHelper helper) {
 		setup(helper, EntityType.COW, Items.BUCKET);
 		// Bergamute should protect from drum interactions
-		helper.setBlock(POSITION_BERGAMUTE, BotaniaFlowerBlocks.bergamuteFloating);
+		helper.setBlock(POSITION_BERGAMUTE, BotaniaBlocks.bergamuteFloating);
 		helper.startSequence()
 				.thenExecute(() -> helper.pressButton(POSITION_BUTTON))
 				.thenExecuteAfter(20, () -> helper.assertItemEntityPresent(Items.BUCKET, POSITION_MOB, 1.0))

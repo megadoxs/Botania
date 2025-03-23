@@ -36,7 +36,6 @@ import org.jetbrains.annotations.Nullable;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.state.enums.CraftyCratePattern;
 import vazkii.botania.common.block.BotaniaBlocks;
-import vazkii.botania.common.block.BotaniaFlowerBlocks;
 import vazkii.botania.common.crafting.recipe.*;
 import vazkii.botania.common.helper.ColorHelper;
 import vazkii.botania.common.item.BotaniaItems;
@@ -576,7 +575,7 @@ public class CraftingRecipeProvider extends BotaniaRecipeProvider {
 				.requires(Items.BEETROOT)
 				.requires(Items.CARROT)
 				.requires(Items.POTATO)
-				.unlockedBy("has_item", conditionsFromItem(BotaniaFlowerBlocks.dandelifeon))
+				.unlockedBy("has_item", conditionsFromItem(BotaniaBlocks.dandelifeon))
 				.save(recipeOutput);
 		ShapedRecipeBuilder.shaped(RecipeCategory.DECORATIONS, BotaniaBlocks.teruTeruBozu)
 				.define('C', BotaniaItems.manaweaveCloth)
@@ -890,7 +889,7 @@ public class CraftingRecipeProvider extends BotaniaRecipeProvider {
 			petalApothecary(cobble, apothecary)
 					.group("botania:metamorphic_apothecary")
 					.unlockedBy("has_item", conditionsFromItem(cobble))
-					.unlockedBy("has_flower_item", conditionsFromItem(BotaniaFlowerBlocks.marimorphosis))
+					.unlockedBy("has_flower_item", conditionsFromItem(BotaniaBlocks.marimorphosis))
 					.save(recipeOutput);
 		}
 		ColorHelper.supportedColors().forEach(color -> {
@@ -2025,20 +2024,20 @@ public class CraftingRecipeProvider extends BotaniaRecipeProvider {
 
 	private void registerFloatingFlowers(RecipeOutput recipeOutput) {
 		for (Block block : new Block[] {
-				BotaniaFlowerBlocks.pureDaisy, BotaniaFlowerBlocks.manastar, BotaniaFlowerBlocks.hydroangeas, BotaniaFlowerBlocks.endoflame,
-				BotaniaFlowerBlocks.thermalily, BotaniaFlowerBlocks.rosaArcana, BotaniaFlowerBlocks.munchdew, BotaniaFlowerBlocks.entropinnyum,
-				BotaniaFlowerBlocks.kekimurus, BotaniaFlowerBlocks.gourmaryllis, BotaniaFlowerBlocks.narslimmus, BotaniaFlowerBlocks.spectrolus,
-				BotaniaFlowerBlocks.dandelifeon, BotaniaFlowerBlocks.rafflowsia, BotaniaFlowerBlocks.shulkMeNot, BotaniaFlowerBlocks.bellethorn,
-				BotaniaFlowerBlocks.bellethornChibi, BotaniaFlowerBlocks.bergamute, BotaniaFlowerBlocks.dreadthorn, BotaniaFlowerBlocks.heiseiDream,
-				BotaniaFlowerBlocks.tigerseye, BotaniaFlowerBlocks.jadedAmaranthus, BotaniaFlowerBlocks.orechid, BotaniaFlowerBlocks.fallenKanade,
-				BotaniaFlowerBlocks.exoflame, BotaniaFlowerBlocks.agricarnation, BotaniaFlowerBlocks.agricarnationChibi, BotaniaFlowerBlocks.hopperhock,
-				BotaniaFlowerBlocks.hopperhockChibi, BotaniaFlowerBlocks.tangleberrie, BotaniaFlowerBlocks.tangleberrieChibi,
-				BotaniaFlowerBlocks.jiyuulia, BotaniaFlowerBlocks.jiyuuliaChibi, BotaniaFlowerBlocks.rannuncarpus, BotaniaFlowerBlocks.rannuncarpusChibi,
-				BotaniaFlowerBlocks.hyacidus, BotaniaFlowerBlocks.pollidisiac, BotaniaFlowerBlocks.clayconia,
-				BotaniaFlowerBlocks.clayconiaChibi, BotaniaFlowerBlocks.loonium, BotaniaFlowerBlocks.daffomill, BotaniaFlowerBlocks.vinculotus,
-				BotaniaFlowerBlocks.spectranthemum, BotaniaFlowerBlocks.medumone, BotaniaFlowerBlocks.marimorphosis, BotaniaFlowerBlocks.marimorphosisChibi,
-				BotaniaFlowerBlocks.bubbell, BotaniaFlowerBlocks.bubbellChibi, BotaniaFlowerBlocks.solegnolia, BotaniaFlowerBlocks.solegnoliaChibi,
-				BotaniaFlowerBlocks.orechidIgnem, BotaniaFlowerBlocks.labellia }) {
+				BotaniaBlocks.pureDaisy, BotaniaBlocks.manastar, BotaniaBlocks.hydroangeas, BotaniaBlocks.endoflame,
+				BotaniaBlocks.thermalily, BotaniaBlocks.rosaArcana, BotaniaBlocks.munchdew, BotaniaBlocks.entropinnyum,
+				BotaniaBlocks.kekimurus, BotaniaBlocks.gourmaryllis, BotaniaBlocks.narslimmus, BotaniaBlocks.spectrolus,
+				BotaniaBlocks.dandelifeon, BotaniaBlocks.rafflowsia, BotaniaBlocks.shulkMeNot, BotaniaBlocks.bellethorn,
+				BotaniaBlocks.bellethornChibi, BotaniaBlocks.bergamute, BotaniaBlocks.dreadthorn, BotaniaBlocks.heiseiDream,
+				BotaniaBlocks.tigerseye, BotaniaBlocks.jadedAmaranthus, BotaniaBlocks.orechid, BotaniaBlocks.fallenKanade,
+				BotaniaBlocks.exoflame, BotaniaBlocks.agricarnation, BotaniaBlocks.agricarnationChibi, BotaniaBlocks.hopperhock,
+				BotaniaBlocks.hopperhockChibi, BotaniaBlocks.tangleberrie, BotaniaBlocks.tangleberrieChibi,
+				BotaniaBlocks.jiyuulia, BotaniaBlocks.jiyuuliaChibi, BotaniaBlocks.rannuncarpus, BotaniaBlocks.rannuncarpusChibi,
+				BotaniaBlocks.hyacidus, BotaniaBlocks.pollidisiac, BotaniaBlocks.clayconia,
+				BotaniaBlocks.clayconiaChibi, BotaniaBlocks.loonium, BotaniaBlocks.daffomill, BotaniaBlocks.vinculotus,
+				BotaniaBlocks.spectranthemum, BotaniaBlocks.medumone, BotaniaBlocks.marimorphosis, BotaniaBlocks.marimorphosisChibi,
+				BotaniaBlocks.bubbell, BotaniaBlocks.bubbellChibi, BotaniaBlocks.solegnolia, BotaniaBlocks.solegnoliaChibi,
+				BotaniaBlocks.orechidIgnem, BotaniaBlocks.labellia }) {
 			createFloatingFlowerRecipe(recipeOutput, block);
 		}
 	}
@@ -2641,7 +2640,7 @@ public class CraftingRecipeProvider extends BotaniaRecipeProvider {
 		Block cobbleStair = getBlockOrThrow(prefix(LibBlockNames.METAMORPHIC_PREFIX + variant + "_cobblestone" + LibBlockNames.STAIR_SUFFIX));
 		Block cobbleWall = getBlockOrThrow(prefix(LibBlockNames.METAMORPHIC_PREFIX + variant + "_cobblestone" + LibBlockNames.WALL_SUFFIX));
 
-		Criterion<InventoryChangeTrigger.TriggerInstance> marimorphosis = conditionsFromItem(BotaniaFlowerBlocks.marimorphosis);
+		Criterion<InventoryChangeTrigger.TriggerInstance> marimorphosis = conditionsFromItem(BotaniaBlocks.marimorphosis);
 		slabShape(slab, base).group("botania:metamorphic_stone_slab")
 				.unlockedBy("has_flower_item", marimorphosis).save(recipeOutput);
 		stairs(stair, base).group("botania:metamorphic_stone_stairs")

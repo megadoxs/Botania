@@ -40,7 +40,7 @@ import java.util.Set;
 import java.util.concurrent.CompletableFuture;
 import java.util.function.Predicate;
 
-import static vazkii.botania.common.block.BotaniaFlowerBlocks.*;
+import static vazkii.botania.common.block.BotaniaBlocks.*;
 
 public class BlockTagProvider extends IntrinsicHolderTagsProvider<Block> {
 	public static final Predicate<Block> BOTANIA_BLOCK = b -> LibMisc.MOD_ID.equals(BuiltInRegistries.BLOCK.getKey(b).getNamespace());

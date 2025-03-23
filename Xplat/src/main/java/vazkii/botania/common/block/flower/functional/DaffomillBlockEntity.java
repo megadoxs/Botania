@@ -28,7 +28,7 @@ import vazkii.botania.api.block.Wandable;
 import vazkii.botania.api.block_entity.FunctionalFlowerBlockEntity;
 import vazkii.botania.api.block_entity.RadiusDescriptor;
 import vazkii.botania.client.fx.WispParticleData;
-import vazkii.botania.common.block.BotaniaFlowerBlocks;
+import vazkii.botania.common.block.block_entity.BotaniaBlockEntities;
 import vazkii.botania.common.helper.DelayHelper;
 import vazkii.botania.network.clientbound.ItemAgePacket;
 import vazkii.botania.xplat.XplatAbstractions;
@@ -48,7 +48,7 @@ public class DaffomillBlockEntity extends FunctionalFlowerBlockEntity implements
 	private boolean redstonePowered;
 
 	public DaffomillBlockEntity(BlockPos pos, BlockState state) {
-		super(BotaniaFlowerBlocks.DAFFOMILL, pos, state);
+		super(BotaniaBlockEntities.DAFFOMILL, pos, state);
 	}
 
 	@Override

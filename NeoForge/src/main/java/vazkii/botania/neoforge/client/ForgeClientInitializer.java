@@ -47,7 +47,6 @@ import vazkii.botania.client.model.BotaniaLayerDefinitions;
 import vazkii.botania.client.render.BlockRenderLayers;
 import vazkii.botania.client.render.ColorHandler;
 import vazkii.botania.client.render.entity.EntityRenderers;
-import vazkii.botania.common.block.BotaniaFlowerBlocks;
 import vazkii.botania.common.block.block_entity.BotaniaBlockEntities;
 import vazkii.botania.common.block.block_entity.corporea.CorporeaIndexBlockEntity;
 import vazkii.botania.common.entity.BotaniaEntities;
@@ -158,11 +157,6 @@ public class ForgeClientInitializer {
 	private static final Supplier<Map<BlockEntityType<?>, Function<BlockEntity, WandHUD>>> WAND_HUD = Suppliers.memoize(() -> {
 		var ret = new IdentityHashMap<BlockEntityType<?>, Function<BlockEntity, WandHUD>>();
 		BotaniaBlockEntities.registerWandHudCaps((factory, types) -> {
-			for (var type : types) {
-				ret.put(type, factory);
-			}
-		});
-		BotaniaFlowerBlocks.registerWandHudCaps((factory, types) -> {
 			for (var type : types) {
 				ret.put(type, factory);
 			}

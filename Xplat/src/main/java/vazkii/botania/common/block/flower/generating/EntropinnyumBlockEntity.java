@@ -19,7 +19,7 @@ import net.minecraft.world.phys.AABB;
 import vazkii.botania.api.block_entity.GeneratingFlowerBlockEntity;
 import vazkii.botania.api.block_entity.RadiusDescriptor;
 import vazkii.botania.client.fx.SparkleParticleData;
-import vazkii.botania.common.block.BotaniaFlowerBlocks;
+import vazkii.botania.common.block.block_entity.BotaniaBlockEntities;
 import vazkii.botania.common.handler.BotaniaSounds;
 import vazkii.botania.xplat.XplatAbstractions;
 
@@ -31,7 +31,7 @@ public class EntropinnyumBlockEntity extends GeneratingFlowerBlockEntity {
 	private static final int ANGRY_EFFECT_EVENT = 1;
 
 	public EntropinnyumBlockEntity(BlockPos pos, BlockState state) {
-		super(BotaniaFlowerBlocks.ENTROPINNYUM, pos, state);
+		super(BotaniaBlockEntities.ENTROPINNYUM, pos, state);
 	}
 
 	@Override

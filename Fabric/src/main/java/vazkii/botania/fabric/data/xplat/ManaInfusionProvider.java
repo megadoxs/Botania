@@ -29,7 +29,6 @@ import org.jetbrains.annotations.Nullable;
 
 import vazkii.botania.api.recipe.StateIngredient;
 import vazkii.botania.common.block.BotaniaBlocks;
-import vazkii.botania.common.block.BotaniaFlowerBlocks;
 import vazkii.botania.common.crafting.ManaInfusionRecipe;
 import vazkii.botania.common.crafting.StateIngredients;
 import vazkii.botania.common.helper.ColorHelper;
@@ -153,18 +152,18 @@ public class ManaInfusionProvider extends BotaniaRecipeProvider {
 
 		cycle(consumer, 240, "botania:berry_cycle", Items.APPLE, Items.SWEET_BERRIES, Items.GLOW_BERRIES);
 
-		mini(consumer, BotaniaFlowerBlocks.agricarnationChibi, BotaniaFlowerBlocks.agricarnation);
-		mini(consumer, BotaniaFlowerBlocks.clayconiaChibi, BotaniaFlowerBlocks.clayconia);
-		mini(consumer, BotaniaFlowerBlocks.bellethornChibi, BotaniaFlowerBlocks.bellethorn);
-		mini(consumer, BotaniaFlowerBlocks.bubbellChibi, BotaniaFlowerBlocks.bubbell);
-		mini(consumer, BotaniaFlowerBlocks.hopperhockChibi, BotaniaFlowerBlocks.hopperhock);
-		mini(consumer, BotaniaFlowerBlocks.jiyuuliaChibi, BotaniaFlowerBlocks.jiyuulia);
-		mini(consumer, BotaniaFlowerBlocks.tangleberrieChibi, BotaniaFlowerBlocks.tangleberrie);
-		mini(consumer, BotaniaFlowerBlocks.marimorphosisChibi, BotaniaFlowerBlocks.marimorphosis);
-		mini(consumer, BotaniaFlowerBlocks.rannuncarpusChibi, BotaniaFlowerBlocks.rannuncarpus);
-		mini(consumer, BotaniaFlowerBlocks.solegnoliaChibi, BotaniaFlowerBlocks.solegnolia);
+		mini(consumer, BotaniaBlocks.agricarnationChibi, BotaniaBlocks.agricarnation);
+		mini(consumer, BotaniaBlocks.clayconiaChibi, BotaniaBlocks.clayconia);
+		mini(consumer, BotaniaBlocks.bellethornChibi, BotaniaBlocks.bellethorn);
+		mini(consumer, BotaniaBlocks.bubbellChibi, BotaniaBlocks.bubbell);
+		mini(consumer, BotaniaBlocks.hopperhockChibi, BotaniaBlocks.hopperhock);
+		mini(consumer, BotaniaBlocks.jiyuuliaChibi, BotaniaBlocks.jiyuulia);
+		mini(consumer, BotaniaBlocks.tangleberrieChibi, BotaniaBlocks.tangleberrie);
+		mini(consumer, BotaniaBlocks.marimorphosisChibi, BotaniaBlocks.marimorphosis);
+		mini(consumer, BotaniaBlocks.rannuncarpusChibi, BotaniaBlocks.rannuncarpus);
+		mini(consumer, BotaniaBlocks.solegnoliaChibi, BotaniaBlocks.solegnolia);
 
-		alchemy(consumer, id("hydroangeas_motif"), new ItemStack(BotaniaBlocks.motifHydroangeas), ingr(BotaniaFlowerBlocks.hydroangeas), 2500);
+		alchemy(consumer, id("hydroangeas_motif"), new ItemStack(BotaniaBlocks.motifHydroangeas), ingr(BotaniaBlocks.hydroangeas), 2500);
 
 		conjuration(consumer, id("redstone_dupe"), new ItemStack(Items.REDSTONE, 2), ingr(Items.REDSTONE), 5000);
 		conjuration(consumer, id("glowstone_dupe"), new ItemStack(Items.GLOWSTONE_DUST, 2), ingr(Items.GLOWSTONE_DUST), 5000);

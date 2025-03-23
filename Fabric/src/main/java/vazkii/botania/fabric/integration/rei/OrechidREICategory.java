@@ -27,7 +27,7 @@ import org.jetbrains.annotations.Nullable;
 
 import vazkii.botania.api.recipe.OrechidRecipe;
 import vazkii.botania.client.integration.shared.OrechidUIHelper;
-import vazkii.botania.common.block.BotaniaFlowerBlocks;
+import vazkii.botania.common.block.BotaniaBlocks;
 
 import java.util.List;
 import java.util.stream.Stream;
@@ -42,7 +42,7 @@ public class OrechidREICategory implements DisplayCategory<OrechidBaseREIDisplay
 	public OrechidREICategory(CategoryIdentifier<? extends OrechidBaseREIDisplay> categoryId, Block orechid) {
 		this.categoryId = categoryId;
 		this.orechid = EntryStacks.of(orechid);
-		this.langKey = "botania.nei." + (orechid == BotaniaFlowerBlocks.orechidIgnem ? "orechidIgnem" : "orechid");
+		this.langKey = "botania.nei." + (orechid == BotaniaBlocks.orechidIgnem ? "orechidIgnem" : "orechid");
 	}
 
 	@Override

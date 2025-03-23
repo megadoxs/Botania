@@ -35,6 +35,7 @@ import vazkii.botania.api.block.PetalApothecary;
 import vazkii.botania.api.state.BotaniaStateProperties;
 import vazkii.botania.api.state.enums.AlfheimPortalState;
 import vazkii.botania.api.state.enums.LuminizerVariant;
+import vazkii.botania.common.block.block_entity.BotaniaBlockEntities;
 import vazkii.botania.common.block.corporea.*;
 import vazkii.botania.common.block.decor.*;
 import vazkii.botania.common.block.decor.panes.BotaniaPaneBlock;
@@ -42,9 +43,11 @@ import vazkii.botania.common.block.decor.stairs.BotaniaStairBlock;
 import vazkii.botania.common.block.dispenser.*;
 import vazkii.botania.common.block.mana.*;
 import vazkii.botania.common.block.red_string.*;
+import vazkii.botania.common.brew.BotaniaMobEffects;
 import vazkii.botania.common.helper.ColorHelper;
 import vazkii.botania.common.item.BotaniaItems;
 import vazkii.botania.common.item.block.BlockItemWithSpecialRenderer;
+import vazkii.botania.common.item.block.SpecialFlowerBlockItem;
 import vazkii.botania.common.item.block.TinyPotatoBlockItem;
 import vazkii.botania.common.lib.LibBlockNames;
 import vazkii.botania.mixin.DispenserBlockAccessor;
@@ -235,6 +238,205 @@ public final class BotaniaBlocks {
 	public static final Block pottedRedMushroom = flowerPot(redMushroom, 3);
 	public static final Block pottedBlackMushroom = flowerPot(blackMushroom, 3);
 
+	private static final BlockBehaviour.Properties FLOWER_PROPS = BlockBehaviour.Properties.ofFullCopy(Blocks.POPPY);
+	public static final Block pureDaisy = new SpecialFlowerBlock(BotaniaMobEffects.CLEAR, 1, FLOWER_PROPS, () -> BotaniaBlockEntities.PURE_DAISY);
+	public static final Block pureDaisyFloating = new FloatingSpecialFlowerBlock(FLOATING_PROPS, () -> BotaniaBlockEntities.PURE_DAISY);
+	public static final Block pureDaisyPotted = BotaniaBlocks.flowerPot(pureDaisy, 0);
+
+	public static final Block manastar = new SpecialFlowerBlock(MobEffects.GLOWING, 10, FLOWER_PROPS, () -> BotaniaBlockEntities.MANASTAR);
+	public static final Block manastarFloating = new FloatingSpecialFlowerBlock(FLOATING_PROPS, () -> BotaniaBlockEntities.MANASTAR);
+	public static final Block manastarPotted = BotaniaBlocks.flowerPot(manastar, 0);
+
+	public static final Block hydroangeas = new SpecialFlowerBlock(MobEffects.UNLUCK, 10, FLOWER_PROPS, () -> BotaniaBlockEntities.HYDROANGEAS);
+	public static final Block hydroangeasFloating = new FloatingSpecialFlowerBlock(FLOATING_PROPS, () -> BotaniaBlockEntities.HYDROANGEAS);
+	public static final Block hydroangeasPotted = BotaniaBlocks.flowerPot(hydroangeas, 0);
+
+	public static final Block endoflame = new SpecialFlowerBlock(MobEffects.MOVEMENT_SLOWDOWN, 10, FLOWER_PROPS, () -> BotaniaBlockEntities.ENDOFLAME);
+	public static final Block endoflameFloating = new FloatingSpecialFlowerBlock(FLOATING_PROPS, () -> BotaniaBlockEntities.ENDOFLAME);
+	public static final Block endoflamePotted = BotaniaBlocks.flowerPot(endoflame, 0);
+
+	public static final Block thermalily = new SpecialFlowerBlock(MobEffects.FIRE_RESISTANCE, 120, FLOWER_PROPS, () -> BotaniaBlockEntities.THERMALILY, true);
+	public static final Block thermalilyFloating = new FloatingSpecialFlowerBlock(FLOATING_PROPS, () -> BotaniaBlockEntities.THERMALILY, true);
+	public static final Block thermalilyPotted = BotaniaBlocks.flowerPot(thermalily, 0);
+
+	public static final Block rosaArcana = new SpecialFlowerBlock(MobEffects.LUCK, 64, FLOWER_PROPS, () -> BotaniaBlockEntities.ROSA_ARCANA);
+	public static final Block rosaArcanaFloating = new FloatingSpecialFlowerBlock(FLOATING_PROPS, () -> BotaniaBlockEntities.ROSA_ARCANA);
+	public static final Block rosaArcanaPotted = BotaniaBlocks.flowerPot(rosaArcana, 0);
+
+	public static final Block munchdew = new SpecialFlowerBlock(MobEffects.SLOW_FALLING, 300, FLOWER_PROPS, () -> BotaniaBlockEntities.MUNCHDEW);
+	public static final Block munchdewFloating = new FloatingSpecialFlowerBlock(FLOATING_PROPS, () -> BotaniaBlockEntities.MUNCHDEW);
+	public static final Block munchdewPotted = BotaniaBlocks.flowerPot(munchdew, 0);
+
+	public static final Block entropinnyum = new SpecialFlowerBlock(MobEffects.DAMAGE_RESISTANCE, 72, FLOWER_PROPS, () -> BotaniaBlockEntities.ENTROPINNYUM);
+	public static final Block entropinnyumFloating = new FloatingSpecialFlowerBlock(FLOATING_PROPS, () -> BotaniaBlockEntities.ENTROPINNYUM);
+	public static final Block entropinnyumPotted = BotaniaBlocks.flowerPot(entropinnyum, 0);
+
+	public static final Block kekimurus = new SpecialFlowerBlock(MobEffects.SATURATION, 15, FLOWER_PROPS, () -> BotaniaBlockEntities.KEKIMURUS);
+	public static final Block kekimurusFloating = new FloatingSpecialFlowerBlock(FLOATING_PROPS, () -> BotaniaBlockEntities.KEKIMURUS);
+	public static final Block kekimurusPotted = BotaniaBlocks.flowerPot(kekimurus, 0);
+
+	public static final Block gourmaryllis = new SpecialFlowerBlock(MobEffects.HUNGER, 180, FLOWER_PROPS, () -> BotaniaBlockEntities.GOURMARYLLIS);
+	public static final Block gourmaryllisFloating = new FloatingSpecialFlowerBlock(FLOATING_PROPS, () -> BotaniaBlockEntities.GOURMARYLLIS);
+	public static final Block gourmaryllisPotted = BotaniaBlocks.flowerPot(gourmaryllis, 0);
+
+	public static final Block narslimmus = new SpecialFlowerBlock(BotaniaMobEffects.FEATHER_FEET, 240, FLOWER_PROPS, () -> BotaniaBlockEntities.NARSLIMMUS);
+	public static final Block narslimmusFloating = new FloatingSpecialFlowerBlock(FLOATING_PROPS, () -> BotaniaBlockEntities.NARSLIMMUS);
+	public static final Block narslimmusPotted = BotaniaBlocks.flowerPot(narslimmus, 0);
+
+	public static final Block spectrolus = new SpecialFlowerBlock(MobEffects.BLINDNESS, 240, FLOWER_PROPS, () -> BotaniaBlockEntities.SPECTROLUS);
+	public static final Block spectrolusFloating = new FloatingSpecialFlowerBlock(FLOATING_PROPS, () -> BotaniaBlockEntities.SPECTROLUS);
+	public static final Block spectrolusPotted = BotaniaBlocks.flowerPot(spectrolus, 0);
+
+	public static final Block dandelifeon = new SpecialFlowerBlock(MobEffects.CONFUSION, 240, FLOWER_PROPS, () -> BotaniaBlockEntities.DANDELIFEON);
+	public static final Block dandelifeonFloating = new FloatingSpecialFlowerBlock(FLOATING_PROPS, () -> BotaniaBlockEntities.DANDELIFEON);
+	public static final Block dandelifeonPotted = BotaniaBlocks.flowerPot(dandelifeon, 0);
+
+	public static final Block rafflowsia = new SpecialFlowerBlock(MobEffects.HEALTH_BOOST, 18, FLOWER_PROPS, () -> BotaniaBlockEntities.RAFFLOWSIA);
+	public static final Block rafflowsiaFloating = new FloatingSpecialFlowerBlock(FLOATING_PROPS, () -> BotaniaBlockEntities.RAFFLOWSIA);
+	public static final Block rafflowsiaPotted = BotaniaBlocks.flowerPot(rafflowsia, 0);
+
+	public static final Block shulkMeNot = new SpecialFlowerBlock(MobEffects.LEVITATION, 72, FLOWER_PROPS, () -> BotaniaBlockEntities.SHULK_ME_NOT);
+	public static final Block shulkMeNotFloating = new FloatingSpecialFlowerBlock(FLOATING_PROPS, () -> BotaniaBlockEntities.SHULK_ME_NOT);
+	public static final Block shulkMeNotPotted = BotaniaBlocks.flowerPot(shulkMeNot, 0);
+
+	public static final Block bellethorn = new SpecialFlowerBlock(MobEffects.WITHER, 10, FLOWER_PROPS, () -> BotaniaBlockEntities.BELLETHORNE);
+	public static final Block bellethornChibi = new SpecialFlowerBlock(MobEffects.WITHER, 10, FLOWER_PROPS, () -> BotaniaBlockEntities.BELLETHORNE_CHIBI);
+	public static final Block bellethornFloating = new FloatingSpecialFlowerBlock(FLOATING_PROPS, () -> BotaniaBlockEntities.BELLETHORNE);
+	public static final Block bellethornChibiFloating = new FloatingSpecialFlowerBlock(FLOATING_PROPS, () -> BotaniaBlockEntities.BELLETHORNE_CHIBI);
+	public static final Block bellethornPotted = BotaniaBlocks.flowerPot(bellethorn, 0);
+	public static final Block bellethornChibiPotted = BotaniaBlocks.flowerPot(bellethornChibi, 0);
+
+	public static final Block bergamute = new SpecialFlowerBlock(MobEffects.BLINDNESS, 10, FLOWER_PROPS, () -> BotaniaBlockEntities.BERGAMUTE);
+	public static final Block bergamuteFloating = new FloatingSpecialFlowerBlock(FLOATING_PROPS, () -> BotaniaBlockEntities.BERGAMUTE);
+	public static final Block bergamutePotted = BotaniaBlocks.flowerPot(bergamute, 0);
+
+	public static final Block dreadthorn = new SpecialFlowerBlock(MobEffects.WITHER, 10, FLOWER_PROPS, () -> BotaniaBlockEntities.DREADTHORN);
+	public static final Block dreadthornFloating = new FloatingSpecialFlowerBlock(FLOATING_PROPS, () -> BotaniaBlockEntities.DREADTHORN);
+	public static final Block dreadthornPotted = BotaniaBlocks.flowerPot(dreadthorn, 0);
+
+	public static final Block heiseiDream = new SpecialFlowerBlock(BotaniaMobEffects.SOUL_CROSS, 300, FLOWER_PROPS, () -> BotaniaBlockEntities.HEISEI_DREAM);
+	public static final Block heiseiDreamFloating = new FloatingSpecialFlowerBlock(FLOATING_PROPS, () -> BotaniaBlockEntities.HEISEI_DREAM);
+	public static final Block heiseiDreamPotted = BotaniaBlocks.flowerPot(heiseiDream, 0);
+
+	public static final Block tigerseye = new SpecialFlowerBlock(MobEffects.DAMAGE_BOOST, 90, FLOWER_PROPS, () -> BotaniaBlockEntities.TIGERSEYE);
+	public static final Block tigerseyeFloating = new FloatingSpecialFlowerBlock(FLOATING_PROPS, () -> BotaniaBlockEntities.TIGERSEYE);
+	public static final Block tigerseyePotted = BotaniaBlocks.flowerPot(tigerseye, 0);
+
+	public static final Block jadedAmaranthus = new SpecialFlowerBlock(MobEffects.HEAL, 1, FLOWER_PROPS, () -> BotaniaBlockEntities.JADED_AMARANTHUS);
+	public static final Block jadedAmaranthusFloating = new FloatingSpecialFlowerBlock(FLOATING_PROPS, () -> BotaniaBlockEntities.JADED_AMARANTHUS);
+	public static final Block jadedAmaranthusPotted = BotaniaBlocks.flowerPot(jadedAmaranthus, 0);
+
+	public static final Block orechid = new SpecialFlowerBlock(MobEffects.DIG_SPEED, 10, FLOWER_PROPS, () -> BotaniaBlockEntities.ORECHID);
+	public static final Block orechidFloating = new FloatingSpecialFlowerBlock(FLOATING_PROPS, () -> BotaniaBlockEntities.ORECHID);
+	public static final Block orechidPotted = BotaniaBlocks.flowerPot(orechid, 0);
+
+	public static final Block fallenKanade = new SpecialFlowerBlock(MobEffects.REGENERATION, 90, FLOWER_PROPS, () -> BotaniaBlockEntities.FALLEN_KANADE);
+	public static final Block fallenKanadeFloating = new FloatingSpecialFlowerBlock(FLOATING_PROPS, () -> BotaniaBlockEntities.FALLEN_KANADE);
+	public static final Block fallenKanadePotted = BotaniaBlocks.flowerPot(fallenKanade, 0);
+
+	public static final Block exoflame = new SpecialFlowerBlock(MobEffects.MOVEMENT_SPEED, 240, FLOWER_PROPS, () -> BotaniaBlockEntities.EXOFLAME);
+	public static final Block exoflameFloating = new FloatingSpecialFlowerBlock(FLOATING_PROPS, () -> BotaniaBlockEntities.EXOFLAME);
+	public static final Block exoflamePotted = BotaniaBlocks.flowerPot(exoflame, 0);
+
+	public static final Block agricarnation = new SpecialFlowerBlock(MobEffects.ABSORPTION, 48, FLOWER_PROPS, () -> BotaniaBlockEntities.AGRICARNATION);
+	public static final Block agricarnationChibi = new SpecialFlowerBlock(MobEffects.ABSORPTION, 48, FLOWER_PROPS, () -> BotaniaBlockEntities.AGRICARNATION_CHIBI);
+	public static final Block agricarnationFloating = new FloatingSpecialFlowerBlock(FLOATING_PROPS, () -> BotaniaBlockEntities.AGRICARNATION);
+	public static final Block agricarnationChibiFloating = new FloatingSpecialFlowerBlock(FLOATING_PROPS, () -> BotaniaBlockEntities.AGRICARNATION_CHIBI);
+	public static final Block agricarnationPotted = BotaniaBlocks.flowerPot(agricarnation, 0);
+	public static final Block agricarnationChibiPotted = BotaniaBlocks.flowerPot(agricarnationChibi, 0);
+
+	public static final Block hopperhock = new SpecialFlowerBlock(MobEffects.MOVEMENT_SPEED, 30, FLOWER_PROPS, () -> BotaniaBlockEntities.HOPPERHOCK);
+	public static final Block hopperhockChibi = new SpecialFlowerBlock(MobEffects.MOVEMENT_SPEED, 30, FLOWER_PROPS, () -> BotaniaBlockEntities.HOPPERHOCK_CHIBI);
+	public static final Block hopperhockFloating = new FloatingSpecialFlowerBlock(FLOATING_PROPS, () -> BotaniaBlockEntities.HOPPERHOCK);
+	public static final Block hopperhockChibiFloating = new FloatingSpecialFlowerBlock(FLOATING_PROPS, () -> BotaniaBlockEntities.HOPPERHOCK_CHIBI);
+	public static final Block hopperhockPotted = BotaniaBlocks.flowerPot(hopperhock, 0);
+	public static final Block hopperhockChibiPotted = BotaniaBlocks.flowerPot(hopperhockChibi, 0);
+
+	public static final Block tangleberrie = new SpecialFlowerBlock(BotaniaMobEffects.BLOODTHRST, 120, FLOWER_PROPS, () -> BotaniaBlockEntities.TANGLEBERRIE);
+	public static final Block tangleberrieChibi = new SpecialFlowerBlock(BotaniaMobEffects.BLOODTHRST, 120, FLOWER_PROPS, () -> BotaniaBlockEntities.TANGLEBERRIE_CHIBI);
+	public static final Block tangleberrieFloating = new FloatingSpecialFlowerBlock(FLOATING_PROPS, () -> BotaniaBlockEntities.TANGLEBERRIE);
+	public static final Block tangleberrieChibiFloating = new FloatingSpecialFlowerBlock(FLOATING_PROPS, () -> BotaniaBlockEntities.TANGLEBERRIE_CHIBI);
+	public static final Block tangleberriePotted = BotaniaBlocks.flowerPot(tangleberrie, 0);
+	public static final Block tangleberrieChibiPotted = BotaniaBlocks.flowerPot(tangleberrieChibi, 0);
+
+	public static final Block jiyuulia = new SpecialFlowerBlock(BotaniaMobEffects.EMPTINESS, 120, FLOWER_PROPS, () -> BotaniaBlockEntities.JIYUULIA);
+	public static final Block jiyuuliaChibi = new SpecialFlowerBlock(BotaniaMobEffects.EMPTINESS, 120, FLOWER_PROPS, () -> BotaniaBlockEntities.JIYUULIA_CHIBI);
+	public static final Block jiyuuliaFloating = new FloatingSpecialFlowerBlock(FLOATING_PROPS, () -> BotaniaBlockEntities.JIYUULIA);
+	public static final Block jiyuuliaChibiFloating = new FloatingSpecialFlowerBlock(FLOATING_PROPS, () -> BotaniaBlockEntities.JIYUULIA_CHIBI);
+	public static final Block jiyuuliaPotted = BotaniaBlocks.flowerPot(jiyuulia, 0);
+	public static final Block jiyuuliaChibiPotted = BotaniaBlocks.flowerPot(jiyuuliaChibi, 0);
+
+	public static final Block rannuncarpus = new SpecialFlowerBlock(MobEffects.JUMP, 30, FLOWER_PROPS, () -> BotaniaBlockEntities.RANNUNCARPUS);
+	public static final Block rannuncarpusChibi = new SpecialFlowerBlock(MobEffects.JUMP, 30, FLOWER_PROPS, () -> BotaniaBlockEntities.RANNUNCARPUS_CHIBI);
+	public static final Block rannuncarpusFloating = new FloatingSpecialFlowerBlock(FLOATING_PROPS, () -> BotaniaBlockEntities.RANNUNCARPUS);
+	public static final Block rannuncarpusChibiFloating = new FloatingSpecialFlowerBlock(FLOATING_PROPS, () -> BotaniaBlockEntities.RANNUNCARPUS_CHIBI);
+	public static final Block rannuncarpusPotted = BotaniaBlocks.flowerPot(rannuncarpus, 0);
+	public static final Block rannuncarpusChibiPotted = BotaniaBlocks.flowerPot(rannuncarpusChibi, 0);
+
+	public static final Block hyacidus = new SpecialFlowerBlock(MobEffects.POISON, 48, FLOWER_PROPS, () -> BotaniaBlockEntities.HYACIDUS);
+	public static final Block hyacidusFloating = new FloatingSpecialFlowerBlock(FLOATING_PROPS, () -> BotaniaBlockEntities.HYACIDUS);
+	public static final Block hyacidusPotted = BotaniaBlocks.flowerPot(hyacidus, 0);
+
+	public static final Block pollidisiac = new SpecialFlowerBlock(MobEffects.DIG_SPEED, 369, FLOWER_PROPS, () -> BotaniaBlockEntities.POLLIDISIAC);
+	public static final Block pollidisiacFloating = new FloatingSpecialFlowerBlock(FLOATING_PROPS, () -> BotaniaBlockEntities.POLLIDISIAC);
+	public static final Block pollidisiacPotted = BotaniaBlocks.flowerPot(pollidisiac, 0);
+
+	public static final Block clayconia = new SpecialFlowerBlock(MobEffects.WEAKNESS, 30, FLOWER_PROPS, () -> BotaniaBlockEntities.CLAYCONIA);
+	public static final Block clayconiaChibi = new SpecialFlowerBlock(MobEffects.WEAKNESS, 30, FLOWER_PROPS, () -> BotaniaBlockEntities.CLAYCONIA_CHIBI);
+	public static final Block clayconiaFloating = new FloatingSpecialFlowerBlock(FLOATING_PROPS, () -> BotaniaBlockEntities.CLAYCONIA);
+	public static final Block clayconiaChibiFloating = new FloatingSpecialFlowerBlock(FLOATING_PROPS, () -> BotaniaBlockEntities.CLAYCONIA_CHIBI);
+	public static final Block clayconiaPotted = BotaniaBlocks.flowerPot(clayconia, 0);
+	public static final Block clayconiaChibiPotted = BotaniaBlocks.flowerPot(clayconiaChibi, 0);
+
+	public static final Block loonium = new SpecialFlowerBlock(BotaniaMobEffects.ALLURE, 900, FLOWER_PROPS, () -> BotaniaBlockEntities.LOONIUM);
+	public static final Block looniumFloating = new FloatingSpecialFlowerBlock(FLOATING_PROPS, () -> BotaniaBlockEntities.LOONIUM);
+	public static final Block looniumPotted = BotaniaBlocks.flowerPot(loonium, 0);
+
+	public static final Block daffomill = new SpecialFlowerBlock(MobEffects.LEVITATION, 6, FLOWER_PROPS, () -> BotaniaBlockEntities.DAFFOMILL);
+	public static final Block daffomillFloating = new FloatingSpecialFlowerBlock(FLOATING_PROPS, () -> BotaniaBlockEntities.DAFFOMILL);
+	public static final Block daffomillPotted = BotaniaBlocks.flowerPot(daffomill, 0);
+
+	public static final Block vinculotus = new SpecialFlowerBlock(MobEffects.NIGHT_VISION, 900, FLOWER_PROPS, () -> BotaniaBlockEntities.VINCULOTUS);
+	public static final Block vinculotusFloating = new FloatingSpecialFlowerBlock(FLOATING_PROPS, () -> BotaniaBlockEntities.VINCULOTUS);
+	public static final Block vinculotusPotted = BotaniaBlocks.flowerPot(vinculotus, 0);
+
+	public static final Block spectranthemum = new SpecialFlowerBlock(MobEffects.INVISIBILITY, 360, FLOWER_PROPS, () -> BotaniaBlockEntities.SPECTRANTHEMUM);
+	public static final Block spectranthemumFloating = new FloatingSpecialFlowerBlock(FLOATING_PROPS, () -> BotaniaBlockEntities.SPECTRANTHEMUM);
+	public static final Block spectranthemumPotted = BotaniaBlocks.flowerPot(spectranthemum, 0);
+
+	public static final Block medumone = new SpecialFlowerBlock(MobEffects.MOVEMENT_SLOWDOWN, 3600, FLOWER_PROPS, () -> BotaniaBlockEntities.MEDUMONE);
+	public static final Block medumoneFloating = new FloatingSpecialFlowerBlock(FLOATING_PROPS, () -> BotaniaBlockEntities.MEDUMONE);
+	public static final Block medumonePotted = BotaniaBlocks.flowerPot(medumone, 0);
+
+	public static final Block marimorphosis = new SpecialFlowerBlock(MobEffects.DIG_SLOWDOWN, 60, FLOWER_PROPS, () -> BotaniaBlockEntities.MARIMORPHOSIS);
+	public static final Block marimorphosisChibi = new SpecialFlowerBlock(MobEffects.DIG_SLOWDOWN, 60, FLOWER_PROPS, () -> BotaniaBlockEntities.MARIMORPHOSIS_CHIBI);
+	public static final Block marimorphosisFloating = new FloatingSpecialFlowerBlock(FLOATING_PROPS, () -> BotaniaBlockEntities.MARIMORPHOSIS);
+	public static final Block marimorphosisChibiFloating = new FloatingSpecialFlowerBlock(FLOATING_PROPS, () -> BotaniaBlockEntities.MARIMORPHOSIS_CHIBI);
+	public static final Block marimorphosisPotted = BotaniaBlocks.flowerPot(marimorphosis, 0);
+	public static final Block marimorphosisChibiPotted = BotaniaBlocks.flowerPot(marimorphosisChibi, 0);
+
+	public static final Block bubbell = new SpecialFlowerBlock(MobEffects.WATER_BREATHING, 240, FLOWER_PROPS, () -> BotaniaBlockEntities.BUBBELL);
+	public static final Block bubbellChibi = new SpecialFlowerBlock(MobEffects.WATER_BREATHING, 240, FLOWER_PROPS, () -> BotaniaBlockEntities.BUBBELL_CHIBI);
+	public static final Block bubbellFloating = new FloatingSpecialFlowerBlock(FLOATING_PROPS, () -> BotaniaBlockEntities.BUBBELL);
+	public static final Block bubbellChibiFloating = new FloatingSpecialFlowerBlock(FLOATING_PROPS, () -> BotaniaBlockEntities.BUBBELL_CHIBI);
+	public static final Block bubbellPotted = BotaniaBlocks.flowerPot(bubbell, 0);
+	public static final Block bubbellChibiPotted = BotaniaBlocks.flowerPot(bubbellChibi, 0);
+
+	public static final Block solegnolia = new SpecialFlowerBlock(MobEffects.HARM, 1, FLOWER_PROPS, () -> BotaniaBlockEntities.SOLEGNOLIA);
+	public static final Block solegnoliaChibi = new SpecialFlowerBlock(MobEffects.HARM, 1, FLOWER_PROPS, () -> BotaniaBlockEntities.SOLEGNOLIA_CHIBI);
+	public static final Block solegnoliaFloating = new FloatingSpecialFlowerBlock(FLOATING_PROPS, () -> BotaniaBlockEntities.SOLEGNOLIA);
+	public static final Block solegnoliaChibiFloating = new FloatingSpecialFlowerBlock(FLOATING_PROPS, () -> BotaniaBlockEntities.SOLEGNOLIA_CHIBI);
+	public static final Block solegnoliaPotted = BotaniaBlocks.flowerPot(solegnolia, 0);
+	public static final Block solegnoliaChibiPotted = BotaniaBlocks.flowerPot(solegnoliaChibi, 0);
+
+	public static final Block orechidIgnem = new SpecialFlowerBlock(MobEffects.FIRE_RESISTANCE, 600, FLOWER_PROPS, () -> BotaniaBlockEntities.ORECHID_IGNEM);
+	public static final Block orechidIgnemFloating = new FloatingSpecialFlowerBlock(FLOATING_PROPS, () -> BotaniaBlockEntities.ORECHID_IGNEM);
+	public static final Block orechidIgnemPotted = BotaniaBlocks.flowerPot(orechidIgnem, 0);
+
+	public static final Block labellia = new SpecialFlowerBlock(MobEffects.FIRE_RESISTANCE, 600, FLOWER_PROPS, () -> BotaniaBlockEntities.LABELLIA);
+	public static final Block labelliaFloating = new FloatingSpecialFlowerBlock(FLOATING_PROPS, () -> BotaniaBlockEntities.LABELLIA);
+	public static final Block labelliaPotted = BotaniaBlocks.flowerPot(labellia, 0);
+
 	public static final Block defaultAltar = new PetalApothecaryBlock(PetalApothecaryBlock.Variant.DEFAULT, BlockBehaviour.Properties.of()
 			.strength(3.5F).sound(SoundType.STONE).instrument(NoteBlockInstrument.BASEDRUM).requiresCorrectToolForDrops().mapColor(MapColor.STONE)
 			.lightLevel(s -> s.getValue(PetalApothecaryBlock.FLUID) == PetalApothecary.State.LAVA ? 15 : 0));
@@ -271,7 +473,6 @@ public final class BotaniaBlocks {
 	public static final Block livingrockBrickMossyWall = new WallBlock(BlockBehaviour.Properties.ofFullCopy(livingrockBrickMossy));
 	public static final Block livingrockBrickCracked = new BotaniaBlock(BlockBehaviour.Properties.ofFullCopy(livingrock));
 	public static final Block livingrockBrickChiseled = new BotaniaBlock(BlockBehaviour.Properties.ofFullCopy(livingrock));
-
 
 	public static final Block livingwoodLog = new RotatedPillarBlock(BlockBehaviour.Properties.of().strength(2)
 			.sound(SoundType.WOOD).instrument(NoteBlockInstrument.BASS).mapColor(state -> state.getValue(BlockStateProperties.AXIS) == Direction.Axis.Y ? MapColor.TERRACOTTA_RED : MapColor.TERRACOTTA_BROWN));
@@ -667,6 +868,18 @@ public final class BotaniaBlocks {
 		return new FlowerPotBlock(block, lightLevel > 0 ? properties.lightLevel(blockState -> lightLevel) : properties);
 	}
 
+	private static ResourceLocation floating(ResourceLocation orig) {
+		return ResourceLocation.fromNamespaceAndPath(orig.getNamespace(), "floating_" + orig.getPath());
+	}
+
+	private static ResourceLocation potted(ResourceLocation orig) {
+		return ResourceLocation.fromNamespaceAndPath(orig.getNamespace(), "potted_" + orig.getPath());
+	}
+
+	private static ResourceLocation chibi(ResourceLocation orig) {
+		return ResourceLocation.fromNamespaceAndPath(orig.getNamespace(), orig.getPath() + "_chibi");
+	}
+
 	public static void registerBlocks(BiConsumer<Block, ResourceLocation> r) {
 		// triples of: block getter from dye color, block ID prefix, block ID suffix
 		Stream.<Triple<Function<DyeColor, Block>, String, String>>of(
@@ -686,6 +899,204 @@ public final class BotaniaBlocks {
 						botaniaRL(coloredBlockRegistration.getMiddle() + dyeColor.getName() + coloredBlockRegistration.getRight()));
 			});
 		});
+
+		r.accept(pureDaisy, LibBlockNames.SUBTILE_PUREDAISY);
+		r.accept(pureDaisyFloating, floating(LibBlockNames.SUBTILE_PUREDAISY));
+		r.accept(pureDaisyPotted, potted(LibBlockNames.SUBTILE_PUREDAISY));
+
+		r.accept(manastar, LibBlockNames.SUBTILE_MANASTAR);
+		r.accept(manastarFloating, floating(LibBlockNames.SUBTILE_MANASTAR));
+		r.accept(manastarPotted, potted(LibBlockNames.SUBTILE_MANASTAR));
+
+		r.accept(hydroangeas, LibBlockNames.SUBTILE_HYDROANGEAS);
+		r.accept(hydroangeasFloating, floating(LibBlockNames.SUBTILE_HYDROANGEAS));
+		r.accept(hydroangeasPotted, potted(LibBlockNames.SUBTILE_HYDROANGEAS));
+
+		r.accept(endoflame, LibBlockNames.SUBTILE_ENDOFLAME);
+		r.accept(endoflameFloating, floating(LibBlockNames.SUBTILE_ENDOFLAME));
+		r.accept(endoflamePotted, potted(LibBlockNames.SUBTILE_ENDOFLAME));
+
+		r.accept(thermalily, LibBlockNames.SUBTILE_THERMALILY);
+		r.accept(thermalilyFloating, floating(LibBlockNames.SUBTILE_THERMALILY));
+		r.accept(thermalilyPotted, potted(LibBlockNames.SUBTILE_THERMALILY));
+
+		r.accept(rosaArcana, LibBlockNames.SUBTILE_ARCANE_ROSE);
+		r.accept(rosaArcanaFloating, floating(LibBlockNames.SUBTILE_ARCANE_ROSE));
+		r.accept(rosaArcanaPotted, potted(LibBlockNames.SUBTILE_ARCANE_ROSE));
+
+		r.accept(munchdew, LibBlockNames.SUBTILE_MUNCHDEW);
+		r.accept(munchdewFloating, floating(LibBlockNames.SUBTILE_MUNCHDEW));
+		r.accept(munchdewPotted, potted(LibBlockNames.SUBTILE_MUNCHDEW));
+
+		r.accept(entropinnyum, LibBlockNames.SUBTILE_ENTROPINNYUM);
+		r.accept(entropinnyumFloating, floating(LibBlockNames.SUBTILE_ENTROPINNYUM));
+		r.accept(entropinnyumPotted, potted(LibBlockNames.SUBTILE_ENTROPINNYUM));
+
+		r.accept(kekimurus, LibBlockNames.SUBTILE_KEKIMURUS);
+		r.accept(kekimurusFloating, floating(LibBlockNames.SUBTILE_KEKIMURUS));
+		r.accept(kekimurusPotted, potted(LibBlockNames.SUBTILE_KEKIMURUS));
+
+		r.accept(gourmaryllis, LibBlockNames.SUBTILE_GOURMARYLLIS);
+		r.accept(gourmaryllisFloating, floating(LibBlockNames.SUBTILE_GOURMARYLLIS));
+		r.accept(gourmaryllisPotted, potted(LibBlockNames.SUBTILE_GOURMARYLLIS));
+
+		r.accept(narslimmus, LibBlockNames.SUBTILE_NARSLIMMUS);
+		r.accept(narslimmusFloating, floating(LibBlockNames.SUBTILE_NARSLIMMUS));
+		r.accept(narslimmusPotted, potted(LibBlockNames.SUBTILE_NARSLIMMUS));
+
+		r.accept(spectrolus, LibBlockNames.SUBTILE_SPECTROLUS);
+		r.accept(spectrolusFloating, floating(LibBlockNames.SUBTILE_SPECTROLUS));
+		r.accept(spectrolusPotted, potted(LibBlockNames.SUBTILE_SPECTROLUS));
+
+		r.accept(dandelifeon, LibBlockNames.SUBTILE_DANDELIFEON);
+		r.accept(dandelifeonFloating, floating(LibBlockNames.SUBTILE_DANDELIFEON));
+		r.accept(dandelifeonPotted, potted(LibBlockNames.SUBTILE_DANDELIFEON));
+
+		r.accept(rafflowsia, LibBlockNames.SUBTILE_RAFFLOWSIA);
+		r.accept(rafflowsiaFloating, floating(LibBlockNames.SUBTILE_RAFFLOWSIA));
+		r.accept(rafflowsiaPotted, potted(LibBlockNames.SUBTILE_RAFFLOWSIA));
+
+		r.accept(shulkMeNot, LibBlockNames.SUBTILE_SHULK_ME_NOT);
+		r.accept(shulkMeNotFloating, floating(LibBlockNames.SUBTILE_SHULK_ME_NOT));
+		r.accept(shulkMeNotPotted, potted(LibBlockNames.SUBTILE_SHULK_ME_NOT));
+
+		r.accept(bellethorn, LibBlockNames.SUBTILE_BELLETHORN);
+		r.accept(bellethornChibi, chibi(LibBlockNames.SUBTILE_BELLETHORN));
+		r.accept(bellethornFloating, floating(LibBlockNames.SUBTILE_BELLETHORN));
+		r.accept(bellethornChibiFloating, chibi(floating(LibBlockNames.SUBTILE_BELLETHORN)));
+		r.accept(bellethornPotted, potted(LibBlockNames.SUBTILE_BELLETHORN));
+		r.accept(bellethornChibiPotted, potted(chibi(LibBlockNames.SUBTILE_BELLETHORN)));
+
+		r.accept(bergamute, LibBlockNames.SUBTILE_BERGAMUTE);
+		r.accept(bergamuteFloating, floating(LibBlockNames.SUBTILE_BERGAMUTE));
+		r.accept(bergamutePotted, potted(LibBlockNames.SUBTILE_BERGAMUTE));
+
+		r.accept(dreadthorn, LibBlockNames.SUBTILE_DREADTHORN);
+		r.accept(dreadthornFloating, floating(LibBlockNames.SUBTILE_DREADTHORN));
+		r.accept(dreadthornPotted, potted(LibBlockNames.SUBTILE_DREADTHORN));
+
+		r.accept(heiseiDream, LibBlockNames.SUBTILE_HEISEI_DREAM);
+		r.accept(heiseiDreamFloating, floating(LibBlockNames.SUBTILE_HEISEI_DREAM));
+		r.accept(heiseiDreamPotted, potted(LibBlockNames.SUBTILE_HEISEI_DREAM));
+
+		r.accept(tigerseye, LibBlockNames.SUBTILE_TIGERSEYE);
+		r.accept(tigerseyeFloating, floating(LibBlockNames.SUBTILE_TIGERSEYE));
+		r.accept(tigerseyePotted, potted(LibBlockNames.SUBTILE_TIGERSEYE));
+
+		r.accept(jadedAmaranthus, LibBlockNames.SUBTILE_JADED_AMARANTHUS);
+		r.accept(jadedAmaranthusFloating, floating(LibBlockNames.SUBTILE_JADED_AMARANTHUS));
+		r.accept(jadedAmaranthusPotted, potted(LibBlockNames.SUBTILE_JADED_AMARANTHUS));
+
+		r.accept(orechid, LibBlockNames.SUBTILE_ORECHID);
+		r.accept(orechidFloating, floating(LibBlockNames.SUBTILE_ORECHID));
+		r.accept(orechidPotted, potted(LibBlockNames.SUBTILE_ORECHID));
+
+		r.accept(fallenKanade, LibBlockNames.SUBTILE_FALLEN_KANADE);
+		r.accept(fallenKanadeFloating, floating(LibBlockNames.SUBTILE_FALLEN_KANADE));
+		r.accept(fallenKanadePotted, potted(LibBlockNames.SUBTILE_FALLEN_KANADE));
+
+		r.accept(exoflame, LibBlockNames.SUBTILE_EXOFLAME);
+		r.accept(exoflameFloating, floating(LibBlockNames.SUBTILE_EXOFLAME));
+		r.accept(exoflamePotted, potted(LibBlockNames.SUBTILE_EXOFLAME));
+
+		r.accept(agricarnation, LibBlockNames.SUBTILE_AGRICARNATION);
+		r.accept(agricarnationChibi, chibi(LibBlockNames.SUBTILE_AGRICARNATION));
+		r.accept(agricarnationFloating, floating(LibBlockNames.SUBTILE_AGRICARNATION));
+		r.accept(agricarnationChibiFloating, chibi(floating(LibBlockNames.SUBTILE_AGRICARNATION)));
+		r.accept(agricarnationPotted, potted(LibBlockNames.SUBTILE_AGRICARNATION));
+		r.accept(agricarnationChibiPotted, potted(chibi(LibBlockNames.SUBTILE_AGRICARNATION)));
+
+		r.accept(hopperhock, LibBlockNames.SUBTILE_HOPPERHOCK);
+		r.accept(hopperhockChibi, chibi(LibBlockNames.SUBTILE_HOPPERHOCK));
+		r.accept(hopperhockFloating, floating(LibBlockNames.SUBTILE_HOPPERHOCK));
+		r.accept(hopperhockChibiFloating, chibi(floating(LibBlockNames.SUBTILE_HOPPERHOCK)));
+		r.accept(hopperhockPotted, potted(LibBlockNames.SUBTILE_HOPPERHOCK));
+		r.accept(hopperhockChibiPotted, potted(chibi(LibBlockNames.SUBTILE_HOPPERHOCK)));
+
+		r.accept(tangleberrie, LibBlockNames.SUBTILE_TANGLEBERRIE);
+		r.accept(tangleberrieChibi, chibi(LibBlockNames.SUBTILE_TANGLEBERRIE));
+		r.accept(tangleberrieFloating, floating(LibBlockNames.SUBTILE_TANGLEBERRIE));
+		r.accept(tangleberrieChibiFloating, chibi(floating(LibBlockNames.SUBTILE_TANGLEBERRIE)));
+		r.accept(tangleberriePotted, potted(LibBlockNames.SUBTILE_TANGLEBERRIE));
+		r.accept(tangleberrieChibiPotted, potted(chibi(LibBlockNames.SUBTILE_TANGLEBERRIE)));
+
+		r.accept(jiyuulia, LibBlockNames.SUBTILE_JIYUULIA);
+		r.accept(jiyuuliaChibi, chibi(LibBlockNames.SUBTILE_JIYUULIA));
+		r.accept(jiyuuliaFloating, floating(LibBlockNames.SUBTILE_JIYUULIA));
+		r.accept(jiyuuliaChibiFloating, chibi(floating(LibBlockNames.SUBTILE_JIYUULIA)));
+		r.accept(jiyuuliaPotted, potted(LibBlockNames.SUBTILE_JIYUULIA));
+		r.accept(jiyuuliaChibiPotted, potted(chibi(LibBlockNames.SUBTILE_JIYUULIA)));
+
+		r.accept(rannuncarpus, LibBlockNames.SUBTILE_RANNUNCARPUS);
+		r.accept(rannuncarpusChibi, chibi(LibBlockNames.SUBTILE_RANNUNCARPUS));
+		r.accept(rannuncarpusFloating, floating(LibBlockNames.SUBTILE_RANNUNCARPUS));
+		r.accept(rannuncarpusChibiFloating, chibi(floating(LibBlockNames.SUBTILE_RANNUNCARPUS)));
+		r.accept(rannuncarpusPotted, potted(LibBlockNames.SUBTILE_RANNUNCARPUS));
+		r.accept(rannuncarpusChibiPotted, potted(chibi(LibBlockNames.SUBTILE_RANNUNCARPUS)));
+
+		r.accept(hyacidus, LibBlockNames.SUBTILE_HYACIDUS);
+		r.accept(hyacidusFloating, floating(LibBlockNames.SUBTILE_HYACIDUS));
+		r.accept(hyacidusPotted, potted(LibBlockNames.SUBTILE_HYACIDUS));
+
+		r.accept(pollidisiac, LibBlockNames.SUBTILE_POLLIDISIAC);
+		r.accept(pollidisiacFloating, floating(LibBlockNames.SUBTILE_POLLIDISIAC));
+		r.accept(pollidisiacPotted, potted(LibBlockNames.SUBTILE_POLLIDISIAC));
+
+		r.accept(clayconia, LibBlockNames.SUBTILE_CLAYCONIA);
+		r.accept(clayconiaChibi, chibi(LibBlockNames.SUBTILE_CLAYCONIA));
+		r.accept(clayconiaFloating, floating(LibBlockNames.SUBTILE_CLAYCONIA));
+		r.accept(clayconiaChibiFloating, chibi(floating(LibBlockNames.SUBTILE_CLAYCONIA)));
+		r.accept(clayconiaPotted, potted(LibBlockNames.SUBTILE_CLAYCONIA));
+		r.accept(clayconiaChibiPotted, potted(chibi(LibBlockNames.SUBTILE_CLAYCONIA)));
+
+		r.accept(loonium, LibBlockNames.SUBTILE_LOONIUM);
+		r.accept(looniumFloating, floating(LibBlockNames.SUBTILE_LOONIUM));
+		r.accept(looniumPotted, potted(LibBlockNames.SUBTILE_LOONIUM));
+
+		r.accept(daffomill, LibBlockNames.SUBTILE_DAFFOMILL);
+		r.accept(daffomillFloating, floating(LibBlockNames.SUBTILE_DAFFOMILL));
+		r.accept(daffomillPotted, potted(LibBlockNames.SUBTILE_DAFFOMILL));
+
+		r.accept(vinculotus, LibBlockNames.SUBTILE_VINCULOTUS);
+		r.accept(vinculotusFloating, floating(LibBlockNames.SUBTILE_VINCULOTUS));
+		r.accept(vinculotusPotted, potted(LibBlockNames.SUBTILE_VINCULOTUS));
+
+		r.accept(spectranthemum, LibBlockNames.SUBTILE_SPECTRANTHEMUM);
+		r.accept(spectranthemumFloating, floating(LibBlockNames.SUBTILE_SPECTRANTHEMUM));
+		r.accept(spectranthemumPotted, potted(LibBlockNames.SUBTILE_SPECTRANTHEMUM));
+
+		r.accept(medumone, LibBlockNames.SUBTILE_MEDUMONE);
+		r.accept(medumoneFloating, floating(LibBlockNames.SUBTILE_MEDUMONE));
+		r.accept(medumonePotted, potted(LibBlockNames.SUBTILE_MEDUMONE));
+
+		r.accept(marimorphosis, LibBlockNames.SUBTILE_MARIMORPHOSIS);
+		r.accept(marimorphosisChibi, chibi(LibBlockNames.SUBTILE_MARIMORPHOSIS));
+		r.accept(marimorphosisFloating, floating(LibBlockNames.SUBTILE_MARIMORPHOSIS));
+		r.accept(marimorphosisChibiFloating, chibi(floating(LibBlockNames.SUBTILE_MARIMORPHOSIS)));
+		r.accept(marimorphosisPotted, potted(LibBlockNames.SUBTILE_MARIMORPHOSIS));
+		r.accept(marimorphosisChibiPotted, potted(chibi(LibBlockNames.SUBTILE_MARIMORPHOSIS)));
+
+		r.accept(bubbell, LibBlockNames.SUBTILE_BUBBELL);
+		r.accept(bubbellChibi, chibi(LibBlockNames.SUBTILE_BUBBELL));
+		r.accept(bubbellFloating, floating(LibBlockNames.SUBTILE_BUBBELL));
+		r.accept(bubbellChibiFloating, chibi(floating(LibBlockNames.SUBTILE_BUBBELL)));
+		r.accept(bubbellPotted, potted(LibBlockNames.SUBTILE_BUBBELL));
+		r.accept(bubbellChibiPotted, potted(chibi(LibBlockNames.SUBTILE_BUBBELL)));
+
+		r.accept(solegnolia, LibBlockNames.SUBTILE_SOLEGNOLIA);
+		r.accept(solegnoliaChibi, chibi(LibBlockNames.SUBTILE_SOLEGNOLIA));
+		r.accept(solegnoliaFloating, floating(LibBlockNames.SUBTILE_SOLEGNOLIA));
+		r.accept(solegnoliaChibiFloating, chibi(floating(LibBlockNames.SUBTILE_SOLEGNOLIA)));
+		r.accept(solegnoliaPotted, potted(LibBlockNames.SUBTILE_SOLEGNOLIA));
+		r.accept(solegnoliaChibiPotted, potted(chibi(LibBlockNames.SUBTILE_SOLEGNOLIA)));
+
+		r.accept(orechidIgnem, LibBlockNames.SUBTILE_ORECHID_IGNEM);
+		r.accept(orechidIgnemFloating, floating(LibBlockNames.SUBTILE_ORECHID_IGNEM));
+		r.accept(orechidIgnemPotted, potted(LibBlockNames.SUBTILE_ORECHID_IGNEM));
+
+		r.accept(labellia, LibBlockNames.SUBTILE_LABELLIA);
+		r.accept(labelliaFloating, floating(LibBlockNames.SUBTILE_LABELLIA));
+		r.accept(labelliaPotted, potted(LibBlockNames.SUBTILE_LABELLIA));
 
 		r.accept(defaultAltar, botaniaRL(LibBlockNames.APOTHECARY_PREFIX + PetalApothecaryBlock.Variant.DEFAULT.name().toLowerCase(Locale.ROOT)));
 		r.accept(deepslateAltar, botaniaRL(LibBlockNames.APOTHECARY_PREFIX + PetalApothecaryBlock.Variant.DEEPSLATE.name().toLowerCase(Locale.ROOT)));
@@ -1091,6 +1502,153 @@ public final class BotaniaBlocks {
 						block -> r.accept(new BlockItem(block, props), BuiltInRegistries.BLOCK.getKey(block))
 				)
 		);
+
+		r.accept(new SpecialFlowerBlockItem(pureDaisy, props), BuiltInRegistries.BLOCK.getKey(pureDaisy));
+		r.accept(new SpecialFlowerBlockItem(pureDaisyFloating, props), BuiltInRegistries.BLOCK.getKey(pureDaisyFloating));
+
+		r.accept(new SpecialFlowerBlockItem(manastar, props), BuiltInRegistries.BLOCK.getKey(manastar));
+		r.accept(new SpecialFlowerBlockItem(manastarFloating, props), BuiltInRegistries.BLOCK.getKey(manastarFloating));
+
+		r.accept(new SpecialFlowerBlockItem(hydroangeas, props), BuiltInRegistries.BLOCK.getKey(hydroangeas));
+		r.accept(new SpecialFlowerBlockItem(hydroangeasFloating, props), BuiltInRegistries.BLOCK.getKey(hydroangeasFloating));
+
+		r.accept(new SpecialFlowerBlockItem(endoflame, props), BuiltInRegistries.BLOCK.getKey(endoflame));
+		r.accept(new SpecialFlowerBlockItem(endoflameFloating, props), BuiltInRegistries.BLOCK.getKey(endoflameFloating));
+
+		r.accept(new SpecialFlowerBlockItem(thermalily, props), BuiltInRegistries.BLOCK.getKey(thermalily));
+		r.accept(new SpecialFlowerBlockItem(thermalilyFloating, props), BuiltInRegistries.BLOCK.getKey(thermalilyFloating));
+
+		r.accept(new SpecialFlowerBlockItem(rosaArcana, props), BuiltInRegistries.BLOCK.getKey(rosaArcana));
+		r.accept(new SpecialFlowerBlockItem(rosaArcanaFloating, props), BuiltInRegistries.BLOCK.getKey(rosaArcanaFloating));
+
+		r.accept(new SpecialFlowerBlockItem(munchdew, props), BuiltInRegistries.BLOCK.getKey(munchdew));
+		r.accept(new SpecialFlowerBlockItem(munchdewFloating, props), BuiltInRegistries.BLOCK.getKey(munchdewFloating));
+
+		r.accept(new SpecialFlowerBlockItem(entropinnyum, props), BuiltInRegistries.BLOCK.getKey(entropinnyum));
+		r.accept(new SpecialFlowerBlockItem(entropinnyumFloating, props), BuiltInRegistries.BLOCK.getKey(entropinnyumFloating));
+
+		r.accept(new SpecialFlowerBlockItem(kekimurus, props), BuiltInRegistries.BLOCK.getKey(kekimurus));
+		r.accept(new SpecialFlowerBlockItem(kekimurusFloating, props), BuiltInRegistries.BLOCK.getKey(kekimurusFloating));
+
+		r.accept(new SpecialFlowerBlockItem(gourmaryllis, props), BuiltInRegistries.BLOCK.getKey(gourmaryllis));
+		r.accept(new SpecialFlowerBlockItem(gourmaryllisFloating, props), BuiltInRegistries.BLOCK.getKey(gourmaryllisFloating));
+
+		r.accept(new SpecialFlowerBlockItem(narslimmus, props), BuiltInRegistries.BLOCK.getKey(narslimmus));
+		r.accept(new SpecialFlowerBlockItem(narslimmusFloating, props), BuiltInRegistries.BLOCK.getKey(narslimmusFloating));
+
+		r.accept(new SpecialFlowerBlockItem(spectrolus, props), BuiltInRegistries.BLOCK.getKey(spectrolus));
+		r.accept(new SpecialFlowerBlockItem(spectrolusFloating, props), BuiltInRegistries.BLOCK.getKey(spectrolusFloating));
+
+		r.accept(new SpecialFlowerBlockItem(dandelifeon, props), BuiltInRegistries.BLOCK.getKey(dandelifeon));
+		r.accept(new SpecialFlowerBlockItem(dandelifeonFloating, props), BuiltInRegistries.BLOCK.getKey(dandelifeonFloating));
+
+		r.accept(new SpecialFlowerBlockItem(rafflowsia, props), BuiltInRegistries.BLOCK.getKey(rafflowsia));
+		r.accept(new SpecialFlowerBlockItem(rafflowsiaFloating, props), BuiltInRegistries.BLOCK.getKey(rafflowsiaFloating));
+
+		r.accept(new SpecialFlowerBlockItem(shulkMeNot, props), BuiltInRegistries.BLOCK.getKey(shulkMeNot));
+		r.accept(new SpecialFlowerBlockItem(shulkMeNotFloating, props), BuiltInRegistries.BLOCK.getKey(shulkMeNotFloating));
+
+		r.accept(new SpecialFlowerBlockItem(bellethorn, props), BuiltInRegistries.BLOCK.getKey(bellethorn));
+		r.accept(new SpecialFlowerBlockItem(bellethornChibi, props), BuiltInRegistries.BLOCK.getKey(bellethornChibi));
+		r.accept(new SpecialFlowerBlockItem(bellethornFloating, props), BuiltInRegistries.BLOCK.getKey(bellethornFloating));
+		r.accept(new SpecialFlowerBlockItem(bellethornChibiFloating, props), BuiltInRegistries.BLOCK.getKey(bellethornChibiFloating));
+
+		r.accept(new SpecialFlowerBlockItem(bergamute, props), BuiltInRegistries.BLOCK.getKey(bergamute));
+		r.accept(new SpecialFlowerBlockItem(bergamuteFloating, props), BuiltInRegistries.BLOCK.getKey(bergamuteFloating));
+
+		r.accept(new SpecialFlowerBlockItem(dreadthorn, props), BuiltInRegistries.BLOCK.getKey(dreadthorn));
+		r.accept(new SpecialFlowerBlockItem(dreadthornFloating, props), BuiltInRegistries.BLOCK.getKey(dreadthornFloating));
+
+		r.accept(new SpecialFlowerBlockItem(heiseiDream, props), BuiltInRegistries.BLOCK.getKey(heiseiDream));
+		r.accept(new SpecialFlowerBlockItem(heiseiDreamFloating, props), BuiltInRegistries.BLOCK.getKey(heiseiDreamFloating));
+
+		r.accept(new SpecialFlowerBlockItem(tigerseye, props), BuiltInRegistries.BLOCK.getKey(tigerseye));
+		r.accept(new SpecialFlowerBlockItem(tigerseyeFloating, props), BuiltInRegistries.BLOCK.getKey(tigerseyeFloating));
+
+		r.accept(new SpecialFlowerBlockItem(jadedAmaranthus, props), BuiltInRegistries.BLOCK.getKey(jadedAmaranthus));
+		r.accept(new SpecialFlowerBlockItem(jadedAmaranthusFloating, props), BuiltInRegistries.BLOCK.getKey(jadedAmaranthusFloating));
+
+		r.accept(new SpecialFlowerBlockItem(orechid, props), BuiltInRegistries.BLOCK.getKey(orechid));
+		r.accept(new SpecialFlowerBlockItem(orechidFloating, props), BuiltInRegistries.BLOCK.getKey(orechidFloating));
+
+		r.accept(new SpecialFlowerBlockItem(fallenKanade, props), BuiltInRegistries.BLOCK.getKey(fallenKanade));
+		r.accept(new SpecialFlowerBlockItem(fallenKanadeFloating, props), BuiltInRegistries.BLOCK.getKey(fallenKanadeFloating));
+
+		r.accept(new SpecialFlowerBlockItem(exoflame, props), BuiltInRegistries.BLOCK.getKey(exoflame));
+		r.accept(new SpecialFlowerBlockItem(exoflameFloating, props), BuiltInRegistries.BLOCK.getKey(exoflameFloating));
+
+		r.accept(new SpecialFlowerBlockItem(agricarnation, props), BuiltInRegistries.BLOCK.getKey(agricarnation));
+		r.accept(new SpecialFlowerBlockItem(agricarnationChibi, props), BuiltInRegistries.BLOCK.getKey(agricarnationChibi));
+		r.accept(new SpecialFlowerBlockItem(agricarnationFloating, props), BuiltInRegistries.BLOCK.getKey(agricarnationFloating));
+		r.accept(new SpecialFlowerBlockItem(agricarnationChibiFloating, props), BuiltInRegistries.BLOCK.getKey(agricarnationChibiFloating));
+
+		r.accept(new SpecialFlowerBlockItem(hopperhock, props), BuiltInRegistries.BLOCK.getKey(hopperhock));
+		r.accept(new SpecialFlowerBlockItem(hopperhockChibi, props), BuiltInRegistries.BLOCK.getKey(hopperhockChibi));
+		r.accept(new SpecialFlowerBlockItem(hopperhockFloating, props), BuiltInRegistries.BLOCK.getKey(hopperhockFloating));
+		r.accept(new SpecialFlowerBlockItem(hopperhockChibiFloating, props), BuiltInRegistries.BLOCK.getKey(hopperhockChibiFloating));
+
+		r.accept(new SpecialFlowerBlockItem(tangleberrie, props), BuiltInRegistries.BLOCK.getKey(tangleberrie));
+		r.accept(new SpecialFlowerBlockItem(tangleberrieChibi, props), BuiltInRegistries.BLOCK.getKey(tangleberrieChibi));
+		r.accept(new SpecialFlowerBlockItem(tangleberrieFloating, props), BuiltInRegistries.BLOCK.getKey(tangleberrieFloating));
+		r.accept(new SpecialFlowerBlockItem(tangleberrieChibiFloating, props), BuiltInRegistries.BLOCK.getKey(tangleberrieChibiFloating));
+
+		r.accept(new SpecialFlowerBlockItem(jiyuulia, props), BuiltInRegistries.BLOCK.getKey(jiyuulia));
+		r.accept(new SpecialFlowerBlockItem(jiyuuliaChibi, props), BuiltInRegistries.BLOCK.getKey(jiyuuliaChibi));
+		r.accept(new SpecialFlowerBlockItem(jiyuuliaFloating, props), BuiltInRegistries.BLOCK.getKey(jiyuuliaFloating));
+		r.accept(new SpecialFlowerBlockItem(jiyuuliaChibiFloating, props), BuiltInRegistries.BLOCK.getKey(jiyuuliaChibiFloating));
+
+		r.accept(new SpecialFlowerBlockItem(rannuncarpus, props), BuiltInRegistries.BLOCK.getKey(rannuncarpus));
+		r.accept(new SpecialFlowerBlockItem(rannuncarpusChibi, props), BuiltInRegistries.BLOCK.getKey(rannuncarpusChibi));
+		r.accept(new SpecialFlowerBlockItem(rannuncarpusFloating, props), BuiltInRegistries.BLOCK.getKey(rannuncarpusFloating));
+		r.accept(new SpecialFlowerBlockItem(rannuncarpusChibiFloating, props), BuiltInRegistries.BLOCK.getKey(rannuncarpusChibiFloating));
+
+		r.accept(new SpecialFlowerBlockItem(hyacidus, props), BuiltInRegistries.BLOCK.getKey(hyacidus));
+		r.accept(new SpecialFlowerBlockItem(hyacidusFloating, props), BuiltInRegistries.BLOCK.getKey(hyacidusFloating));
+
+		r.accept(new SpecialFlowerBlockItem(pollidisiac, props), BuiltInRegistries.BLOCK.getKey(pollidisiac));
+		r.accept(new SpecialFlowerBlockItem(pollidisiacFloating, props), BuiltInRegistries.BLOCK.getKey(pollidisiacFloating));
+
+		r.accept(new SpecialFlowerBlockItem(clayconia, props), BuiltInRegistries.BLOCK.getKey(clayconia));
+		r.accept(new SpecialFlowerBlockItem(clayconiaChibi, props), BuiltInRegistries.BLOCK.getKey(clayconiaChibi));
+		r.accept(new SpecialFlowerBlockItem(clayconiaFloating, props), BuiltInRegistries.BLOCK.getKey(clayconiaFloating));
+		r.accept(new SpecialFlowerBlockItem(clayconiaChibiFloating, props), BuiltInRegistries.BLOCK.getKey(clayconiaChibiFloating));
+
+		r.accept(new SpecialFlowerBlockItem(loonium, props), BuiltInRegistries.BLOCK.getKey(loonium));
+		r.accept(new SpecialFlowerBlockItem(looniumFloating, props), BuiltInRegistries.BLOCK.getKey(looniumFloating));
+
+		r.accept(new SpecialFlowerBlockItem(daffomill, props), BuiltInRegistries.BLOCK.getKey(daffomill));
+		r.accept(new SpecialFlowerBlockItem(daffomillFloating, props), BuiltInRegistries.BLOCK.getKey(daffomillFloating));
+
+		r.accept(new SpecialFlowerBlockItem(vinculotus, props), BuiltInRegistries.BLOCK.getKey(vinculotus));
+		r.accept(new SpecialFlowerBlockItem(vinculotusFloating, props), BuiltInRegistries.BLOCK.getKey(vinculotusFloating));
+
+		r.accept(new SpecialFlowerBlockItem(spectranthemum, props), BuiltInRegistries.BLOCK.getKey(spectranthemum));
+		r.accept(new SpecialFlowerBlockItem(spectranthemumFloating, props), BuiltInRegistries.BLOCK.getKey(spectranthemumFloating));
+
+		r.accept(new SpecialFlowerBlockItem(medumone, props), BuiltInRegistries.BLOCK.getKey(medumone));
+		r.accept(new SpecialFlowerBlockItem(medumoneFloating, props), BuiltInRegistries.BLOCK.getKey(medumoneFloating));
+
+		r.accept(new SpecialFlowerBlockItem(marimorphosis, props), BuiltInRegistries.BLOCK.getKey(marimorphosis));
+		r.accept(new SpecialFlowerBlockItem(marimorphosisChibi, props), BuiltInRegistries.BLOCK.getKey(marimorphosisChibi));
+		r.accept(new SpecialFlowerBlockItem(marimorphosisFloating, props), BuiltInRegistries.BLOCK.getKey(marimorphosisFloating));
+		r.accept(new SpecialFlowerBlockItem(marimorphosisChibiFloating, props), BuiltInRegistries.BLOCK.getKey(marimorphosisChibiFloating));
+
+		r.accept(new SpecialFlowerBlockItem(bubbell, props), BuiltInRegistries.BLOCK.getKey(bubbell));
+		r.accept(new SpecialFlowerBlockItem(bubbellChibi, props), BuiltInRegistries.BLOCK.getKey(bubbellChibi));
+		r.accept(new SpecialFlowerBlockItem(bubbellFloating, props), BuiltInRegistries.BLOCK.getKey(bubbellFloating));
+		r.accept(new SpecialFlowerBlockItem(bubbellChibiFloating, props), BuiltInRegistries.BLOCK.getKey(bubbellChibiFloating));
+
+		r.accept(new SpecialFlowerBlockItem(solegnolia, props), BuiltInRegistries.BLOCK.getKey(solegnolia));
+		r.accept(new SpecialFlowerBlockItem(solegnoliaChibi, props), BuiltInRegistries.BLOCK.getKey(solegnoliaChibi));
+		r.accept(new SpecialFlowerBlockItem(solegnoliaFloating, props), BuiltInRegistries.BLOCK.getKey(solegnoliaFloating));
+		r.accept(new SpecialFlowerBlockItem(solegnoliaChibiFloating, props), BuiltInRegistries.BLOCK.getKey(solegnoliaChibiFloating));
+
+		r.accept(new SpecialFlowerBlockItem(orechidIgnem, props), BuiltInRegistries.BLOCK.getKey(orechidIgnem));
+		r.accept(new SpecialFlowerBlockItem(orechidIgnemFloating, props), BuiltInRegistries.BLOCK.getKey(orechidIgnemFloating));
+
+		r.accept(new SpecialFlowerBlockItem(labellia, props), BuiltInRegistries.BLOCK.getKey(labellia));
+		r.accept(new SpecialFlowerBlockItem(labelliaFloating, props), BuiltInRegistries.BLOCK.getKey(labelliaFloating));
+
 		r.accept(new BlockItem(defaultAltar, props), BuiltInRegistries.BLOCK.getKey(defaultAltar));
 		r.accept(new BlockItem(deepslateAltar, props), BuiltInRegistries.BLOCK.getKey(deepslateAltar));
 		r.accept(new BlockItem(livingrockAltar, props), BuiltInRegistries.BLOCK.getKey(livingrockAltar));
@@ -1749,14 +2307,23 @@ public final class BotaniaBlocks {
 		};
 	}
 
+	// public static void registerFlowerPotPlants(BiConsumer<ResourceLocation, Supplier<? extends Block>> consumer) {
+	// 	ColorHelper.supportedColors().forEach(dyeColor -> {
+	// 		consumer.accept(botaniaRL(dyeColor.getName() + MYSTICAL_FLOWER_SUFFIX), () -> getPottedFlower(dyeColor));
+	// 		consumer.accept(botaniaRL(dyeColor.getName() + SHINY_FLOWER_SUFFIX), () -> getPottedShinyFlower(dyeColor));
+	// 		consumer.accept(botaniaRL(dyeColor.getName() + MUSHROOM_SUFFIX), () -> getPottedMushroom(dyeColor));
+	// 	});
+	// 	consumer.accept(botaniaRL(LibBlockNames.MOTIF_DAYBLOOM), () -> pottedMotifDaybloom);
+	// 	consumer.accept(botaniaRL(LibBlockNames.MOTIF_NIGHTSHADE), () -> pottedMotifNightshade);
+	// 	consumer.accept(botaniaRL(LibBlockNames.MOTIF_HYDROANGEAS), () -> pottedMotifHydroangeas);
+	// }
+
 	public static void registerFlowerPotPlants(BiConsumer<ResourceLocation, Supplier<? extends Block>> consumer) {
-		ColorHelper.supportedColors().forEach(dyeColor -> {
-			consumer.accept(botaniaRL(dyeColor.getName() + MYSTICAL_FLOWER_SUFFIX), () -> getPottedFlower(dyeColor));
-			consumer.accept(botaniaRL(dyeColor.getName() + SHINY_FLOWER_SUFFIX), () -> getPottedShinyFlower(dyeColor));
-			consumer.accept(botaniaRL(dyeColor.getName() + MUSHROOM_SUFFIX), () -> getPottedMushroom(dyeColor));
+		registerBlocks((block, resourceLocation) -> {
+			if (block instanceof FlowerPotBlock) {
+				var id = BuiltInRegistries.BLOCK.getKey(block);
+				consumer.accept(ResourceLocation.fromNamespaceAndPath(id.getNamespace(), id.getPath().substring(LibBlockNames.POTTED_PREFIX.length())), () -> block);
+			}
 		});
-		consumer.accept(botaniaRL(LibBlockNames.MOTIF_DAYBLOOM), () -> pottedMotifDaybloom);
-		consumer.accept(botaniaRL(LibBlockNames.MOTIF_NIGHTSHADE), () -> pottedMotifNightshade);
-		consumer.accept(botaniaRL(LibBlockNames.MOTIF_HYDROANGEAS), () -> pottedMotifHydroangeas);
 	}
 }

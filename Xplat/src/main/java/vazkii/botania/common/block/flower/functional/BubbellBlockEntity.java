@@ -21,7 +21,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import vazkii.botania.api.block_entity.FunctionalFlowerBlockEntity;
 import vazkii.botania.api.block_entity.RadiusDescriptor;
 import vazkii.botania.common.block.BotaniaBlocks;
-import vazkii.botania.common.block.BotaniaFlowerBlocks;
+import vazkii.botania.common.block.block_entity.BotaniaBlockEntities;
 import vazkii.botania.common.block.block_entity.FakeAirBlockEntity;
 
 public class BubbellBlockEntity extends FunctionalFlowerBlockEntity {
@@ -37,7 +37,7 @@ public class BubbellBlockEntity extends FunctionalFlowerBlockEntity {
 	}
 
 	public BubbellBlockEntity(BlockPos pos, BlockState state) {
-		this(BotaniaFlowerBlocks.BUBBELL, pos, state);
+		this(BotaniaBlockEntities.BUBBELL, pos, state);
 	}
 
 	@Override
@@ -114,7 +114,7 @@ public class BubbellBlockEntity extends FunctionalFlowerBlockEntity {
 
 	public static class Mini extends BubbellBlockEntity {
 		public Mini(BlockPos pos, BlockState state) {
-			super(BotaniaFlowerBlocks.BUBBELL_CHIBI, pos, state);
+			super(BotaniaBlockEntities.BUBBELL_CHIBI, pos, state);
 		}
 
 		@Override

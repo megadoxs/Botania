@@ -31,7 +31,7 @@ import org.jetbrains.annotations.Nullable;
 import vazkii.botania.api.block.Wandable;
 import vazkii.botania.api.block_entity.FunctionalFlowerBlockEntity;
 import vazkii.botania.api.block_entity.RadiusDescriptor;
-import vazkii.botania.common.block.BotaniaFlowerBlocks;
+import vazkii.botania.common.block.block_entity.BotaniaBlockEntities;
 import vazkii.botania.common.helper.*;
 import vazkii.botania.common.internal_caps.ItemFlagsComponent;
 import vazkii.botania.xplat.XplatAbstractions;
@@ -55,7 +55,7 @@ public class HopperhockBlockEntity extends FunctionalFlowerBlockEntity implement
 	}
 
 	public HopperhockBlockEntity(BlockPos pos, BlockState state) {
-		this(BotaniaFlowerBlocks.HOPPERHOCK, pos, state);
+		this(BotaniaBlockEntities.HOPPERHOCK, pos, state);
 	}
 
 	@Override
@@ -271,7 +271,7 @@ public class HopperhockBlockEntity extends FunctionalFlowerBlockEntity implement
 
 	public static class Mini extends HopperhockBlockEntity {
 		public Mini(BlockPos pos, BlockState state) {
-			super(BotaniaFlowerBlocks.HOPPERHOCK_CHIBI, pos, state);
+			super(BotaniaBlockEntities.HOPPERHOCK_CHIBI, pos, state);
 		}
 
 		@Override

@@ -25,7 +25,7 @@ import org.jetbrains.annotations.Nullable;
 import vazkii.botania.api.block.Bound;
 import vazkii.botania.api.block_entity.FunctionalFlowerBlockEntity;
 import vazkii.botania.api.block_entity.RadiusDescriptor;
-import vazkii.botania.common.block.BotaniaFlowerBlocks;
+import vazkii.botania.common.block.block_entity.BotaniaBlockEntities;
 import vazkii.botania.common.helper.DelayHelper;
 import vazkii.botania.common.proxy.Proxy;
 import vazkii.botania.network.EffectType;
@@ -45,7 +45,7 @@ public class SpectranthemumBlockEntity extends FunctionalFlowerBlockEntity {
 	private BlockPos bindPos = Bound.UNBOUND_POS;
 
 	public SpectranthemumBlockEntity(BlockPos pos, BlockState state) {
-		super(BotaniaFlowerBlocks.SPECTRANTHEMUM, pos, state);
+		super(BotaniaBlockEntities.SPECTRANTHEMUM, pos, state);
 	}
 
 	@Override

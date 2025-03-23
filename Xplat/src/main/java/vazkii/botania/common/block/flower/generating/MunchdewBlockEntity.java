@@ -23,7 +23,7 @@ import net.minecraft.world.level.gameevent.GameEvent;
 
 import vazkii.botania.api.block_entity.GeneratingFlowerBlockEntity;
 import vazkii.botania.api.block_entity.RadiusDescriptor;
-import vazkii.botania.common.block.BotaniaFlowerBlocks;
+import vazkii.botania.common.block.block_entity.BotaniaBlockEntities;
 import vazkii.botania.common.component.BotaniaDataComponents;
 import vazkii.botania.xplat.BotaniaConfig;
 
@@ -41,7 +41,7 @@ public class MunchdewBlockEntity extends GeneratingFlowerBlockEntity {
 	private int cooldown = 0;
 
 	public MunchdewBlockEntity(BlockPos pos, BlockState state) {
-		super(BotaniaFlowerBlocks.MUNCHDEW, pos, state);
+		super(BotaniaBlockEntities.MUNCHDEW, pos, state);
 	}
 
 	@Override

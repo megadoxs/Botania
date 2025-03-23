@@ -6,7 +6,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.ItemStack;
 
 import vazkii.botania.api.recipe.OrechidRecipe;
-import vazkii.botania.common.block.BotaniaFlowerBlocks;
+import vazkii.botania.common.block.BotaniaBlocks;
 import vazkii.botania.common.lib.LibMisc;
 
 public class MarimorphosisRecipeCategory extends OrechidRecipeCategoryBase {
@@ -14,7 +14,7 @@ public class MarimorphosisRecipeCategory extends OrechidRecipeCategoryBase {
 			mezz.jei.api.recipe.RecipeType.create(LibMisc.MOD_ID, "marimorphosis", OrechidRecipe.class);
 
 	public MarimorphosisRecipeCategory(IGuiHelper guiHelper) {
-		super(guiHelper, new ItemStack(BotaniaFlowerBlocks.marimorphosis), Component.translatable("botania.nei.marimorphosis"));
+		super(guiHelper, new ItemStack(BotaniaBlocks.marimorphosis), Component.translatable("botania.nei.marimorphosis"));
 	}
 
 	@Override
