@@ -220,7 +220,10 @@ public class BlockTagProvider extends IntrinsicHolderTagsProvider<Block> {
 				BotaniaBlocks.biomeCobblestoneFungal, BotaniaBlocks.biomeCobblestoneFungalSlab, BotaniaBlocks.biomeCobblestoneFungalStairs, BotaniaBlocks.biomeCobblestoneFungalWall,
 				BotaniaBlocks.biomeChiseledBrickFungal, BotaniaBlocks.fungalAltar);
 
-		tag(BotaniaTags.Blocks.HORN_OF_THE_WILD_BREAKABLE).add(Blocks.MOSS_CARPET);
+		tag(BotaniaTags.Blocks.HORN_OF_THE_WILD_BREAKABLE)
+				.add(Blocks.MOSS_CARPET)
+				.addOptional(ResourceLocation.fromNamespaceAndPath("biomesoplenty", "high_grass"))
+				.addOptional(ResourceLocation.fromNamespaceAndPath("biomesoplenty", "high_grass_plant"));
 		tag(BotaniaTags.Blocks.HORN_OF_THE_CANOPY_BREAKABLE).addTag(BlockTags.LEAVES);
 		tag(BotaniaTags.Blocks.HORN_OF_THE_COVERING_BREAKABLE).add(Blocks.SNOW);
 
