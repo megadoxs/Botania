@@ -7,7 +7,7 @@ plugins {
 base {
     archivesName = "${mod_id}-${project.name.toLowerCase()}-${minecraft_version}"
     version = build_number
-    if (System.getenv().RELEASE_MODE == null) {
+    if (System.getenv().RELEASE_MODE != '1') {
         version += '-SNAPSHOT'
     }
 }
