@@ -65,6 +65,8 @@ jobs:
         SIGNING_KEY: ${{ secrets.VIOLET_MOON_SIGNING_KEY }}
       if: ${{ env.SIGNING_KEY != '' }}
       run: |
+        pwd
+        find -name 'botania*.jar'
         echo "${SIGNING_KEY}" | gpg --import -
         gpg --local-user "Violet Moon Signing Key" --armor \
           --detach-sign ${{ steps.calculate_artifact_names.outputs.neoforge }}
