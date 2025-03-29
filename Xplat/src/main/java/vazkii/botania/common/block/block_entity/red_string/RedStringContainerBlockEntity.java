@@ -9,12 +9,13 @@
 package vazkii.botania.common.block.block_entity.red_string;
 
 import net.minecraft.core.BlockPos;
-import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 
 import vazkii.botania.common.block.block_entity.BotaniaBlockEntities;
 import vazkii.botania.xplat.XplatAbstractions;
+
+import java.util.Objects;
 
 public class RedStringContainerBlockEntity extends RedStringBlockEntity {
 	public RedStringContainerBlockEntity(BlockPos pos, BlockState state) {
@@ -27,7 +28,6 @@ public class RedStringContainerBlockEntity extends RedStringBlockEntity {
 
 	@Override
 	public boolean acceptBlock(BlockPos pos) {
-		BlockEntity tile = level.getBlockEntity(pos);
-		return tile != null && XplatAbstractions.INSTANCE.isRedStringContainerTarget(tile);
+		return XplatAbstractions.INSTANCE.isRedStringContainerTarget(Objects.requireNonNull(level), pos);
 	}
 }

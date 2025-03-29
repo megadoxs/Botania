@@ -205,7 +205,7 @@ public interface XplatAbstractions {
 	RailShape getRailDirection(BlockState state, BlockGetter level, BlockPos pos, @Nullable AbstractMinecart cart);
 
 	// Red string container
-	boolean isRedStringContainerTarget(BlockEntity be);
+	boolean isRedStringContainerTarget(Level level, BlockPos pos);
 	RedStringContainerBlockEntity newRedStringContainer(BlockPos pos, BlockState state);
 
 	default BlockSetType registerWoodBlockSetType(String name) {

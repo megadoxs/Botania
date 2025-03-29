@@ -14,6 +14,8 @@ import net.minecraft.world.level.block.state.BlockState;
 
 import vazkii.botania.common.block.block_entity.BotaniaBlockEntities;
 
+import java.util.Objects;
+
 public class RedStringComparatorBlockEntity extends RedStringBlockEntity {
 	private int comparatorValue = 0;
 
@@ -23,12 +25,11 @@ public class RedStringComparatorBlockEntity extends RedStringBlockEntity {
 
 	public static void commonTick(Level level, BlockPos worldPosition, BlockState state, RedStringComparatorBlockEntity self) {
 		RedStringBlockEntity.commonTick(level, worldPosition, state, self);
-		BlockPos binding = self.getBinding();
 		BlockState bindState = self.getStateAtBinding();
 		int origVal = self.comparatorValue;
 
 		if (bindState.hasAnalogOutputSignal()) {
-			self.comparatorValue = bindState.getAnalogOutputSignal(level, binding);
+			self.comparatorValue = bindState.getAnalogOutputSignal(level, Objects.requireNonNull(self.getBinding()));
 		} else {
 			self.comparatorValue = 0;
 		}

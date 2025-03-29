@@ -11,7 +11,6 @@ package vazkii.botania.common.block.block_entity.red_string;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
@@ -26,7 +25,7 @@ import vazkii.botania.common.block.block_entity.BotaniaBlockEntity;
 import java.util.Objects;
 
 public abstract class RedStringBlockEntity extends BotaniaBlockEntity implements Bound {
-
+	@Nullable
 	private BlockPos binding;
 
 	protected RedStringBlockEntity(BlockEntityType<?> type, BlockPos pos, BlockState state) {
@@ -77,7 +76,7 @@ public abstract class RedStringBlockEntity extends BotaniaBlockEntity implements
 		return binding;
 	}
 
-	public void setBinding(BlockPos binding) {
+	public void setBinding(@Nullable BlockPos binding) {
 		this.binding = binding;
 	}
 
@@ -85,18 +84,9 @@ public abstract class RedStringBlockEntity extends BotaniaBlockEntity implements
 		return getBlockState().getValue(BlockStateProperties.FACING);
 	}
 
-	@Nullable
-	public BlockEntity getTileAtBinding() {
-		BlockPos binding = getBinding();
-		return binding == null || level == null ? null : level.getBlockEntity(binding);
-	}
-
 	public BlockState getStateAtBinding() {
 		BlockPos binding = getBinding();
 		return binding == null ? Blocks.AIR.defaultBlockState() : level.getBlockState(binding);
 	}
 
-	public Block getBlockAtBinding() {
-		return getStateAtBinding().getBlock();
-	}
 }

@@ -610,16 +610,18 @@ public class FabricXplatImpl implements XplatAbstractions {
 	}
 
 	@Override
-	public boolean isRedStringContainerTarget(BlockEntity be) {
-		if (be.getLevel().isClientSide) {
+	public boolean isRedStringContainerTarget(Level level, BlockPos pos) {
+		if (level.isClientSide) {
 			return false;
 		}
+		BlockState state = level.getBlockState(pos);
+		BlockEntity be = state.hasBlockEntity() ? level.getBlockEntity(pos) : null;
 		for (Direction value : Direction.values()) {
-			if (ItemStorage.SIDED.find(be.getLevel(), be.getBlockPos(), be.getBlockState(), be, value) != null) {
+			if (ItemStorage.SIDED.find(level, pos, state, be, value) != null) {
 				return true;
 			}
 		}
-		return false;
+		return ItemStorage.SIDED.find(level, pos, state, be, null) != null;
 	}
 
 	@Override

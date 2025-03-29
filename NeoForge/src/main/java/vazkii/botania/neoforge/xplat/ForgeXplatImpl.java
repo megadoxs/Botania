@@ -67,6 +67,7 @@ import net.neoforged.neoforge.event.AddReloadListenerEvent;
 import net.neoforged.neoforge.fluids.FluidStack;
 import net.neoforged.neoforge.fluids.FluidType;
 import net.neoforged.neoforge.fluids.capability.IFluidHandler;
+import net.neoforged.neoforge.fluids.capability.IFluidHandlerItem;
 import net.neoforged.neoforge.items.IItemHandler;
 import net.neoforged.neoforge.items.ItemHandlerHelper;
 import net.neoforged.neoforge.network.PacketDistributor;
@@ -103,7 +104,6 @@ import vazkii.botania.xplat.XplatAbstractions;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
 import java.util.function.BiFunction;
 import java.util.function.Supplier;
 
@@ -225,35 +225,33 @@ public class ForgeXplatImpl implements XplatAbstractions {
 
 	@Override
 	public boolean extractFluidFromItemEntity(ItemEntity item, Fluid fluid) {
-		// TODO: Refactor code. I just want to get this to compile first.
-		return Optional.ofNullable(item.getItem().getCapability(Capabilities.FluidHandler.ITEM))
-				.map(h -> {
-					var extracted = h.drain(FluidType.BUCKET_VOLUME, IFluidHandler.FluidAction.SIMULATE);
-					var success = extracted.getFluid() == fluid && extracted.getAmount() == FluidType.BUCKET_VOLUME;
-					if (success) {
-						h.drain(extracted, IFluidHandler.FluidAction.EXECUTE);
-						item.setItem(h.getContainer());
-					}
-					return success;
-				})
-				.orElse(false);
+		IFluidHandlerItem h = item.getItem().getCapability(Capabilities.FluidHandler.ITEM);
+		if (h == null) {
+			return false;
+		}
+		var extracted = h.drain(FluidType.BUCKET_VOLUME, IFluidHandler.FluidAction.SIMULATE);
+		boolean success = extracted.getFluid() == fluid && extracted.getAmount() == FluidType.BUCKET_VOLUME;
+		if (success) {
+			h.drain(extracted, IFluidHandler.FluidAction.EXECUTE);
+			item.setItem(h.getContainer());
+		}
+		return success;
 	}
 
 	@Override
 	public boolean extractFluidFromPlayerItem(Player player, InteractionHand hand, Fluid fluid) {
 		var stack = player.getItemInHand(hand);
-		// TODO: Refactor code. I just want to get this to compile first.
-		return Optional.ofNullable(stack.getCapability(Capabilities.FluidHandler.ITEM))
-				.map(h -> {
-					var extracted = h.drain(FluidType.BUCKET_VOLUME, IFluidHandler.FluidAction.SIMULATE);
-					var success = extracted.getFluid() == fluid && extracted.getAmount() == FluidType.BUCKET_VOLUME;
-					if (success && !player.getAbilities().instabuild) {
-						h.drain(extracted, IFluidHandler.FluidAction.EXECUTE);
-						player.setItemInHand(hand, h.getContainer());
-					}
-					return success;
-				})
-				.orElse(false);
+		IFluidHandlerItem h = stack.getCapability(Capabilities.FluidHandler.ITEM);
+		if (h == null) {
+			return false;
+		}
+		var extracted = h.drain(FluidType.BUCKET_VOLUME, IFluidHandler.FluidAction.SIMULATE);
+		var success = extracted.getFluid() == fluid && extracted.getAmount() == FluidType.BUCKET_VOLUME;
+		if (success && !player.getAbilities().instabuild) {
+			h.drain(extracted, IFluidHandler.FluidAction.EXECUTE);
+			player.setItemInHand(hand, h.getContainer());
+		}
+		return success;
 	}
 
 	@Override
@@ -539,15 +537,16 @@ public class ForgeXplatImpl implements XplatAbstractions {
 				: RailShape.NORTH_SOUTH;
 	}
 
-	// TODO: Maybe switch to level and block position?
 	@Override
-	public boolean isRedStringContainerTarget(BlockEntity be) {
+	public boolean isRedStringContainerTarget(Level level, BlockPos pos) {
+		BlockState state = level.getBlockState(pos);
+		BlockEntity be = state.hasBlockEntity() ? level.getBlockEntity(pos) : null;
 		for (Direction dir : Direction.values()) {
-			if (be.getLevel().getCapability(Capabilities.ItemHandler.BLOCK, be.getBlockPos(), be.getBlockState(), be, dir) != null) {
+			if (level.getCapability(Capabilities.ItemHandler.BLOCK, pos, state, be, dir) != null) {
 				return true;
 			}
 		}
-		return false;
+		return level.getCapability(Capabilities.ItemHandler.BLOCK, pos, state, be, null) != null;
 	}
 
 	@Override

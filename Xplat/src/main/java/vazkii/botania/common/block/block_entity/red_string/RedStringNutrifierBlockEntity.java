@@ -26,22 +26,37 @@ public class RedStringNutrifierBlockEntity extends RedStringBlockEntity {
 
 	public boolean canGrow(LevelReader world) {
 		BlockPos binding = getBinding();
-		Block block = getBlockAtBinding();
+		if (binding == null) {
+			return false;
+		}
 
-		return block instanceof BonemealableBlock mealable && mealable.isValidBonemealTarget(world, binding, world.getBlockState(binding));
+		BlockState state = getStateAtBinding();
+		Block block = state.getBlock();
+
+		return block instanceof BonemealableBlock mealable && mealable.isValidBonemealTarget(world, binding, state);
 	}
 
 	public boolean canUseBonemeal(Level world, RandomSource rand) {
 		BlockPos binding = getBinding();
-		Block block = getBlockAtBinding();
-		return block instanceof BonemealableBlock mealable && mealable.isBonemealSuccess(world, rand, binding, world.getBlockState(binding));
+		if (binding == null) {
+			return false;
+		}
+
+		BlockState state = getStateAtBinding();
+		Block block = state.getBlock();
+		return block instanceof BonemealableBlock mealable && mealable.isBonemealSuccess(world, rand, binding, state);
 	}
 
 	public void grow(ServerLevel world, RandomSource rand) {
 		BlockPos binding = getBinding();
-		Block block = getBlockAtBinding();
+		if (binding == null) {
+			return;
+		}
+
+		BlockState state = getStateAtBinding();
+		Block block = state.getBlock();
 		if (block instanceof BonemealableBlock mealable) {
-			mealable.performBonemeal(world, rand, binding, world.getBlockState(binding));
+			mealable.performBonemeal(world, rand, binding, state);
 		}
 	}
 
