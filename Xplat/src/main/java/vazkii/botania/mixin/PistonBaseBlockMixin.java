@@ -4,6 +4,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.piston.PistonBaseBlock;
+import net.minecraft.world.level.block.state.BlockState;
 
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
@@ -11,6 +12,7 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.ModifyVariable;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
+import vazkii.botania.common.block.red_string.RedStringBlock;
 import vazkii.botania.common.helper.EthicalTntHelper;
 import vazkii.botania.common.helper.ForcePushHelper;
 
@@ -20,10 +22,28 @@ import vazkii.botania.common.helper.ForcePushHelper;
  * <li>Detection for "unethical" (duplicated) TNT</li>
  * <li>Hooks for Force Lens and Force Relay pushing behavior. (Reusing piston pushing code instead of copying it allows
  * us to inherit Movable Block Entities modifications by mods like Quark or Carpet.)</li>
+ * <li>Allow red-string blocks to move without a generic movable block entities mod</li>
  * </ul>
  */
 @Mixin(value = PistonBaseBlock.class, priority = 999 /* before MBE implementations like Quark or Carpet */)
 public abstract class PistonBaseBlockMixin {
+	/**
+	 * Allow red-string blocks to move regardless of generally movable block entities.
+	 * Their block entities are stateless, so resetting them should be okay.
+	 * This is a somewhat unusual inject location, but Carpet redirects most of the obvious ones.
+	 */
+	@Inject(
+		method = "isPushable",
+		at = @At(value = "INVOKE", target = "Lnet/minecraft/world/level/block/state/BlockState;getDestroySpeed(Lnet/minecraft/world/level/BlockGetter;Lnet/minecraft/core/BlockPos;)F"),
+		cancellable = true
+	)
+	private static void canModeRedStringBlocks(BlockState state, Level level, BlockPos pos, Direction movementDirection,
+			boolean allowDestroy, Direction pistonFacing, CallbackInfoReturnable<Boolean> cir) {
+		if (state.getBlock() instanceof RedStringBlock) {
+			cir.setReturnValue(true);
+		}
+	}
+
 	@Inject(
 		at = @At("HEAD"),
 		method = "moveBlocks(Lnet/minecraft/world/level/Level;Lnet/minecraft/core/BlockPos;Lnet/minecraft/core/Direction;Z)Z"
