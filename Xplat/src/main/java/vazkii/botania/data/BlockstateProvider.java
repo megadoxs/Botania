@@ -34,7 +34,6 @@ import vazkii.botania.common.block.decor.BuriedPetalBlock;
 import vazkii.botania.common.block.decor.FloatingFlowerBlock;
 import vazkii.botania.common.block.decor.FlowerMotifBlock;
 import vazkii.botania.common.block.decor.PetalBlock;
-import vazkii.botania.common.block.decor.panes.BotaniaPaneBlock;
 import vazkii.botania.common.block.red_string.RedStringBlock;
 import vazkii.botania.common.helper.ColorHelper;
 import vazkii.botania.common.lib.LibBlockNames;
@@ -693,7 +692,7 @@ public class BlockstateProvider implements DataProvider {
 			singleVariantBlockState(b, getModelLocation(b));
 		});
 
-		takeAll(remainingBlocks, b -> b instanceof BotaniaPaneBlock).forEach(b -> {
+		takeAll(remainingBlocks, b -> b instanceof IronBarsBlock).forEach(b -> {
 			String name = BuiltInRegistries.BLOCK.getKey(b).getPath();
 			var mapping = new TextureMapping()
 					.put(TextureSlot.EDGE, getBlockTexture(b))
