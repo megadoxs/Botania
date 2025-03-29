@@ -31,6 +31,7 @@ public class KonamiHandler {
 			GLFW.GLFW_KEY_LEFT, GLFW.GLFW_KEY_RIGHT,
 			GLFW.GLFW_KEY_B, GLFW.GLFW_KEY_A,
 	};
+	public static final int TOTAL_KONAMI_TIME = 240;
 	private static int nextLetter = 0;
 	private static int konamiTime = 0;
 
@@ -52,7 +53,7 @@ public class KonamiHandler {
 				if (nextLetter >= KONAMI_CODE.length) {
 					mc.getSoundManager().play(SimpleSoundInstance.forUI(BotaniaSounds.way, 1.0F));
 					nextLetter = 0;
-					konamiTime = 240;
+					konamiTime = TOTAL_KONAMI_TIME;
 				}
 			} else {
 				nextLetter = 0;
@@ -68,8 +69,8 @@ public class KonamiHandler {
 			ms.pushPose();
 			int fullWidth = Minecraft.getInstance().font.width(meme);
 			int left = gui.width;
-			double widthPerTick = (fullWidth + gui.width) / 240;
-			double currWidth = left - widthPerTick * (240 - (konamiTime - partialTicks)) * 3.2;
+			double widthPerTick = (double) (fullWidth + gui.width) / TOTAL_KONAMI_TIME;
+			double currWidth = left - widthPerTick * (TOTAL_KONAMI_TIME - (konamiTime - partialTicks)) * 3.2;
 
 			ms.translate(currWidth, gui.height / 2 - 10, 0);
 			ms.scale(4, 4, 4);

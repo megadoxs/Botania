@@ -47,7 +47,7 @@ public class CorporeaInputHandler {
 		}
 
 		ItemStack stack = getStackUnderMouse();
-		if (stack != null && !stack.isEmpty()) {
+		if (!stack.isEmpty()) {
 			int count = 1;
 			int max = stack.getMaxStackSize();
 
@@ -84,7 +84,7 @@ public class CorporeaInputHandler {
 				if (widget != null) {
 					return widget.getRecipe().value().getResultItem(Minecraft.getInstance().level.registryAccess());
 				}
-				ItemStack stack = ((RecipeBookAccess) recipeBook).getHoveredGhostRecipeStack();
+				ItemStack stack = ((RecipeBookAccess) recipeBook).botania_getHoveredGhostRecipeStack();
 				if (stack != null) {
 					return stack;
 				}
