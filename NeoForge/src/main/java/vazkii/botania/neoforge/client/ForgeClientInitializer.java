@@ -255,7 +255,6 @@ public class ForgeClientInitializer {
 
 	@SubscribeEvent
 	public static void onModelBake(ModelEvent.ModifyBakingResult evt) {
-		// TODO: needs to be converted to use ModelResourceLocation
-		//MiscellaneousModels.INSTANCE.onModelBake(evt.getModelBakery(), evt.getModels());
+		MiscellaneousModels.INSTANCE.onModelBake(evt.getModelBakery(), evt.getModels());
 	}
 }

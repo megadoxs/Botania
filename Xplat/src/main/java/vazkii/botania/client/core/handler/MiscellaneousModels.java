@@ -10,6 +10,7 @@ package vazkii.botania.client.core.handler;
 
 import net.minecraft.client.resources.model.BakedModel;
 import net.minecraft.client.resources.model.ModelBakery;
+import net.minecraft.client.resources.model.ModelResourceLocation;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.packs.resources.ResourceManager;
 import net.minecraft.world.item.DyeColor;
@@ -140,13 +141,16 @@ public class MiscellaneousModels {
 	}
 
 	// NeoForge
-	public void onModelBake(ModelBakery loader, Map<ResourceLocation, BakedModel> map) {
+	public void onModelBake(ModelBakery loader, Map<ModelResourceLocation, BakedModel> map) {
 		if (!registeredModels) {
 			BotaniaAPI.LOGGER.error("Additional models failed to register! Aborting baking models to avoid early crashing.");
 			return;
 		}
-		afterBakeModifiers.forEach((resourceLocation, afterBakeModifier) -> map.computeIfPresent(resourceLocation, (resourceLoc, bakedModel) -> afterBakeModifier.apply(bakedModel)));
-		modelConsumers.forEach((resourceLocation, bakedModelConsumer) -> bakedModelConsumer.accept(map.get(resourceLocation)));
+		afterBakeModifiers.forEach((resourceLocation, afterBakeModifier) -> map
+				.computeIfPresent(new ModelResourceLocation(resourceLocation, "standalone"),
+						(resourceLoc, bakedModel) -> afterBakeModifier.apply(bakedModel)));
+		modelConsumers.forEach((resourceLocation, bakedModelConsumer) -> bakedModelConsumer
+				.accept(map.get(new ModelResourceLocation(resourceLocation, "standalone"))));
 	}
 
 	// Fabric

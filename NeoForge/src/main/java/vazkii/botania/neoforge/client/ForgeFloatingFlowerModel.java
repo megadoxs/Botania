@@ -169,7 +169,6 @@ public class ForgeFloatingFlowerModel implements IUnbakedGeometry<ForgeFloatingF
 
 		@Override
 		public List<BakedModel> getRenderPasses(ItemStack stack, boolean fabulous) {
-			// FIXME: causes NPE
 			return List.of(flower, islands.get(FloatingFlower.IslandType.GRASS));
 		}
 
