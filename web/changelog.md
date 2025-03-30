@@ -28,6 +28,7 @@ of time the maintainers are able to spend on this effort. For the time being, up
 distributed across the available slots, rather than putting the entire stack into a single slot
 * Change: Horn/Drum of the Wild also breaks Biomes O' Plenty's high grass by default
 * Add: Dispensers can now apply phantom ink to blocks (entities like sparks are not yet supported)
+* Add: Phantom ink can be applied to corporea cubes to hide the item count
 * Fix: Dandelifeon sometimes generated a randomly greater amount of mana than intended when on enchanted soil
 * Fix: Trinkets could not be equipped via right-click (Abbie)
 * Fix: Rod of the Highlands now includes placement sound and particles if not used on another solid block
