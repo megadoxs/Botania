@@ -189,7 +189,7 @@ public class HopperhockBlockEntity extends FunctionalFlowerBlockEntity implement
 			List<ItemFrame> frames = level.getEntitiesOfClass(ItemFrame.class, aabb);
 			for (ItemFrame frame : frames) {
 				if (frame.getDirection() == dir) {
-					filter.add(frame.getItem());
+					filter.addAll(FilterHelper.getFilterItems(frame));
 				}
 			}
 		}

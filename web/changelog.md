@@ -22,6 +22,9 @@ of time the maintainers are able to spend on this effort. For the time being, up
 
 * Add: Forge storage block tags for mana diamond, dragonstone, blaze mesh, and petal blocks
 * Add: Floral fertilizer can also produce shimmering mushrooms, if applied to mushroom-compatible soil
+* Add: Multi-item filter support via container items (shulker box, flower pouch, etc.) in glow item frames for Hopperhock,
+Rannuncarpus, Corporea Interceptor, and Corporea Funnel; the latter uses item counts as random selection weights
+* Add: Wearing a Manaseer Monocle reveals the contents of a container item in an item frame when looking at the frame
 * Add: An offline backup of the contributors list in the state of the currently installed Botania release will be used for head flowers, if the online copy is unavailable
 * Add: Player statistics now track items crafted via petal apothecary, mana infusion, runic altar, terrestrial agglomeration plate, and manual crafty crate activation
 * Change: Hopperhock and Corporea Funnel better support Quark's backport of the vanilla Crafter, causing items to be
