@@ -63,27 +63,6 @@ public class SparkTinkererBlock extends BotaniaWaterloggedBlock implements Entit
 		}
 	}
 
-	/*OLD
-	@Override
-	public InteractionResult use(BlockState state, Level world, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
-		SparkTinkererBlockEntity changer = (SparkTinkererBlockEntity) world.getBlockEntity(pos);
-		ItemStack pstack = player.getItemInHand(hand);
-		ItemStack cstack = changer.getItemHandler().getItem(0);
-		if (!cstack.isEmpty()) {
-			changer.getItemHandler().setItem(0, ItemStack.EMPTY);
-			player.getInventory().placeItemBackInInventory(cstack);
-			return InteractionResult.sidedSuccess(world.isClientSide());
-		} else if (!pstack.isEmpty() && pstack.getItem() instanceof SparkAugmentItem) {
-			changer.getItemHandler().setItem(0, pstack.split(1));
-			changer.setChanged();
-	
-			return InteractionResult.sidedSuccess(world.isClientSide());
-		}
-	
-		return InteractionResult.PASS;
-	}
-	 */
-
 	@Override
 	protected ItemInteractionResult useItemOn(ItemStack pstack, BlockState state, Level world, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hitResult) {
 		SparkTinkererBlockEntity changer = (SparkTinkererBlockEntity) world.getBlockEntity(pos);

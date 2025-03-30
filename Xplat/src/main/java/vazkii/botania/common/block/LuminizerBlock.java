@@ -63,30 +63,6 @@ public class LuminizerBlock extends BotaniaWaterloggedBlock implements EntityBlo
 		builder.add(BlockStateProperties.POWERED);
 	}
 
-	/* OLD
-	@Override
-	public InteractionResult use(BlockState state, Level world, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
-		ItemStack stack = player.getItemInHand(hand);
-		BlockEntity te = world.getBlockEntity(pos);
-		if (te instanceof LuminizerBlockEntity relay) {
-			if (stack.is(BotaniaItems.phantomInk) && !relay.isNoParticle()) {
-				if (!world.isClientSide) {
-					stack.shrink(1);
-					relay.setNoParticle();
-					world.gameEvent(null, GameEvent.BLOCK_CHANGE, pos);
-					VanillaPacketDispatcher.dispatchTEToNearbyPlayers(relay);
-				}
-				return InteractionResult.sidedSuccess(world.isClientSide());
-			} else if (!stack.is(Items.ENDER_PEARL)) {
-				relay.mountEntity(player);
-				return InteractionResult.sidedSuccess(world.isClientSide());
-			}
-		}
-	
-		return InteractionResult.PASS;
-	}
-	 */
-
 	@Override
 	protected ItemInteractionResult useItemOn(ItemStack stack, BlockState state, Level world, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hitResult) {
 		BlockEntity te = world.getBlockEntity(pos);

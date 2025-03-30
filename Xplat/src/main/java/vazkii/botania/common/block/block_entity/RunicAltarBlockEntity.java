@@ -21,7 +21,7 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionHand;
-import net.minecraft.world.ItemInteractionResult;
+import net.minecraft.world.InteractionResult;
 import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
@@ -247,14 +247,14 @@ public class RunicAltarBlockEntity extends SimpleInventoryBlockEntity implements
 		}
 		lastRecipe = recipe;
 		recipeKeepTicks = 400;
-		level.blockEvent(getBlockPos(), BotaniaBlocks.runeAltar, SET_KEEP_TICKS_EVENT, 400);
+		level.blockEvent(getBlockPos(), getBlockState().getBlock(), SET_KEEP_TICKS_EVENT, 400);
 	}
 
-	public ItemInteractionResult trySetLastRecipe(Player player) {
+	public InteractionResult trySetLastRecipe(Player player) {
 		// lastRecipe is not synced. If we're calling this method we already checked that
 		// the altar has no items, so just optimistically assume success on the client.
 		if (player.level().isClientSide()) {
-			return ItemInteractionResult.sidedSuccess(true);
+			return InteractionResult.sidedSuccess(true);
 		}
 		boolean success = InventoryHelper.tryToSetLastRecipe(player, getItemHandler(), lastRecipe, null);
 		if (success) {
@@ -262,8 +262,8 @@ public class RunicAltarBlockEntity extends SimpleInventoryBlockEntity implements
 			VanillaPacketDispatcher.dispatchTEToNearbyPlayers(this);
 		}
 		return success
-				? ItemInteractionResult.sidedSuccess(false)
-				: ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
+				? InteractionResult.sidedSuccess(false)
+				: InteractionResult.PASS;
 	}
 
 	@Override

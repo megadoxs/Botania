@@ -17,7 +17,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
-import net.minecraft.world.ItemInteractionResult;
+import net.minecraft.world.InteractionResult;
 import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.item.ItemEntity;
@@ -191,12 +191,12 @@ public class PetalApothecaryBlockEntity extends SimpleInventoryBlockEntity imple
 		lastReagent = Ingredient.EMPTY;
 	}
 
-	public ItemInteractionResult trySetLastRecipe(Player player) {
+	public InteractionResult trySetLastRecipe(Player player) {
 		// lastRecipe is not synced. If we're calling this method we already checked that
 		// the apothecary has water and no items, so just optimistically assume
 		// success on the client.
 		if (player.level().isClientSide()) {
-			return ItemInteractionResult.sidedSuccess(true);
+			return InteractionResult.sidedSuccess(true);
 		}
 		boolean success = InventoryHelper.tryToSetLastRecipe(player, getItemHandler(), lastRecipe, SoundEvents.GENERIC_SPLASH);
 		if (success) {
@@ -204,8 +204,8 @@ public class PetalApothecaryBlockEntity extends SimpleInventoryBlockEntity imple
 			VanillaPacketDispatcher.dispatchTEToNearbyPlayers(this);
 		}
 		return success
-				? ItemInteractionResult.sidedSuccess(false)
-				: ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
+				? InteractionResult.sidedSuccess(false)
+				: InteractionResult.PASS;
 	}
 
 	public boolean isEmpty() {

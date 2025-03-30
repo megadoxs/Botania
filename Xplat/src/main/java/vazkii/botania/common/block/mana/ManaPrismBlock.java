@@ -92,44 +92,6 @@ public class ManaPrismBlock extends BotaniaWaterloggedBlock implements EntityBlo
 		builder.add(BlockStateProperties.POWERED, BotaniaStateProperties.HAS_LENS);
 	}
 
-	/*OLD
-	@Override
-	public InteractionResult use(BlockState state, Level world, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
-		BlockEntity tile = world.getBlockEntity(pos);
-		if (!(tile instanceof ManaPrismBlockEntity prism)) {
-			return InteractionResult.PASS;
-		}
-	
-		ItemStack lens = prism.getItemHandler().getItem(0);
-		ItemStack heldItem = player.getItemInHand(hand);
-		boolean playerHasLens = !heldItem.isEmpty() && heldItem.getItem() instanceof BasicLensItem;
-		boolean lensIsSame = playerHasLens && ItemStack.isSameItemSameComponents(heldItem, lens);
-		boolean mainHandEmpty = player.getMainHandItem().isEmpty();
-	
-		if (playerHasLens && !lensIsSame) {
-			ItemStack toInsert = heldItem.split(1);
-	
-			if (!lens.isEmpty()) {
-				player.getInventory().placeItemBackInInventory(lens);
-			}
-	
-			prism.getItemHandler().setItem(0, toInsert);
-			world.playSound(player, pos, BotaniaSounds.prismAddLens, SoundSource.BLOCKS, 1F, 1F);
-			world.gameEvent(null, GameEvent.BLOCK_CHANGE, pos);
-			return InteractionResult.sidedSuccess(world.isClientSide());
-		}
-		if (!lens.isEmpty() && (mainHandEmpty || lensIsSame)) {
-			player.getInventory().placeItemBackInInventory(lens);
-			prism.getItemHandler().setItem(0, ItemStack.EMPTY);
-	
-			world.playSound(player, pos, BotaniaSounds.prismRemoveLens, SoundSource.BLOCKS, 1F, 1F);
-			world.gameEvent(null, GameEvent.BLOCK_CHANGE, pos);
-			return InteractionResult.sidedSuccess(world.isClientSide());
-		}
-		return InteractionResult.PASS;
-	}
-	 */
-
 	@Override
 	protected ItemInteractionResult useItemOn(ItemStack heldItem, BlockState state, Level world, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hitResult) {
 		BlockEntity tile = world.getBlockEntity(pos);
