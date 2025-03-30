@@ -191,6 +191,7 @@ public class LuminizerBlockEntity extends BotaniaBlockEntity implements WandBind
 
 	public void setNoParticle() {
 		noParticle = true;
+		setChanged();
 	}
 
 	public boolean isNoParticle() {
