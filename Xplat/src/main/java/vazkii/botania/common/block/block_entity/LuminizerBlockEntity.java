@@ -40,7 +40,6 @@ import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 
-import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import vazkii.botania.api.block.Bound;
@@ -192,6 +191,7 @@ public class LuminizerBlockEntity extends BotaniaBlockEntity implements WandBind
 
 	public void setNoParticle() {
 		noParticle = true;
+		setChanged();
 	}
 
 	public boolean isNoParticle() {

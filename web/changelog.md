@@ -33,6 +33,7 @@ distributed across the available slots, rather than putting the entire stack int
 * Fix: Potted motif flowers are rendered using the correct textures
 * Fix (Fabric): The loot table for Elementium Axe beheading is no longer evaluated independently from the killed mob's
 own loot table. This hopefully fixes loot doubling issues with LootJS.
+* Fix: Phantom inked luminizers now save properly
 * Language update:
   * ko_kr updated (UnineVesiKass)
 * Internal: Add PhantomInkableBlock interface for blocks that can be phantom inked
