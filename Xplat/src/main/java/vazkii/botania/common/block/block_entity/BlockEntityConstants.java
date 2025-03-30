@@ -17,7 +17,7 @@ public final class BlockEntityConstants {
 	);
 
 	public static final Set<BlockEntityType<?>> SELF_PHANTOM_INKABLE_BES = ImmutableSet.of(
-			BotaniaBlockEntities.LIGHT_RELAY, BotaniaBlockEntities.PLATFORM
+			BotaniaBlockEntities.LIGHT_RELAY, BotaniaBlockEntities.PLATFORM, BotaniaBlockEntities.CORPOREA_CRYSTAL_CUBE
 	);
 
 	public static final Set<BlockEntityType<?>> SELF_MANA_TRIGGER_BES = ImmutableSet.of(
