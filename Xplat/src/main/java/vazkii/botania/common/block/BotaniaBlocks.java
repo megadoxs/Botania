@@ -435,20 +435,30 @@ public final class BotaniaBlocks {
 	public static final Block labelliaFloating = new FloatingSpecialFlowerBlock(FLOATING_PROPS, () -> BotaniaBlockEntities.LABELLIA);
 	public static final Block labelliaPotted = BotaniaBlocks.flowerPot(labellia, 0);
 
-	public static final Block defaultAltar = new PetalApothecaryBlock(PetalApothecaryBlock.Variant.DEFAULT, BlockBehaviour.Properties.of()
+	public static final Block defaultAltar = new PetalApothecaryBlock(BlockBehaviour.Properties.of()
 			.strength(3.5F).sound(SoundType.STONE).instrument(NoteBlockInstrument.BASEDRUM).requiresCorrectToolForDrops().mapColor(MapColor.STONE)
 			.lightLevel(s -> s.getValue(PetalApothecaryBlock.FLUID) == PetalApothecary.State.LAVA ? 15 : 0));
-	public static final Block deepslateAltar = new PetalApothecaryBlock(PetalApothecaryBlock.Variant.DEEPSLATE, BlockBehaviour.Properties.ofFullCopy(defaultAltar).sound(SoundType.DEEPSLATE).mapColor(MapColor.DEEPSLATE));
-	public static final Block livingrockAltar = new PetalApothecaryBlock(PetalApothecaryBlock.Variant.LIVINGROCK, BlockBehaviour.Properties.ofFullCopy(defaultAltar).sound(SoundType.STONE).mapColor(MapColor.TERRACOTTA_WHITE));
-	public static final Block mossyAltar = new PetalApothecaryBlock(PetalApothecaryBlock.Variant.MOSSY, BlockBehaviour.Properties.ofFullCopy(defaultAltar));
-	public static final Block forestAltar = new PetalApothecaryBlock(PetalApothecaryBlock.Variant.FOREST, BlockBehaviour.Properties.ofFullCopy(defaultAltar).sound(SoundType.TUFF).mapColor(MapColor.PLANT));
-	public static final Block plainsAltar = new PetalApothecaryBlock(PetalApothecaryBlock.Variant.PLAINS, BlockBehaviour.Properties.ofFullCopy(defaultAltar).sound(SoundType.CALCITE).mapColor(DyeColor.WHITE));
-	public static final Block mountainAltar = new PetalApothecaryBlock(PetalApothecaryBlock.Variant.MOUNTAIN, BlockBehaviour.Properties.ofFullCopy(defaultAltar).sound(SoundType.DEEPSLATE_TILES).mapColor(DyeColor.LIGHT_GRAY));
-	public static final Block fungalAltar = new PetalApothecaryBlock(PetalApothecaryBlock.Variant.FUNGAL, BlockBehaviour.Properties.ofFullCopy(defaultAltar).sound(SoundType.DEEPSLATE_BRICKS).mapColor(MapColor.CRIMSON_STEM));
-	public static final Block swampAltar = new PetalApothecaryBlock(PetalApothecaryBlock.Variant.SWAMP, BlockBehaviour.Properties.ofFullCopy(defaultAltar).sound(SoundType.DEEPSLATE_TILES).mapColor(MapColor.TERRACOTTA_BROWN));
-	public static final Block desertAltar = new PetalApothecaryBlock(PetalApothecaryBlock.Variant.DESERT, BlockBehaviour.Properties.ofFullCopy(defaultAltar).sound(SoundType.DEEPSLATE).mapColor(MapColor.TERRACOTTA_ORANGE));
-	public static final Block taigaAltar = new PetalApothecaryBlock(PetalApothecaryBlock.Variant.TAIGA, BlockBehaviour.Properties.ofFullCopy(defaultAltar).sound(SoundType.DEEPSLATE).mapColor(DyeColor.BLUE));
-	public static final Block mesaAltar = new PetalApothecaryBlock(PetalApothecaryBlock.Variant.MESA, BlockBehaviour.Properties.ofFullCopy(defaultAltar).sound(SoundType.CALCITE).mapColor(MapColor.TERRACOTTA_WHITE));
+	public static final Block deepslateAltar = new PetalApothecaryBlock(
+			BlockBehaviour.Properties.ofFullCopy(defaultAltar).sound(SoundType.DEEPSLATE).mapColor(MapColor.DEEPSLATE));
+	public static final Block livingrockAltar = new PetalApothecaryBlock(
+			BlockBehaviour.Properties.ofFullCopy(defaultAltar).sound(SoundType.STONE).mapColor(MapColor.TERRACOTTA_WHITE));
+	public static final Block mossyAltar = new PetalApothecaryBlock(BlockBehaviour.Properties.ofFullCopy(defaultAltar));
+	public static final Block forestAltar = new PetalApothecaryBlock(
+			BlockBehaviour.Properties.ofFullCopy(defaultAltar).sound(SoundType.TUFF).mapColor(MapColor.PLANT));
+	public static final Block plainsAltar = new PetalApothecaryBlock(
+			BlockBehaviour.Properties.ofFullCopy(defaultAltar).sound(SoundType.CALCITE).mapColor(DyeColor.WHITE));
+	public static final Block mountainAltar = new PetalApothecaryBlock(
+			BlockBehaviour.Properties.ofFullCopy(defaultAltar).sound(SoundType.DEEPSLATE_TILES).mapColor(DyeColor.LIGHT_GRAY));
+	public static final Block fungalAltar = new PetalApothecaryBlock(
+			BlockBehaviour.Properties.ofFullCopy(defaultAltar).sound(SoundType.DEEPSLATE_BRICKS).mapColor(MapColor.CRIMSON_STEM));
+	public static final Block swampAltar = new PetalApothecaryBlock(
+			BlockBehaviour.Properties.ofFullCopy(defaultAltar).sound(SoundType.DEEPSLATE_TILES).mapColor(MapColor.TERRACOTTA_BROWN));
+	public static final Block desertAltar = new PetalApothecaryBlock(
+			BlockBehaviour.Properties.ofFullCopy(defaultAltar).sound(SoundType.DEEPSLATE).mapColor(MapColor.TERRACOTTA_ORANGE));
+	public static final Block taigaAltar = new PetalApothecaryBlock(
+			BlockBehaviour.Properties.ofFullCopy(defaultAltar).sound(SoundType.DEEPSLATE).mapColor(DyeColor.BLUE));
+	public static final Block mesaAltar = new PetalApothecaryBlock(
+			BlockBehaviour.Properties.ofFullCopy(defaultAltar).sound(SoundType.CALCITE).mapColor(MapColor.TERRACOTTA_WHITE));
 	public static final Block[] ALL_APOTHECARIES = new Block[] { defaultAltar, deepslateAltar, livingrockAltar, mossyAltar, forestAltar, plainsAltar, mountainAltar, fungalAltar, swampAltar, desertAltar, taigaAltar, mesaAltar };
 
 	public static final Block livingrock = new BotaniaBlock(BlockBehaviour.Properties.of().strength(2, 10).sound(SoundType.STONE)
@@ -1096,18 +1106,18 @@ public final class BotaniaBlocks {
 		r.accept(labelliaFloating, floating(LibBlockNames.SUBTILE_LABELLIA));
 		r.accept(labelliaPotted, potted(LibBlockNames.SUBTILE_LABELLIA));
 
-		r.accept(defaultAltar, botaniaRL(LibBlockNames.APOTHECARY_PREFIX + PetalApothecaryBlock.Variant.DEFAULT.name().toLowerCase(Locale.ROOT)));
-		r.accept(deepslateAltar, botaniaRL(LibBlockNames.APOTHECARY_PREFIX + PetalApothecaryBlock.Variant.DEEPSLATE.name().toLowerCase(Locale.ROOT)));
-		r.accept(livingrockAltar, botaniaRL(LibBlockNames.APOTHECARY_PREFIX + PetalApothecaryBlock.Variant.LIVINGROCK.name().toLowerCase(Locale.ROOT)));
-		r.accept(mossyAltar, botaniaRL(LibBlockNames.APOTHECARY_PREFIX + PetalApothecaryBlock.Variant.MOSSY.name().toLowerCase(Locale.ROOT)));
-		r.accept(forestAltar, botaniaRL(LibBlockNames.APOTHECARY_PREFIX + PetalApothecaryBlock.Variant.FOREST.name().toLowerCase(Locale.ROOT)));
-		r.accept(plainsAltar, botaniaRL(LibBlockNames.APOTHECARY_PREFIX + PetalApothecaryBlock.Variant.PLAINS.name().toLowerCase(Locale.ROOT)));
-		r.accept(mountainAltar, botaniaRL(LibBlockNames.APOTHECARY_PREFIX + PetalApothecaryBlock.Variant.MOUNTAIN.name().toLowerCase(Locale.ROOT)));
-		r.accept(fungalAltar, botaniaRL(LibBlockNames.APOTHECARY_PREFIX + PetalApothecaryBlock.Variant.FUNGAL.name().toLowerCase(Locale.ROOT)));
-		r.accept(swampAltar, botaniaRL(LibBlockNames.APOTHECARY_PREFIX + PetalApothecaryBlock.Variant.SWAMP.name().toLowerCase(Locale.ROOT)));
-		r.accept(desertAltar, botaniaRL(LibBlockNames.APOTHECARY_PREFIX + PetalApothecaryBlock.Variant.DESERT.name().toLowerCase(Locale.ROOT)));
-		r.accept(taigaAltar, botaniaRL(LibBlockNames.APOTHECARY_PREFIX + PetalApothecaryBlock.Variant.TAIGA.name().toLowerCase(Locale.ROOT)));
-		r.accept(mesaAltar, botaniaRL(LibBlockNames.APOTHECARY_PREFIX + PetalApothecaryBlock.Variant.MESA.name().toLowerCase(Locale.ROOT)));
+		r.accept(defaultAltar, botaniaRL(LibBlockNames.APOTHECARY_PREFIX + "default"));
+		r.accept(deepslateAltar, botaniaRL(LibBlockNames.APOTHECARY_PREFIX + "deepslate"));
+		r.accept(livingrockAltar, botaniaRL(LibBlockNames.APOTHECARY_PREFIX + "livingrock"));
+		r.accept(mossyAltar, botaniaRL(LibBlockNames.APOTHECARY_PREFIX + "mossy"));
+		r.accept(forestAltar, botaniaRL(LibBlockNames.APOTHECARY_PREFIX + "forest"));
+		r.accept(plainsAltar, botaniaRL(LibBlockNames.APOTHECARY_PREFIX + "plains"));
+		r.accept(mountainAltar, botaniaRL(LibBlockNames.APOTHECARY_PREFIX + "mountain"));
+		r.accept(fungalAltar, botaniaRL(LibBlockNames.APOTHECARY_PREFIX + "fungal"));
+		r.accept(swampAltar, botaniaRL(LibBlockNames.APOTHECARY_PREFIX + "swamp"));
+		r.accept(desertAltar, botaniaRL(LibBlockNames.APOTHECARY_PREFIX + "desert"));
+		r.accept(taigaAltar, botaniaRL(LibBlockNames.APOTHECARY_PREFIX + "taiga"));
+		r.accept(mesaAltar, botaniaRL(LibBlockNames.APOTHECARY_PREFIX + "mesa"));
 
 		r.accept(livingrock, botaniaRL(LibBlockNames.LIVING_ROCK));
 		r.accept(livingrockStairs, botaniaRL(LibBlockNames.LIVING_ROCK + STAIR_SUFFIX));

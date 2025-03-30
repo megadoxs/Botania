@@ -30,7 +30,6 @@ import net.minecraft.world.level.block.PointedDripstoneBlock;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityTicker;
 import net.minecraft.world.level.block.entity.BlockEntityType;
-import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.EnumProperty;
@@ -67,26 +66,8 @@ public class PetalApothecaryBlock extends BotaniaBlock implements EntityBlock {
 	private static final VoxelShape SHAPE_INTERACT = Shapes.or(Shapes.or(BASE, PILLAR), TOP);
 	private static final VoxelShape SHAPE = Shapes.join(SHAPE_INTERACT, TOP_CUTOUT, BooleanOp.ONLY_FIRST);
 
-	public enum Variant {
-		DEFAULT,
-		FOREST,
-		PLAINS,
-		MOUNTAIN,
-		FUNGAL,
-		SWAMP,
-		DESERT,
-		TAIGA,
-		MESA,
-		MOSSY,
-		LIVINGROCK,
-		DEEPSLATE
-	}
-
-	public final Variant variant;
-
-	protected PetalApothecaryBlock(Variant v, BlockBehaviour.Properties builder) {
+	protected PetalApothecaryBlock(Properties builder) {
 		super(builder);
-		this.variant = v;
 		registerDefaultState(defaultBlockState().setValue(FLUID, State.EMPTY));
 	}
 
