@@ -20,6 +20,10 @@ Note: Porting efforts to bring Botania to 1.21+ versions of Minecraft (supportin
 We cannot provide any ETA (even a rough one) due to the complexity of the work involved and the somewhat limited amount
 of time the maintainers are able to spend on this effort. For the time being, updates still target Minecraft 1.20.1.
 
+---
+
+{% include changelog_header.html version="1.20.1-448" %}
+
 * Add: Forge storage block tags for mana diamond, dragonstone, blaze mesh, and petal blocks
 * Add: Floral fertilizer can also produce shimmering mushrooms, if applied to mushroom-compatible soil
 * Add: Multi-item filter support via container items (shulker box, flower pouch, etc.) in glow item frames for Hopperhock,
@@ -27,11 +31,11 @@ Rannuncarpus, Corporea Interceptor, and Corporea Funnel; the latter uses item co
 * Add: Wearing a Manaseer Monocle reveals the contents of a container item in an item frame when looking at the frame
 * Add: An offline backup of the contributors list in the state of the currently installed Botania release will be used for head flowers, if the online copy is unavailable
 * Add: Player statistics now track items crafted via petal apothecary, mana infusion, runic altar, terrestrial agglomeration plate, and manual crafty crate activation
+* Add: Dispensers can now apply phantom ink to blocks (entities like sparks are not yet supported)
+* Add: Phantom ink can be applied to corporea cubes to hide the item count
 * Change: Hopperhock and Corporea Funnel better support Quark's backport of the vanilla Crafter, causing items to be
 distributed across the available slots, rather than putting the entire stack into a single slot
 * Change: Horn/Drum of the Wild also breaks Biomes O' Plenty's high grass by default
-* Add: Dispensers can now apply phantom ink to blocks (entities like sparks are not yet supported)
-* Add: Phantom ink can be applied to corporea cubes to hide the item count
 * Fix: Dandelifeon sometimes generated a randomly greater amount of mana than intended when on enchanted soil
 * Fix: Trinkets could not be equipped via right-click (Abbie)
 * Fix: Rod of the Highlands now includes placement sound and particles if not used on another solid block
