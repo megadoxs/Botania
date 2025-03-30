@@ -1486,6 +1486,7 @@ public final class BotaniaBlocks {
 
 	public static void addDispenserBehaviours() {
 		DispenserBlock.registerBehavior(BotaniaItems.twigWand, new WandBehavior());
+		DispenserBlock.registerBehavior(BotaniaItems.phantomInk, new PhantomInkBehavior());
 		DispenserBlock.registerBehavior(BotaniaItems.dreamwoodWand, new WandBehavior());
 		DispenserBlock.registerBehavior(BotaniaItems.obedienceStick, new StickBehavior());
 		DispenserBlock.registerBehavior(BotaniaItems.poolMinecart, new ManaPoolMinecartBehavior());
