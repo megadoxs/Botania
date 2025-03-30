@@ -1,5 +1,7 @@
-// 1.20.1	2025-03-05T20:49:38.343018594	Botania block tags (Forge-specific)
+// 1.20.1	2025-03-30T17:37:39.37191281	Botania block tags (Forge-specific)
 a55025dce9fecceb39e5bae7e55e4dcc7132981d data/buzzier_bees/tags/blocks/flower_blacklist.json
+f0d5cb37cb6cade48762a422ba54b59c29b52508 data/forge/tags/blocks/fence_gates/wooden.json
+88772bf1fbd655cb754dc8b3dc6a0e234426aa79 data/forge/tags/blocks/fences/wooden.json
 804281f2b135bd1cedaebd052fbba79f9aebb4ee data/forge/tags/blocks/glass.json
 f040b9a06513de92027387c440251e6542f53830 data/forge/tags/blocks/glass_panes.json
 c8209dfe9c42e67e904666f4675f74d8d6bd5345 data/forge/tags/blocks/mushrooms.json

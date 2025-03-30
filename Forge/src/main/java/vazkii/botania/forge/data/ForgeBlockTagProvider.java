@@ -78,6 +78,8 @@ public class ForgeBlockTagProvider extends IntrinsicHolderTagsProvider<Block> {
 				.addTag(BLAZE_MESH);
 		tag(Tags.Blocks.GLASS).add(BotaniaBlocks.manaGlass, BotaniaBlocks.elfGlass, BotaniaBlocks.bifrostPerm);
 		tag(Tags.Blocks.GLASS_PANES).add(BotaniaBlocks.managlassPane, BotaniaBlocks.alfglassPane, BotaniaBlocks.bifrostPane);
+		tag(Tags.Blocks.FENCES_WOODEN).add(BotaniaBlocks.livingwoodFence, BotaniaBlocks.dreamwoodFence);
+		tag(Tags.Blocks.FENCE_GATES_WOODEN).add(BotaniaBlocks.livingwoodFenceGate, BotaniaBlocks.dreamwoodFenceGate);
 	}
 
 	private static TagKey<Block> forge(String name) {

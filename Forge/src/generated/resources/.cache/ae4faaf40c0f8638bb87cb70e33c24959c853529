@@ -1,4 +1,4 @@
-// 1.20.1	2025-03-05T20:49:38.344361379	Botania item tags (Forge-specific)
+// 1.20.1	2025-03-30T17:37:39.373100429	Botania item tags (Forge-specific)
 aabe9dc2c91eb8822f833d19b258d7a5e8da3564 data/curios/tags/items/belt.json
 9bde6528555b75249a73b900157d7bc104d2baec data/curios/tags/items/body.json
 22dfca4dc9ed4dc390fadc33f03c602031f80fb1 data/curios/tags/items/charm.json
@@ -12,11 +12,14 @@ c9b0a9bd8676707e50b53de627069bd04c99b781 data/forge/tags/items/armors/helmets.js
 fd8451e81bd204162bf9c739bf7bc47b36fc492c data/forge/tags/items/armors/leggings.json
 4fb168aeb3b19edcbe1639c1b9f58a77ae7bc937 data/forge/tags/items/dusts.json
 2f017c840473d769018019a575cd67bb91409786 data/forge/tags/items/dusts/mana.json
+f0d5cb37cb6cade48762a422ba54b59c29b52508 data/forge/tags/items/fence_gates/wooden.json
+88772bf1fbd655cb754dc8b3dc6a0e234426aa79 data/forge/tags/items/fences/wooden.json
 397e9e7abf8c1b1f633f8fc29f5d78a50b4aa73b data/forge/tags/items/gems.json
 6a570c9d249ec3b43cc61b7d708bba4675482abd data/forge/tags/items/gems/dragonstone.json
 d9f1c67d4b357092adc7dcd80db1a8011d64d7f0 data/forge/tags/items/gems/mana_diamond.json
 804281f2b135bd1cedaebd052fbba79f9aebb4ee data/forge/tags/items/glass.json
 f040b9a06513de92027387c440251e6542f53830 data/forge/tags/items/glass_panes.json
+44055b7c43a7c0bc263cd7b85001e5a5ab94e5dc data/forge/tags/items/heads.json
 b19a38e158040e92dd58228dd2fc445b15367317 data/forge/tags/items/ingots.json
 eb50c63adbeca9c8a27fec5e3e71f31d58e9f4b8 data/forge/tags/items/ingots/elementium.json
 9acfb86320f56e785a548ded7b3766122e86e084 data/forge/tags/items/ingots/manasteel.json
@@ -51,3 +54,6 @@ ea9cf45b4b0bb66e9f47acdd27ec131f4aa8c44d data/forge/tags/items/storage_blocks/re
 d401d8e48f2c31db30278bca7d4fd177b002f4c8 data/forge/tags/items/storage_blocks/terrasteel.json
 84ac9785530c059133228630f7b2c8b4dbc12d0f data/forge/tags/items/storage_blocks/white_petal_block.json
 145cbeaa02f878afbd4a644e823f5dfdfb30a674 data/forge/tags/items/storage_blocks/yellow_petal_block.json
+68aabb17f89f25d64fabc2720017e6f9e5ce1fda data/forge/tags/items/tools/bows.json
+a7ec43d58fd1c224a9f388647232158ea4ac99f1 data/quark/tags/items/big_harvest_hoes.json
+7657f0f57f79b927954c6309b2ce9e03b5007e97 data/quark/tags/items/reacharound_able.json
