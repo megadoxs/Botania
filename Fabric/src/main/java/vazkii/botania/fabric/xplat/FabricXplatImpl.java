@@ -228,6 +228,12 @@ public class FabricXplatImpl implements XplatAbstractions {
 		return BotaniaFabricCapabilities.WANDABLE.find(level, pos, state, be, Unit.INSTANCE);
 	}
 
+	@Nullable
+	@Override
+	public PhantomInkableBlock findPhantomInkable(Level level, BlockPos pos, BlockState state, @Nullable BlockEntity be) {
+		return BotaniaFabricCapabilities.PHANTOM_INKABLE.find(level, pos, state, be, Unit.INSTANCE);
+	}
+
 	private static class SingleStackEntityStorage extends SingleStackStorage {
 		private final ItemEntity entity;
 

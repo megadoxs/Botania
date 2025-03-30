@@ -35,6 +35,7 @@ distributed across the available slots, rather than putting the entire stack int
 own loot table. This hopefully fixes loot doubling issues with LootJS.
 * Language update:
   * ko_kr updated (UnineVesiKass)
+* Internal: Add PhantomInkableBlock interface for blocks that can be phantom inked
 
 ---
 
