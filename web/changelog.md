@@ -20,6 +20,8 @@ Note: Porting efforts to bring Botania to 1.21+ versions of Minecraft (supportin
 We cannot provide any ETA (even a rough one) due to the complexity of the work involved and the somewhat limited amount
 of time the maintainers are able to spend on this effort. For the time being, updates still target Minecraft 1.20.1.
 
+* Add: Several missing Forge tags for blocks, items, and entities
+
 ---
 
 {% include changelog_header.html version="1.20.1-448" %}
