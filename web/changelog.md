@@ -36,6 +36,7 @@ Rannuncarpus, Corporea Interceptor, and Corporea Funnel; the latter uses item co
 * Change: Hopperhock and Corporea Funnel better support Quark's backport of the vanilla Crafter, causing items to be
 distributed across the available slots, rather than putting the entire stack into a single slot
 * Change: Horn/Drum of the Wild also breaks Biomes O' Plenty's high grass by default
+* Change: Flügel Tiara sprint dash can be suppressed by carrying an active Stone of Temperance
 * Fix: Dandelifeon sometimes generated a randomly greater amount of mana than intended when on enchanted soil
 * Fix: Trinkets could not be equipped via right-click (Abbie)
 * Fix: Rod of the Highlands now includes placement sound and particles if not used on another solid block
