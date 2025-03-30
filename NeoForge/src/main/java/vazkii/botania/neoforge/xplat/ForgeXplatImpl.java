@@ -76,10 +76,7 @@ import org.apache.commons.lang3.function.TriFunction;
 import org.jetbrains.annotations.Nullable;
 
 import vazkii.botania.api.BotaniaForgeCapabilities;
-import vazkii.botania.api.block.ExoflameHeatable;
-import vazkii.botania.api.block.HornHarvestable;
-import vazkii.botania.api.block.HourglassTrigger;
-import vazkii.botania.api.block.Wandable;
+import vazkii.botania.api.block.*;
 import vazkii.botania.api.corporea.CorporeaIndexRequestEvent;
 import vazkii.botania.api.corporea.CorporeaRequestEvent;
 import vazkii.botania.api.corporea.CorporeaRequestMatcher;
@@ -216,6 +213,12 @@ public class ForgeXplatImpl implements XplatAbstractions {
 	@Override
 	public Wandable findWandable(Level level, BlockPos pos, BlockState state, @Nullable BlockEntity be) {
 		return level.getCapability(BotaniaForgeCapabilities.WANDABLE, pos, state, be, null);
+	}
+
+	@Nullable
+	@Override
+	public PhantomInkableBlock findPhantomInkable(Level level, BlockPos pos, BlockState state, @Nullable BlockEntity be) {
+		return level.getCapability(BotaniaForgeCapabilities.PHANTOM_INKABLE, pos, state, be);
 	}
 
 	@Override

@@ -5,6 +5,7 @@ import com.google.common.collect.ImmutableSet;
 import net.minecraft.world.WorldlyContainer;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 
+import vazkii.botania.api.block.PhantomInkableBlock;
 import vazkii.botania.api.block.Wandable;
 import vazkii.botania.api.mana.ManaReceiver;
 import vazkii.botania.api.mana.ManaTrigger;
@@ -19,6 +20,10 @@ public final class BlockEntityConstants {
 			BotaniaBlockEntities.RUNE_ALTAR, BotaniaBlockEntities.SPREADER, BotaniaBlockEntities.TURNTABLE,
 			BotaniaBlockEntities.DAFFOMILL, BotaniaBlockEntities.HOPPERHOCK, BotaniaBlockEntities.HOPPERHOCK_CHIBI,
 			BotaniaBlockEntities.POLLIDISIAC, BotaniaBlockEntities.RANNUNCARPUS, BotaniaBlockEntities.RANNUNCARPUS_CHIBI
+	);
+
+	public static final Set<BlockEntityType<? extends PhantomInkableBlock>> SELF_PHANTOM_INKABLE_BES = ImmutableSet.of(
+			BotaniaBlockEntities.LIGHT_RELAY, BotaniaBlockEntities.PLATFORM
 	);
 
 	public static final Set<BlockEntityType<? extends ManaTrigger>> SELF_MANA_TRIGGER_BES = ImmutableSet.of(

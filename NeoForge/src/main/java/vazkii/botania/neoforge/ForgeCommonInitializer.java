@@ -609,6 +609,9 @@ public class ForgeCommonInitializer {
 		BlockEntityConstants.SELF_WANDABLE_BES.forEach(blockEntityType -> e.registerBlockEntity(BotaniaForgeCapabilities.WANDABLE, blockEntityType,
 				(blockEntity, context) -> blockEntity));
 
+		BlockEntityConstants.SELF_PHANTOM_INKABLE_BES.forEach(blockEntityType -> e.registerBlockEntity(BotaniaForgeCapabilities.PHANTOM_INKABLE, blockEntityType,
+				(blockEntity, context) -> blockEntity));
+
 		BlockEntityConstants.SELF_MANA_TRIGGER_BES.forEach(blockEntityType -> e.registerBlockEntity(BotaniaForgeCapabilities.MANA_TRIGGER, blockEntityType,
 				(blockEntity, context) -> blockEntity));
 

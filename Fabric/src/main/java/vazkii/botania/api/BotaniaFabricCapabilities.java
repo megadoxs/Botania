@@ -5,10 +5,7 @@ import net.fabricmc.fabric.api.lookup.v1.item.ItemApiLookup;
 import net.minecraft.core.Direction;
 import net.minecraft.util.Unit;
 
-import vazkii.botania.api.block.ExoflameHeatable;
-import vazkii.botania.api.block.HornHarvestable;
-import vazkii.botania.api.block.HourglassTrigger;
-import vazkii.botania.api.block.Wandable;
+import vazkii.botania.api.block.*;
 import vazkii.botania.api.item.AvatarWieldable;
 import vazkii.botania.api.item.BlockProvider;
 import vazkii.botania.api.item.CoordBoundItem;
@@ -47,6 +44,7 @@ public final class BotaniaFabricCapabilities {
 			BlockApiLookup.get(ManaTrigger.ID, ManaTrigger.class, Unit.class);
 	public static final BlockApiLookup<Wandable, Unit> WANDABLE =
 			BlockApiLookup.get(Wandable.ID, Wandable.class, Unit.class);
+	public static final BlockApiLookup<PhantomInkableBlock, Unit> PHANTOM_INKABLE = BlockApiLookup.get(PhantomInkableBlock.ID, PhantomInkableBlock.class, Unit.class);
 
 	private BotaniaFabricCapabilities() {}
 }

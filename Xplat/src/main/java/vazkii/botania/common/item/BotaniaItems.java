@@ -336,7 +336,7 @@ public final class BotaniaItems {
 	public static final Item blackerLotus = make(LibItemNames.BLACKER_LOTUS, new BlackLotusItem(defaultBuilder().rarity(Rarity.EPIC)));
 	public static final Item worldSeed = make(LibItemNames.WORLD_SEED, new WorldSeedItem(defaultBuilder()));
 	public static final Item overgrowthSeed = make(LibItemNames.OVERGROWTH_SEED, new OvergrowthSeedItem(defaultBuilder().rarity(Rarity.RARE)));
-	public static final Item phantomInk = make(LibItemNames.PHANTOM_INK, new Item(defaultBuilder()));
+	public static final Item phantomInk = make(LibItemNames.PHANTOM_INK, new PhantomInkItem(defaultBuilder()));
 	public static final Item poolMinecart = make(LibItemNames.POOL_MINECART, new ManaPoolMinecartItem(unstackable()));
 	public static final Item keepIvy = make(LibItemNames.KEEP_IVY, new ResoluteIvyItem(defaultBuilder()));
 	public static final Item placeholder = make(LibItemNames.PLACEHOLDER, new SelfReturningItem(defaultBuilder()));

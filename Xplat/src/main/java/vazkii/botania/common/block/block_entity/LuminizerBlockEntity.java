@@ -40,7 +40,11 @@ import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
+
 import vazkii.botania.api.block.Bound;
+import vazkii.botania.api.block.PhantomInkableBlock;
 import vazkii.botania.api.block.WandBindable;
 import vazkii.botania.api.internal.VanillaPacketDispatcher;
 import vazkii.botania.client.fx.SparkleParticleData;
@@ -58,7 +62,7 @@ import java.util.List;
 
 import static vazkii.botania.api.BotaniaAPI.botaniaRL;
 
-public class LuminizerBlockEntity extends BotaniaBlockEntity implements WandBindable {
+public class LuminizerBlockEntity extends BotaniaBlockEntity implements WandBindable, PhantomInkableBlock {
 	public static final int MAX_DIST = 20;
 
 	private static final String TAG_BIND_X = "bindX";
@@ -255,6 +259,22 @@ public class LuminizerBlockEntity extends BotaniaBlockEntity implements WandBind
 		bindPos = pos;
 		setChanged();
 		VanillaPacketDispatcher.dispatchTEToNearbyPlayers(this);
+		return true;
+	}
+
+	@Override
+	public boolean onPhantomInked(@Nullable Player player, ItemStack stack, Direction side) {
+		if (isNoParticle()) {
+			return false;
+		}
+		if (!level.isClientSide) {
+			if (player == null || !player.getAbilities().instabuild) {
+				stack.shrink(1);
+			}
+			setNoParticle();
+			level.gameEvent(null, GameEvent.BLOCK_CHANGE, getBlockPos());
+			VanillaPacketDispatcher.dispatchTEToNearbyPlayers(this);
+		}
 		return true;
 	}
 

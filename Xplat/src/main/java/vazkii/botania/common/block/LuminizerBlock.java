@@ -28,18 +28,16 @@ import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
-import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
 import org.jetbrains.annotations.Nullable;
 
-import vazkii.botania.api.internal.VanillaPacketDispatcher;
 import vazkii.botania.api.state.enums.LuminizerVariant;
 import vazkii.botania.common.block.block_entity.BotaniaBlockEntities;
 import vazkii.botania.common.block.block_entity.LuminizerBlockEntity;
-import vazkii.botania.common.item.BotaniaItems;
+import vazkii.botania.common.item.PhantomInkItem;
 
 public class LuminizerBlock extends BotaniaWaterloggedBlock implements EntityBlock {
 
@@ -67,15 +65,7 @@ public class LuminizerBlock extends BotaniaWaterloggedBlock implements EntityBlo
 	protected ItemInteractionResult useItemOn(ItemStack stack, BlockState state, Level world, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hitResult) {
 		BlockEntity te = world.getBlockEntity(pos);
 		if (te instanceof LuminizerBlockEntity relay) {
-			if (stack.is(BotaniaItems.phantomInk) && !relay.isNoParticle()) {
-				if (!world.isClientSide) {
-					stack.shrink(1);
-					relay.setNoParticle();
-					world.gameEvent(null, GameEvent.BLOCK_CHANGE, pos);
-					VanillaPacketDispatcher.dispatchTEToNearbyPlayers(relay);
-				}
-				return ItemInteractionResult.sidedSuccess(world.isClientSide());
-			} else if (!stack.is(Items.ENDER_PEARL)) {
+			if (!stack.is(Items.ENDER_PEARL) && !(stack.getItem() instanceof PhantomInkItem)) {
 				relay.mountEntity(player);
 				return ItemInteractionResult.sidedSuccess(world.isClientSide());
 			}
