@@ -61,7 +61,6 @@ import net.minecraft.world.level.material.Fluids;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.BotaniaFabricCapabilities;
 import vazkii.botania.api.BotaniaRegistries;
-import vazkii.botania.api.block.HornHarvestable;
 import vazkii.botania.api.brew.Brew;
 import vazkii.botania.api.mana.ManaCollisionGhost;
 import vazkii.botania.api.mana.ManaNetworkCallback;
@@ -90,10 +89,8 @@ import vazkii.botania.common.crafting.StateIngredients;
 import vazkii.botania.common.entity.BotaniaEntities;
 import vazkii.botania.common.entity.GaiaGuardianEntity;
 import vazkii.botania.common.handler.*;
-import vazkii.botania.common.helper.ColorHelper;
 import vazkii.botania.common.helper.PlayerHelper;
 import vazkii.botania.common.impl.BotaniaAPIImpl;
-import vazkii.botania.common.impl.DefaultHornHarvestable;
 import vazkii.botania.common.impl.corporea.DefaultCorporeaMatchers;
 import vazkii.botania.common.impl.mana.DefaultManaItemImpl;
 import vazkii.botania.common.integration.corporea.CorporeaNodeDetectors;
@@ -318,13 +315,6 @@ public class FabricCommonInitializer implements ModInitializer {
 			}
 			return null;
 		});
-		BotaniaFabricCapabilities.HORN_HARVEST.registerForBlocks((w, p, s, be, c) -> (world, pos, stack, hornType, living) -> hornType == HornHarvestable.EnumHornType.CANOPY,
-				Blocks.VINE, Blocks.CAVE_VINES, Blocks.CAVE_VINES_PLANT, Blocks.TWISTING_VINES,
-				Blocks.TWISTING_VINES_PLANT, Blocks.WEEPING_VINES, Blocks.WEEPING_VINES_PLANT);
-		BotaniaFabricCapabilities.HORN_HARVEST.registerForBlocks((w, p, s, be, c) -> DefaultHornHarvestable.INSTANCE,
-				ColorHelper.supportedColors().map(BotaniaBlocks::getMushroom).toArray(Block[]::new));
-		BotaniaFabricCapabilities.HORN_HARVEST.registerForBlocks((w, p, s, be, c) -> DefaultHornHarvestable.INSTANCE,
-				ColorHelper.supportedColors().map(BotaniaBlocks::getShinyFlower).toArray(Block[]::new));
 		BotaniaFabricCapabilities.HOURGLASS_TRIGGER.registerForBlockEntities((be, c) -> {
 			var torch = (AnimatedTorchBlockEntity) be;
 			return hourglass -> torch.toggle();

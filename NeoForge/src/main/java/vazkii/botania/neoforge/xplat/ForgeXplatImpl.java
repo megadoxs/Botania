@@ -175,12 +175,6 @@ public class ForgeXplatImpl implements XplatAbstractions {
 
 	@Nullable
 	@Override
-	public HornHarvestable findHornHarvestable(Level level, BlockPos pos, BlockState state, @Nullable BlockEntity be) {
-		return level.getCapability(BotaniaForgeCapabilities.HORN_HARVEST, pos, state, be, null);
-	}
-
-	@Nullable
-	@Override
 	public HourglassTrigger findHourglassTrigger(Level level, BlockPos pos, BlockState state, @Nullable BlockEntity be) {
 		return level.getCapability(BotaniaForgeCapabilities.HOURGLASS_TRIGGER, pos, state, be, null);
 	}

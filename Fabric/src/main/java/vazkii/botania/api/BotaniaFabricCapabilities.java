@@ -30,8 +30,6 @@ public final class BotaniaFabricCapabilities {
 
 	public static final BlockApiLookup<ExoflameHeatable, Unit> EXOFLAME_HEATABLE =
 			BlockApiLookup.get(ExoflameHeatable.ID, ExoflameHeatable.class, Unit.class);
-	public static final BlockApiLookup<HornHarvestable, Unit> HORN_HARVEST =
-			BlockApiLookup.get(HornHarvestable.ID, HornHarvestable.class, Unit.class);
 	public static final BlockApiLookup<HourglassTrigger, Unit> HOURGLASS_TRIGGER =
 			BlockApiLookup.get(HourglassTrigger.ID, HourglassTrigger.class, Unit.class);
 	public static final BlockApiLookup<ManaCollisionGhost, Unit> MANA_GHOST =

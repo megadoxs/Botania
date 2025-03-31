@@ -67,7 +67,6 @@ import net.neoforged.neoforge.registries.RegisterEvent;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.BotaniaForgeCapabilities;
 import vazkii.botania.api.BotaniaRegistries;
-import vazkii.botania.api.block.HornHarvestable;
 import vazkii.botania.api.item.AvatarWieldable;
 import vazkii.botania.api.item.BlockProvider;
 import vazkii.botania.api.item.CoordBoundItem;
@@ -102,10 +101,8 @@ import vazkii.botania.common.crafting.StateIngredients;
 import vazkii.botania.common.entity.BotaniaEntities;
 import vazkii.botania.common.entity.GaiaGuardianEntity;
 import vazkii.botania.common.handler.*;
-import vazkii.botania.common.helper.ColorHelper;
 import vazkii.botania.common.helper.PlayerHelper;
 import vazkii.botania.common.impl.BotaniaAPIImpl;
-import vazkii.botania.common.impl.DefaultHornHarvestable;
 import vazkii.botania.common.impl.corporea.DefaultCorporeaMatchers;
 import vazkii.botania.common.impl.mana.DefaultManaItemImpl;
 import vazkii.botania.common.integration.corporea.CorporeaNodeDetectors;
@@ -521,20 +518,6 @@ public class ForgeCommonInitializer {
 
 	@SubscribeEvent
 	private void registerBlockLookasides(RegisterCapabilitiesEvent e) {
-		// TODO: isn't this redundant with BotaniaTags.Blocks.HORN_OF_THE_CANOPY_BREAKABLE?
-		e.registerBlock(BotaniaForgeCapabilities.HORN_HARVEST,
-				(level, pos, state, blockEntity, context) -> (world, blockPos, stack, hornType, living) -> hornType == HornHarvestable.EnumHornType.CANOPY,
-				Blocks.VINE, Blocks.CAVE_VINES, Blocks.CAVE_VINES_PLANT, Blocks.TWISTING_VINES,
-				Blocks.TWISTING_VINES_PLANT, Blocks.WEEPING_VINES, Blocks.WEEPING_VINES_PLANT);
-
-		// TODO: make these an exclusion tag for Horn of the Wild
-		e.registerBlock(BotaniaForgeCapabilities.HORN_HARVEST,
-				(level, pos, state, blockEntity, context) -> DefaultHornHarvestable.INSTANCE,
-				ColorHelper.supportedColors().map(BotaniaBlocks::getMushroom).toArray(Block[]::new));
-		e.registerBlock(BotaniaForgeCapabilities.HORN_HARVEST,
-				(level, pos, state, blockEntity, context) -> DefaultHornHarvestable.INSTANCE,
-				ColorHelper.supportedColors().map(BotaniaBlocks::getShinyFlower).toArray(Block[]::new));
-
 		// TODO: ManaCollisionGhost feels like it could be represented by two tags for fully-ignored and trigger-only blocks, respectively
 		e.registerBlock(BotaniaForgeCapabilities.MANA_GHOST,
 				(level, pos, state, blockEntity, context) -> (ManaCollisionGhost) state.getBlock(),

@@ -19,33 +19,23 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.ItemUtils;
 import net.minecraft.world.item.UseAnim;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.BushBlock;
-import net.minecraft.world.level.block.LeavesBlock;
-import net.minecraft.world.level.block.entity.BlockEntity;
-import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.gameevent.GameEvent;
 
-import org.jetbrains.annotations.Nullable;
-
-import vazkii.botania.api.block.HornHarvestable;
-import vazkii.botania.api.block.HornHarvestable.EnumHornType;
 import vazkii.botania.common.block.flower.functional.BergamuteBlockEntity;
 import vazkii.botania.common.handler.BotaniaSounds;
-import vazkii.botania.common.lib.BotaniaTags;
-import vazkii.botania.xplat.XplatAbstractions;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-public class HornItem extends Item {
+public abstract class HornItem extends Item {
 	public HornItem(Properties props) {
 		super(props);
 	}
 
 	@Override
 	public UseAnim getUseAnimation(ItemStack stack) {
-		return UseAnim.BOW;
+		return UseAnim.TOOT_HORN;
 	}
 
 	@Override
@@ -63,69 +53,38 @@ public class HornItem extends Item {
 		if (!world.isClientSide) {
 			if (time != getUseDuration(stack, living) && time % 5 == 0) {
 				living.gameEvent(GameEvent.INSTRUMENT_PLAY);
-				breakGrass(world, stack, living.blockPosition(), living);
+				breakBlocks(world, this, living.blockPosition());
 			}
 			world.playSound(null, living.getX(), living.getY(), living.getZ(), BotaniaSounds.hornDoot, SoundSource.BLOCKS, 1F, 1F);
 		}
 	}
 
-	private static boolean canHarvest(Level level, ItemStack stack, BlockPos pos,
-			@Nullable LivingEntity user, EnumHornType type) {
-		BlockState state = level.getBlockState(pos);
-		BlockEntity be = level.getBlockEntity(pos);
+	protected abstract boolean canHarvest(Level level, BlockPos pos);
 
-		HornHarvestable harvestable = XplatAbstractions.INSTANCE.findHornHarvestable(level, pos, state, be);
-		if (harvestable != null) {
-			return harvestable.canHornHarvest(level, pos, stack, type, user);
-		}
-		return switch (type) {
-			default -> state.getBlock() instanceof BushBlock && !state.is(BotaniaTags.Blocks.SPECIAL_FLOWERS)
-					|| state.is(BotaniaTags.Blocks.HORN_OF_THE_WILD_BREAKABLE);
-			case CANOPY -> state.is(BotaniaTags.Blocks.HORN_OF_THE_CANOPY_BREAKABLE)
-					&& !(state.getBlock() instanceof LeavesBlock && state.getValue(LeavesBlock.PERSISTENT));
-			case COVERING -> state.is(BotaniaTags.Blocks.HORN_OF_THE_COVERING_BREAKABLE);
-		};
-	}
+	protected abstract int getRange();
 
-	public static void breakGrass(Level world, ItemStack stack, BlockPos srcPos, @Nullable LivingEntity user) {
-		EnumHornType type = null;
-		if (stack.is(BotaniaItems.grassHorn)) {
-			type = EnumHornType.WILD;
-		} else if (stack.is(BotaniaItems.leavesHorn)) {
-			type = EnumHornType.CANOPY;
-		} else if (stack.is(BotaniaItems.snowHorn)) {
-			type = EnumHornType.COVERING;
-		}
+	protected abstract int getRangeY();
 
-		int range = 12 - type.ordinal() * 3;
-		int rangeY = 3 + type.ordinal() * 4;
+	protected abstract int getNumBlocksToBreak();
+
+	public static void breakBlocks(Level world, HornItem horn, BlockPos srcPos) {
+		int range = horn.getRange();
+		int rangeY = horn.getRangeY();
 		List<BlockPos> coords = new ArrayList<>();
 
 		for (BlockPos pos : BlockPos.betweenClosed(srcPos.offset(-range, -rangeY, -range),
 				srcPos.offset(range, rangeY, range))) {
-			if (BergamuteBlockEntity.isBergamuteNearby(world, pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5)) {
-				continue;
-			}
-
-			if (HornItem.canHarvest(world, stack, pos, user, type)) {
+			if (horn.canHarvest(world, pos) && !BergamuteBlockEntity.isBergamuteNearby(world, pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5)) {
 				coords.add(pos.immutable());
 			}
 		}
 
 		Collections.shuffle(coords);
 
-		int count = Math.min(coords.size(), 32 + type.ordinal() * 16);
+		int count = Math.min(coords.size(), horn.getNumBlocksToBreak());
 		for (int i = 0; i < count; i++) {
 			BlockPos currCoords = coords.get(i);
-			BlockState state = world.getBlockState(currCoords);
-			BlockEntity be = world.getBlockEntity(currCoords);
-			HornHarvestable harvestable = XplatAbstractions.INSTANCE.findHornHarvestable(world, currCoords, state, be);
-
-			if (harvestable != null && harvestable.hasSpecialHornHarvest(world, currCoords, stack, type, user)) {
-				harvestable.harvestByHorn(world, currCoords, stack, type, user);
-			} else {
-				world.destroyBlock(currCoords, true);
-			}
+			world.destroyBlock(currCoords, true);
 		}
 	}
 

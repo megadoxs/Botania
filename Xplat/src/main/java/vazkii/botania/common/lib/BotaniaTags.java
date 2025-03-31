@@ -210,18 +210,23 @@ public class BotaniaTags {
 		public static final TagKey<Block> WEIGHT_LENS_AFFECTED = tag("weight_lens_affected");
 
 		/**
-		 * Blocks in this tag can be broken by the Horn of the Wild,
+		 * Blocks in this tag can be broken by the Horn/Drum of the Wild,
 		 * in addition to any {@code BushBlock}s that are not part of the {@link #SPECIAL_FLOWERS} tag.
 		 */
 		public static final TagKey<Block> HORN_OF_THE_WILD_BREAKABLE = tag("horn_of_the_wild_breakable");
+		/**
+		 * Blocks that extend BushBlock (other those tagged {@link #SPECIAL_FLOWERS}) or are tagged
+		 * {@link #HORN_OF_THE_WILD_BREAKABLE}, but should not be broken by the Horn/Drum of the Wild.
+		 */
+		public static final TagKey<Block> HORN_OF_THE_WILD_IMMUNE = tag("horn_of_the_wild_immune");
 
 		/**
-		 * Blocks in this tag can be broken by the Horn of the Canopy
+		 * Blocks in this tag can be broken by the Horn/Drum of the Canopy, unless they are persistent leaves blocks.
 		 */
 		public static final TagKey<Block> HORN_OF_THE_CANOPY_BREAKABLE = tag("horn_of_the_canopy_breakable");
 
 		/**
-		 * Blocks in this tag can be broken by the Horn of the Canopy
+		 * Blocks in this tag can be broken by the Horn of the Covering
 		 */
 		public static final TagKey<Block> HORN_OF_THE_COVERING_BREAKABLE = tag("horn_of_the_covering_breakable");
 

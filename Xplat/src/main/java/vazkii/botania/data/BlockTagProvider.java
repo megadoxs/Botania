@@ -224,7 +224,15 @@ public class BlockTagProvider extends IntrinsicHolderTagsProvider<Block> {
 				.add(Blocks.MOSS_CARPET)
 				.addOptional(ResourceLocation.fromNamespaceAndPath("biomesoplenty", "high_grass"))
 				.addOptional(ResourceLocation.fromNamespaceAndPath("biomesoplenty", "high_grass_plant"));
-		tag(BotaniaTags.Blocks.HORN_OF_THE_CANOPY_BREAKABLE).addTag(BlockTags.LEAVES);
+		tag(BotaniaTags.Blocks.HORN_OF_THE_WILD_IMMUNE)
+				.addTag(BotaniaTags.Blocks.SHINY_FLOWERS)
+				.addTag(BotaniaTags.Blocks.SHIMMERING_MUSHROOMS);
+		tag(BotaniaTags.Blocks.HORN_OF_THE_CANOPY_BREAKABLE)
+				.addTag(BlockTags.LEAVES)
+				.add(
+						Blocks.VINE, Blocks.CAVE_VINES, Blocks.CAVE_VINES_PLANT, Blocks.TWISTING_VINES,
+						Blocks.TWISTING_VINES_PLANT, Blocks.WEEPING_VINES, Blocks.WEEPING_VINES_PLANT
+				);
 		tag(BotaniaTags.Blocks.HORN_OF_THE_COVERING_BREAKABLE).add(Blocks.SNOW);
 
 		tag(BotaniaTags.Blocks.UNWANDABLE).addTag(BlockTags.FIRE)

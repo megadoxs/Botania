@@ -5,7 +5,6 @@ import net.neoforged.neoforge.capabilities.BlockCapability;
 import net.neoforged.neoforge.capabilities.ItemCapability;
 
 import vazkii.botania.api.block.ExoflameHeatable;
-import vazkii.botania.api.block.HornHarvestable;
 import vazkii.botania.api.block.HourglassTrigger;
 import vazkii.botania.api.block.PhantomInkableBlock;
 import vazkii.botania.api.block.Wandable;
@@ -35,8 +34,6 @@ public final class BotaniaForgeCapabilities {
 	public static final BlockCapability<ExoflameHeatable, Void> EXOFLAME_HEATABLE =
 			BlockCapability.createVoid(ExoflameHeatable.ID, ExoflameHeatable.class);
 
-	public static final BlockCapability<HornHarvestable, Void> HORN_HARVEST =
-			BlockCapability.createVoid(HornHarvestable.ID, HornHarvestable.class);
 	public static final BlockCapability<HourglassTrigger, Void> HOURGLASS_TRIGGER =
 			BlockCapability.createVoid(HourglassTrigger.ID, HourglassTrigger.class);
 	public static final BlockCapability<ManaCollisionGhost, Void> MANA_GHOST =

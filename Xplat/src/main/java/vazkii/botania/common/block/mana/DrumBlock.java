@@ -186,8 +186,8 @@ public class DrumBlock extends BotaniaWaterloggedBlock {
 				return;
 			}
 			switch (variant) {
-				case WILD -> HornItem.breakGrass(world, new ItemStack(BotaniaItems.grassHorn), pos, null);
-				case CANOPY -> HornItem.breakGrass(world, new ItemStack(BotaniaItems.leavesHorn), pos, null);
+				case WILD -> HornItem.breakBlocks(world, BotaniaItems.grassHorn, pos);
+				case CANOPY -> HornItem.breakBlocks(world, BotaniaItems.leavesHorn, pos);
 				case GATHERING -> gatherProduce(world, pos);
 			}
 

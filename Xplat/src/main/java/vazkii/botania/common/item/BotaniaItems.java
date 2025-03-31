@@ -247,9 +247,9 @@ public final class BotaniaItems {
 			.component(BotaniaDataComponents.CAN_EXPORT_MANA_TO_ITEM, Unit.INSTANCE)));
 	public static final Item manaGun = make(LibItemNames.MANA_GUN, new ManaBlasterItem(unstackable()));
 	public static final Item clip = make(LibItemNames.CLIP, new Item(unstackable()));
-	public static final Item grassHorn = make(LibItemNames.GRASS_HORN, new HornItem(unstackable()));
-	public static final Item leavesHorn = make(LibItemNames.LEAVES_HORN, new HornItem(unstackable()));
-	public static final Item snowHorn = make(LibItemNames.SNOW_HORN, new HornItem(unstackable()));
+	public static final HornItem grassHorn = make(LibItemNames.GRASS_HORN, new HornOfTheWildItem(unstackable()));
+	public static final HornItem leavesHorn = make(LibItemNames.LEAVES_HORN, new HornOfTheCanopyItem(unstackable()));
+	public static final HornItem snowHorn = make(LibItemNames.SNOW_HORN, new HornOfTheCoveringItem(unstackable()));
 	public static final Item vineBall = make(LibItemNames.VINE_BALL, new VineBallItem(defaultBuilder()));
 	public static final Item slingshot = make(LibItemNames.SLINGSHOT, new LivingwoodSlingshotItem(unstackable()));
 	public static final Item openBucket = make(LibItemNames.OPEN_BUCKET, new ExtrapolatedBucketItem(unstackable()));
