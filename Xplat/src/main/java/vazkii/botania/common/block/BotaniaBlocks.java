@@ -574,9 +574,9 @@ public final class BotaniaBlocks {
 	public static final Block turntable = new SpreaderTurntableBlock(BlockBehaviour.Properties.ofFullCopy(livingwood));
 	public static final Block tinyPlanet = new TinyPlanetBlock(BlockBehaviour.Properties.of().mapColor(MapColor.DEEPSLATE).strength(20, 100)
 			.sound(SoundType.DEEPSLATE).instrument(NoteBlockInstrument.BASEDRUM).requiresCorrectToolForDrops());
-	public static final Block wildDrum = new DrumBlock(DrumBlock.Variant.WILD, BlockBehaviour.Properties.ofFullCopy(livingwood).instrument(NoteBlockInstrument.BASEDRUM));
-	public static final Block gatheringDrum = new DrumBlock(DrumBlock.Variant.GATHERING, BlockBehaviour.Properties.ofFullCopy(wildDrum));
-	public static final Block canopyDrum = new DrumBlock(DrumBlock.Variant.CANOPY, BlockBehaviour.Properties.ofFullCopy(wildDrum));
+	public static final Block wildDrum = new DrumOfTheWildBlock(BlockBehaviour.Properties.ofFullCopy(livingwood).instrument(NoteBlockInstrument.BASEDRUM).mapColor(MapColor.TERRACOTTA_WHITE));
+	public static final Block gatheringDrum = new DrumOfTheGatheringBlock(BlockBehaviour.Properties.ofFullCopy(wildDrum));
+	public static final Block canopyDrum = new DrumOfTheCanopyBlock(BlockBehaviour.Properties.ofFullCopy(wildDrum));
 	public static final Block spawnerClaw = new LifeImbuerBlock(BlockBehaviour.Properties.of().sound(SoundType.METAL).strength(3).requiresCorrectToolForDrops());
 	public static final Block rfGenerator = new PowerGeneratorBlock(BlockBehaviour.Properties.ofFullCopy(livingrock));
 	public static final Block prism = new ManaPrismBlock(BlockBehaviour.Properties.ofFullCopy(elfGlass).noCollission());
