@@ -13,7 +13,6 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.ItemInteractionResult;
-import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -29,7 +28,6 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
-import net.minecraft.world.phys.shapes.EntityCollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
@@ -39,41 +37,18 @@ import vazkii.botania.api.mana.ManaCollisionGhost;
 import vazkii.botania.common.block.block_entity.PlatformBlockEntity;
 
 import java.util.List;
-import java.util.function.BiPredicate;
 
-public class PlatformBlock extends BotaniaBlock implements ManaCollisionGhost, EntityBlock {
+public abstract class PlatformBlock extends BotaniaBlock implements ManaCollisionGhost, EntityBlock {
 
-	public enum Variant {
-		ABSTRUSE(false, (pos, context) -> {
-			if (context instanceof EntityCollisionContext econtext) {
-				Entity e = econtext.getEntity();
-				return (e == null || e.getY() > pos.getY() + 0.9 && !context.isDescending());
-			} else {
-				return true;
-			}
-		}),
-		SPECTRAL(false, (pos, context) -> false),
-		INFRANGIBLE(true, (pos, context) -> true);
-
-		public final boolean indestructible;
-		public final BiPredicate<BlockPos, CollisionContext> collide;
-
-		Variant(boolean i, BiPredicate<BlockPos, CollisionContext> p) {
-			indestructible = i;
-			collide = p;
-		}
-	}
-
-	private final Variant variant;
-
-	public PlatformBlock(Variant v, Properties builder) {
+	protected PlatformBlock(Properties builder) {
 		super(builder);
-		this.variant = v;
 	}
 
-	public Variant getVariant() {
-		return variant;
+	public boolean requireCreativeInteractions() {
+		return false;
 	}
+
+	public abstract boolean testCollision(BlockPos pos, CollisionContext context);
 
 	@Override
 	public VoxelShape getShape(BlockState state, BlockGetter world, BlockPos pos, CollisionContext context) {
@@ -87,7 +62,7 @@ public class PlatformBlock extends BotaniaBlock implements ManaCollisionGhost, E
 
 	@Override
 	public VoxelShape getCollisionShape(BlockState state, BlockGetter world, BlockPos pos, CollisionContext context) {
-		if (variant.collide.test(pos, context)) {
+		if (testCollision(pos, context)) {
 			// NB: Use full shape from super.getOutlineShape instead of camo state. May change later.
 			return super.getShape(state, world, pos, context);
 		} else {
@@ -123,7 +98,7 @@ public class PlatformBlock extends BotaniaBlock implements ManaCollisionGhost, E
 
 	@Override
 	public void appendHoverText(ItemStack stack, @Nullable Item.TooltipContext context, List<Component> tooltip, TooltipFlag flagIn) {
-		if (variant.indestructible) {
+		if (requireCreativeInteractions()) {
 			tooltip.add(Component.translatable("botaniamisc.creative").withStyle(ChatFormatting.GRAY));
 		}
 	}
@@ -133,7 +108,7 @@ public class PlatformBlock extends BotaniaBlock implements ManaCollisionGhost, E
 		BlockEntity tile = world.getBlockEntity(pos);
 		ItemStack currentStack = player.getItemInHand(hand);
 
-		if (variant.indestructible && !player.isCreative()) {
+		if (requireCreativeInteractions() && !player.isCreative()) {
 			return ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
 		}
 		if (!currentStack.isEmpty()

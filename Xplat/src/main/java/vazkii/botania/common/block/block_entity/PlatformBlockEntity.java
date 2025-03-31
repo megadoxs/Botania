@@ -20,7 +20,6 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.gameevent.GameEvent;
 
@@ -31,6 +30,8 @@ import vazkii.botania.api.block.Wandable;
 import vazkii.botania.api.internal.VanillaPacketDispatcher;
 import vazkii.botania.common.annotations.SoftImplement;
 import vazkii.botania.common.block.PlatformBlock;
+
+import java.util.Optional;
 
 public class PlatformBlockEntity extends BotaniaBlockEntity implements Wandable, PhantomInkableBlock {
 	private static final String TAG_CAMO = "camo";
@@ -45,15 +46,15 @@ public class PlatformBlockEntity extends BotaniaBlockEntity implements Wandable,
 	@Override
 	public boolean onUsedByWand(@Nullable Player player, ItemStack stack, Direction side) {
 		if (player != null) {
-			PlatformBlock.Variant variant = getVariant();
-			if (variant.indestructible && !player.isCreative()) {
+			if (getBlockState().getBlock() instanceof PlatformBlock platform && platform.requireCreativeInteractions()
+					&& !player.isCreative()) {
 				return false;
 			}
 
 			if (getCamoState() == null || player.isShiftKeyDown()) {
-				swapSelfAndPass(this, true, variant);
+				swapSelfAndPass(this, true);
 			} else {
-				swapSurroudings(this, false, variant);
+				swapSurroudings(this, false);
 			}
 			return true;
 		}
@@ -94,26 +95,19 @@ public class PlatformBlockEntity extends BotaniaBlockEntity implements Wandable,
 		}
 	}
 
-	private PlatformBlock.Variant getVariant() {
-		return ((PlatformBlock) getBlockState().getBlock()).getVariant();
-	}
-
-	private void swapSelfAndPass(PlatformBlockEntity tile, boolean empty, PlatformBlock.Variant variant) {
+	private void swapSelfAndPass(PlatformBlockEntity tile, boolean empty) {
 		swap(tile, empty);
-		swapSurroudings(tile, empty, variant);
+		swapSurroudings(tile, empty);
 	}
 
-	private void swapSurroudings(PlatformBlockEntity tile, boolean empty, PlatformBlock.Variant variant) {
+	private void swapSurroudings(PlatformBlockEntity tile, boolean empty) {
+		Block variant = getBlockState().getBlock();
 		for (Direction dir : Direction.values()) {
 			BlockPos pos = tile.getBlockPos().relative(dir);
-			BlockEntity tileAt = level.getBlockEntity(pos);
-			if (tileAt instanceof PlatformBlockEntity platform) {
-				if (tile.getVariant() != platform.getVariant()) {
-					continue;
-				}
-				if (empty == (platform.getCamoState() != null)) {
-					swapSelfAndPass(platform, empty, variant);
-				}
+			Optional<PlatformBlockEntity> tileAt = level.getBlockEntity(pos, BotaniaBlockEntities.PLATFORM);
+			if (tileAt.isPresent() && tileAt.get().getBlockState().getBlock() == variant
+					&& (tileAt.get().getCamoState() != null) == empty) {
+				swapSelfAndPass(tileAt.get(), empty);
 			}
 		}
 	}

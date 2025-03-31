@@ -589,9 +589,9 @@ public final class BotaniaBlocks {
 	public static final Block craftCrate = new CraftyCrateBlock(BlockBehaviour.Properties.ofFullCopy(livingwood));
 	public static final Block forestEye = new EyeOfTheAncientsBlock(BlockBehaviour.Properties.of().strength(5, 10).sound(SoundType.METAL).requiresCorrectToolForDrops());
 	public static final Block solidVines = new SolidVineBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.VINE));
-	public static final Block abstrusePlatform = new PlatformBlock(PlatformBlock.Variant.ABSTRUSE, BlockBehaviour.Properties.ofFullCopy(livingwood).strength(2, 5).isValidSpawn(NO_SPAWN).noOcclusion().isViewBlocking(NO_SUFFOCATION).isSuffocating(NO_SUFFOCATION));
-	public static final Block spectralPlatform = new PlatformBlock(PlatformBlock.Variant.SPECTRAL, BlockBehaviour.Properties.ofFullCopy(abstrusePlatform));
-	public static final Block infrangiblePlatform = new PlatformBlock(PlatformBlock.Variant.INFRANGIBLE, BlockBehaviour.Properties.ofFullCopy(abstrusePlatform).strength(-1, Float.MAX_VALUE).isValidSpawn(NO_SPAWN).noOcclusion());
+	public static final Block abstrusePlatform = new AbstrusePlatformBlock(BlockBehaviour.Properties.ofFullCopy(livingwood).strength(2, 5).isValidSpawn(NO_SPAWN).noOcclusion().isViewBlocking(NO_SUFFOCATION).isSuffocating(NO_SUFFOCATION));
+	public static final Block spectralPlatform = new SpectralPlatformBlock(BlockBehaviour.Properties.ofFullCopy(abstrusePlatform));
+	public static final Block infrangiblePlatform = new InfrangiblePlatformBlock(BlockBehaviour.Properties.ofFullCopy(abstrusePlatform).strength(-1, Float.MAX_VALUE).isValidSpawn(NO_SPAWN).noOcclusion());
 	public static final Block tinyPotato = new TinyPotatoBlock(BlockBehaviour.Properties.of().strength(0.25F).mapColor(DyeColor.PINK));
 	public static final Block enderEye = new EnderOverseerBlock(BlockBehaviour.Properties.ofFullCopy(manasteelBlock));
 	public static final Block redStringContainer = new RedStringContainerBlock(BlockBehaviour.Properties.ofFullCopy(livingrock));
