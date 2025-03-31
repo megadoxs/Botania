@@ -31,11 +31,6 @@ import vazkii.botania.data.util.DummyTagLookup;
 import java.util.Set;
 import java.util.concurrent.CompletableFuture;
 
-import static vazkii.botania.common.item.BotaniaItems.blackLotus;
-import static vazkii.botania.common.item.BotaniaItems.blackerLotus;
-import static vazkii.botania.common.item.BotaniaItems.lexicon;
-import static vazkii.botania.common.item.BotaniaItems.overgrowthSeed;
-
 public class ConventionalItemTagProvider extends ItemTagsProvider {
 	private static final Set<TagKey<Item>> RELEVANT_TAGS = Set.of(
 			BotaniaTags.Items.SHIMMERING_MUSHROOMS
@@ -95,6 +90,19 @@ public class ConventionalItemTagProvider extends ItemTagsProvider {
 		);
 		tag(ConventionalItemTags.WOODEN_FENCES).add(
 				BotaniaBlocks.livingwoodFence.asItem(), BotaniaBlocks.dreamwoodFence.asItem()
+		);
+
+		// Foods and Drinks
+		tag(ConventionalItemTags.COOKIE_FOODS).add(BotaniaItems.manaCookie);
+		tag(ConventionalItemTags.FRUIT_FOODS).add(BotaniaItems.infiniteFruit);
+		tag(ConventionalItemTags.MAGIC_DRINKS).add(
+				BotaniaItems.manaBottle, BotaniaItems.brewVial, BotaniaItems.brewFlask
+		);
+		tag(ConventionalItemTags.WATERY_DRINKS).add(
+				BotaniaItems.brewVial, BotaniaItems.brewFlask
+		);
+		tag(ConventionalItemTags.DRINK_CONTAINING_BOTTLE).add(
+				BotaniaItems.manaBottle, BotaniaItems.brewVial, BotaniaItems.brewFlask
 		);
 
 		// Gems
@@ -184,8 +192,6 @@ public class ConventionalItemTagProvider extends ItemTagsProvider {
 		);
 		tag(ConventionalItemTags.RANGED_WEAPON_TOOLS).add(
 				BotaniaItems.livingwoodBow, BotaniaItems.crystalBow
-		// TODO: figure out if the chakrams belong here, and if there are other semi-standard tags for them
-		//  BotaniaItems.thornChakram, BotaniaItems.flareChakram
 		);
 		tag(ConventionalItemTags.SHEAR_TOOLS).add(
 				BotaniaItems.manasteelShears, BotaniaItems.elementiumShears
@@ -200,8 +206,8 @@ public class ConventionalItemTagProvider extends ItemTagsProvider {
 		copy(ConventionalBlockTags.STRIPPED_LOGS, ConventionalItemTags.STRIPPED_LOGS);
 		copy(ConventionalBlockTags.STRIPPED_WOODS, ConventionalItemTags.STRIPPED_WOODS);
 
-		this.tag(BotaniaTags.Items.LOONIUM_EXCLUDED)
-				.add(lexicon, overgrowthSeed, blackLotus, blackerLotus, Items.TRIAL_KEY, Items.OMINOUS_TRIAL_KEY)
+		tag(BotaniaTags.Items.LOONIUM_EXCLUDED)
+				.add(BotaniaItems.lexicon, BotaniaItems.overgrowthSeed, BotaniaItems.blackLotus, BotaniaItems.blackerLotus, Items.TRIAL_KEY, Items.OMINOUS_TRIAL_KEY)
 				.addTag(ConventionalItemTags.MUSIC_DISCS);
 	}
 

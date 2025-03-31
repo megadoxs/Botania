@@ -12,11 +12,16 @@ e77aa0783fc63ebff1c84f23c7cf14e666892776 data/c/tags/item/cobblestones/metamorph
 8455c293eab3e35eb5e185f5a97106fa820aa9e6 data/c/tags/item/cobblestones/metamorphic/plains.json
 17420ec6d239945704f032b0f102af4d0b1b6add data/c/tags/item/cobblestones/metamorphic/swamp.json
 b1796aa465a5e4c93f781586cd8d0bdcaa30f171 data/c/tags/item/cobblestones/metamorphic/taiga.json
+fa01d0986130655296edf6408162c4fb172831d3 data/c/tags/item/drink_containing/bottle.json
+fa01d0986130655296edf6408162c4fb172831d3 data/c/tags/item/drinks/magic.json
+4c164c91bfbd3c67a9f809e2c57c7b71b29d12fd data/c/tags/item/drinks/watery.json
 7fef5566f45c8e695007ed6dd5d40694bf3daa1e data/c/tags/item/dusts.json
 3b82ebfea27abfd970b1e746c92de795a2627931 data/c/tags/item/dusts/mana.json
 9363c165f1826d681e5f6e9c05767b5882efc1e4 data/c/tags/item/dusts/pixie.json
 f0d5cb37cb6cade48762a422ba54b59c29b52508 data/c/tags/item/fence_gates/wooden.json
 88772bf1fbd655cb754dc8b3dc6a0e234426aa79 data/c/tags/item/fences/wooden.json
+ddc40afc699861872a7cf3416eb760af71fb8d30 data/c/tags/item/foods/cookie.json
+96ac4488e2e8036d28a946eff5a242dabfed438b data/c/tags/item/foods/fruit.json
 b08ce560404b67e38c606047009d14468676e858 data/c/tags/item/gems.json
 dac0610f30857965bf170f6620f6f521ef29db4d data/c/tags/item/gems/dragonstone.json
 ee0b3503c8673a0ca35b4a2057b5b40eea2e9757 data/c/tags/item/gems/mana_diamond.json
