@@ -49,7 +49,7 @@ public final class BotaniaForgeCapabilities {
 	public static final BlockCapability<ManaTrigger, Void> MANA_TRIGGER =
 			BlockCapability.createVoid(ManaTrigger.ID, ManaTrigger.class);
 	public static final BlockCapability<PhantomInkableBlock, Void> PHANTOM_INKABLE =
-			BlockCapability.createVoid(Wandable.ID, PhantomInkableBlock.class);
+			BlockCapability.createVoid(PhantomInkableBlock.ID, PhantomInkableBlock.class);
 	public static final BlockCapability<Wandable, Void> WANDABLE =
 			BlockCapability.createVoid(Wandable.ID, Wandable.class);
 
