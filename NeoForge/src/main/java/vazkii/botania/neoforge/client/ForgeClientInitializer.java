@@ -4,6 +4,7 @@ import com.google.common.base.Suppliers;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.inventory.tooltip.ClientTooltipComponent;
+import net.minecraft.client.model.HumanoidModel;
 import net.minecraft.client.particle.ParticleProvider;
 import net.minecraft.client.particle.SpriteSet;
 import net.minecraft.client.renderer.ItemBlockRenderTypes;
@@ -13,8 +14,15 @@ import net.minecraft.client.renderer.item.ItemProperties;
 import net.minecraft.client.resources.model.ModelResourceLocation;
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleType;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.neoforged.api.distmarker.Dist;
@@ -24,6 +32,8 @@ import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
 import net.neoforged.neoforge.capabilities.RegisterCapabilitiesEvent;
 import net.neoforged.neoforge.client.event.*;
+import net.neoforged.neoforge.client.extensions.common.IClientItemExtensions;
+import net.neoforged.neoforge.client.extensions.common.RegisterClientExtensionsEvent;
 import net.neoforged.neoforge.client.gui.VanillaGuiLayers;
 import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.event.entity.player.ItemTooltipEvent;
@@ -44,23 +54,30 @@ import vazkii.botania.client.gui.bag.FlowerPouchGui;
 import vazkii.botania.client.gui.box.BaubleBoxGui;
 import vazkii.botania.client.integration.ears.EarsIntegration;
 import vazkii.botania.client.model.BotaniaLayerDefinitions;
+import vazkii.botania.client.model.armor.ArmorModels;
 import vazkii.botania.client.render.BlockRenderLayers;
 import vazkii.botania.client.render.ColorHandler;
 import vazkii.botania.client.render.entity.EntityRenderers;
+import vazkii.botania.common.block.BotaniaBlocks;
 import vazkii.botania.common.block.block_entity.BotaniaBlockEntities;
 import vazkii.botania.common.block.block_entity.corporea.CorporeaIndexBlockEntity;
 import vazkii.botania.common.entity.BotaniaEntities;
 import vazkii.botania.common.item.BotaniaItems;
+import vazkii.botania.common.item.equipment.armor.manasteel.ManasteelArmorItem;
 import vazkii.botania.common.item.equipment.bauble.RingOfDexterousMotionItem;
+import vazkii.botania.common.lib.LibMisc;
 import vazkii.botania.xplat.ClientXplatAbstractions;
 import vazkii.botania.xplat.XplatAbstractions;
 import vazkii.patchouli.api.BookDrawScreenEvent;
 
 import java.io.IOException;
 import java.io.UncheckedIOException;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.IdentityHashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.function.Function;
 import java.util.function.Supplier;
 import java.util.stream.Stream;
@@ -208,6 +225,37 @@ public class ForgeClientInitializer {
 	public static void registerEntityRenderers(EntityRenderersEvent.RegisterRenderers evt) {
 		EntityRenderers.registerBlockEntityRenderers(evt::registerBlockEntityRenderer);
 		EntityRenderers.registerEntityRenderers(evt::registerEntityRenderer);
+	}
+
+	@SubscribeEvent
+	public static void registerClientExtensions(RegisterClientExtensionsEvent event) {
+		List<Item> armorItems = new ArrayList<>();
+		for (var entry : BuiltInRegistries.ITEM.entrySet()) {
+			Item item = entry.getValue();
+			ResourceLocation id = entry.getKey().location();
+			if (item instanceof ManasteelArmorItem armor && id.getNamespace().equals(LibMisc.MOD_ID)) {
+				armorItems.add(armor);
+			}
+		}
+
+		event.registerItem(
+				new IClientItemExtensions() {
+					@Override
+					public HumanoidModel<?> getHumanoidArmorModel(LivingEntity living, ItemStack stack, EquipmentSlot slot, HumanoidModel<?> defaultModel) {
+						return Objects.requireNonNull(ArmorModels.get(stack));
+					}
+				},
+				armorItems.toArray(Item[]::new)
+		);
+
+		event.registerItem(
+				ForgeBlockEntityItemRendererHelper.PROPS,
+				Stream.of(
+						BotaniaBlocks.brewery, BotaniaBlocks.manaPylon, BotaniaBlocks.naturaPylon, BotaniaBlocks.gaiaPylon,
+						BotaniaBlocks.bellows, BotaniaBlocks.corporeaIndex, BotaniaBlocks.hourglass,
+						BotaniaBlocks.teruTeruBozu, BotaniaBlocks.avatar
+				).map(Block::asItem).toArray(Item[]::new)
+		);
 	}
 
 	@SubscribeEvent

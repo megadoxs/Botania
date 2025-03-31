@@ -43,16 +43,13 @@ public class ArmorModels {
 	@Nullable
 	public static ArmorModel get(ItemStack stack) {
 		Item item = stack.getItem();
-		if (item instanceof ManaweaveArmorItem armor) {
-			return manaweave.get(armor.getEquipmentSlot());
-		} else if (item instanceof ElementiumArmorItem armor) {
-			return elementium.get(armor.getEquipmentSlot());
-		} else if (item instanceof TerrasteelArmorItem armor) {
-			return terrasteel.get(armor.getEquipmentSlot());
-		} else if (item instanceof ManasteelArmorItem armor) { // manasteel must be last because the other types extend from it
-			return manasteel.get(armor.getEquipmentSlot());
-		}
-
-		return null;
+		return switch (item) {
+			case ManaweaveArmorItem armor -> manaweave.get(armor.getEquipmentSlot());
+			case ElementiumArmorItem armor -> elementium.get(armor.getEquipmentSlot());
+			case TerrasteelArmorItem armor -> terrasteel.get(armor.getEquipmentSlot());
+			// manasteel must be last because the other types extend from it
+			case ManasteelArmorItem armor -> manasteel.get(armor.getEquipmentSlot());
+			default -> null;
+		};
 	}
 }

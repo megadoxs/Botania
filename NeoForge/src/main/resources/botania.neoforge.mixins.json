@@ -9,8 +9,6 @@
     "BotaniaGrassBlockForgeMixin"
   ],
   "client": [
-    "client.ItemBlockWithSpecialRendererForgeMixin",
-    "client.ItemManasteelArmorForgeMixin",
     "client.ModelBakeryForgeAccessor"
   ],
   "server": [],
