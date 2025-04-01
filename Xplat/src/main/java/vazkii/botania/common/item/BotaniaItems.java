@@ -98,7 +98,7 @@ public final class BotaniaItems {
 	public static final Item manaPearl = make(LibItemNames.MANA_PEARL, new Item(defaultBuilder()));
 	public static final Item manaDiamond = make(LibItemNames.MANA_DIAMOND, new Item(defaultBuilder()));
 	public static final Item livingwoodTwig = make(LibItemNames.LIVINGWOOD_TWIG, new Item(defaultBuilder()));
-	public static final Item terrasteel = make(LibItemNames.TERRASTEEL_INGOT, new ManaResourceItem(defaultBuilder().rarity(Rarity.UNCOMMON)));
+	public static final Item terrasteel = make(LibItemNames.TERRASTEEL_INGOT, new GaiaRitualSacrificeItem(defaultBuilder().rarity(Rarity.UNCOMMON), false));
 	public static final Item lifeEssence = make(LibItemNames.LIFE_ESSENCE, new Item(defaultBuilder().rarity(Rarity.UNCOMMON)));
 	public static final Item redstoneRoot = make(LibItemNames.REDSTONE_ROOT, new Item(defaultBuilder()));
 	public static final Item elementium = make(LibItemNames.ELEMENTIUM_INGOT, new Item(defaultBuilder()));
@@ -106,13 +106,13 @@ public final class BotaniaItems {
 	public static final Item dragonstone = make(LibItemNames.DRAGONSTONE, new Item(defaultBuilder()));
 	public static final Item redString = make(LibItemNames.RED_STRING, new Item(defaultBuilder()));
 	public static final Item dreamwoodTwig = make(LibItemNames.DREAMWOOD_TWIG, new Item(defaultBuilder()));
-	public static final Item gaiaIngot = make(LibItemNames.GAIA_INGOT, new ManaResourceItem(defaultBuilder().rarity(Rarity.RARE)));
+	public static final Item gaiaIngot = make(LibItemNames.GAIA_INGOT, new GaiaRitualSacrificeItem(defaultBuilder().rarity(Rarity.RARE), true));
 	public static final Item enderAirBottle = make(LibItemNames.ENDER_AIR_BOTTLE, new EnderAirItem(defaultBuilder()));
 	public static final Item manaString = make(LibItemNames.MANA_STRING, new Item(defaultBuilder()));
 	public static final Item manasteelNugget = make(LibItemNames.MANASTEEL_NUGGET, new Item(defaultBuilder()));
 	public static final Item terrasteelNugget = make(LibItemNames.TERRASTEEL_NUGGET, new Item(defaultBuilder().rarity(Rarity.UNCOMMON)));
 	public static final Item elementiumNugget = make(LibItemNames.ELEMENTIUM_NUGGET, new Item(defaultBuilder()));
-	public static final Item livingroot = make(LibItemNames.LIVING_ROOT, new ManaResourceItem(defaultBuilder()));
+	public static final Item livingroot = make(LibItemNames.LIVING_ROOT, new BoneMealItem(defaultBuilder()));
 	public static final Item pebble = make(LibItemNames.PEBBLE, new Item(defaultBuilder()));
 	public static final Item manaweaveCloth = make(LibItemNames.MANAWEAVE_CLOTH, new Item(defaultBuilder()));
 	public static final Item manaPowder = make(LibItemNames.MANA_POWDER, new Item(defaultBuilder()));
