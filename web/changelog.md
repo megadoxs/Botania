@@ -16,15 +16,58 @@ and start a new "Upcoming" section.
 -->
 
 {% include changelog_header.html version="Upcoming" %}
+Note: Porting efforts to bring Botania to 1.21+ versions of Minecraft (supporting both Fabric and NeoForge) are ongoing.
+We cannot provide any ETA (even a rough one) due to the complexity of the work involved and the somewhat limited amount
+of time the maintainers are able to spend on this effort. For the time being, updates still target Minecraft 1.20.1.
+
+* Add: Several missing Forge tags for blocks, items, and entities
+
+---
+
+{% include changelog_header.html version="1.20.1-448" %}
+
+* Add: Forge storage block tags for mana diamond, dragonstone, blaze mesh, and petal blocks
+* Add: Floral fertilizer can also produce shimmering mushrooms, if applied to mushroom-compatible soil
+* Add: Multi-item filter support via container items (shulker box, flower pouch, etc.) in glow item frames for Hopperhock,
+Rannuncarpus, Corporea Interceptor, and Corporea Funnel; the latter uses item counts as random selection weights
+* Add: Wearing a Manaseer Monocle reveals the contents of a container item in an item frame when looking at the frame
+* Add: An offline backup of the contributors list in the state of the currently installed Botania release will be used for head flowers, if the online copy is unavailable
+* Add: Player statistics now track items crafted via petal apothecary, mana infusion, runic altar, terrestrial agglomeration plate, and manual crafty crate activation
+* Add: Dispensers can now apply phantom ink to blocks (entities like sparks are not yet supported)
+* Add: Phantom ink can be applied to corporea cubes to hide the item count
+* Change: Hopperhock and Corporea Funnel better support Quark's backport of the vanilla Crafter, causing items to be
+distributed across the available slots, rather than putting the entire stack into a single slot
+* Change: Horn/Drum of the Wild also breaks Biomes O' Plenty's high grass by default
+* Change: Flügel Tiara sprint dash can be suppressed by carrying an active Stone of Temperance
+* Fix: Dandelifeon sometimes generated a randomly greater amount of mana than intended when on enchanted soil
+* Fix: Trinkets could not be equipped via right-click (Abbie)
+* Fix: Rod of the Highlands now includes placement sound and particles if not used on another solid block
+* Fix: Potted motif flowers are rendered using the correct textures
+* Fix (Fabric): The loot table for Elementium Axe beheading is no longer evaluated independently from the killed mob's
+own loot table. This hopefully fixes loot doubling issues with LootJS.
+* Fix: Phantom inked luminizers now save properly
+* Language update:
+  * ko_kr updated (UnineVesiKass)
+* Internal: Add PhantomInkableBlock interface for blocks that can be phantom inked
+
+---
+
+{% include changelog_header.html version="1.20.1-447" %}
 
 * Add: Looniums can now give different loot and mob spawns based on which
 structure it's placed in, also further customizable with datapacks. Huuuuge
 thanks to Wormbo for a lot of work on this feature!
 * Add: Dispenser planting supports torchflower seeds and pitcher pods
+* Add: Sniffers can dig up their usual seeds on Botania grass variants
+* Add: Proper map colors for quartz variants, biome stones, pavements, and blaze mesh
+* Add: Dandelifeon benefits from enchanted soil again; during the bonus update cycle granted by enchanted soil, neighbor flowers not planted on enchanted soil are ignored (NEstoll)
 * Change: More readable color in Loonium tooltip
 * Change: Pasture seed spread is no longer restricted to a single Y-level, and replacing existing dirt-like blocks is handled by block tag `botania:pasture_seed_replaceable`
 * Change: Hopperhocks now also apply delay from being planted on podzol or mycelium to picking up recipe outputs, such as from mana infusion
 * Change: Blocks that are not covered by the default unethical TNT check, but can produce TNT the Entropinnyum recognizes, can be specified in the new `botania:unethical_tnt_check` block tag to detect when TNT is duplicated from them (contains `ae2:tiny_tnt` by default)
+* Change: Reordered colored items in the creative inventory to match the new vanilla order since 1.19.3
+* Change: Fluid container items that were dropped onto a Petal Apothecary to fill it can be picked up by Hopperhocks immediately, similar to crafting result items
+* Change: The particle effect for charging or draining mana items via a mana pool now uses "wisp" particles to match other mana transfer effects, such as sparks or spreaders
 * Fix: Akashic Tome name is rendered correctly again on the Lexica Botania
 * Fix: Slightly improved tick performance impact of mana/corporea sparks
 * Fix: Halloween Easter egg on Tiny Potato also works in item form
@@ -32,11 +75,16 @@ thanks to Wormbo for a lot of work on this feature!
 * Fix: Protection effect of the Benevolent Goddess Charm also works on Fabric when the player dies from the explosion
 * Fix: Redstone comparators no longer read signal strength 0 from special flowers other than the Thermalily
 * Fix: A comparator reading from a Thermalily through a solid block no longer keeps outputting a value after breaking the Thermalily
+* Fix: Potential crash issues in combination with mods that add colors have been resolved
+* Fix: Proper support for NBT-based food items on Forge to prevent crash if they don't implement the vanilla method to get food properties
+* Fix: Potential crash with certain modded dispenser variants when trying to attach a mana/corporea spark or applying a Wand of the Forest or Floral Obedience Stick that way
+* Fix: Failed access to bound inventory via red-stringed container on Fabric without specifying a direction (e.g. by looking at one with WTHIT)
+* Fix: Charm of the Diva now also works with Trinkets 3.7.2 (by not using a hacky NBT-based workaround)
 * Language update:
-  * de_de completed (thanks to Kartabass and PssbleTrngle for reviewing)
+  * de_de completed (Wormbo, thanks to Kartabass and PssbleTrngle for reviewing)
   * ko_kr updated (UnineVesiKass)
   * ru_ru updated (krumplerban)
-  * zh_cn updated (Dawnwalker666)
+  * zh_cn updated (Dawnwalker666 and Suisuroru)
 
 ---
 

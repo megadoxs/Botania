@@ -29,6 +29,7 @@ import net.minecraft.world.entity.monster.Slime;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.vehicle.AbstractMinecart;
+import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.MenuType;
 import net.minecraft.world.item.BucketItem;
@@ -77,10 +78,7 @@ import org.apache.commons.lang3.function.TriFunction;
 import org.jetbrains.annotations.Nullable;
 
 import vazkii.botania.api.BotaniaForgeCapabilities;
-import vazkii.botania.api.block.ExoflameHeatable;
-import vazkii.botania.api.block.HornHarvestable;
-import vazkii.botania.api.block.HourglassTrigger;
-import vazkii.botania.api.block.Wandable;
+import vazkii.botania.api.block.*;
 import vazkii.botania.api.block_entity.SpecialFlowerBlockEntity;
 import vazkii.botania.api.corporea.CorporeaIndexRequestEvent;
 import vazkii.botania.api.corporea.CorporeaRequestEvent;
@@ -96,6 +94,7 @@ import vazkii.botania.api.recipe.ElvenPortalUpdateEvent;
 import vazkii.botania.common.block.block_entity.red_string.RedStringContainerBlockEntity;
 import vazkii.botania.common.handler.EquipmentHandler;
 import vazkii.botania.common.internal_caps.*;
+import vazkii.botania.common.lib.BotaniaTags;
 import vazkii.botania.common.lib.LibMisc;
 import vazkii.botania.forge.CapabilityUtil;
 import vazkii.botania.forge.block.ForgeSpecialFlowerBlock;
@@ -218,6 +217,12 @@ public class ForgeXplatImpl implements XplatAbstractions {
 		return CapabilityUtil.findCapability(BotaniaForgeCapabilities.WANDABLE, level, pos, state, be);
 	}
 
+	@Nullable
+	@Override
+	public PhantomInkableBlock findPhantomInkable(Level level, BlockPos pos, BlockState state, @Nullable BlockEntity be) {
+		return CapabilityUtil.findCapability(BotaniaForgeCapabilities.PHANTOM_INKABLE, level, pos, state, be);
+	}
+
 	@Override
 	public boolean isFluidContainer(ItemEntity item) {
 		return item.getItem().getCapability(ForgeCapabilities.FLUID_HANDLER_ITEM).isPresent();
@@ -227,11 +232,10 @@ public class ForgeXplatImpl implements XplatAbstractions {
 	public boolean extractFluidFromItemEntity(ItemEntity item, Fluid fluid) {
 		return item.getItem().getCapability(ForgeCapabilities.FLUID_HANDLER_ITEM)
 				.map(h -> {
-					var extracted = h.drain(new FluidStack(fluid, FluidType.BUCKET_VOLUME),
-							IFluidHandler.FluidAction.SIMULATE);
+					var extracted = h.drain(FluidType.BUCKET_VOLUME, IFluidHandler.FluidAction.SIMULATE);
 					var success = extracted.getFluid() == fluid && extracted.getAmount() == FluidType.BUCKET_VOLUME;
 					if (success) {
-						h.drain(new FluidStack(fluid, FluidType.BUCKET_VOLUME), IFluidHandler.FluidAction.EXECUTE);
+						h.drain(extracted, IFluidHandler.FluidAction.EXECUTE);
 						item.setItem(h.getContainer());
 					}
 					return success;
@@ -244,11 +248,10 @@ public class ForgeXplatImpl implements XplatAbstractions {
 		var stack = player.getItemInHand(hand);
 		return stack.getCapability(ForgeCapabilities.FLUID_HANDLER_ITEM)
 				.map(h -> {
-					var extracted = h.drain(new FluidStack(fluid, FluidType.BUCKET_VOLUME),
-							IFluidHandler.FluidAction.SIMULATE);
+					var extracted = h.drain(FluidType.BUCKET_VOLUME, IFluidHandler.FluidAction.SIMULATE);
 					var success = extracted.getFluid() == fluid && extracted.getAmount() == FluidType.BUCKET_VOLUME;
 					if (success && !player.getAbilities().instabuild) {
-						h.drain(new FluidStack(fluid, FluidType.BUCKET_VOLUME), IFluidHandler.FluidAction.EXECUTE);
+						h.drain(extracted, IFluidHandler.FluidAction.EXECUTE);
 						player.setItemInHand(hand, h.getContainer());
 					}
 					return success;
@@ -304,19 +307,33 @@ public class ForgeXplatImpl implements XplatAbstractions {
 	@Override
 	public ItemStack insertToInventory(Level level, BlockPos pos, Direction sideOfPos, ItemStack toInsert, boolean simulate) {
 		var be = level.getBlockEntity(pos);
+		var state = level.getBlockState(pos);
 		LazyOptional<IItemHandler> cap = LazyOptional.empty();
 		if (be != null) {
 			cap = be.getCapability(ForgeCapabilities.ITEM_HANDLER, sideOfPos);
 		} else {
 			// check vanilla interface for blocks not covered by forge capabilities, e.g. composter
-			var state = level.getBlockState(pos);
 			if (state.getBlock() instanceof WorldlyContainerHolder wch) {
 				cap = LazyOptional.of(() -> new SidedInvWrapper(wch.getContainer(state, level, pos), sideOfPos));
 			}
 		}
 
-		return cap.map(handler -> ItemHandlerHelper.insertItemStacked(handler, toInsert, simulate))
-				.orElse(toInsert);
+		// can't do incremental simulations
+		if (simulate || !state.is(BotaniaTags.Blocks.SINGLE_ITEM_INSERT)) {
+			return cap.map(handler -> ItemHandlerHelper.insertItemStacked(handler, toInsert, simulate))
+					.orElse(toInsert);
+		}
+
+		int maxInserts = toInsert.getCount();
+		for (int i = 0; i < maxInserts; i++) {
+			ItemStack single = toInsert.copyWithCount(1);
+			if (!cap.map(handler -> ItemHandlerHelper.insertItemStacked(handler, single, false))
+					.orElse(single).isEmpty()) {
+				break;
+			}
+			toInsert.setCount(toInsert.getCount() - 1);
+		}
+		return toInsert;
 	}
 
 	@Override
@@ -585,6 +602,12 @@ public class ForgeXplatImpl implements XplatAbstractions {
 			}
 		}
 		return energy;
+	}
+
+	@Nullable
+	@Override
+	public FoodProperties getFoodProperties(ItemStack stack) {
+		return stack.getFoodProperties(null);
 	}
 
 	@Override

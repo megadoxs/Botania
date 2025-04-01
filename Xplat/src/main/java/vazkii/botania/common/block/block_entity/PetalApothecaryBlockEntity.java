@@ -20,6 +20,7 @@ import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.SimpleContainer;
+import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
@@ -77,16 +78,19 @@ public class PetalApothecaryBlockEntity extends SimpleInventoryBlockEntity imple
 				setFluid(State.WATER);
 				bucketItem.checkExtraContent(null, level, stack, getBlockPos().above()); // Spawns the fish
 				item.setItem(new ItemStack(Items.BUCKET));
+				XplatAbstractions.INSTANCE.itemFlagsComponent(item).apothecarySpawned = true;
 				return true;
 			}
 
 			if (XplatAbstractions.INSTANCE.extractFluidFromItemEntity(item, Fluids.WATER)) {
 				setFluid(State.WATER);
+				XplatAbstractions.INSTANCE.itemFlagsComponent(item).apothecarySpawned = true;
 				return true;
 			}
 
 			if (XplatAbstractions.INSTANCE.extractFluidFromItemEntity(item, Fluids.LAVA)) {
 				setFluid(State.LAVA);
+				XplatAbstractions.INSTANCE.itemFlagsComponent(item).apothecarySpawned = true;
 				return true;
 			}
 
@@ -104,6 +108,7 @@ public class PetalApothecaryBlockEntity extends SimpleInventoryBlockEntity imple
 			if (recipe.getReagent().test(item.getItem())) {
 				saveLastRecipe(recipe.getReagent());
 				ItemStack output = recipe.assemble(getItemHandler(), getLevel().registryAccess());
+				Entity thrower = item.getOwner();
 
 				for (int i = 0; i < inventorySize(); i++) {
 					getItemHandler().setItem(i, ItemStack.EMPTY);
@@ -113,6 +118,10 @@ public class PetalApothecaryBlockEntity extends SimpleInventoryBlockEntity imple
 
 				ItemEntity outputItem = new ItemEntity(level, worldPosition.getX() + 0.5, worldPosition.getY() + 1.5, worldPosition.getZ() + 0.5, output);
 				XplatAbstractions.INSTANCE.itemFlagsComponent(outputItem).apothecarySpawned = true;
+				if (thrower instanceof Player player) {
+					player.triggerRecipeCrafted(recipe, List.of(output));
+					output.onCraftedBy(level, player, output.getCount());
+				}
 				level.addFreshEntity(outputItem);
 
 				setFluid(State.EMPTY, false);

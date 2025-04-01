@@ -57,6 +57,7 @@ import net.minecraft.world.entity.monster.Slime;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.vehicle.AbstractMinecart;
+import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.MenuType;
 import net.minecraft.world.item.BucketItem;
@@ -99,6 +100,7 @@ import vazkii.botania.common.block.block_entity.red_string.RedStringContainerBlo
 import vazkii.botania.common.handler.EquipmentHandler;
 import vazkii.botania.common.internal_caps.*;
 import vazkii.botania.common.item.equipment.CustomDamageItem;
+import vazkii.botania.common.lib.BotaniaTags;
 import vazkii.botania.common.lib.LibMisc;
 import vazkii.botania.fabric.block.FabricSpecialFlowerBlock;
 import vazkii.botania.fabric.block_entity.FabricRedStringContainerBlockEntity;
@@ -226,6 +228,12 @@ public class FabricXplatImpl implements XplatAbstractions {
 		return BotaniaFabricCapabilities.WANDABLE.find(level, pos, state, be, Unit.INSTANCE);
 	}
 
+	@Nullable
+	@Override
+	public PhantomInkableBlock findPhantomInkable(Level level, BlockPos pos, BlockState state, @Nullable BlockEntity be) {
+		return BotaniaFabricCapabilities.PHANTOM_INKABLE.find(level, pos, state, be, Unit.INSTANCE);
+	}
+
 	private static class SingleStackEntityStorage extends SingleStackStorage {
 		private final ItemEntity entity;
 
@@ -331,7 +339,16 @@ public class FabricXplatImpl implements XplatAbstractions {
 		try (Transaction txn = Transaction.openOuter()) {
 			// Truncation to int ok since the value passed in was an int
 			// and that value should only decrease or stay same
-			int inserted = (int) storage.insert(itemVariant, toInsert.getCount(), txn);
+			int inserted;
+			if (state.is(BotaniaTags.Blocks.SINGLE_ITEM_INSERT)) {
+				int alreadyInserted = 0;
+				for (int i = 0; i < toInsert.getCount(); i++) {
+					alreadyInserted += (int) storage.insert(itemVariant, 1L, txn);
+				}
+				inserted = alreadyInserted;
+			} else {
+				inserted = (int) storage.insert(itemVariant, toInsert.getCount(), txn);
+			}
 			if (!simulate) {
 				txn.commit();
 			}
@@ -598,6 +615,12 @@ public class FabricXplatImpl implements XplatAbstractions {
 			return FluxfieldTRStorage.transferEnergyToNeighbors(level, pos, energy);
 		}
 		return energy;
+	}
+
+	@Nullable
+	@Override
+	public FoodProperties getFoodProperties(ItemStack stack) {
+		return stack.getItem().getFoodProperties();
 	}
 
 	@Override
