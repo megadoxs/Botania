@@ -21,6 +21,7 @@ We cannot provide any ETA (even a rough one) due to the complexity of the work i
 of time the maintainers are able to spend on this effort. For the time being, updates still target Minecraft 1.20.1.
 
 * Add: Several missing Forge tags for blocks, items, and entities
+* Internal: Optimized texture file compression
 
 ---
 
