@@ -19,7 +19,6 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.tags.TagKey;
 import net.minecraft.util.Unit;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
@@ -30,18 +29,16 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.ClipContext;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.entity.BannerPattern;
 import net.minecraft.world.phys.BlockHitResult;
 
 import vazkii.botania.common.advancements.UseItemSuccessTrigger;
 import vazkii.botania.common.component.BotaniaDataComponents;
 import vazkii.botania.common.handler.BotaniaSounds;
-import vazkii.botania.common.lib.BotaniaTags;
 import vazkii.patchouli.api.PatchouliAPI;
 
 import java.util.List;
 
-public class LexicaBotaniaItem extends Item implements ItemWithBannerPattern, CustomCreativeTabContents {
+public class LexicaBotaniaItem extends Item implements CustomCreativeTabContents {
 	@SuppressWarnings("unchecked")
 	public static final Supplier<DataComponentType<Component>> AKASHIC_DISPLAY_NAME_TYPE_SUPPLIER = Suppliers.memoize(() -> {
 		ResourceKey<DataComponentType<?>> resourceKey = ResourceKey.create(Registries.DATA_COMPONENT_TYPE,
@@ -116,8 +113,4 @@ public class LexicaBotaniaItem extends Item implements ItemWithBannerPattern, Cu
 		return Item.getPlayerPOVHitResult(world, player, fluidMode);
 	}
 
-	@Override
-	public TagKey<BannerPattern> getBannerPattern() {
-		return BotaniaTags.BannerPatterns.PATTERN_ITEM_LEXICON;
-	}
 }

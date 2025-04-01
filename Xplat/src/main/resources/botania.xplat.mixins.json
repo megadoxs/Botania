@@ -34,8 +34,6 @@
     "ItemMixin",
     "LevelAccessor",
     "LivingEntityAccessor",
-    "LoomMenuMixin",
-    "LoomMenuPatternSlotMixin",
     "LootTableMixin",
     "MobAccessor",
     "MobMixin",

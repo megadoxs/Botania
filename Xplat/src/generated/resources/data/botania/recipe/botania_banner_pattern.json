@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    {
+      "item": "minecraft:paper"
+    },
+    {
+      "item": "botania:lexicon"
+    },
+    {
+      "item": "botania:tiny_potato"
+    },
+    {
+      "item": "botania:terrasteel_ingot"
+    }
+  ],
+  "result": {
+    "count": 1,
+    "id": "botania:botania_banner_pattern"
+  }
+}

@@ -97,15 +97,15 @@ public final class BotaniaItems {
 	public static final Item manaSteel = make(LibItemNames.MANASTEEL_INGOT, new Item(defaultBuilder()));
 	public static final Item manaPearl = make(LibItemNames.MANA_PEARL, new Item(defaultBuilder()));
 	public static final Item manaDiamond = make(LibItemNames.MANA_DIAMOND, new Item(defaultBuilder()));
-	public static final Item livingwoodTwig = make(LibItemNames.LIVINGWOOD_TWIG, new BotaniaBannerPatternItem(BotaniaTags.BannerPatterns.PATTERN_ITEM_LIVINGWOOD_TWIG, defaultBuilder()));
-	public static final Item terrasteel = make(LibItemNames.TERRASTEEL_INGOT, new TerrasteelIngotItem(defaultBuilder().rarity(Rarity.UNCOMMON)));
+	public static final Item livingwoodTwig = make(LibItemNames.LIVINGWOOD_TWIG, new Item(defaultBuilder()));
+	public static final Item terrasteel = make(LibItemNames.TERRASTEEL_INGOT, new ManaResourceItem(defaultBuilder().rarity(Rarity.UNCOMMON)));
 	public static final Item lifeEssence = make(LibItemNames.LIFE_ESSENCE, new Item(defaultBuilder().rarity(Rarity.UNCOMMON)));
 	public static final Item redstoneRoot = make(LibItemNames.REDSTONE_ROOT, new Item(defaultBuilder()));
 	public static final Item elementium = make(LibItemNames.ELEMENTIUM_INGOT, new Item(defaultBuilder()));
 	public static final Item pixieDust = make(LibItemNames.PIXIE_DUST, new Item(defaultBuilder()));
 	public static final Item dragonstone = make(LibItemNames.DRAGONSTONE, new Item(defaultBuilder()));
 	public static final Item redString = make(LibItemNames.RED_STRING, new Item(defaultBuilder()));
-	public static final Item dreamwoodTwig = make(LibItemNames.DREAMWOOD_TWIG, new BotaniaBannerPatternItem(BotaniaTags.BannerPatterns.PATTERN_ITEM_DREAMWOOD_TWIG, defaultBuilder()));
+	public static final Item dreamwoodTwig = make(LibItemNames.DREAMWOOD_TWIG, new Item(defaultBuilder()));
 	public static final Item gaiaIngot = make(LibItemNames.GAIA_INGOT, new ManaResourceItem(defaultBuilder().rarity(Rarity.RARE)));
 	public static final Item enderAirBottle = make(LibItemNames.ENDER_AIR_BOTTLE, new EnderAirItem(defaultBuilder()));
 	public static final Item manaString = make(LibItemNames.MANA_STRING, new Item(defaultBuilder()));
@@ -412,6 +412,12 @@ public final class BotaniaItems {
 	public static final Item tinyPotatoMask = make(LibItemNames.COSMETIC_PREFIX + "tiny_potato_mask", new CosmeticBaubleItem(CosmeticBaubleItem.Variant.TINY_POTATO_MASK, unstackable()));
 	public static final Item questgiverMark = make(LibItemNames.COSMETIC_PREFIX + "questgiver_mark", new CosmeticBaubleItem(CosmeticBaubleItem.Variant.QUESTGIVER_MARK, unstackable()));
 	public static final Item thinkingHand = make(LibItemNames.COSMETIC_PREFIX + "thinking_hand", new CosmeticBaubleItem(CosmeticBaubleItem.Variant.THINKING_HAND, unstackable()));
+
+	// Banner patterns
+	public static final Item botaniaBannerPattern = make("botania_banner_pattern", new BannerPatternItem(BotaniaTags.BannerPatterns.PATTERN_ITEM_BOTANIA, unstackable()));
+	public static final Item materialsBannerPattern = make("materials_banner_pattern", new BannerPatternItem(BotaniaTags.BannerPatterns.PATTERN_ITEM_MATERIALS, unstackable()));
+	public static final Item sparkAugmentsBannerPattern = make("spark_augments_banner_pattern", new BannerPatternItem(BotaniaTags.BannerPatterns.PATTERN_ITEM_SPARK_AUGMENTS, unstackable()));
+	public static final Item toolsBannerPattern = make("tools_banner_pattern", new BannerPatternItem(BotaniaTags.BannerPatterns.PATTERN_ITEM_TOOLS, unstackable()));
 
 	public static final MenuType<BaubleBoxContainer> BAUBLE_BOX_CONTAINER = XplatAbstractions.INSTANCE.createMenuType(BaubleBoxContainer::new, ByteBufCodecs.BOOL);
 	public static final MenuType<FlowerPouchContainer> FLOWER_BAG_CONTAINER = XplatAbstractions.INSTANCE.createMenuType(FlowerPouchContainer::new, ByteBufCodecs.BOOL);

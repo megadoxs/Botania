@@ -82,6 +82,7 @@ dc435df09997f406c0f6ed83000ef75b913b8d7e assets/botania/models/item/blue_pavemen
 3c7f09f69b52befbe4c7e34ce7be2be671e9c715 assets/botania/models/item/blue_petal.json
 cae581f46c2819c7e7cbda7de42a780c7593f518 assets/botania/models/item/blue_petal_block.json
 73368c8035f08bc1eb992972cf33400b6acdffe3 assets/botania/models/item/blue_shiny_flower.json
+02b99eb20a74188d234f69a6d307489c4981f2d8 assets/botania/models/item/botania_banner_pattern.json
 4dc41a8f75af4612148276908aca1de41d84ecc7 assets/botania/models/item/brew_flask.json
 1e7b9b6e27e45b33a0068e076a9ab57fe406a7fc assets/botania/models/item/brew_flask_1.json
 85f947a9a1efc457a2acc47254d4bbdbf29caae8 assets/botania/models/item/brew_flask_2.json
@@ -471,6 +472,7 @@ d47a9926dd301e337dd7edc237eeb6c8af51ca3f assets/botania/models/item/manaweave_ch
 b846afd801d302bd94e2f22d386749d10516dc03 assets/botania/models/item/manaweave_leggings_holiday.json
 30d3b57090c47a5f59c8387bc0b28e2b308d5aa7 assets/botania/models/item/marimorphosis.json
 de27d2a614a5fe969c3c18f5e68f0a0bb588422f assets/botania/models/item/marimorphosis_chibi.json
+487b59a3605f848828ed4962ef43986a045415b3 assets/botania/models/item/materials_banner_pattern.json
 7d4d8a62aa1b7e959eca4b79c4ed75e0c4521cc7 assets/botania/models/item/medumone.json
 41cb43850e421b92dff2bbbd54199c50921dbe8e assets/botania/models/item/metamorphic_desert_bricks.json
 74b7b92f524ebb1eed8922e9dc862c0845a8da09 assets/botania/models/item/metamorphic_desert_bricks_slab.json
@@ -710,6 +712,7 @@ e8239b48d8a45765d2a5b04828ef5e42dc2f9082 assets/botania/models/item/slingshot.js
 2ea2f9be28be0ec260210ccf6caba1d0dd6b83ad assets/botania/models/item/solegnolia.json
 a18f1dcff1c9f4e5a00723879e5b0d36702934e3 assets/botania/models/item/solegnolia_chibi.json
 edaf316dd8490d667ebf5d78dc29afdaa6fe5646 assets/botania/models/item/spark.json
+e017f016e3d41846c8942181f29230e19062b430 assets/botania/models/item/spark_augments_banner_pattern.json
 93fd41a97ae4eb696eb642e6b20b1ab46c423420 assets/botania/models/item/spark_changer.json
 57e83bd4bf2bc18071377447f0710c36cb8336a8 assets/botania/models/item/spark_upgrade_dispersive.json
 bdb811bd4a3e373343424db83e0bb4c58295dfbd assets/botania/models/item/spark_upgrade_dominant.json
@@ -774,6 +777,7 @@ fd96d5790230446712cc10ea6f827e31c26a8398 assets/botania/models/item/tiny_planet.
 52d4e8ac6a53840b5eba2b61ab927840a7ada21c assets/botania/models/item/tiny_planet_block.json
 cbcf2509e95667111754a955721068c0613721fc assets/botania/models/item/tiny_potato.json
 45ab039302117ad70206265a6a02cbfa94331e83 assets/botania/models/item/toggle_light_relay.json
+5c2bad396c3e3eb75f9f1cec1007da65ec822f15 assets/botania/models/item/tools_banner_pattern.json
 99801b0a8fb6671486328444dc8c1276d78c5ec1 assets/botania/models/item/tornado_rod.json
 48f696b793c898898d14d9b462c91f983c8b814c assets/botania/models/item/tornado_rod_active.json
 643b60c1729f7625feb13e4991c4f7d5dc5cf459 assets/botania/models/item/totalbiscuit.json

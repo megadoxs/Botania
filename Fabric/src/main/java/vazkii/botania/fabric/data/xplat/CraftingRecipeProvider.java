@@ -850,17 +850,57 @@ public class CraftingRecipeProvider extends BotaniaRecipeProvider {
 	}
 
 	private void registerMisc(RecipeOutput recipeOutput) {
-		Ingredient mushrooms = Ingredient.of(BotaniaBlocks.whiteMushroom, BotaniaBlocks.orangeMushroom,
-				BotaniaBlocks.magentaMushroom, BotaniaBlocks.lightBlueMushroom, BotaniaBlocks.yellowMushroom,
-				BotaniaBlocks.limeMushroom, BotaniaBlocks.pinkMushroom, BotaniaBlocks.grayMushroom, BotaniaBlocks.lightGrayMushroom,
-				BotaniaBlocks.cyanMushroom, BotaniaBlocks.purpleMushroom, BotaniaBlocks.blueMushroom, BotaniaBlocks.brownMushroom,
-				BotaniaBlocks.greenMushroom, BotaniaBlocks.redMushroom, BotaniaBlocks.blackMushroom);
 		ShapelessRecipeBuilder.shapeless(RecipeCategory.FOOD, Items.MUSHROOM_STEW)
-				.requires(mushrooms, 2)
+				.requires(Ingredient.of(BotaniaTags.Items.SHIMMERING_MUSHROOMS), 2)
 				.requires(Items.BOWL)
 				.unlockedBy("has_item", conditionsFromItem(Items.BOWL))
 				.unlockedBy("has_orig_recipe", RecipeUnlockedTrigger.unlocked(ResourceLocation.withDefaultNamespace("mushroom_stew")))
 				.save(recipeOutput, "botania:mushroom_stew");
+
+		ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, BotaniaItems.botaniaBannerPattern)
+				.requires(Items.PAPER)
+				.requires(BotaniaItems.lexicon)
+				.requires(BotaniaBlocks.tinyPotato)
+				.requires(BotaniaItems.terrasteel)
+				.unlockedBy("has_lexicon", conditionsFromItem(BotaniaItems.lexicon))
+				.unlockedBy("has_potato", conditionsFromItem(BotaniaBlocks.tinyPotato))
+				.unlockedBy("has_terrasteel", conditionsFromItem(BotaniaItems.terrasteel))
+				.save(recipeOutput);
+
+		ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, BotaniaItems.materialsBannerPattern)
+				.requires(Items.PAPER)
+				.requires(ConventionalItemTags.RAW_FISH_FOODS)
+				.requires(BotaniaTags.Items.MYSTICAL_FLOWERS)
+				.requires(ItemTags.SAPLINGS)
+				.unlockedBy("has_fish", conditionsFromTag(ConventionalItemTags.RAW_FISH_FOODS))
+				.unlockedBy("has_flower", conditionsFromTag(BotaniaTags.Items.MYSTICAL_FLOWERS))
+				.unlockedBy("has_sapling", conditionsFromTag(ItemTags.SAPLINGS))
+				.save(recipeOutput);
+
+		ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, BotaniaItems.sparkAugmentsBannerPattern)
+				.requires(Items.PAPER)
+				.requires(Ingredient.of(
+						BotaniaItems.sparkUpgradeDispersive, BotaniaItems.sparkUpgradeDominant,
+						BotaniaItems.sparkUpgradeIsolated, BotaniaItems.sparkUpgradeRecessive
+				))
+				.unlockedBy("has_dispersive", conditionsFromItem(BotaniaItems.sparkUpgradeDispersive))
+				.unlockedBy("has_dominant", conditionsFromItem(BotaniaItems.sparkUpgradeDominant))
+				.unlockedBy("has_isolated", conditionsFromItem(BotaniaItems.sparkUpgradeIsolated))
+				.unlockedBy("has_recessive", conditionsFromItem(BotaniaItems.sparkUpgradeRecessive))
+				.save(recipeOutput);
+
+		ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, BotaniaItems.toolsBannerPattern)
+				.requires(Items.PAPER)
+				.requires(Ingredient.of(
+						BotaniaItems.manasteelAxe, BotaniaItems.manasteelHoe, BotaniaItems.manasteelPick,
+						BotaniaItems.manasteelShovel, BotaniaItems.manasteelSword
+				))
+				.unlockedBy("has_axe", conditionsFromItem(BotaniaItems.manasteelAxe))
+				.unlockedBy("has_hoe", conditionsFromItem(BotaniaItems.manasteelHoe))
+				.unlockedBy("has_pickaxe", conditionsFromItem(BotaniaItems.manasteelPick))
+				.unlockedBy("has_shovel", conditionsFromItem(BotaniaItems.manasteelShovel))
+				.unlockedBy("has_sword", conditionsFromItem(BotaniaItems.manasteelSword))
+				.save(recipeOutput);
 
 		ShapedRecipeBuilder.shaped(RecipeCategory.DECORATIONS, Items.COBWEB)
 				.define('S', Items.STRING)
