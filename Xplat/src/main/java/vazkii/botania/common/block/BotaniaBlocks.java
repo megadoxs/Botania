@@ -50,7 +50,6 @@ import vazkii.botania.common.lib.LibBlockNames;
 import vazkii.botania.mixin.DispenserBlockAccessor;
 import vazkii.botania.xplat.XplatAbstractions;
 
-import java.util.Locale;
 import java.util.function.BiConsumer;
 import java.util.function.Function;
 import java.util.function.Supplier;
@@ -665,12 +664,12 @@ public final class BotaniaBlocks {
 	public static final Block shimmerwoodPlankStairs = new StairBlock(shimmerwoodPlanks.defaultBlockState(), BlockBehaviour.Properties.ofFullCopy(shimmerwoodPlanks));
 	public static final Block shimmerwoodPlankSlab = new SlabBlock(BlockBehaviour.Properties.ofFullCopy(shimmerwoodPlanks));
 
-	public static final Block dryGrass = new BotaniaGrassBlock(BotaniaGrassBlock.Variant.DRY, BlockBehaviour.Properties.of().strength(0.6F).randomTicks().sound(SoundType.GRASS).mapColor(MapColor.TERRACOTTA_LIGHT_GREEN));
-	public static final Block goldenGrass = new BotaniaGrassBlock(BotaniaGrassBlock.Variant.GOLDEN, BlockBehaviour.Properties.ofFullCopy(dryGrass).mapColor(MapColor.GOLD));
-	public static final Block vividGrass = new BotaniaGrassBlock(BotaniaGrassBlock.Variant.VIVID, BlockBehaviour.Properties.ofFullCopy(dryGrass).mapColor(MapColor.PLANT));
-	public static final Block scorchedGrass = new BotaniaGrassBlock(BotaniaGrassBlock.Variant.SCORCHED, BlockBehaviour.Properties.ofFullCopy(dryGrass).mapColor(MapColor.NETHER));
-	public static final Block infusedGrass = new BotaniaGrassBlock(BotaniaGrassBlock.Variant.INFUSED, BlockBehaviour.Properties.ofFullCopy(dryGrass).mapColor(MapColor.COLOR_CYAN));
-	public static final Block mutatedGrass = new BotaniaGrassBlock(BotaniaGrassBlock.Variant.MUTATED, BlockBehaviour.Properties.ofFullCopy(dryGrass).mapColor(MapColor.WARPED_HYPHAE));
+	public static final Block dryGrass = new BotaniaGrassBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.GRASS_BLOCK).mapColor(MapColor.TERRACOTTA_LIGHT_GREEN));
+	public static final Block goldenGrass = new BotaniaGrassBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.GRASS_BLOCK).mapColor(MapColor.GOLD));
+	public static final Block vividGrass = new BotaniaGrassBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.GRASS_BLOCK).mapColor(MapColor.PLANT));
+	public static final Block scorchedGrass = new BotaniaScorchedGrassBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.GRASS_BLOCK).mapColor(MapColor.NETHER));
+	public static final Block infusedGrass = new BotaniaInfusedGrassBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.GRASS_BLOCK).mapColor(MapColor.COLOR_CYAN));
+	public static final Block mutatedGrass = new BotaniaMutatedGrassBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.GRASS_BLOCK).mapColor(MapColor.WARPED_HYPHAE));
 
 	public static final Block motifDaybloom = new FlowerMotifBlock(MobEffects.BLINDNESS, 15, BlockBehaviour.Properties.ofFullCopy(Blocks.POPPY), true);
 	public static final Block motifNightshade = new FlowerMotifBlock(MobEffects.POISON, 20, BlockBehaviour.Properties.ofFullCopy(Blocks.POPPY), true);
@@ -1299,12 +1298,12 @@ public final class BotaniaBlocks {
 		r.accept(shimmerwoodPlanks, botaniaRL(LibBlockNames.SHIMMERWOOD_PLANKS));
 		r.accept(shimmerwoodPlankStairs, botaniaRL(LibBlockNames.SHIMMERWOOD_PLANKS + STAIR_SUFFIX));
 		r.accept(shimmerwoodPlankSlab, botaniaRL(LibBlockNames.SHIMMERWOOD_PLANKS + SLAB_SUFFIX));
-		r.accept(dryGrass, botaniaRL(BotaniaGrassBlock.Variant.DRY.name().toLowerCase(Locale.ROOT) + LibBlockNames.ALT_GRASS_SUFFIX));
-		r.accept(goldenGrass, botaniaRL(BotaniaGrassBlock.Variant.GOLDEN.name().toLowerCase(Locale.ROOT) + LibBlockNames.ALT_GRASS_SUFFIX));
-		r.accept(vividGrass, botaniaRL(BotaniaGrassBlock.Variant.VIVID.name().toLowerCase(Locale.ROOT) + LibBlockNames.ALT_GRASS_SUFFIX));
-		r.accept(scorchedGrass, botaniaRL(BotaniaGrassBlock.Variant.SCORCHED.name().toLowerCase(Locale.ROOT) + LibBlockNames.ALT_GRASS_SUFFIX));
-		r.accept(infusedGrass, botaniaRL(BotaniaGrassBlock.Variant.INFUSED.name().toLowerCase(Locale.ROOT) + LibBlockNames.ALT_GRASS_SUFFIX));
-		r.accept(mutatedGrass, botaniaRL(BotaniaGrassBlock.Variant.MUTATED.name().toLowerCase(Locale.ROOT) + LibBlockNames.ALT_GRASS_SUFFIX));
+		r.accept(dryGrass, botaniaRL("dry" + LibBlockNames.ALT_GRASS_SUFFIX));
+		r.accept(goldenGrass, botaniaRL("golden" + LibBlockNames.ALT_GRASS_SUFFIX));
+		r.accept(vividGrass, botaniaRL("vivid" + LibBlockNames.ALT_GRASS_SUFFIX));
+		r.accept(scorchedGrass, botaniaRL("scorched" + LibBlockNames.ALT_GRASS_SUFFIX));
+		r.accept(infusedGrass, botaniaRL("infused" + LibBlockNames.ALT_GRASS_SUFFIX));
+		r.accept(mutatedGrass, botaniaRL("mutated" + LibBlockNames.ALT_GRASS_SUFFIX));
 		r.accept(motifDaybloom, botaniaRL(LibBlockNames.MOTIF_DAYBLOOM));
 		r.accept(motifNightshade, botaniaRL(LibBlockNames.MOTIF_NIGHTSHADE));
 		r.accept(motifHydroangeas, botaniaRL(LibBlockNames.MOTIF_HYDROANGEAS));
