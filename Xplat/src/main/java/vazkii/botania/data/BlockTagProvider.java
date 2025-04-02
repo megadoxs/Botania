@@ -45,13 +45,17 @@ import static vazkii.botania.common.block.BotaniaBlocks.*;
 public class BlockTagProvider extends IntrinsicHolderTagsProvider<Block> {
 	public static final Predicate<Block> BOTANIA_BLOCK = b -> LibMisc.MOD_ID.equals(BuiltInRegistries.BLOCK.getKey(b).getNamespace());
 	private static final Set<TagKey<Block>> REQUIRED_TAGS = Set.of(
-			BlockTags.SAND,
 			BlockTags.LEAVES,
 			BlockTags.FIRE
 	);
 
 	public BlockTagProvider(PackOutput packOutput, CompletableFuture<HolderLookup.Provider> lookupProvider) {
-		super(packOutput, Registries.BLOCK, lookupProvider, DummyTagLookup.completedFuture(REQUIRED_TAGS), (block) -> block.builtInRegistryHolder().key());
+		this(packOutput, lookupProvider, DummyTagLookup.completedFuture(REQUIRED_TAGS));
+	}
+
+	protected BlockTagProvider(PackOutput packOutput, CompletableFuture<HolderLookup.Provider> lookupProvider,
+			CompletableFuture<TagLookup<Block>> parentProvider) {
+		super(packOutput, Registries.BLOCK, lookupProvider, parentProvider, (block) -> block.builtInRegistryHolder().key());
 	}
 
 	@Override
@@ -154,7 +158,7 @@ public class BlockTagProvider extends IntrinsicHolderTagsProvider<Block> {
 		tag(BlockTags.BEACON_BASE_BLOCKS).add(BotaniaBlocks.manasteelBlock, BotaniaBlocks.terrasteelBlock, BotaniaBlocks.elementiumBlock,
 				BotaniaBlocks.manaDiamondBlock, BotaniaBlocks.dragonstoneBlock);
 
-		Block[] grassBlockVariants = getModBlocks(b -> b instanceof BotaniaGrassBlock);
+		Block[] grassBlockVariants = { dryGrass, goldenGrass, infusedGrass, mutatedGrass, scorchedGrass, vividGrass };
 		tag(BlockTags.DIRT).add(grassBlockVariants);
 		tag(BlockTags.SNIFFER_DIGGABLE_BLOCK).add(grassBlockVariants);
 		tag(BotaniaTags.Blocks.BLOCKS_QUARTZ).add(
@@ -166,11 +170,6 @@ public class BlockTagProvider extends IntrinsicHolderTagsProvider<Block> {
 				BotaniaBlocks.corporeaBrickWall, BotaniaBlocks.corporeaCrystalCube, BotaniaBlocks.corporeaFunnel, BotaniaBlocks.corporeaIndex,
 				BotaniaBlocks.corporeaInterceptor, BotaniaBlocks.corporeaSlab, BotaniaBlocks.corporeaStairs);
 
-		tag(BotaniaTags.Blocks.TERRAFORMABLE)
-				.add(Blocks.ANDESITE, Blocks.DIORITE, Blocks.GRANITE, Blocks.INFESTED_STONE, Blocks.STONE, Blocks.POLISHED_ANDESITE, Blocks.POLISHED_DIORITE, Blocks.POLISHED_GRANITE)
-				.add(Blocks.DIRT, Blocks.GRASS_BLOCK, Blocks.COARSE_DIRT, Blocks.PODZOL, Blocks.MYCELIUM)
-				.add(Blocks.GRASS_BLOCK, Blocks.GRAVEL, Blocks.SNOW)
-				.addTag(BlockTags.SAND);
 		tag(BotaniaTags.Blocks.GAIA_GUARDIAN_IMMUNE).add(Blocks.BEACON, BotaniaBlocks.manaPylon, BotaniaBlocks.naturaPylon, BotaniaBlocks.gaiaPylon);
 		tag(BotaniaTags.Blocks.SHIELDS_FROM_MAGNET_RING).add(BotaniaBlocks.manaPool, BotaniaBlocks.creativePool, BotaniaBlocks.dilutedPool,
 				BotaniaBlocks.fabulousPool, BotaniaBlocks.terraPlate, BotaniaBlocks.runeAltar);
@@ -218,7 +217,9 @@ public class BlockTagProvider extends IntrinsicHolderTagsProvider<Block> {
 				BotaniaBlocks.biomeStoneFungal, BotaniaBlocks.biomeStoneFungalSlab, BotaniaBlocks.biomeStoneFungalStairs, BotaniaBlocks.biomeStoneFungalWall,
 				BotaniaBlocks.biomeBrickFungal, BotaniaBlocks.biomeBrickFungalSlab, BotaniaBlocks.biomeBrickFungalStairs, BotaniaBlocks.biomeBrickFungalWall,
 				BotaniaBlocks.biomeCobblestoneFungal, BotaniaBlocks.biomeCobblestoneFungalSlab, BotaniaBlocks.biomeCobblestoneFungalStairs, BotaniaBlocks.biomeCobblestoneFungalWall,
-				BotaniaBlocks.biomeChiseledBrickFungal, BotaniaBlocks.fungalAltar);
+				BotaniaBlocks.biomeChiseledBrickFungal, BotaniaBlocks.fungalAltar,
+				infusedGrass, mutatedGrass
+		);
 
 		tag(BotaniaTags.Blocks.HORN_OF_THE_WILD_BREAKABLE)
 				.add(Blocks.MOSS_CARPET)
@@ -238,7 +239,9 @@ public class BlockTagProvider extends IntrinsicHolderTagsProvider<Block> {
 		tag(BotaniaTags.Blocks.UNWANDABLE).addTag(BlockTags.FIRE)
 				.add(Blocks.CHORUS_PLANT, Blocks.SCULK_VEIN, Blocks.VINE, Blocks.REDSTONE_WIRE, Blocks.NETHER_PORTAL, BotaniaBlocks.solidVines);
 
-		tag(BotaniaTags.Blocks.PASTURE_SEED_REPLACEABLE).add(Blocks.DIRT, Blocks.GRASS_BLOCK, Blocks.MYCELIUM);
+		tag(BotaniaTags.Blocks.PASTURE_SEED_REPLACEABLE)
+				.add(Blocks.DIRT, Blocks.GRASS_BLOCK, Blocks.MYCELIUM, Blocks.PODZOL, Blocks.ROOTED_DIRT)
+				.add(grassBlockVariants);
 
 		tag(BotaniaTags.Blocks.UNETHICAL_TNT_CHECK).addOptional(ResourceLocation.fromNamespaceAndPath("ae2", "tiny_tnt"));
 

@@ -1,4 +1,5 @@
 // 1.21.1	Botania/Conventional Tags for minecraft:block
+3b93bdcd6e6318d00d1efbca963fd47441c34cac data/botania/tags/block/terraformable.json
 d4c1ebf26864f7c9a1a27dcf11203634af83c4b7 data/c/tags/block/cobblestones.json
 92c7824935162d049c49fb6cd02a1b126db1560c data/c/tags/block/cobblestones/metamorphic.json
 8f24b8fc4786da3b2f1c828bdd05d19e99ae3f38 data/c/tags/block/cobblestones/metamorphic/desert.json

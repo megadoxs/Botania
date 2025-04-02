@@ -26,7 +26,7 @@ feaf72e7fc3c3e8ecf48a44f487aa8ad764191d7 data/botania/tags/block/livingwood_logs
 08e5fb1ab74b0805a8a0b50ebab2a05f29851b2a data/botania/tags/block/misc_special_flowers.json
 378df5bfdc9d35a43fb0a05ad1020788b24e08fd data/botania/tags/block/mundane_floating_flowers.json
 663d521c50e341acbabb82cc9003e4e4002c16be data/botania/tags/block/mystical_flowers.json
-73caab7271f28b8cf7092b6075b6bfa9732ee0fa data/botania/tags/block/pasture_seed_replaceable.json
+59cf23d61f960b6b3a9ec635bc618ed84e654812 data/botania/tags/block/pasture_seed_replaceable.json
 cb5d86906c3b7a5c47f636395fc1880af8493190 data/botania/tags/block/quartz_blocks.json
 625f245864e2ad11e8c90733f3dd20dd2d2f4b35 data/botania/tags/block/shields_from_magnet_ring.json
 dd1e587761f42b287b76aff2eb9c8d8adead4853 data/botania/tags/block/shimmering_mushrooms.json
@@ -35,7 +35,6 @@ b8f7ad101786922de58b38f716d236ef09f23ac9 data/botania/tags/block/single_item_ins
 ee84abd7f036b1dae32bbc7eac3ffca7b5cf7f42 data/botania/tags/block/special_floating_flowers.json
 f9cbec686df06a01e62d90f653c978deb25369f9 data/botania/tags/block/special_flowers.json
 278ec3a8809be9375b28aeae7dad72a2e2099eeb data/botania/tags/block/terra_plate_base.json
-fe4f297052e297bf45e103533c871ecf97f53613 data/botania/tags/block/terraformable.json
 b2fa3d698e295620056cd88eb6225ad1b2da6238 data/botania/tags/block/unethical_tnt_check.json
 fe541fc12bc978f6f71844ecddde271e0ab25390 data/botania/tags/block/unwandable.json
 35133e95f1c8fdd7a1c21afcc231fc0bffefb9a8 data/botania/tags/block/weight_lens_affected.json
@@ -51,7 +50,7 @@ da8cc7d3d044a525a70555bc5a0e0ad98ea91790 data/minecraft/tags/block/mineable/axe.
 615e0a6cac000af5aae7161c0b2e14d31dca597d data/minecraft/tags/block/mineable/hoe.json
 09e6e64b9508e0cdfaa5f560024775df203e4eb0 data/minecraft/tags/block/mineable/pickaxe.json
 d2fe1c8f82522fc048eff209bafb73f837946a82 data/minecraft/tags/block/mineable/shovel.json
-8f077b74b06d1bc715758cb97a0869d884abd67a data/minecraft/tags/block/mushroom_grow_block.json
+ccd3bb287d6acf22d5bd33ee553e84fbb44614ca data/minecraft/tags/block/mushroom_grow_block.json
 119b4275cbffb61da75b503795d3fb0af0e1f35d data/minecraft/tags/block/planks.json
 be3bac3ca44c06ce307ecbd6e3995676210260ca data/minecraft/tags/block/rails.json
 6af259df0e948b2203a44caf347e64035797b765 data/minecraft/tags/block/slabs.json

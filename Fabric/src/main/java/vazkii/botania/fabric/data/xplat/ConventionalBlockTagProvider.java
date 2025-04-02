@@ -13,17 +13,30 @@ package vazkii.botania.fabric.data.xplat;
 import net.fabricmc.fabric.api.tag.convention.v2.ConventionalBlockTags;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;
+import net.minecraft.tags.BlockTags;
+import net.minecraft.tags.TagKey;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
 
 import vazkii.botania.common.block.BotaniaBlocks;
 import vazkii.botania.common.helper.ColorHelper;
+import vazkii.botania.common.lib.BotaniaTags;
 import vazkii.botania.data.BlockTagProvider;
+import vazkii.botania.data.util.DummyTagLookup;
 
+import java.util.Set;
 import java.util.concurrent.CompletableFuture;
 
 public class ConventionalBlockTagProvider extends BlockTagProvider {
+	private static final Set<TagKey<Block>> REQUIRED_TAGS = Set.of(
+			BlockTags.BASE_STONE_OVERWORLD,
+			BlockTags.DIRT,
+			BlockTags.SAND,
+			ConventionalBlockTags.GRAVELS
+	);
 
 	public ConventionalBlockTagProvider(PackOutput packOutput, CompletableFuture<HolderLookup.Provider> lookupProvider) {
-		super(packOutput, lookupProvider);
+		super(packOutput, lookupProvider, DummyTagLookup.completedFuture(REQUIRED_TAGS));
 	}
 
 	@Override
@@ -99,6 +112,14 @@ public class ConventionalBlockTagProvider extends BlockTagProvider {
 				BotaniaBlocks.livingwoodStripped, BotaniaBlocks.livingwoodStrippedGlimmering,
 				BotaniaBlocks.dreamwoodStripped, BotaniaBlocks.dreamwoodStrippedGlimmering
 		);
+
+		tag(BotaniaTags.Blocks.TERRAFORMABLE)
+				.addTag(BlockTags.BASE_STONE_OVERWORLD)
+				.add(Blocks.INFESTED_STONE)
+				.addTag(BlockTags.DIRT)
+				.addTag(ConventionalBlockTags.GRAVELS)
+				.add(Blocks.SNOW)
+				.addTag(BlockTags.SAND);
 	}
 
 	@Override
