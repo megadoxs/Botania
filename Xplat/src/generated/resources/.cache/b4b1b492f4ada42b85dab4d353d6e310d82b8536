@@ -1,5 +1,7 @@
 // 1.21.1	Botania/Conventional Tags for minecraft:block
+7f1b84adc55b05faf4efce7a34eaeca050f0b2fe data/botania/tags/block/mineable/vitreous_pickaxe.json
 3b93bdcd6e6318d00d1efbca963fd47441c34cac data/botania/tags/block/terraformable.json
+00925461bcd777520f670a259b704d0fc54f7f4b data/botania/tags/block/vitreous_pickaxe_silktouched.json
 d4c1ebf26864f7c9a1a27dcf11203634af83c4b7 data/c/tags/block/cobblestones.json
 92c7824935162d049c49fb6cd02a1b126db1560c data/c/tags/block/cobblestones/metamorphic.json
 8f24b8fc4786da3b2f1c828bdd05d19e99ae3f38 data/c/tags/block/cobblestones/metamorphic/desert.json

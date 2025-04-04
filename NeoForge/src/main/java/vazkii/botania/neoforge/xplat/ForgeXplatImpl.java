@@ -465,11 +465,6 @@ public class ForgeXplatImpl implements XplatAbstractions {
 	}
 
 	@Override
-	public boolean isInGlassTag(BlockState state) {
-		return state.is(Tags.Blocks.GLASS_BLOCKS) || state.is(Tags.Blocks.GLASS_PANES);
-	}
-
-	@Override
 	public boolean canFurnaceBurn(AbstractFurnaceBlockEntity furnace, @Nullable RecipeHolder<?> recipeHolder, NonNullList<ItemStack> items, int maxStackSize) {
 		return AbstractFurnaceBlockEntityForgeAccessor.callCanBurn(furnace.getLevel().registryAccess(), recipeHolder, items, maxStackSize, furnace);
 	}

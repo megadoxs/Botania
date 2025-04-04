@@ -22,14 +22,14 @@ import net.minecraft.world.phys.HitResult;
 
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.item.SequentialBreaker;
-import vazkii.botania.common.annotations.SoftImplement;
+import vazkii.botania.api.item.SpecialBlockBreakingHandler;
 import vazkii.botania.common.item.StoneOfTemperanceItem;
 import vazkii.botania.common.item.equipment.tool.ToolCommons;
 import vazkii.botania.common.item.equipment.tool.manasteel.ManasteelAxeItem;
 
 import java.util.*;
 
-public class TerraTruncatorItem extends ManasteelAxeItem implements SequentialBreaker {
+public class TerraTruncatorItem extends ManasteelAxeItem implements SequentialBreaker, SpecialBlockBreakingHandler {
 
 	/**
 	 * The number of blocks per tick which the Terra Truncator will
@@ -73,8 +73,8 @@ public class TerraTruncatorItem extends ManasteelAxeItem implements SequentialBr
 		return !player.isShiftKeyDown() && !StoneOfTemperanceItem.hasTemperanceActive(player);
 	}
 
-	@SoftImplement("IItemExtension")
-	public boolean onBlockStartBreak(ItemStack stack, BlockPos pos, Player player) {
+	@Override
+	public void onBlockStartBreak(ServerLevel level, ItemStack stack, BlockPos pos, Player player) {
 		BlockHitResult raycast = ToolCommons.raytraceFromEntity(player, 10, false);
 		if (raycast.getType() == HitResult.Type.BLOCK) {
 			Direction face = raycast.getDirection();
@@ -83,8 +83,6 @@ public class TerraTruncatorItem extends ManasteelAxeItem implements SequentialBr
 				BotaniaAPI.instance().breakOnAllCursors(player, stack, pos, face);
 			}
 		}
-
-		return false;
 	}
 
 	@Override

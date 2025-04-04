@@ -267,6 +267,18 @@ public class BotaniaTags {
 		 */
 		public static final TagKey<Block> SINGLE_ITEM_INSERT = tag("single_item_insert");
 
+		/**
+		 * Blocks for which the Vitreous Pickaxe is the appropriate tool.
+		 * (should be any pickaxe-mineable blocks plus glass-like blocks)
+		 */
+		public static final TagKey<Block> MINEABLE_WITH_VITREOUS_PICKAXE = tag("mineable/vitreous_pickaxe");
+
+		/**
+		 * Vitreous Pickaxe always mines this block as if the pick had silktouch.
+		 * This also overrides mining level requirements.
+		 */
+		public static final TagKey<Block> VITREOUS_PICKAXE_SILKTOUCHED = tag("vitreous_pickaxe_silktouched");
+
 		private static TagKey<Block> tag(String name) {
 			return TagKey.create(Registries.BLOCK, botaniaRL(name));
 		}

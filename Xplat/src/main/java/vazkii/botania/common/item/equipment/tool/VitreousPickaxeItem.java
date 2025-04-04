@@ -11,6 +11,7 @@ package vazkii.botania.common.item.equipment.tool;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.Registries;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.util.Unit;
@@ -18,6 +19,7 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Tier;
+import net.minecraft.world.item.component.Tool;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
@@ -27,12 +29,14 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 
-import vazkii.botania.common.annotations.SoftImplement;
 import vazkii.botania.common.component.BotaniaDataComponents;
 import vazkii.botania.common.item.equipment.tool.manasteel.ManasteelPickaxeItem;
-import vazkii.botania.xplat.XplatAbstractions;
+import vazkii.botania.common.lib.BotaniaTags;
 
-public class VitreousPickaxeItem extends ManasteelPickaxeItem {
+import java.util.List;
+
+public class VitreousPickaxeItem extends ManasteelPickaxeItem implements
+		vazkii.botania.api.item.SpecialBlockBreakingHandler {
 	private static final int MANA_PER_DAMAGE = 160;
 	private static final Tier MATERIAL = new Tier() {
 		@Override
@@ -42,7 +46,7 @@ public class VitreousPickaxeItem extends ManasteelPickaxeItem {
 
 		@Override
 		public float getSpeed() {
-			return 4.8F;
+			return 3.9f;
 		}
 
 		@Override
@@ -52,7 +56,7 @@ public class VitreousPickaxeItem extends ManasteelPickaxeItem {
 
 		@Override
 		public TagKey<Block> getIncorrectBlocksForDrops() {
-			return BlockTags.INCORRECT_FOR_WOODEN_TOOL; //TODO Confirm which blocks should be incorrect. Create custom tag if needed
+			return BlockTags.INCORRECT_FOR_WOODEN_TOOL;
 		}
 
 		@Override
@@ -63,6 +67,18 @@ public class VitreousPickaxeItem extends ManasteelPickaxeItem {
 		@Override
 		public Ingredient getRepairIngredient() {
 			return Ingredient.of(Blocks.GLASS);
+		}
+
+		@Override
+		public Tool createToolProperties(TagKey<Block> block) {
+			return new Tool(
+					List.of(
+							// always correct tool for silktouched blocks, relevant e.g. for copper bulb
+							Tool.Rule.minesAndDrops(BotaniaTags.Blocks.VITREOUS_PICKAXE_SILKTOUCHED, this.getSpeed()),
+							Tool.Rule.deniesDrops(this.getIncorrectBlocksForDrops()),
+							Tool.Rule.minesAndDrops(BotaniaTags.Blocks.MINEABLE_WITH_VITREOUS_PICKAXE, this.getSpeed())
+					),
+					1.0F, 1);
 		}
 	};
 
@@ -75,21 +91,17 @@ public class VitreousPickaxeItem extends ManasteelPickaxeItem {
 	* - When block starting to break, if the tool doesn't have silktouch already, add it and add a "temp silk touch" flag
 	* - Every tick, if the "temp silk touch" flag is present, remove it and remove any silk touch enchants from the stack
 	*/
-	// TODO: Neoforge doesn't appear to provide this anymore, might need to apply the same mixin logic as for Fabric
-	@SoftImplement("IItemExtension")
-	public boolean onBlockStartBreak(ItemStack itemstack, BlockPos pos, Player player) {
-		Level level = player.level();
+	@Override
+	public void onBlockStartBreak(ServerLevel level, ItemStack itemstack, BlockPos pos, Player player) {
 		BlockState state = level.getBlockState(pos);
 		HolderLookup<Enchantment> enchantmentLookup = level.holderLookup(Registries.ENCHANTMENT);
 		boolean hasSilk = EnchantmentHelper.getItemEnchantmentLevel(enchantmentLookup.getOrThrow(Enchantments.SILK_TOUCH), itemstack) > 0;
 		if (hasSilk || !isGlass(state)) {
-			return false;
+			return;
 		}
 
 		itemstack.enchant(enchantmentLookup.getOrThrow(Enchantments.SILK_TOUCH), 1);
 		itemstack.set(BotaniaDataComponents.SILK_HACK, Unit.INSTANCE);
-
-		return false;
 	}
 
 	@Override
@@ -104,7 +116,7 @@ public class VitreousPickaxeItem extends ManasteelPickaxeItem {
 	}
 
 	private boolean isGlass(BlockState state) {
-		return XplatAbstractions.INSTANCE.isInGlassTag(state);
+		return state.is(BotaniaTags.Blocks.VITREOUS_PICKAXE_SILKTOUCHED);
 	}
 
 	@Override

@@ -10,41 +10,37 @@ package vazkii.botania.common.item.equipment.tool.elementium;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Vec3i;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.FallingBlock;
 import net.minecraft.world.level.block.state.BlockState;
 
 import vazkii.botania.api.BotaniaAPI;
-import vazkii.botania.common.annotations.SoftImplement;
+import vazkii.botania.api.item.SpecialBlockBreakingHandler;
 import vazkii.botania.common.item.equipment.tool.ToolCommons;
 import vazkii.botania.common.item.equipment.tool.manasteel.ManasteelShovelItem;
 
-public class ElementiumShovelItem extends ManasteelShovelItem {
+public class ElementiumShovelItem extends ManasteelShovelItem implements SpecialBlockBreakingHandler {
 
 	public ElementiumShovelItem(Properties props) {
 		super(BotaniaAPI.instance().getElementiumItemTier(), props);
 	}
 
-	//TODO this doesn't exist in IItemExtension anymore
-	@SoftImplement("IItemExtension")
-	public boolean onBlockStartBreak(ItemStack stack, BlockPos pos, Player player) {
-		Level world = player.level();
-		BlockState blockState = world.getBlockState(pos);
+	@Override
+	public void onBlockStartBreak(ServerLevel level, ItemStack stack, BlockPos pos, Player player) {
+		BlockState blockState = level.getBlockState(pos);
 		if (this.getDestroySpeed(stack, blockState) <= 1.0F) {
-			return false;
+			return;
 		}
 
 		Block blk = blockState.getBlock();
 		if (blk instanceof FallingBlock) {
-			ToolCommons.removeBlocksInIteration(player, stack, world, pos, new Vec3i(0, -12, 0),
+			ToolCommons.removeBlocksInIteration(player, stack, level, pos, new Vec3i(0, -12, 0),
 					new Vec3i(1, 12, 1),
 					state -> state.is(blk));
 		}
-
-		return false;
 	}
 
 }

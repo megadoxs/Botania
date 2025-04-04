@@ -52,6 +52,7 @@
     "RecipeProviderAccessor",
     "ServerLevelMixin",
     "ServerPlayerGameModeAccessor",
+    "ServerPlayerGameModeMixin",
     "ServerPlayerMixin",
     "ShapedRecipeAccessor",
     "ShapedRecipePatternAccessor",

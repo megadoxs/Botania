@@ -31,7 +31,9 @@ public class ConventionalBlockTagProvider extends BlockTagProvider {
 	private static final Set<TagKey<Block>> REQUIRED_TAGS = Set.of(
 			BlockTags.BASE_STONE_OVERWORLD,
 			BlockTags.DIRT,
+			BlockTags.ICE,
 			BlockTags.SAND,
+			BlockTags.MINEABLE_WITH_PICKAXE,
 			ConventionalBlockTags.GRAVELS
 	);
 
@@ -120,6 +122,27 @@ public class ConventionalBlockTagProvider extends BlockTagProvider {
 				.addTag(ConventionalBlockTags.GRAVELS)
 				.add(Blocks.SNOW)
 				.addTag(BlockTags.SAND);
+
+		tag(BotaniaTags.Blocks.MINEABLE_WITH_VITREOUS_PICKAXE)
+				.addTag(BlockTags.MINEABLE_WITH_PICKAXE)
+				.addTag(ConventionalBlockTags.GLASS_BLOCKS)
+				.addTag(ConventionalBlockTags.GLASS_PANES)
+				// ice is a pickaxe block by default
+				.add(Blocks.GLOWSTONE, Blocks.SEA_LANTERN, Blocks.REDSTONE_LAMP, Blocks.BEACON);
+
+		tag(BotaniaTags.Blocks.VITREOUS_PICKAXE_SILKTOUCHED)
+				.addTag(ConventionalBlockTags.GLASS_BLOCKS)
+				.addTag(ConventionalBlockTags.GLASS_PANES)
+				.addTag(BlockTags.ICE)
+				// redstone lamp and beacon do not need silktouch by default
+				.add(Blocks.GLOWSTONE, Blocks.SEA_LANTERN)
+				// copper bulbs have higher mining level by default
+				.add(
+						Blocks.COPPER_BULB, Blocks.EXPOSED_COPPER_BULB,
+						Blocks.WEATHERED_COPPER_BULB, Blocks.OXIDIZED_COPPER_BULB,
+						Blocks.WAXED_COPPER_BULB, Blocks.WAXED_EXPOSED_COPPER_BULB,
+						Blocks.WAXED_WEATHERED_COPPER_BULB, Blocks.WAXED_OXIDIZED_COPPER_BULB
+				);
 	}
 
 	@Override

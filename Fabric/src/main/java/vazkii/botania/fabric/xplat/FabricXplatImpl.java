@@ -545,16 +545,6 @@ public class FabricXplatImpl implements XplatAbstractions {
 		return oreTag;
 	}
 
-	// No standard so we have to check both :wacko:
-	private final TagKey<Block> cGlass = TagKey.create(Registries.BLOCK, ResourceLocation.fromNamespaceAndPath("c", "glass"));
-	private final TagKey<Block> cGlassBlocks = TagKey.create(Registries.BLOCK, ResourceLocation.fromNamespaceAndPath("c", "glass_blocks"));
-	private final TagKey<Block> cGlassPanes = TagKey.create(Registries.BLOCK, ResourceLocation.fromNamespaceAndPath("c", "glass_panes"));
-
-	@Override
-	public boolean isInGlassTag(BlockState state) {
-		return state.is(cGlass) || state.is(cGlassBlocks) || state.is(cGlassPanes);
-	}
-
 	@Override
 	public boolean canFurnaceBurn(AbstractFurnaceBlockEntity furnace, @Nullable RecipeHolder<?> recipeHolder, NonNullList<ItemStack> items, int maxStackSize) {
 		return AbstractFurnaceBlockEntityFabricAccessor.callCanBurn(furnace.getLevel().registryAccess(), recipeHolder, items, maxStackSize);

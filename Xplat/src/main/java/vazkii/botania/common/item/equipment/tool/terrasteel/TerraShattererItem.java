@@ -13,6 +13,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Vec3i;
 import net.minecraft.network.chat.Component;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.tags.BlockTags;
@@ -31,6 +32,7 @@ import net.minecraft.world.phys.HitResult;
 
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.item.SequentialBreaker;
+import vazkii.botania.api.item.SpecialBlockBreakingHandler;
 import vazkii.botania.api.mana.ManaBarTooltip;
 import vazkii.botania.common.annotations.SoftImplement;
 import vazkii.botania.common.component.BotaniaDataComponents;
@@ -50,7 +52,8 @@ import java.util.function.Predicate;
 
 import static vazkii.botania.api.BotaniaAPI.botaniaRL;
 
-public class TerraShattererItem extends ManasteelPickaxeItem implements SequentialBreaker, CustomCreativeTabContents {
+public class TerraShattererItem extends ManasteelPickaxeItem implements SequentialBreaker, CustomCreativeTabContents,
+		SpecialBlockBreakingHandler {
 
 	public static final int MAX_MANA = Integer.MAX_VALUE;
 	private static final int MANA_PER_DAMAGE = 100;
@@ -134,8 +137,8 @@ public class TerraShattererItem extends ManasteelPickaxeItem implements Sequenti
 		return Optional.of(new ManaBarTooltip(percent, level));
 	}
 
-	@SoftImplement("IItemExtension")
-	public boolean onBlockStartBreak(ItemStack stack, BlockPos pos, Player player) {
+	@Override
+	public void onBlockStartBreak(ServerLevel level, ItemStack stack, BlockPos pos, Player player) {
 		BlockHitResult raycast = ToolCommons.raytraceFromEntity(player, 10, false);
 		if (!player.level().isClientSide && raycast.getType() == HitResult.Type.BLOCK) {
 			Direction face = raycast.getDirection();
@@ -144,8 +147,6 @@ public class TerraShattererItem extends ManasteelPickaxeItem implements Sequenti
 				BotaniaAPI.instance().breakOnAllCursors(player, stack, pos, face);
 			}
 		}
-
-		return false;
 	}
 
 	@Override
