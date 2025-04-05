@@ -12,6 +12,7 @@ import net.minecraft.core.*;
 import net.minecraft.core.dispenser.*;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.item.ArmorItem;
@@ -30,8 +31,10 @@ import net.minecraft.world.level.material.MapColor;
 import net.minecraft.world.level.material.PushReaction;
 
 import org.apache.commons.lang3.tuple.Triple;
+import org.jetbrains.annotations.Nullable;
 
 import vazkii.botania.api.block.PetalApothecary;
+import vazkii.botania.api.internal.Colored;
 import vazkii.botania.api.state.BotaniaStateProperties;
 import vazkii.botania.api.state.enums.AlfheimPortalState;
 import vazkii.botania.api.state.enums.LuminizerVariant;
@@ -63,56 +66,107 @@ public final class BotaniaBlocks {
 	private static final BlockBehaviour.StateArgumentPredicate<EntityType<?>> NO_SPAWN = (state, world, pos, et) -> false;
 	private static final BlockBehaviour.StatePredicate NO_SUFFOCATION = (state, world, pos) -> false;
 
-	public static final Block whiteFlower = new BotaniaFlowerBlock(DyeColor.WHITE, BlockBehaviour.Properties.of().mapColor(MapColor.PLANT).noCollission().instabreak().offsetType(BlockBehaviour.OffsetType.XZ).pushReaction(PushReaction.DESTROY).strength(0).sound(SoundType.GRASS));
-	public static final Block orangeFlower = new BotaniaFlowerBlock(DyeColor.ORANGE, BlockBehaviour.Properties.ofFullCopy(whiteFlower));
-	public static final Block magentaFlower = new BotaniaFlowerBlock(DyeColor.MAGENTA, BlockBehaviour.Properties.ofFullCopy(whiteFlower));
-	public static final Block lightBlueFlower = new BotaniaFlowerBlock(DyeColor.LIGHT_BLUE, BlockBehaviour.Properties.ofFullCopy(whiteFlower));
-	public static final Block yellowFlower = new BotaniaFlowerBlock(DyeColor.YELLOW, BlockBehaviour.Properties.ofFullCopy(whiteFlower));
-	public static final Block limeFlower = new BotaniaFlowerBlock(DyeColor.LIME, BlockBehaviour.Properties.ofFullCopy(whiteFlower));
-	public static final Block pinkFlower = new BotaniaFlowerBlock(DyeColor.PINK, BlockBehaviour.Properties.ofFullCopy(whiteFlower));
-	public static final Block grayFlower = new BotaniaFlowerBlock(DyeColor.GRAY, BlockBehaviour.Properties.ofFullCopy(whiteFlower));
-	public static final Block lightGrayFlower = new BotaniaFlowerBlock(DyeColor.LIGHT_GRAY, BlockBehaviour.Properties.ofFullCopy(whiteFlower));
-	public static final Block cyanFlower = new BotaniaFlowerBlock(DyeColor.CYAN, BlockBehaviour.Properties.ofFullCopy(whiteFlower));
-	public static final Block purpleFlower = new BotaniaFlowerBlock(DyeColor.PURPLE, BlockBehaviour.Properties.ofFullCopy(whiteFlower));
-	public static final Block blueFlower = new BotaniaFlowerBlock(DyeColor.BLUE, BlockBehaviour.Properties.ofFullCopy(whiteFlower));
-	public static final Block brownFlower = new BotaniaFlowerBlock(DyeColor.BROWN, BlockBehaviour.Properties.ofFullCopy(whiteFlower));
-	public static final Block greenFlower = new BotaniaFlowerBlock(DyeColor.GREEN, BlockBehaviour.Properties.ofFullCopy(whiteFlower));
-	public static final Block redFlower = new BotaniaFlowerBlock(DyeColor.RED, BlockBehaviour.Properties.ofFullCopy(whiteFlower));
-	public static final Block blackFlower = new BotaniaFlowerBlock(DyeColor.BLACK, BlockBehaviour.Properties.ofFullCopy(whiteFlower));
+	public static final Block whiteFlower = new MysticalFlowerBlock(DyeColor.WHITE,
+			effectForFlower(DyeColor.WHITE), 4, BotaniaBlocks::getDoubleFlower,
+			BlockBehaviour.Properties.of().mapColor(MapColor.PLANT).noCollission().instabreak()
+					.offsetType(BlockBehaviour.OffsetType.XZ).pushReaction(PushReaction.DESTROY).sound(SoundType.GRASS)
+	);
+	public static final Block orangeFlower = new MysticalFlowerBlock(DyeColor.ORANGE,
+			effectForFlower(DyeColor.ORANGE), 4, BotaniaBlocks::getDoubleFlower, BlockBehaviour.Properties.ofFullCopy(whiteFlower));
+	public static final Block magentaFlower = new MysticalFlowerBlock(DyeColor.MAGENTA,
+			effectForFlower(DyeColor.MAGENTA), 4, BotaniaBlocks::getDoubleFlower, BlockBehaviour.Properties.ofFullCopy(whiteFlower));
+	public static final Block lightBlueFlower = new MysticalFlowerBlock(DyeColor.LIGHT_BLUE,
+			effectForFlower(DyeColor.LIGHT_BLUE), 4, BotaniaBlocks::getDoubleFlower, BlockBehaviour.Properties.ofFullCopy(whiteFlower));
+	public static final Block yellowFlower = new MysticalFlowerBlock(DyeColor.YELLOW,
+			effectForFlower(DyeColor.YELLOW), 4, BotaniaBlocks::getDoubleFlower, BlockBehaviour.Properties.ofFullCopy(whiteFlower));
+	public static final Block limeFlower = new MysticalFlowerBlock(DyeColor.LIME,
+			effectForFlower(DyeColor.LIME), 4, BotaniaBlocks::getDoubleFlower, BlockBehaviour.Properties.ofFullCopy(whiteFlower));
+	public static final Block pinkFlower = new MysticalFlowerBlock(DyeColor.PINK,
+			effectForFlower(DyeColor.PINK), 4, BotaniaBlocks::getDoubleFlower, BlockBehaviour.Properties.ofFullCopy(whiteFlower));
+	public static final Block grayFlower = new MysticalFlowerBlock(DyeColor.GRAY,
+			effectForFlower(DyeColor.GRAY), 4, BotaniaBlocks::getDoubleFlower, BlockBehaviour.Properties.ofFullCopy(whiteFlower));
+	public static final Block lightGrayFlower = new MysticalFlowerBlock(DyeColor.LIGHT_GRAY,
+			effectForFlower(DyeColor.LIGHT_GRAY), 4, BotaniaBlocks::getDoubleFlower, BlockBehaviour.Properties.ofFullCopy(whiteFlower));
+	public static final Block cyanFlower = new MysticalFlowerBlock(DyeColor.CYAN,
+			effectForFlower(DyeColor.CYAN), 4, BotaniaBlocks::getDoubleFlower, BlockBehaviour.Properties.ofFullCopy(whiteFlower));
+	public static final Block purpleFlower = new MysticalFlowerBlock(DyeColor.PURPLE,
+			effectForFlower(DyeColor.PURPLE), 4, BotaniaBlocks::getDoubleFlower, BlockBehaviour.Properties.ofFullCopy(whiteFlower));
+	public static final Block blueFlower = new MysticalFlowerBlock(DyeColor.BLUE,
+			effectForFlower(DyeColor.BLUE), 4, BotaniaBlocks::getDoubleFlower, BlockBehaviour.Properties.ofFullCopy(whiteFlower));
+	public static final Block brownFlower = new MysticalFlowerBlock(DyeColor.BROWN,
+			effectForFlower(DyeColor.BROWN), 4, BotaniaBlocks::getDoubleFlower, BlockBehaviour.Properties.ofFullCopy(whiteFlower));
+	public static final Block greenFlower = new MysticalFlowerBlock(DyeColor.GREEN,
+			effectForFlower(DyeColor.GREEN), 4, BotaniaBlocks::getDoubleFlower, BlockBehaviour.Properties.ofFullCopy(whiteFlower));
+	public static final Block redFlower = new MysticalFlowerBlock(DyeColor.RED,
+			effectForFlower(DyeColor.RED), 4, BotaniaBlocks::getDoubleFlower, BlockBehaviour.Properties.ofFullCopy(whiteFlower));
+	public static final Block blackFlower = new MysticalFlowerBlock(DyeColor.BLACK,
+			effectForFlower(DyeColor.BLACK), 4, BotaniaBlocks::getDoubleFlower, BlockBehaviour.Properties.ofFullCopy(whiteFlower));
 
-	public static final Block whiteShinyFlower = new GlimmeringFlowerBlock(DyeColor.WHITE, BlockBehaviour.Properties.ofFullCopy(whiteFlower).lightLevel(s -> 15));
-	public static final Block orangeShinyFlower = new GlimmeringFlowerBlock(DyeColor.ORANGE, BlockBehaviour.Properties.ofFullCopy(whiteShinyFlower));
-	public static final Block magentaShinyFlower = new GlimmeringFlowerBlock(DyeColor.MAGENTA, BlockBehaviour.Properties.ofFullCopy(whiteShinyFlower));
-	public static final Block lightBlueShinyFlower = new GlimmeringFlowerBlock(DyeColor.LIGHT_BLUE, BlockBehaviour.Properties.ofFullCopy(whiteShinyFlower));
-	public static final Block yellowShinyFlower = new GlimmeringFlowerBlock(DyeColor.YELLOW, BlockBehaviour.Properties.ofFullCopy(whiteShinyFlower));
-	public static final Block limeShinyFlower = new GlimmeringFlowerBlock(DyeColor.LIME, BlockBehaviour.Properties.ofFullCopy(whiteShinyFlower));
-	public static final Block pinkShinyFlower = new GlimmeringFlowerBlock(DyeColor.PINK, BlockBehaviour.Properties.ofFullCopy(whiteShinyFlower));
-	public static final Block grayShinyFlower = new GlimmeringFlowerBlock(DyeColor.GRAY, BlockBehaviour.Properties.ofFullCopy(whiteShinyFlower));
-	public static final Block lightGrayShinyFlower = new GlimmeringFlowerBlock(DyeColor.LIGHT_GRAY, BlockBehaviour.Properties.ofFullCopy(whiteShinyFlower));
-	public static final Block cyanShinyFlower = new GlimmeringFlowerBlock(DyeColor.CYAN, BlockBehaviour.Properties.ofFullCopy(whiteShinyFlower));
-	public static final Block purpleShinyFlower = new GlimmeringFlowerBlock(DyeColor.PURPLE, BlockBehaviour.Properties.ofFullCopy(whiteShinyFlower));
-	public static final Block blueShinyFlower = new GlimmeringFlowerBlock(DyeColor.BLUE, BlockBehaviour.Properties.ofFullCopy(whiteShinyFlower));
-	public static final Block brownShinyFlower = new GlimmeringFlowerBlock(DyeColor.BROWN, BlockBehaviour.Properties.ofFullCopy(whiteShinyFlower));
-	public static final Block greenShinyFlower = new GlimmeringFlowerBlock(DyeColor.GREEN, BlockBehaviour.Properties.ofFullCopy(whiteShinyFlower));
-	public static final Block redShinyFlower = new GlimmeringFlowerBlock(DyeColor.RED, BlockBehaviour.Properties.ofFullCopy(whiteShinyFlower));
-	public static final Block blackShinyFlower = new GlimmeringFlowerBlock(DyeColor.BLACK, BlockBehaviour.Properties.ofFullCopy(whiteShinyFlower));
+	public static final Block whiteShinyFlower = new GlimmeringFlowerBlock(DyeColor.WHITE,
+			effectForFlower(DyeColor.WHITE), 6, BlockBehaviour.Properties.ofFullCopy(whiteFlower).lightLevel(s -> 15));
+	public static final Block orangeShinyFlower = new GlimmeringFlowerBlock(DyeColor.ORANGE,
+			effectForFlower(DyeColor.ORANGE), 6, BlockBehaviour.Properties.ofFullCopy(whiteShinyFlower));
+	public static final Block magentaShinyFlower = new GlimmeringFlowerBlock(DyeColor.MAGENTA,
+			effectForFlower(DyeColor.MAGENTA), 6, BlockBehaviour.Properties.ofFullCopy(whiteShinyFlower));
+	public static final Block lightBlueShinyFlower = new GlimmeringFlowerBlock(DyeColor.LIGHT_BLUE,
+			effectForFlower(DyeColor.LIGHT_BLUE), 6, BlockBehaviour.Properties.ofFullCopy(whiteShinyFlower));
+	public static final Block yellowShinyFlower = new GlimmeringFlowerBlock(DyeColor.YELLOW,
+			effectForFlower(DyeColor.YELLOW), 6, BlockBehaviour.Properties.ofFullCopy(whiteShinyFlower));
+	public static final Block limeShinyFlower = new GlimmeringFlowerBlock(DyeColor.LIME,
+			effectForFlower(DyeColor.LIME), 6, BlockBehaviour.Properties.ofFullCopy(whiteShinyFlower));
+	public static final Block pinkShinyFlower = new GlimmeringFlowerBlock(DyeColor.PINK,
+			effectForFlower(DyeColor.PINK), 6, BlockBehaviour.Properties.ofFullCopy(whiteShinyFlower));
+	public static final Block grayShinyFlower = new GlimmeringFlowerBlock(DyeColor.GRAY,
+			effectForFlower(DyeColor.GRAY), 6, BlockBehaviour.Properties.ofFullCopy(whiteShinyFlower));
+	public static final Block lightGrayShinyFlower = new GlimmeringFlowerBlock(DyeColor.LIGHT_GRAY,
+			effectForFlower(DyeColor.LIGHT_GRAY), 6, BlockBehaviour.Properties.ofFullCopy(whiteShinyFlower));
+	public static final Block cyanShinyFlower = new GlimmeringFlowerBlock(DyeColor.CYAN,
+			effectForFlower(DyeColor.CYAN), 6, BlockBehaviour.Properties.ofFullCopy(whiteShinyFlower));
+	public static final Block purpleShinyFlower = new GlimmeringFlowerBlock(DyeColor.PURPLE,
+			effectForFlower(DyeColor.PURPLE), 6, BlockBehaviour.Properties.ofFullCopy(whiteShinyFlower));
+	public static final Block blueShinyFlower = new GlimmeringFlowerBlock(DyeColor.BLUE,
+			effectForFlower(DyeColor.BLUE), 6, BlockBehaviour.Properties.ofFullCopy(whiteShinyFlower));
+	public static final Block brownShinyFlower = new GlimmeringFlowerBlock(DyeColor.BROWN,
+			effectForFlower(DyeColor.BROWN), 6, BlockBehaviour.Properties.ofFullCopy(whiteShinyFlower));
+	public static final Block greenShinyFlower = new GlimmeringFlowerBlock(DyeColor.GREEN,
+			effectForFlower(DyeColor.GREEN), 6, BlockBehaviour.Properties.ofFullCopy(whiteShinyFlower));
+	public static final Block redShinyFlower = new GlimmeringFlowerBlock(DyeColor.RED,
+			effectForFlower(DyeColor.RED), 6, BlockBehaviour.Properties.ofFullCopy(whiteShinyFlower));
+	public static final Block blackShinyFlower = new GlimmeringFlowerBlock(DyeColor.BLACK,
+			effectForFlower(DyeColor.BLACK), 6, BlockBehaviour.Properties.ofFullCopy(whiteShinyFlower));
 
-	public static final Block whiteBuriedPetals = new BuriedPetalBlock(DyeColor.WHITE, BlockBehaviour.Properties.ofFullCopy(whiteFlower).sound(SoundType.MOSS).lightLevel(s -> 4));
-	public static final Block orangeBuriedPetals = new BuriedPetalBlock(DyeColor.ORANGE, BlockBehaviour.Properties.ofFullCopy(whiteBuriedPetals));
-	public static final Block magentaBuriedPetals = new BuriedPetalBlock(DyeColor.MAGENTA, BlockBehaviour.Properties.ofFullCopy(whiteBuriedPetals));
-	public static final Block lightBlueBuriedPetals = new BuriedPetalBlock(DyeColor.LIGHT_BLUE, BlockBehaviour.Properties.ofFullCopy(whiteBuriedPetals));
-	public static final Block yellowBuriedPetals = new BuriedPetalBlock(DyeColor.YELLOW, BlockBehaviour.Properties.ofFullCopy(whiteBuriedPetals));
-	public static final Block limeBuriedPetals = new BuriedPetalBlock(DyeColor.LIME, BlockBehaviour.Properties.ofFullCopy(whiteBuriedPetals));
-	public static final Block pinkBuriedPetals = new BuriedPetalBlock(DyeColor.PINK, BlockBehaviour.Properties.ofFullCopy(whiteBuriedPetals));
-	public static final Block grayBuriedPetals = new BuriedPetalBlock(DyeColor.GRAY, BlockBehaviour.Properties.ofFullCopy(whiteBuriedPetals));
-	public static final Block lightGrayBuriedPetals = new BuriedPetalBlock(DyeColor.LIGHT_GRAY, BlockBehaviour.Properties.ofFullCopy(whiteBuriedPetals));
-	public static final Block cyanBuriedPetals = new BuriedPetalBlock(DyeColor.CYAN, BlockBehaviour.Properties.ofFullCopy(whiteBuriedPetals));
-	public static final Block purpleBuriedPetals = new BuriedPetalBlock(DyeColor.PURPLE, BlockBehaviour.Properties.ofFullCopy(whiteBuriedPetals));
-	public static final Block blueBuriedPetals = new BuriedPetalBlock(DyeColor.BLUE, BlockBehaviour.Properties.ofFullCopy(whiteBuriedPetals));
-	public static final Block brownBuriedPetals = new BuriedPetalBlock(DyeColor.BROWN, BlockBehaviour.Properties.ofFullCopy(whiteBuriedPetals));
-	public static final Block greenBuriedPetals = new BuriedPetalBlock(DyeColor.GREEN, BlockBehaviour.Properties.ofFullCopy(whiteBuriedPetals));
-	public static final Block redBuriedPetals = new BuriedPetalBlock(DyeColor.RED, BlockBehaviour.Properties.ofFullCopy(whiteBuriedPetals));
-	public static final Block blackBuriedPetals = new BuriedPetalBlock(DyeColor.BLACK, BlockBehaviour.Properties.ofFullCopy(whiteBuriedPetals));
+	public static final Block whiteBuriedPetals = new BuriedPetalBlock(DyeColor.WHITE, BotaniaBlocks::getDoubleFlower,
+			BlockBehaviour.Properties.ofFullCopy(whiteFlower).sound(SoundType.MOSS).lightLevel(s -> 4));
+	public static final Block orangeBuriedPetals = new BuriedPetalBlock(DyeColor.ORANGE,
+			BotaniaBlocks::getDoubleFlower, BlockBehaviour.Properties.ofFullCopy(whiteBuriedPetals));
+	public static final Block magentaBuriedPetals = new BuriedPetalBlock(DyeColor.MAGENTA,
+			BotaniaBlocks::getDoubleFlower, BlockBehaviour.Properties.ofFullCopy(whiteBuriedPetals));
+	public static final Block lightBlueBuriedPetals = new BuriedPetalBlock(DyeColor.LIGHT_BLUE,
+			BotaniaBlocks::getDoubleFlower, BlockBehaviour.Properties.ofFullCopy(whiteBuriedPetals));
+	public static final Block yellowBuriedPetals = new BuriedPetalBlock(DyeColor.YELLOW,
+			BotaniaBlocks::getDoubleFlower, BlockBehaviour.Properties.ofFullCopy(whiteBuriedPetals));
+	public static final Block limeBuriedPetals = new BuriedPetalBlock(DyeColor.LIME,
+			BotaniaBlocks::getDoubleFlower, BlockBehaviour.Properties.ofFullCopy(whiteBuriedPetals));
+	public static final Block pinkBuriedPetals = new BuriedPetalBlock(DyeColor.PINK,
+			BotaniaBlocks::getDoubleFlower, BlockBehaviour.Properties.ofFullCopy(whiteBuriedPetals));
+	public static final Block grayBuriedPetals = new BuriedPetalBlock(DyeColor.GRAY,
+			BotaniaBlocks::getDoubleFlower, BlockBehaviour.Properties.ofFullCopy(whiteBuriedPetals));
+	public static final Block lightGrayBuriedPetals = new BuriedPetalBlock(DyeColor.LIGHT_GRAY,
+			BotaniaBlocks::getDoubleFlower, BlockBehaviour.Properties.ofFullCopy(whiteBuriedPetals));
+	public static final Block cyanBuriedPetals = new BuriedPetalBlock(DyeColor.CYAN,
+			BotaniaBlocks::getDoubleFlower, BlockBehaviour.Properties.ofFullCopy(whiteBuriedPetals));
+	public static final Block purpleBuriedPetals = new BuriedPetalBlock(DyeColor.PURPLE,
+			BotaniaBlocks::getDoubleFlower, BlockBehaviour.Properties.ofFullCopy(whiteBuriedPetals));
+	public static final Block blueBuriedPetals = new BuriedPetalBlock(DyeColor.BLUE,
+			BotaniaBlocks::getDoubleFlower, BlockBehaviour.Properties.ofFullCopy(whiteBuriedPetals));
+	public static final Block brownBuriedPetals = new BuriedPetalBlock(DyeColor.BROWN,
+			BotaniaBlocks::getDoubleFlower, BlockBehaviour.Properties.ofFullCopy(whiteBuriedPetals));
+	public static final Block greenBuriedPetals = new BuriedPetalBlock(DyeColor.GREEN,
+			BotaniaBlocks::getDoubleFlower, BlockBehaviour.Properties.ofFullCopy(whiteBuriedPetals));
+	public static final Block redBuriedPetals = new BuriedPetalBlock(DyeColor.RED,
+			BotaniaBlocks::getDoubleFlower, BlockBehaviour.Properties.ofFullCopy(whiteBuriedPetals));
+	public static final Block blackBuriedPetals = new BuriedPetalBlock(DyeColor.BLACK,
+			BotaniaBlocks::getDoubleFlower, BlockBehaviour.Properties.ofFullCopy(whiteBuriedPetals));
 
 	public static final BlockBehaviour.Properties FLOATING_PROPS = BlockBehaviour.Properties.of().mapColor(MapColor.PLANT).strength(0.5F).sound(SoundType.GRAVEL).lightLevel(s -> 15);
 	public static final Block whiteFloatingFlower = new FloatingFlowerBlock(DyeColor.WHITE, FLOATING_PROPS);
@@ -2209,6 +2263,11 @@ public final class BotaniaBlocks {
 		};
 	}
 
+	@Nullable
+	public static Block getDoubleFlower(TallFlowerGrower grower) {
+		return grower instanceof Colored colored ? getDoubleFlower(colored.getColor()) : null;
+	}
+
 	public static Block getDoubleFlower(DyeColor color) {
 		return switch (color) {
 			case WHITE -> doubleFlowerWhite;
@@ -2311,6 +2370,27 @@ public final class BotaniaBlocks {
 			case GREEN -> pottedGreenMushroom;
 			case RED -> pottedRedMushroom;
 			case BLACK -> pottedBlackMushroom;
+		};
+	}
+
+	private static Holder<MobEffect> effectForFlower(DyeColor color) {
+		return switch (color) {
+			case WHITE -> MobEffects.MOVEMENT_SPEED;
+			case ORANGE -> MobEffects.FIRE_RESISTANCE;
+			case MAGENTA -> MobEffects.DIG_SLOWDOWN;
+			case LIGHT_BLUE -> MobEffects.JUMP;
+			case YELLOW -> MobEffects.ABSORPTION;
+			case LIME -> MobEffects.POISON;
+			case PINK -> MobEffects.REGENERATION;
+			case GRAY -> MobEffects.DAMAGE_RESISTANCE;
+			case LIGHT_GRAY -> MobEffects.WEAKNESS;
+			case CYAN -> MobEffects.WATER_BREATHING;
+			case PURPLE -> MobEffects.CONFUSION;
+			case BLUE -> MobEffects.NIGHT_VISION;
+			case BROWN -> MobEffects.WITHER;
+			case GREEN -> MobEffects.HUNGER;
+			case RED -> MobEffects.DAMAGE_BOOST;
+			case BLACK -> MobEffects.BLINDNESS;
 		};
 	}
 

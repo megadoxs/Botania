@@ -12,44 +12,49 @@ import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 
 import net.minecraft.core.BlockPos;
-import net.minecraft.server.level.ServerLevel;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.util.RandomSource;
 import net.minecraft.util.StringRepresentable;
 import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.BonemealableBlock;
 import net.minecraft.world.level.block.BushBlock;
-import net.minecraft.world.level.block.DoublePlantBlock;
 import net.minecraft.world.level.block.RenderShape;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
+import org.jetbrains.annotations.Nullable;
+
+import vazkii.botania.api.internal.Colored;
 import vazkii.botania.client.fx.SparkleParticleData;
-import vazkii.botania.common.block.BotaniaBlocks;
+import vazkii.botania.common.block.TallFlowerGrower;
 import vazkii.botania.common.item.material.MysticalPetalItem;
 
-public class BuriedPetalBlock extends BushBlock implements BonemealableBlock {
+import java.util.function.Function;
+
+public class BuriedPetalBlock extends BushBlock implements TallFlowerGrower, Colored {
 	public static final MapCodec<BuriedPetalBlock> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
-			StringRepresentable.fromEnum(DyeColor::values).fieldOf("color").forGetter(o -> o.color),
+			StringRepresentable.fromEnum(DyeColor::values).fieldOf("color").forGetter(BuriedPetalBlock::getColor),
+			BuiltInRegistries.BLOCK.byNameCodec().fieldOf("tallFLower").forGetter(BuriedPetalBlock::getTallFlower),
 			propertiesCodec()
-	).apply(instance, BuriedPetalBlock::new));
+	).apply(instance, (dyeColor, block, props) -> new BuriedPetalBlock(dyeColor, b -> block, props)));
 
 	private static final VoxelShape SHAPE = box(0, 0, 0, 16, 1.6, 16);
 
 	public final DyeColor color;
+	private final Function<TallFlowerGrower, @Nullable Block> tallFlowerFunction;
 
 	@Override
 	protected MapCodec<BuriedPetalBlock> codec() {
 		return CODEC;
 	}
 
-	public BuriedPetalBlock(DyeColor color, Properties builder) {
+	public BuriedPetalBlock(DyeColor color, Function<TallFlowerGrower, @Nullable Block> tallFlowerFunction, Properties builder) {
 		super(builder);
 		this.color = color;
+		this.tallFlowerFunction = tallFlowerFunction;
 	}
 
 	@Override
@@ -65,7 +70,7 @@ public class BuriedPetalBlock extends BushBlock implements BonemealableBlock {
 		int b = hex & 0xFF;
 
 		SparkleParticleData data = SparkleParticleData.noClip(rand.nextFloat(), r / 255F, g / 255F, b / 255F, 5);
-		world.addParticle(data, pos.getX() + 0.3 + rand.nextFloat() * 0.5, pos.getY() + 0.1 + rand.nextFloat() * 0.1, pos.getZ() + 0.3 + rand.nextFloat() * 0.5, 0, 0, 0);
+		world.addParticle(data, pos.getX() + 0.25 + rand.nextFloat() * 0.5, pos.getY() + 0.1 + rand.nextFloat() * 0.1, pos.getZ() + 0.25 + rand.nextFloat() * 0.5, 0, 0, 0);
 	}
 
 	@Override
@@ -74,20 +79,12 @@ public class BuriedPetalBlock extends BushBlock implements BonemealableBlock {
 	}
 
 	@Override
-	public boolean isValidBonemealTarget(LevelReader world, BlockPos pos, BlockState state) {
-		return world.getBlockState(pos.above()).isAir();
+	public DyeColor getColor() {
+		return color;
 	}
 
 	@Override
-	public boolean isBonemealSuccess(Level world, RandomSource rand, BlockPos pos, BlockState state) {
-		return isValidBonemealTarget(world, pos, state);
-	}
-
-	@Override
-	public void performBonemeal(ServerLevel world, RandomSource rand, BlockPos pos, BlockState state) {
-		Block block = BotaniaBlocks.getDoubleFlower(color);
-		if (block instanceof DoublePlantBlock) {
-			DoublePlantBlock.placeAt(world, block.defaultBlockState(), pos, 3);
-		}
+	public @Nullable Block getTallFlower() {
+		return tallFlowerFunction.apply(this);
 	}
 }

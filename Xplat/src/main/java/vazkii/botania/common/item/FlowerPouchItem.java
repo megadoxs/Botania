@@ -35,10 +35,12 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
 
+import vazkii.botania.api.internal.Colored;
 import vazkii.botania.client.gui.bag.FlowerPouchContainer;
 import vazkii.botania.common.block.BotaniaBlocks;
 import vazkii.botania.common.block.BotaniaDoubleFlowerBlock;
 import vazkii.botania.common.block.BotaniaFlowerBlock;
+import vazkii.botania.common.block.MysticalFlowerBlock;
 import vazkii.botania.common.helper.EntityHelper;
 import vazkii.botania.common.helper.InventoryHelper;
 import vazkii.botania.xplat.XplatAbstractions;
@@ -65,10 +67,9 @@ public class FlowerPouchItem extends Item {
 	}
 
 	private static boolean isMysticalFlower(ItemStack stack) {
-		Class<? extends Block> blockClass = Block.byItem(stack.getItem()).getClass();
-		// Direct class compare needed because glimmering flowers also extend BotaniaFlowerBlock
-		// And we might want to add glimmering tall flowers at some point
-		return blockClass == BotaniaFlowerBlock.class || blockClass == BotaniaDoubleFlowerBlock.class;
+		Block block = Block.byItem(stack.getItem());
+		return block instanceof Colored colored && colored.getColor().getId() < DYE_COUNT
+				&& (block instanceof MysticalFlowerBlock || block instanceof BotaniaDoubleFlowerBlock);
 	}
 
 	public static SimpleContainer getInventory(ItemStack stack) {
@@ -86,7 +87,7 @@ public class FlowerPouchItem extends Item {
 		if (isMysticalFlower(entityStack) && entityStack.getCount() > 0) {
 			int slot;
 			if (block instanceof BotaniaDoubleFlowerBlock flower) {
-				slot = 16 + flower.color.getId();
+				slot = DYE_COUNT + flower.color.getId();
 			} else {
 				slot = ((BotaniaFlowerBlock) block).color.getId();
 			}

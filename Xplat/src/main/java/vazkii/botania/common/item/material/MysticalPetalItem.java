@@ -28,6 +28,7 @@ public class MysticalPetalItem extends ItemNameBlockItem implements CustomApothe
 		return getPetalLikeColor(color);
 	}
 
+	// TODO: Maybe don't have everything reference this random static method. (to help compatibility with dye mods)
 	// Color value that looks like the petal textures
 	public static int getPetalLikeColor(DyeColor color) {
 		return switch (color) {

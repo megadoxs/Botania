@@ -8,22 +8,16 @@
  */
 package vazkii.botania.common.block.decor;
 
-import net.minecraft.core.BlockPos;
+import net.minecraft.core.Holder;
+import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.item.DyeColor;
-import net.minecraft.world.level.LevelReader;
-import net.minecraft.world.level.block.state.BlockState;
 
 import vazkii.botania.common.block.BotaniaFlowerBlock;
 
 public class GlimmeringFlowerBlock extends BotaniaFlowerBlock {
 
-	public GlimmeringFlowerBlock(DyeColor color, Properties builder) {
-		super(color, builder);
-	}
-
-	@Override
-	public boolean isValidBonemealTarget(LevelReader world, BlockPos pos, BlockState state) {
-		return false;
+	public GlimmeringFlowerBlock(DyeColor color, Holder<MobEffect> effect, int seconds, Properties builder) {
+		super(color, effect, seconds, builder);
 	}
 
 }
