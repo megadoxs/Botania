@@ -23,12 +23,13 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
+import vazkii.botania.api.internal.Colored;
 import vazkii.botania.api.recipe.CustomApothecaryColor;
 import vazkii.botania.client.fx.SparkleParticleData;
 import vazkii.botania.common.item.material.MysticalPetalItem;
 import vazkii.botania.xplat.BotaniaConfig;
 
-public class BotaniaMushroomBlock extends MushroomBlock implements CustomApothecaryColor {
+public class BotaniaMushroomBlock extends MushroomBlock implements CustomApothecaryColor, Colored {
 
 	private static final VoxelShape SHAPE = box(4.8, 0, 4.8, 12.8, 16, 12.8);
 	public final DyeColor color;
@@ -36,6 +37,11 @@ public class BotaniaMushroomBlock extends MushroomBlock implements CustomApothec
 	public BotaniaMushroomBlock(DyeColor color, Properties builder) {
 		super(TreeFeatures.HUGE_BROWN_MUSHROOM /* Doesn't matter, we override the grow method */, builder);
 		this.color = color;
+	}
+
+	@Override
+	public DyeColor getColor() {
+		return color;
 	}
 
 	@Override

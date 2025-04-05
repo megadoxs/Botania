@@ -17,7 +17,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-import vazkii.botania.common.item.FlowerPouchItem;
+import vazkii.botania.common.item.ColoredContentsPouchItem;
 
 import java.util.UUID;
 
@@ -29,11 +29,15 @@ public class ItemEntityFabricMixin {
 	@Shadow
 	private UUID thrower;
 
-	@Inject(at = @At("HEAD"), method = "playerTouch", cancellable = true)
+	@Inject(
+		method = "playerTouch",
+		at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/item/ItemEntity;getItem()Lnet/minecraft/world/item/ItemStack;", ordinal = 0),
+		cancellable = true
+	)
 	private void onPickup(Player player, CallbackInfo ci) {
 		ItemEntity self = (ItemEntity) (Object) this;
-		if (!player.level().isClientSide && pickupDelay == 0 && (thrower == null || thrower.equals(player.getUUID()))
-				&& FlowerPouchItem.onPickupItem(self, player)) {
+		if (pickupDelay == 0 && (thrower == null || thrower.equals(player.getUUID()))
+				&& ColoredContentsPouchItem.onPickupItem(self, player)) {
 			ci.cancel();
 		}
 	}

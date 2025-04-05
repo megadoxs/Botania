@@ -50,7 +50,7 @@ import vazkii.botania.client.fx.BotaniaParticles;
 import vazkii.botania.client.gui.HUDHandler;
 import vazkii.botania.client.gui.ManaBarTooltipComponent;
 import vazkii.botania.client.gui.TooltipHandler;
-import vazkii.botania.client.gui.bag.FlowerPouchGui;
+import vazkii.botania.client.gui.bag.ColoredContentsPouchScreen;
 import vazkii.botania.client.gui.box.BaubleBoxGui;
 import vazkii.botania.client.integration.ears.EarsIntegration;
 import vazkii.botania.client.model.BotaniaLayerDefinitions;
@@ -157,7 +157,7 @@ public class ForgeClientInitializer {
 
 	@SubscribeEvent
 	private static void registerMenuScreens(RegisterMenuScreensEvent e) {
-		e.register(BotaniaItems.FLOWER_BAG_CONTAINER, FlowerPouchGui::new);
+		e.register(BotaniaItems.COLORED_CONTENTS_POUCH_CONTAINER, ColoredContentsPouchScreen::new);
 		e.register(BotaniaItems.BAUBLE_BOX_CONTAINER, BaubleBoxGui::new);
 	}
 

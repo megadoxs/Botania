@@ -13,14 +13,20 @@ import net.minecraft.world.item.ItemNameBlockItem;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.Block;
 
+import vazkii.botania.api.internal.Colored;
 import vazkii.botania.api.recipe.CustomApothecaryColor;
 
-public class MysticalPetalItem extends ItemNameBlockItem implements CustomApothecaryColor {
+public class MysticalPetalItem extends ItemNameBlockItem implements CustomApothecaryColor, Colored {
 	public final DyeColor color;
 
 	public MysticalPetalItem(Block buriedPetals, DyeColor color, Properties props) {
 		super(buriedPetals, props);
 		this.color = color;
+	}
+
+	@Override
+	public DyeColor getColor() {
+		return color;
 	}
 
 	@Override

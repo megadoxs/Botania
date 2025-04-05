@@ -29,6 +29,7 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 import vazkii.botania.api.block.FloatingFlower;
 import vazkii.botania.api.block.FloatingFlower.IslandType;
 import vazkii.botania.api.block.FloatingFlowerProvider;
+import vazkii.botania.api.internal.Colored;
 import vazkii.botania.api.internal.VanillaPacketDispatcher;
 import vazkii.botania.client.fx.SparkleParticleData;
 import vazkii.botania.client.patchouli.PatchouliUtils;
@@ -39,7 +40,7 @@ import vazkii.botania.common.item.material.MysticalPetalItem;
 import vazkii.botania.xplat.BotaniaConfig;
 import vazkii.botania.xplat.XplatAbstractions;
 
-public class FloatingFlowerBlock extends BotaniaWaterloggedBlock implements EntityBlock {
+public class FloatingFlowerBlock extends BotaniaWaterloggedBlock implements EntityBlock, Colored {
 
 	private static final VoxelShape SHAPE = box(1.6, 1.6, 1.6, 14.4, 14.4, 14.4);
 	public final DyeColor color;
@@ -47,6 +48,11 @@ public class FloatingFlowerBlock extends BotaniaWaterloggedBlock implements Enti
 	public FloatingFlowerBlock(DyeColor color, Properties props) {
 		super(props);
 		this.color = color;
+	}
+
+	@Override
+	public DyeColor getColor() {
+		return color;
 	}
 
 	@Override

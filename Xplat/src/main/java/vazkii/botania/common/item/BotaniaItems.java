@@ -22,7 +22,7 @@ import vazkii.botania.api.block.FloatingFlower;
 import vazkii.botania.api.item.AncientWillContainer;
 import vazkii.botania.api.mana.spark.SparkUpgradeType;
 import vazkii.botania.api.state.enums.CraftyCratePattern;
-import vazkii.botania.client.gui.bag.FlowerPouchContainer;
+import vazkii.botania.client.gui.bag.ColoredContentsPouchContainer;
 import vazkii.botania.client.gui.box.BaubleBoxContainer;
 import vazkii.botania.common.block.BotaniaBlocks;
 import vazkii.botania.common.component.BotaniaDataComponents;
@@ -58,6 +58,7 @@ import vazkii.botania.common.lib.LibItemNames;
 import vazkii.botania.xplat.XplatAbstractions;
 
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.function.BiConsumer;
@@ -259,7 +260,9 @@ public final class BotaniaItems {
 	public static final Item autocraftingHalo = make(LibItemNames.AUTOCRAFTING_HALO,
 			new ManufactoryHaloItem(unstackable().component(BotaniaDataComponents.ACTIVE, Unit.INSTANCE)));
 	public static final Item spellCloth = make(LibItemNames.SPELL_CLOTH, new SpellbindingClothItem(XplatAbstractions.INSTANCE.noRepairOnForge(unstackable().durability(35))));
-	public static final Item flowerBag = make(LibItemNames.FLOWER_BAG, new FlowerPouchItem(unstackable()));
+	public static final FlowerPouchItem flowerBag = make(LibItemNames.FLOWER_BAG,
+			new FlowerPouchItem(unstackable().component(BotaniaDataComponents.ITEM_TAGS,
+					List.of(BotaniaTags.Items.MYSTICAL_FLOWERS, BotaniaTags.Items.DOUBLE_MYSTICAL_FLOWERS))));
 	public static final Item blackHoleTalisman = make(LibItemNames.BLACK_HOLE_TALISMAN, new BlackHoleTalismanItem(unstackable()));
 	public static final Item temperanceStone = make(LibItemNames.TEMPERANCE_STONE, new StoneOfTemperanceItem(unstackable()));
 	public static final Item waterBowl = make(LibItemNames.WATER_BOWL, new WaterBowlItem(unstackable().craftRemainder(Items.BOWL)));
@@ -420,7 +423,7 @@ public final class BotaniaItems {
 	public static final Item toolsBannerPattern = make("tools_banner_pattern", new BannerPatternItem(BotaniaTags.BannerPatterns.PATTERN_ITEM_TOOLS, unstackable()));
 
 	public static final MenuType<BaubleBoxContainer> BAUBLE_BOX_CONTAINER = XplatAbstractions.INSTANCE.createMenuType(BaubleBoxContainer::new, ByteBufCodecs.BOOL);
-	public static final MenuType<FlowerPouchContainer> FLOWER_BAG_CONTAINER = XplatAbstractions.INSTANCE.createMenuType(FlowerPouchContainer::new, ByteBufCodecs.BOOL);
+	public static final MenuType<ColoredContentsPouchContainer> COLORED_CONTENTS_POUCH_CONTAINER = XplatAbstractions.INSTANCE.createMenuType(ColoredContentsPouchContainer::new, ByteBufCodecs.BOOL);
 
 	private static <T extends Item> T make(String name, T item) {
 		var old = ALL.put(name, item);
@@ -466,7 +469,7 @@ public final class BotaniaItems {
 
 	public static void registerMenuTypes(BiConsumer<MenuType<?>, ResourceLocation> consumer) {
 		consumer.accept(BAUBLE_BOX_CONTAINER, botaniaRL(LibItemNames.BAUBLE_BOX));
-		consumer.accept(FLOWER_BAG_CONTAINER, botaniaRL(LibItemNames.FLOWER_BAG));
+		consumer.accept(COLORED_CONTENTS_POUCH_CONTAINER, botaniaRL(LibItemNames.FLOWER_BAG));
 	}
 
 	public static Item getPetal(DyeColor color) {

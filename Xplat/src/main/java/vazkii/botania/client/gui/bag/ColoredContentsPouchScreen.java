@@ -14,21 +14,30 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
+import net.minecraft.core.Holder;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.tags.TagKey;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.inventory.Slot;
+import net.minecraft.world.item.DyeColor;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 
+import vazkii.botania.api.internal.Colored;
 import vazkii.botania.client.core.helper.RenderHelper;
 import vazkii.botania.client.lib.ResourcesLib;
-import vazkii.botania.common.item.FlowerPouchItem;
+import vazkii.botania.common.helper.ColorHelper;
+import vazkii.botania.common.item.ColoredContentsPouchItem;
 
-public class FlowerPouchGui extends AbstractContainerScreen<FlowerPouchContainer> {
+import java.util.List;
+
+public class ColoredContentsPouchScreen extends AbstractContainerScreen<ColoredContentsPouchContainer> {
 
 	private static final ResourceLocation texture = ResourceLocation.parse(ResourcesLib.GUI_FLOWER_BAG);
 
-	public FlowerPouchGui(FlowerPouchContainer container, Inventory playerInv, Component title) {
+	public ColoredContentsPouchScreen(ColoredContentsPouchContainer container, Inventory playerInv, Component title) {
 		super(container, playerInv, title);
 		imageHeight += 36;
 
@@ -52,13 +61,24 @@ public class FlowerPouchGui extends AbstractContainerScreen<FlowerPouchContainer
 		int l = (height - imageHeight) / 2;
 		gui.blit(texture, k, l, 0, 0, imageWidth, imageHeight);
 
+		List<TagKey<Item>> itemTypes = ColoredContentsPouchItem.getStoredItemTypes(menu.getPouch());
+		List<DyeColor> colors = ColorHelper.supportedColors().toList();
 		for (Slot slot : menu.slots) {
 			if (slot.container == menu.flowerBagInv) {
 				int x = this.leftPos + slot.x;
 				int y = this.topPos + slot.y;
 				if (!slot.hasItem()) {
-					ItemStack missingFlower = new ItemStack(FlowerPouchItem.getFlowerForSlot(slot.index));
-					RenderHelper.renderGuiItemAlpha(missingFlower, x, y, 0x5F, mc.getItemRenderer());
+					int typeIndex = slot.index / colors.size();
+					int colorIndex = slot.index % colors.size();
+					var holder = BuiltInRegistries.ITEM.getTag(itemTypes.get(typeIndex));
+					holder.flatMap(holders -> holders.stream().map(Holder::value)
+							.filter(item -> item instanceof Colored colored &&
+									colored.getColor() == colors.get(colorIndex))
+							.findFirst())
+							.ifPresent(item -> {
+								ItemStack missingFlower = new ItemStack(item);
+								RenderHelper.renderGuiItemAlpha(missingFlower, x, y, 0x5F, mc.getItemRenderer());
+							});
 				} else if (slot.getItem().getCount() == 1) {
 					// Always draw the count even at 1
 					ms.pushPose();

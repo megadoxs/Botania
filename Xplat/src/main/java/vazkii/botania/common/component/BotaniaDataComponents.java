@@ -7,13 +7,16 @@ import net.minecraft.core.Direction;
 import net.minecraft.core.GlobalPos;
 import net.minecraft.core.UUIDUtil;
 import net.minecraft.core.component.DataComponentType;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.tags.TagKey;
 import net.minecraft.util.ExtraCodecs;
 import net.minecraft.util.Unit;
 import net.minecraft.world.item.DyeColor;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.phys.Vec3;
 
@@ -270,6 +273,10 @@ public class BotaniaDataComponents {
 			builder -> builder.persistent(Codec.INT).networkSynchronized(ByteBufCodecs.VAR_INT));
 	public static final DataComponentType<Float> TARGET_DIST = make(LibComponentNames.TARGET_DIST,
 			builder -> builder.persistent(ExtraCodecs.POSITIVE_FLOAT).networkSynchronized(ByteBufCodecs.FLOAT));
+
+	// Flower/Petal Pouch
+	public static final DataComponentType<List<TagKey<Item>>> ITEM_TAGS = make(LibComponentNames.ITEM_TAGS,
+			builder -> builder.persistent(TagKey.codec(Registries.ITEM).listOf(1, 2)).cacheEncoding());
 
 	// Various block entity data
 	public static final DataComponentType<Integer> DECAY_TICKS = make("decay_ticks",

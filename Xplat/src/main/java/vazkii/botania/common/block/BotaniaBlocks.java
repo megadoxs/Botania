@@ -47,6 +47,7 @@ import vazkii.botania.common.block.red_string.*;
 import vazkii.botania.common.brew.BotaniaMobEffects;
 import vazkii.botania.common.helper.ColorHelper;
 import vazkii.botania.common.item.BotaniaItems;
+import vazkii.botania.common.item.block.ColoredBlockItem;
 import vazkii.botania.common.item.block.SpecialFlowerBlockItem;
 import vazkii.botania.common.item.block.TinyPotatoBlockItem;
 import vazkii.botania.common.lib.LibBlockNames;
@@ -1559,7 +1560,7 @@ public final class BotaniaBlocks {
 				BotaniaBlocks::getDoubleFlower
 		).forEach(
 				blockGetter -> ColorHelper.supportedColors().map(blockGetter).forEach(
-						block -> r.accept(new BlockItem(block, props), BuiltInRegistries.BLOCK.getKey(block))
+						block -> r.accept(new ColoredBlockItem(block, ((Colored) block).getColor(), props), BuiltInRegistries.BLOCK.getKey(block))
 				)
 		);
 

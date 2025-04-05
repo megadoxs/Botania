@@ -16,16 +16,22 @@ import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.TallFlowerBlock;
 import net.minecraft.world.level.block.state.BlockState;
 
+import vazkii.botania.api.internal.Colored;
 import vazkii.botania.client.fx.SparkleParticleData;
 import vazkii.botania.common.item.material.MysticalPetalItem;
 import vazkii.botania.xplat.BotaniaConfig;
 
-public class BotaniaDoubleFlowerBlock extends TallFlowerBlock {
+public class BotaniaDoubleFlowerBlock extends TallFlowerBlock implements Colored {
 	public final DyeColor color;
 
 	public BotaniaDoubleFlowerBlock(DyeColor color, Properties builder) {
 		super(builder);
 		this.color = color;
+	}
+
+	@Override
+	public DyeColor getColor() {
+		return color;
 	}
 
 	@Override

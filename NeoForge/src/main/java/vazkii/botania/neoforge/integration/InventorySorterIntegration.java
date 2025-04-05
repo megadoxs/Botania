@@ -15,6 +15,6 @@ public class InventorySorterIntegration {
 	private static void sendImc(InterModEnqueueEvent evt) {
 		// Botania issue 4068, cpw/InventorySorter issue 139
 		InterModComms.sendTo("inventorysorter", "containerblacklist",
-				() -> BuiltInRegistries.MENU.getKey(BotaniaItems.FLOWER_BAG_CONTAINER));
+				() -> BuiltInRegistries.MENU.getKey(BotaniaItems.COLORED_CONTENTS_POUCH_CONTAINER));
 	}
 }

@@ -106,4 +106,6 @@ public final class LibComponentNames {
 
 	public static final String TARGET_ENTITY = "target_entity";
 	public static final String TARGET_DIST = "target_dist";
+
+	public static final String ITEM_TAGS = "item_tags";
 }

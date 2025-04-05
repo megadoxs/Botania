@@ -373,8 +373,10 @@ public class ForgeCommonInitializer {
 		});
 		// FabricMixinItemEntity
 		bus.addListener((ItemEntityPickupEvent.Pre e) -> {
-			if (FlowerPouchItem.onPickupItem(e.getItemEntity(), e.getPlayer())) {
-				e.setCanPickup(TriState.FALSE); // TODO: verify
+			ItemEntity entity = e.getItemEntity();
+			if (!entity.hasPickUpDelay() && (entity.getOwner() == null || entity.getOwner() == e.getPlayer())
+					&& ColoredContentsPouchItem.onPickupItem(entity, e.getPlayer())) {
+				e.setCanPickup(TriState.FALSE);
 			}
 		});
 		// FabricMixinLivingEntity
