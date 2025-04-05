@@ -44,6 +44,7 @@ adaca5770638de00a54b51b571726f4734e24671 data/minecraft/tags/block/beacon_base_b
 8c36ef26663fb0e578257603c1d2c9c440e47b33 data/minecraft/tags/block/dragon_immune.json
 37773df74c9361019bb41bf2c29c151de7be103d data/minecraft/tags/block/fence_gates.json
 9716e5e9e862f7eeb5d29b4e39460ee1828733dc data/minecraft/tags/block/flower_pots.json
+44e1d962bc38de0ffe7cc943a3e631b5406b9e4f data/minecraft/tags/block/flowers.json
 6c0e30b59d2db092c64bc58b477e8432adf49698 data/minecraft/tags/block/impermeable.json
 6b553bb9832d565598020d5d025cb828c1918cdc data/minecraft/tags/block/logs_that_burn.json
 da8cc7d3d044a525a70555bc5a0e0ad98ea91790 data/minecraft/tags/block/mineable/axe.json

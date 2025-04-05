@@ -153,6 +153,8 @@ public class BlockTagProvider extends IntrinsicHolderTagsProvider<Block> {
 		// Special flowers intentionally excluded due to unwanted behaviors with tree growth and mod compat.
 		tag(BlockTags.TALL_FLOWERS).addTag(BotaniaTags.Blocks.DOUBLE_MYSTICAL_FLOWERS);
 		tag(BlockTags.SMALL_FLOWERS).addTag(BotaniaTags.Blocks.MYSTICAL_FLOWERS);
+		// intentionally not added to small flowers so Endermen don't grab them
+		tag(BlockTags.FLOWERS).addTag(BotaniaTags.Blocks.SHINY_FLOWERS);
 
 		tag(BlockTags.IMPERMEABLE).add(BotaniaBlocks.elfGlass, BotaniaBlocks.manaGlass, BotaniaBlocks.bifrost, BotaniaBlocks.bifrostPerm);
 		tag(BlockTags.BEACON_BASE_BLOCKS).add(BotaniaBlocks.manasteelBlock, BotaniaBlocks.terrasteelBlock, BotaniaBlocks.elementiumBlock,

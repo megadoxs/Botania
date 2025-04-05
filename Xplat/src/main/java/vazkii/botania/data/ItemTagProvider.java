@@ -75,6 +75,7 @@ public class ItemTagProvider extends ItemTagsProvider {
 		this.copy(BotaniaTags.Blocks.FLOATING_FLOWERS, BotaniaTags.Items.FLOATING_FLOWERS);
 		this.copy(BotaniaTags.Blocks.DOUBLE_MYSTICAL_FLOWERS, BotaniaTags.Items.DOUBLE_MYSTICAL_FLOWERS);
 		this.copy(BotaniaTags.Blocks.MYSTICAL_FLOWERS, BotaniaTags.Items.MYSTICAL_FLOWERS);
+		this.copy(BotaniaTags.Blocks.SHINY_FLOWERS, BotaniaTags.Items.SHINY_FLOWERS);
 		this.copy(BotaniaTags.Blocks.SHIMMERING_MUSHROOMS, BotaniaTags.Items.SHIMMERING_MUSHROOMS);
 
 		this.copy(BotaniaTags.Blocks.MISC_SPECIAL_FLOWERS, BotaniaTags.Items.MISC_SPECIAL_FLOWERS);
@@ -87,7 +88,10 @@ public class ItemTagProvider extends ItemTagsProvider {
 				.add(BotaniaBlocks.motifDaybloom.asItem(), BotaniaBlocks.motifNightshade.asItem());
 
 		this.tag(ItemTags.TALL_FLOWERS).addTag(BotaniaTags.Items.DOUBLE_MYSTICAL_FLOWERS);
-		this.tag(ItemTags.SMALL_FLOWERS).addTag(BotaniaTags.Items.MYSTICAL_FLOWERS).addTag(BotaniaTags.Items.SPECIAL_FLOWERS)
+		this.tag(ItemTags.SMALL_FLOWERS)
+				.addTag(BotaniaTags.Items.MYSTICAL_FLOWERS)
+				.addTag(BotaniaTags.Items.SHINY_FLOWERS)
+				.addTag(BotaniaTags.Items.SPECIAL_FLOWERS)
 				.add(BotaniaBlocks.motifDaybloom.asItem(), BotaniaBlocks.motifNightshade.asItem(), BotaniaBlocks.motifHydroangeas.asItem());
 
 		this.tag(BotaniaTags.Items.BURST_VIEWERS).add(monocle);

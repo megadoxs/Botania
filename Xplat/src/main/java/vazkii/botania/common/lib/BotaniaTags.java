@@ -25,6 +25,7 @@ public class BotaniaTags {
 		public static final TagKey<Item> BLOCKS_QUARTZ = tag("quartz_blocks");
 
 		public static final TagKey<Item> MYSTICAL_FLOWERS = tag("mystical_flowers");
+		public static final TagKey<Item> SHINY_FLOWERS = tag("shiny_flowers");
 		public static final TagKey<Item> DOUBLE_MYSTICAL_FLOWERS = tag("double_mystical_flowers");
 		public static final TagKey<Item> SHIMMERING_MUSHROOMS = tag("shimmering_mushrooms");
 
