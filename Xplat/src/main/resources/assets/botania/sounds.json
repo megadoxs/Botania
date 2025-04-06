@@ -640,6 +640,17 @@
 		],
 		"subtitle": "botania.subtitle.manufactoryHaloConfigure"
 	},
+	"petal_pouch_configure": {
+		"sounds": [
+			{
+				"type": "event",
+				"name": "minecraft:entity.experience_orb.pickup",
+				"volume": 0.3,
+				"pitch": 0.1
+			}
+		],
+		"subtitle": "botania.subtitle.petalPouchConfigure"
+	},
 	"terra_pick_mode": {
 		"sounds": [
 			{

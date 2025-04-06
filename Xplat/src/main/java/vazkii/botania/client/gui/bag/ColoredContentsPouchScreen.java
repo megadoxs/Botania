@@ -47,7 +47,6 @@ public class ColoredContentsPouchScreen extends AbstractContainerScreen<ColoredC
 
 	@Override
 	public void render(GuiGraphics gui, int mouseX, int mouseY, float partialTicks) {
-		this.renderBackground(gui, mouseX, mouseY, partialTicks);
 		super.render(gui, mouseX, mouseY, partialTicks);
 		this.renderTooltip(gui, mouseX, mouseY);
 	}
@@ -59,12 +58,13 @@ public class ColoredContentsPouchScreen extends AbstractContainerScreen<ColoredC
 		RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
 		int k = (width - imageWidth) / 2;
 		int l = (height - imageHeight) / 2;
+		// TODO: adjust for other row counts
 		gui.blit(texture, k, l, 0, 0, imageWidth, imageHeight);
 
 		List<TagKey<Item>> itemTypes = ColoredContentsPouchItem.getStoredItemTypes(menu.getPouch());
 		List<DyeColor> colors = ColorHelper.supportedColors().toList();
 		for (Slot slot : menu.slots) {
-			if (slot.container == menu.flowerBagInv) {
+			if (slot.container == menu.pouchInv) {
 				int x = this.leftPos + slot.x;
 				int y = this.topPos + slot.y;
 				if (!slot.hasItem()) {
@@ -82,13 +82,12 @@ public class ColoredContentsPouchScreen extends AbstractContainerScreen<ColoredC
 				} else if (slot.getItem().getCount() == 1) {
 					// Always draw the count even at 1
 					ms.pushPose();
-					// Same as how much vanilla offsets when drawing items in guis
-					ms.translate(0, 0, 200);
+					// Same as how much vanilla offsets when drawing item decorations in gui slots
+					ms.translate(0, 0, 100 + 200);
 					gui.drawString(mc.font, "1", x + 11, y + 9, 0xFFFFFF);
 					ms.popPose();
 				}
 			}
 		}
 	}
-
 }

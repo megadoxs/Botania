@@ -166,19 +166,19 @@ public abstract class ColoredContentsPouchItem extends Item {
 			return;
 		}
 
-		IntList slots = findCandidateSlots(pouch, pickupStack);
+		IntList slots = findCandidateSlots(player.level(), pouch, pickupStack);
 		if (slots.isEmpty()) {
 			return;
 		}
 		SimpleContainer container = getInventory(pouch);
 		for (int slot : slots) {
-			if (tryPutItem(pouch, pickupStack, container, slot)) {
+			if (tryPutItem(player.level(), pouch, pickupStack, container, slot)) {
 				EntityHelper.syncItem(entity);
 			}
 		}
 	}
 
-	protected boolean tryPutItem(ItemStack pouch, ItemStack pickupStack, SimpleContainer container, int slot) {
+	protected boolean tryPutItem(Level level, ItemStack pouch, ItemStack pickupStack, SimpleContainer container, int slot) {
 		ItemStack existing = container.getItem(slot);
 		if (existing.isEmpty()) {
 			container.setItem(slot, pickupStack.copyAndClear());
@@ -201,7 +201,7 @@ public abstract class ColoredContentsPouchItem extends Item {
 		return player.getInventory().getSelected() != pouch;
 	}
 
-	public IntList findCandidateSlots(ItemStack pouch, ItemStack pickupStack) {
+	public IntList findCandidateSlots(Level level, ItemStack pouch, ItemStack pickupStack) {
 		if (!(pickupStack.getItem() instanceof Colored colored)) {
 			return IntList.of();
 		}

@@ -108,4 +108,5 @@ public final class LibComponentNames {
 	public static final String TARGET_DIST = "target_dist";
 
 	public static final String ITEM_TAGS = "item_tags";
+	public static final String CRAFTABLE_ITEM_TAGS = "craftable_item_tags";
 }

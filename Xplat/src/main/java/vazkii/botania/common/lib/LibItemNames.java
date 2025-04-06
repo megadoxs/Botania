@@ -160,6 +160,7 @@ public final class LibItemNames {
 	public static final String COSMETIC_PREFIX = "cosmetic_";
 	public static final String SWAP_RING = "swap_ring";
 	public static final String FLOWER_BAG = "flower_bag";
+	public static final String PETAL_POUCH = "petal_pouch";
 	public static final String PHANTOM_INK = "phantom_ink";
 	public static final String POOL_MINECART = "pool_minecart";
 	public static final String PINKINATOR = "pinkinator";

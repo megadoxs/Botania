@@ -263,6 +263,12 @@ public final class BotaniaItems {
 	public static final FlowerPouchItem flowerBag = make(LibItemNames.FLOWER_BAG,
 			new FlowerPouchItem(unstackable().component(BotaniaDataComponents.ITEM_TAGS,
 					List.of(BotaniaTags.Items.MYSTICAL_FLOWERS, BotaniaTags.Items.DOUBLE_MYSTICAL_FLOWERS))));
+	public static final PetalPouchItem petalPouch = make(LibItemNames.PETAL_POUCH,
+			new PetalPouchItem(unstackable().component(BotaniaDataComponents.ACTIVE, Unit.INSTANCE)
+					.component(BotaniaDataComponents.ITEM_TAGS,
+							List.of(BotaniaTags.Items.PETALS, BotaniaTags.Items.SHIMMERING_MUSHROOMS))
+					.component(BotaniaDataComponents.CRAFTABLE_ITEM_TAGS,
+							List.of(BotaniaTags.Items.MYSTICAL_FLOWERS, BotaniaTags.Items.DOUBLE_MYSTICAL_FLOWERS))));
 	public static final Item blackHoleTalisman = make(LibItemNames.BLACK_HOLE_TALISMAN, new BlackHoleTalismanItem(unstackable()));
 	public static final Item temperanceStone = make(LibItemNames.TEMPERANCE_STONE, new StoneOfTemperanceItem(unstackable()));
 	public static final Item waterBowl = make(LibItemNames.WATER_BOWL, new WaterBowlItem(unstackable().craftRemainder(Items.BOWL)));

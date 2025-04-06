@@ -1412,6 +1412,15 @@ public class CraftingRecipeProvider extends BotaniaRecipeProvider {
 				.pattern(" W ")
 				.unlockedBy("has_item", conditionsFromTag(BotaniaTags.Items.MYSTICAL_FLOWERS))
 				.save(recipeOutput);
+		// TODO: temporary Petal Pouch recipe
+		ShapedRecipeBuilder.shaped(RecipeCategory.TOOLS, BotaniaItems.petalPouch)
+				.define('P', BotaniaItems.flowerBag)
+				.define('D', ConventionalBotaniaTags.Items.MANA_DUSTS)
+				.pattern(" D ")
+				.pattern("DPD")
+				.pattern(" D ")
+				.unlockedBy("has_item", conditionsFromItem(BotaniaItems.flowerBag))
+				.save(recipeOutput);
 		ShapelessRecipeBuilder.shapeless(RecipeCategory.TRANSPORTATION, BotaniaItems.poolMinecart)
 				.requires(Items.MINECART)
 				.requires(BotaniaBlocks.manaPool)

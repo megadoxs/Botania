@@ -277,6 +277,8 @@ public class BotaniaDataComponents {
 	// Flower/Petal Pouch
 	public static final DataComponentType<List<TagKey<Item>>> ITEM_TAGS = make(LibComponentNames.ITEM_TAGS,
 			builder -> builder.persistent(TagKey.codec(Registries.ITEM).listOf(1, 2)).cacheEncoding());
+	public static final DataComponentType<List<TagKey<Item>>> CRAFTABLE_ITEM_TAGS = make(LibComponentNames.CRAFTABLE_ITEM_TAGS,
+			builder -> builder.persistent(TagKey.codec(Registries.ITEM).listOf(1, 10)).cacheEncoding());
 
 	// Various block entity data
 	public static final DataComponentType<Integer> DECAY_TICKS = make("decay_ticks",

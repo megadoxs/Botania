@@ -759,6 +759,7 @@ e7bc9b8efccc931108189225e55b08dd136ecc16 data/botania/advancement/recipes/tools/
 585816596f2a6ceca995189e6415ceeb2e78f679 data/botania/advancement/recipes/tools/pattern_3_1.json
 8c65b47e58c5a251d150e371d46e8a3c35ff02fa data/botania/advancement/recipes/tools/pattern_3_2.json
 2005b402e4b47c45293996d62b448514a74a925c data/botania/advancement/recipes/tools/pattern_donut.json
+f80ded608a542735c8ba0c2577b143303480c8d7 data/botania/advancement/recipes/tools/petal_pouch.json
 3b10372e7ac9e86983f56570463de5c49848c5f6 data/botania/advancement/recipes/tools/rainbow_rod.json
 7492dc41d07945e68fc0b85c09276288cd47f870 data/botania/advancement/recipes/tools/reach_ring.json
 1dfcc530795280d7c6fd0cffb2ce3197ed9ec0b3 data/botania/advancement/recipes/tools/sextant.json
@@ -1418,6 +1419,7 @@ a0c43e92f85866576a26bb6ac7781d8a75d7e5ba data/botania/recipe/petal_lime.json
 82c30bb38efa9c35a5443d99756596ec43f405f1 data/botania/recipe/petal_orange_double.json
 bd3ebd900b2dbba87178952f51da557e689b67eb data/botania/recipe/petal_pink.json
 f5094e981f8c3fabbf8baedafc9fd4e92cdca6f4 data/botania/recipe/petal_pink_double.json
+4294e938c279c718f2a8b1dc8cbd0c1c00892beb data/botania/recipe/petal_pouch.json
 c44901c201de6a53412748b5aeb1d92184ff82f7 data/botania/recipe/petal_purple.json
 2ca38000707caccb1ff2c1177ab3d30d5e455bd9 data/botania/recipe/petal_purple_double.json
 02881fcf7c31eb8fc42769499eb8e3e98c1cc99a data/botania/recipe/petal_red.json
