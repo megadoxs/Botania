@@ -93,6 +93,7 @@ jar {
     exclude "**/unused"
 
     exclude ".cache"
+    exclude 'assets/botania/patchouli_books/lexicon/en_us/README'
 
     manifest {
         attributes([
