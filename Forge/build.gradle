@@ -112,6 +112,7 @@ sourcesJar {
 
 sourceSets.main.resources {
     srcDir 'src/generated/resources'
+    exclude 'assets/botania/patchouli_books/lexicon/en_us/README'
 }
 
 processResources {
