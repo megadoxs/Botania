@@ -11,21 +11,26 @@ package vazkii.botania.common.block.block_entity;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.Mob;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 
 import org.jetbrains.annotations.UnknownNullability;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 import vazkii.botania.api.mana.ManaReceiver;
+import vazkii.botania.api.state.BotaniaStateProperties;
 import vazkii.botania.client.fx.WispParticleData;
-import vazkii.botania.common.block.BotaniaBlocks;
+import vazkii.botania.common.internal_caps.LooniumComponent;
+import vazkii.botania.xplat.XplatAbstractions;
 
 public class LifeImbuerBlockEntity extends BotaniaBlockEntity implements ManaReceiver {
 	private static final String TAG_MANA = "mana";
 	private static final int MAX_MANA = 160;
+	private static final int MANA_PER_TICK = 6;
 
 	private int mana = 0;
 
@@ -33,25 +38,49 @@ public class LifeImbuerBlockEntity extends BotaniaBlockEntity implements ManaRec
 		super(BotaniaBlockEntities.SPAWNER_CLAW, pos, state);
 	}
 
-	public static void onSpawnerNearPlayer(Level level, BlockPos pos, CallbackInfoReturnable<Boolean> cir) {
-		if (!level.getBlockState(pos).is(Blocks.SPAWNER)) {
+	public boolean tryConsumeMana(boolean nearPlayer) {
+		boolean canOperate = mana >= MANA_PER_TICK && level instanceof ServerLevel serverLevel
+				&& serverLevel.getBlockState(getBlockPos().below()).is(Blocks.SPAWNER)
+				&& serverLevel.isPositionEntityTicking(getBlockPos());
+
+		if (canOperate && !nearPlayer) {
+			receiveMana(-MANA_PER_TICK);
+			if (!isActive()) {
+				level.setBlock(getBlockPos(), getBlockState().setValue(BotaniaStateProperties.ACTIVE, true), Block.UPDATE_CLIENTS);
+			}
+		} else if (isActive()) {
+			level.setBlock(getBlockPos(), getBlockState().setValue(BotaniaStateProperties.ACTIVE, false), Block.UPDATE_CLIENTS);
+		}
+		return canOperate;
+	}
+
+	public static void applySlowDespawn(ServerLevel level, BlockPos pos, Entity entity) {
+		if (!(entity instanceof Mob mob) || !level.getBlockState(pos).is(Blocks.SPAWNER)) {
 			return;
 		}
-		BlockPos up = pos.above();
-		if (level.getBlockState(up).is(BotaniaBlocks.spawnerClaw)) {
-			BlockEntity be = level.getBlockEntity(pos.above());
 
-			if (be instanceof LifeImbuerBlockEntity claw && claw.mana > 5) {
-				claw.receiveMana(-6);
-				if (level.isClientSide && Math.random() > 0.5) {
-					WispParticleData data = WispParticleData.wisp((float) Math.random() / 3F, 0.6F - (float) Math.random() * 0.3F, 0.1F, 0.6F - (float) Math.random() * 0.3F, 2F);
-					level.addParticle(data, up.getX() + 0.3 + Math.random() * 0.5, up.getY() - 0.3 + Math.random() * 0.25, up.getZ() + Math.random(), 0, -(-0.025F - 0.005F * (float) Math.random()), 0);
-				}
-
-				// Yes, perform spawner functions using claw's mana
-				cir.setReturnValue(true);
-			}
+		LooniumComponent looniumComponent = XplatAbstractions.INSTANCE.looniumComponent(mob);
+		if (looniumComponent != null) {
+			looniumComponent.setSlowDespawn(true);
 		}
+	}
+
+	public boolean clientTickActive() {
+		if (!isActive()) {
+			return false;
+		}
+		if (Math.random() > 0.5) {
+			WispParticleData data = WispParticleData.wisp((float) Math.random() / 3F,
+					0.6F - (float) Math.random() * 0.3F, 0.1F, 0.6F - (float) Math.random() * 0.3F, 2F);
+			level.addParticle(data,
+					getBlockPos().getX() + 0.3 + Math.random() * 0.5, getBlockPos().getY() - 0.3 + Math.random() * 0.25, getBlockPos().getZ() + Math.random(),
+					0, -(-0.025F - 0.005F * (float) Math.random()), 0);
+		}
+		return true;
+	}
+
+	private boolean isActive() {
+		return getBlockState().getValue(BotaniaStateProperties.ACTIVE);
 	}
 
 	@Override

@@ -8,24 +8,90 @@
  */
 package vazkii.botania.mixin;
 
+import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
+import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
+import com.llamalad7.mixinextras.sugar.Local;
+import com.llamalad7.mixinextras.sugar.Share;
+import com.llamalad7.mixinextras.sugar.ref.LocalRef;
+
 import net.minecraft.core.BlockPos;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.entity.Entity;
 import net.minecraft.world.level.BaseSpawner;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.phys.AABB;
 
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
+import vazkii.botania.common.block.block_entity.BotaniaBlockEntities;
 import vazkii.botania.common.block.block_entity.LifeImbuerBlockEntity;
+
+import java.util.Optional;
 
 @Mixin(BaseSpawner.class)
 public class BaseSpawnerMixin {
-	@Inject(at = @At("RETURN"), method = "isNearPlayer", cancellable = true)
-	private void injectNearPlayer(Level level, BlockPos pos, CallbackInfoReturnable<Boolean> cir) {
-		// If vanilla is out of range, then we do our work
-		if (!cir.getReturnValueZ()) {
-			LifeImbuerBlockEntity.onSpawnerNearPlayer(level, pos, cir);
+	@WrapOperation(
+		method = "clientTick",
+		at = @At(
+			value = "INVOKE",
+			target = "Lnet/minecraft/world/level/BaseSpawner;isNearPlayer(Lnet/minecraft/world/level/Level;Lnet/minecraft/core/BlockPos;)Z"
+		)
+	)
+	private boolean isNearPlayerClient(BaseSpawner instance, Level level, BlockPos pos, Operation<Boolean> original) {
+		boolean isNearPlayer = original.call(instance, level, pos);
+		if (!isNearPlayer) {
+			Optional<LifeImbuerBlockEntity> imbuerOptional = level.getBlockEntity(pos.above(), BotaniaBlockEntities.SPAWNER_CLAW);
+			return imbuerOptional.isPresent() && imbuerOptional.get().clientTickActive();
 		}
+		return true;
+	}
+
+	@WrapOperation(
+		method = "serverTick",
+		at = @At(
+			value = "INVOKE",
+			target = "Lnet/minecraft/world/level/BaseSpawner;isNearPlayer(Lnet/minecraft/world/level/Level;Lnet/minecraft/core/BlockPos;)Z"
+		)
+	)
+	private boolean isNearPlayerServer(BaseSpawner instance, Level level, BlockPos pos, Operation<Boolean> original,
+			@Share("hasImbuerWithMana") LocalRef<Boolean> hasImbuerWithMana) {
+		boolean nearPlayer = original.call(instance, level, pos);
+
+		Optional<LifeImbuerBlockEntity> imbuerOptional = level.getBlockEntity(pos.above(), BotaniaBlockEntities.SPAWNER_CLAW);
+		boolean imbuerWithMana = imbuerOptional.filter(imbuer -> imbuer.tryConsumeMana(nearPlayer)).isPresent();
+		hasImbuerWithMana.set(imbuerWithMana);
+
+		return nearPlayer || imbuerWithMana;
+	}
+
+	@Inject(
+		method = "serverTick",
+		at = @At(
+			value = "INVOKE",
+			target = "Lnet/minecraft/world/entity/Mob;finalizeSpawn(" +
+					"Lnet/minecraft/world/level/ServerLevelAccessor;Lnet/minecraft/world/DifficultyInstance;" +
+					"Lnet/minecraft/world/entity/MobSpawnType;Lnet/minecraft/world/entity/SpawnGroupData;)" +
+					"Lnet/minecraft/world/entity/SpawnGroupData;"
+		)
+	)
+	private void applySlowDespawn(ServerLevel serverLevel, BlockPos pos, CallbackInfo ci, @Local Entity entity,
+			@Share("hasImbuerWithMana") LocalRef<Boolean> hasImbuerWithMana) {
+		// ensure null-safety
+		if (Boolean.TRUE.equals(hasImbuerWithMana.get())) {
+			LifeImbuerBlockEntity.applySlowDespawn(serverLevel, pos, entity);
+		}
+	}
+
+	@WrapOperation(
+		method = "serverTick",
+		at = @At(value = "INVOKE", target = "Lnet/minecraft/server/level/ServerLevel;noCollision(Lnet/minecraft/world/phys/AABB;)Z")
+	)
+	private boolean shouldSpawnMob(ServerLevel serverLevel, AABB aabb, Operation<Boolean> original) {
+		// don't spawn mobs in lazy chunks
+		return serverLevel.isPositionEntityTicking(BlockPos.containing(aabb.getBottomCenter()))
+				&& original.call(serverLevel, aabb);
 	}
 }

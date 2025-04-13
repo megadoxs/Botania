@@ -114,6 +114,9 @@ public final class BotaniaStateProperties {
 	// ManaSpreaderBlock
 	public static final BooleanProperty HAS_SCAFFOLDING = BooleanProperty.create("has_scaffolding");
 
+	// LifeImbuerBlock
+	public static final BooleanProperty ACTIVE = BooleanProperty.create("active");
+
 	private BotaniaStateProperties() {}
 
 }
