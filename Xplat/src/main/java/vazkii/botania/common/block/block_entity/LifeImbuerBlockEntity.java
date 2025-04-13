@@ -12,7 +12,6 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerLevel;
-import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
@@ -54,8 +53,8 @@ public class LifeImbuerBlockEntity extends BotaniaBlockEntity implements ManaRec
 		return canOperate;
 	}
 
-	public static void applySlowDespawn(ServerLevel level, BlockPos pos, Entity entity) {
-		if (!(entity instanceof Mob mob) || !level.getBlockState(pos).is(Blocks.SPAWNER)) {
+	public static void applySlowDespawn(ServerLevel level, BlockPos pos, Mob mob) {
+		if (!level.getBlockState(pos).is(Blocks.SPAWNER)) {
 			return;
 		}
 

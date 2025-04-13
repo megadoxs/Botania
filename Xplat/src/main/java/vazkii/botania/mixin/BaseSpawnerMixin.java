@@ -16,7 +16,7 @@ import com.llamalad7.mixinextras.sugar.ref.LocalRef;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
-import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.Mob;
 import net.minecraft.world.level.BaseSpawner;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.AABB;
@@ -71,17 +71,14 @@ public class BaseSpawnerMixin {
 		method = "serverTick",
 		at = @At(
 			value = "INVOKE",
-			target = "Lnet/minecraft/world/entity/Mob;finalizeSpawn(" +
-					"Lnet/minecraft/world/level/ServerLevelAccessor;Lnet/minecraft/world/DifficultyInstance;" +
-					"Lnet/minecraft/world/entity/MobSpawnType;Lnet/minecraft/world/entity/SpawnGroupData;)" +
-					"Lnet/minecraft/world/entity/SpawnGroupData;"
+			target = "Lnet/minecraft/world/level/SpawnData;getEquipment()Ljava/util/Optional;"
 		)
 	)
-	private void applySlowDespawn(ServerLevel serverLevel, BlockPos pos, CallbackInfo ci, @Local Entity entity,
+	private void applySlowDespawn(ServerLevel serverLevel, BlockPos pos, CallbackInfo ci, @Local Mob mob,
 			@Share("hasImbuerWithMana") LocalRef<Boolean> hasImbuerWithMana) {
 		// ensure null-safety
 		if (Boolean.TRUE.equals(hasImbuerWithMana.get())) {
-			LifeImbuerBlockEntity.applySlowDespawn(serverLevel, pos, entity);
+			LifeImbuerBlockEntity.applySlowDespawn(serverLevel, pos, mob);
 		}
 	}
 
