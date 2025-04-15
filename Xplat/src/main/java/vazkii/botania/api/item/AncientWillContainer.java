@@ -103,7 +103,7 @@ public interface AncientWillContainer {
 	static void addAncientWillDescription(ItemStack stack, List<Component> list){
 		for (AncientWillType type : AncientWillType.values()) {
 			if (hasAncientWill(stack, type)) {
-				list.add(Component.translatable("botania.armorset.will_" + type.name().toLowerCase(Locale.ROOT) + ".desc").withStyle(ChatFormatting.GRAY));
+				list.add(Component.translatable("botania.armorset.will_" + getWillId(type) + ".desc").withStyle(ChatFormatting.GRAY));
 			}
 		}
 	}
