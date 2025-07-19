@@ -41,8 +41,10 @@ of time the maintainers are able to spend on this effort. For the time being, up
 * Fix: Monocle item frame overlay did not properly expand background frame to account for multi-row contained items display
 * Internal: Optimized texture file compression
 * Internal: An old to-do list for the lexicon migration to Patchouli is no longer included in the compiled jars (this caused a harmless log error on startup)
-* Recipe changes:
+* Recipe changes:\
+  (only significant uses of item tags have been added, a more thorough use of tags is postponed until 1.21)
   * On Forge, any recipe that uses colorless glass blocks or panes is now defined using the corresponding item tags
+  * Lens combining uses the slimeballs item tag on Forge
   * Phantom Ink and Floral Fertilizer recipes use the dye item tags on both Forge and Fabric
   * The Phantom Ink recipe uses the any-color glass item tags on both Forge and Fabric
 * Language updates:
