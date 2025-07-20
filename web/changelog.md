@@ -39,6 +39,7 @@ of time the maintainers are able to spend on this effort. For the time being, up
 * Fix: Portal explosion actually breaks blocks again, as intended
 * Fix: Remaining content in brew vials/flasks and mana bottles would not display properly
 * Fix: Monocle item frame overlay did not properly expand background frame to account for multi-row contained items display
+* Fix: Some spark transfers towards a pool linked with a Mana Mirror sometimes shut down and fail to start up again when the pool is not full anymore
 * Internal: Optimized texture file compression
 * Internal: An old to-do list for the lexicon migration to Patchouli is no longer included in the compiled jars (this caused a harmless log error on startup)
 * Recipe changes:\
@@ -52,6 +53,7 @@ of time the maintainers are able to spend on this effort. For the time being, up
   * zh_tw overhauled (Dawnwalker666, EvanHsieh0415, lakejason0, notlin4, williewillus)
   * ko_kr updated (UnineVesiKass)
   * tr_tr added (RuyaSavascisi)
+  * ru_ru overhauled (kkylern)
 
 ---
 
