@@ -243,7 +243,7 @@ public class ForgeCommonInitializer {
 			consumer.accept(CreativeModeTab.builder()
 					.title(Component.translatable("itemGroup.botania").withStyle(style -> style.withColor(ChatFormatting.WHITE)))
 					.icon(() -> new ItemStack(BotaniaItems.lexicon))
-					.withTabsBefore(CreativeModeTabs.NATURAL_BLOCKS)
+					.withTabsBefore(CreativeModeTabs.SPAWN_EGGS)
 					.backgroundSuffix("botania.png")
 					.withSearchBar()
 					.build(),
